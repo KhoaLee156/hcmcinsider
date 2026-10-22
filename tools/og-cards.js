@@ -1,4 +1,4 @@
-// Renders one 1200x630 share image per place into og/<slug>.png from og/cards.json (written by build.py).
+// Renders one 1200x630 share image per place into og/<slug>.jpg from og/cards.json (written by build.py).
 // Needs: npm i playwright @fontsource/be-vietnam-pro   Run: node tools/og-cards.js
 const fs = require('fs'), path = require('path');
 const { chromium } = require('playwright');
@@ -43,7 +43,7 @@ h1{font-size:${nameSize}px;line-height:1.02;letter-spacing:-2px;font-weight:800;
   for (const c of cards) {
     if (only && c.slug !== only) continue;
     await p.setContent(html(c), { waitUntil: 'load' }); await p.evaluate(() => document.fonts.ready);
-    await p.screenshot({ path: path.join(ROOT, 'og', c.slug + '.png') });
+    await p.screenshot({ path: path.join(ROOT, 'og', c.slug + '.jpg'), type: 'jpeg', quality: 86 });
   }
   await b.close(); console.log('rendered', only ? 1 : cards.length, 'cards');
 })();

@@ -466,14 +466,14 @@ def main():
             ld["address"] = {"@type": "PostalAddress", "streetAddress": addr, "addressLocality": "Ho Chi Minh City", "addressCountry": "VN"}
         if has_xy(p):
             ld["geo"] = {"@type": "GeoCoordinates", "latitude": float(p["lat"]), "longitude": float(p["lng"])}
-        ld["image"] = (SITE + "/og/%s.png" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".png")) else SITE + "/og-image.png"
+        ld["image"] = (SITE + "/og/%s.jpg" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".jpg")) else SITE + "/og-image.png"
         if p["cat"] == "food" and dish not in CATS.values():
             ld["servesCuisine"] = dish
         where = area if area != "Ho Chi Minh City" else "Saigon"
         title = "%s – %s in %s | HCMC Insider" % (name, dish if dish not in CATS.values() else "local spot", where)
         desc = (p.get("noteEn") or "%s in %s." % (dish, area)).rstrip(".") + ". Vietnamese name, address, directions and local creator videos."
         write("/places/%s/" % p["slug"], page("/places/%s/" % p["slug"], title, desc[:300], body, [ld, bld],
-                                              og_image=(SITE + "/og/%s.png" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".png")) else None))
+                                              og_image=(SITE + "/og/%s.jpg" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".jpg")) else None))
         urls.append("/places/%s/" % p["slug"])
 
     # ---- share-card data for tools/og-cards.js
