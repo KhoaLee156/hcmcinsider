@@ -12,7 +12,8 @@
    "lng": "106.67434481075132",
    "note": "",
    "noteEn": "Small local eatery at Hoa Binh Market, recommended in a Facebook food review.",
-   "id": "756rld0"
+   "id": "756rld0",
+   "slug": "tan-nha-eatery"
   },
   {
    "id": "0exxeqo",
@@ -24,7 +25,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Famous snack stall at Phung Hung Market, known for Chinese-style stuffed bitter melon and chillies in broth. Its cheeky name is part of the fun."
+   "noteEn": "Famous snack stall at Phung Hung Market, known for Chinese-style stuffed bitter melon and chillies in broth. Its cheeky name is part of the fun.",
+   "slug": "bitter-melon-chilli-snack-stall"
   },
   {
    "id": "ykfnu3c",
@@ -36,7 +38,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Goat specialist in Tan Phu with a huge menu of goat dishes cooked at your table. Open 10am–midnight."
+   "noteEn": "Goat specialist in Tan Phu with a huge menu of goat dishes cooked at your table. Open 10am–midnight.",
+   "slug": "goat-restaurant-239-1-doc-lap"
   },
   {
    "id": "lab2h6f",
@@ -48,7 +51,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese-style stir-fries and fried dishes in District 5."
+   "noteEn": "Chinese-style stir-fries and fried dishes in District 5.",
+   "slug": "thuan-phat-chinese-stir-fry"
   },
   {
    "id": "h414cna",
@@ -60,7 +64,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese sweet-soup shop with pretty, photogenic desserts, including lotus-shaped sweets and a strawberry snow ice."
+   "noteEn": "Chinese sweet-soup shop with pretty, photogenic desserts, including lotus-shaped sweets and a strawberry snow ice.",
+   "slug": "yukii-desserts"
   },
   {
    "id": "7q9o2eh",
@@ -72,7 +77,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Budget late-night snail and shellfish spot on Le Van Luong, District 7. Good for a casual evening with drinks."
+   "noteEn": "Budget late-night snail and shellfish spot on Le Van Luong, District 7. Good for a casual evening with drinks.",
+   "slug": "uncle-dinh-5-snail-bar"
   },
   {
    "id": "ig4y6os",
@@ -84,7 +90,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Tiny street cart selling noodle soup for just 8,000 dong a bowl. Open around 5pm–9pm at 20 Nguyen Duy Duong."
+   "noteEn": "Tiny street cart selling noodle soup for just 8,000 dong a bowl. Open around 5pm–9pm at 20 Nguyen Duy Duong.",
+   "slug": "8-000-dong-noodle-cart"
   },
   {
    "id": "5nsfmcz",
@@ -96,7 +103,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Long-running Chinese family restaurant in the Cholon area with a wide menu. Open 10am–9pm."
+   "noteEn": "Long-running Chinese family restaurant in the Cholon area with a wide menu. Open 10am–9pm.",
+   "slug": "dong-giang-restaurant"
   },
   {
    "id": "ao5gq22",
@@ -108,7 +116,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "District 5 shop serving both crab-and-tomato noodle soup (bun rieu) and hu tieu noodles."
+   "noteEn": "District 5 shop serving both crab-and-tomato noodle soup (bun rieu) and hu tieu noodles.",
+   "slug": "phuong-s-noodle-shop"
   },
   {
    "id": "t4o152e",
@@ -120,7 +129,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese-Vietnamese restaurant in District 5 praised by a local food vlogger."
+   "noteEn": "Chinese-Vietnamese restaurant in District 5 praised by a local food vlogger.",
+   "slug": "cuu-long-restaurant"
   },
   {
    "id": "b8goeiu",
@@ -132,7 +142,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Thick-noodle soup (banh canh) topped with giant pork ribs, made famous after a celebrity recommendation."
+   "noteEn": "Thick-noodle soup (banh canh) topped with giant pork ribs, made famous after a celebrity recommendation.",
+   "slug": "pork-rib-noodle-soup-bui-huu-nghia"
   },
   {
    "id": "ossgk2u",
@@ -144,7 +155,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Pho shop in District 5 with generous toppings and a side bowl of blood pudding and egg."
+   "noteEn": "Pho shop in District 5 with generous toppings and a side bowl of blood pudding and egg.",
+   "slug": "dat-thep-pho"
   },
   {
    "id": "l2eogha",
@@ -156,7 +168,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Neighbourhood eatery in Cholon featured by a local TV news channel."
+   "noteEn": "Neighbourhood eatery in Cholon featured by a local TV news channel.",
+   "slug": "bao-binh-eatery"
   },
   {
    "id": "p0rubjw",
@@ -168,7 +181,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chicken rice institution in Cholon, running for more than 80 years."
+   "noteEn": "Chicken rice institution in Cholon, running for more than 80 years.",
+   "slug": "dong-nguyen-chicken-rice"
   },
   {
    "id": "4a8qn6p",
@@ -180,7 +194,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Old Chinese community market in District 11, full of Chinese-Vietnamese street food."
+   "noteEn": "Old Chinese community market in District 11, full of Chinese-Vietnamese street food.",
+   "slug": "thiec-market"
   },
   {
    "id": "ro1epl3",
@@ -192,7 +207,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Morning market in the heart of Cholon. Try sticky rice, steamed buns, Hong Kong-style rice rolls, chive cakes and old-school sock-filtered coffee. Busiest 6–9am."
+   "noteEn": "Morning market in the heart of Cholon. Try sticky rice, steamed buns, Hong Kong-style rice rolls, chive cakes and old-school sock-filtered coffee. Busiest 6–9am.",
+   "slug": "phung-hung-market"
   },
   {
    "id": "gwn1ori",
@@ -204,7 +220,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Rice with slow-braised pork hock, at 529 Cach Mang Thang Tam, District 10."
+   "noteEn": "Rice with slow-braised pork hock, at 529 Cach Mang Thang Tam, District 10.",
+   "slug": "cholon-braised-pork-rice"
   },
   {
    "id": "n8v670u",
@@ -216,7 +233,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Saigon's lantern street. It glows with thousands of lanterns in the weeks before the Mid-Autumn Festival."
+   "noteEn": "Saigon's lantern street. It glows with thousands of lanterns in the weeks before the Mid-Autumn Festival.",
+   "slug": "lantern-street-luong-nhu-hoc"
   },
   {
    "id": "7fcntj7",
@@ -228,7 +246,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "District 11 eatery known for crispy fried chicken over rice, Cholon style."
+   "noteEn": "District 11 eatery known for crispy fried chicken over rice, Cholon style.",
+   "slug": "thien-huong-crispy-chicken-rice"
   },
   {
    "id": "gtsh9ie",
@@ -240,7 +259,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Historic Chinese market in District 5 for food and shopping, with fried noodle stalls at night and Ma Nghia's coffee."
+   "noteEn": "Historic Chinese market in District 5 for food and shopping, with fried noodle stalls at night and Ma Nghia's coffee.",
+   "slug": "hoa-binh-market"
   },
   {
    "id": "fdt6sv2",
@@ -252,7 +272,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Teochew (Chiu Chow) family kitchen at 68 Phan Xich Long cooking classic Chinese home dishes."
+   "noteEn": "Teochew (Chiu Chow) family kitchen at 68 Phan Xich Long cooking classic Chinese home dishes.",
+   "slug": "teochew-rice-shop"
   },
   {
    "id": "0nw7att",
@@ -264,7 +285,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "40-year-old wok kitchen hidden in an alley at 11 Tan Hang. Famous for salt-roasted soft-shell crab and fried rice. Open 4pm–10:30pm."
+   "noteEn": "40-year-old wok kitchen hidden in an alley at 11 Tan Hang. Famous for salt-roasted soft-shell crab and fried rice. Open 4pm–10:30pm.",
+   "slug": "phat-ky"
   },
   {
    "id": "r195o15",
@@ -276,7 +298,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Upscale crab soup with fish maw in Cholon, one of the pricier bowls in the area."
+   "noteEn": "Upscale crab soup with fish maw in Cholon, one of the pricier bowls in the area.",
+   "slug": "co-lan-crab-soup"
   },
   {
    "id": "kcxt09k",
@@ -288,7 +311,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Unusual hu tieu noodle soup made with goat, in Cholon."
+   "noteEn": "Unusual hu tieu noodle soup made with goat, in Cholon.",
+   "slug": "tien-nhan-goat-noodle-soup"
   },
   {
    "id": "aatdfka",
@@ -300,7 +324,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Popular, affordable crispy chicken rice in Cholon."
+   "noteEn": "Popular, affordable crispy chicken rice in Cholon.",
+   "slug": "minh-ky-chicken-rice"
   },
   {
    "id": "w0k8q1h",
@@ -312,7 +337,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Free vegetarian kitchen serving about 12 dishes. Lunch 11am–2pm, dinner 5–8pm. Please be respectful: it exists to feed people in need."
+   "noteEn": "Free vegetarian kitchen serving about 12 dishes. Lunch 11am–2pm, dinner 5–8pm. Please be respectful: it exists to feed people in need.",
+   "slug": "man-tu-charity-kitchen"
   },
   {
    "id": "8n7jm9w",
@@ -324,7 +350,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Three-generation family bakery making affordable mooncakes. Best visited before the Mid-Autumn Festival."
+   "noteEn": "Three-generation family bakery making affordable mooncakes. Best visited before the Mid-Autumn Festival.",
+   "slug": "mooncake-bakery-187-pham-phu-thu"
   },
   {
    "id": "xglly60",
@@ -336,7 +363,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Spicy Hue-style beef noodle soup with beef, tendon, pork hock and sausage. Open early morning and late afternoon."
+   "noteEn": "Spicy Hue-style beef noodle soup with beef, tendon, pork hock and sausage. Open early morning and late afternoon.",
+   "slug": "phuong-s-hue-beef-noodles"
   },
   {
    "id": "tj97zfj",
@@ -348,7 +376,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Thick crab-and-shrimp noodle soup with pork hock; add fried dough sticks. Open 6am–9pm."
+   "noteEn": "Thick crab-and-shrimp noodle soup with pork hock; add fried dough sticks. Open 6am–9pm.",
+   "slug": "crab-noodle-soup-260"
   },
   {
    "id": "6449o1t",
@@ -360,7 +389,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Vegetarian restaurant in Cholon with a big menu, known for crispy vegetarian banh xeo pancakes."
+   "noteEn": "Vegetarian restaurant in Cholon with a big menu, known for crispy vegetarian banh xeo pancakes.",
+   "slug": "no-7-vegetarian"
   },
   {
    "id": "zx5w511",
@@ -372,7 +402,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese egg-noodle and wonton cart with a 31-year family recipe. Open 6:20–10am and 4:30–9pm."
+   "noteEn": "Chinese egg-noodle and wonton cart with a 31-year family recipe. Open 6:20–10am and 4:30–9pm.",
+   "slug": "huynh-le-noodle-cart"
   },
   {
    "id": "1zmpa2t",
@@ -384,7 +415,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Busy Chinese-Vietnamese neighbourhood market in District 10."
+   "noteEn": "Busy Chinese-Vietnamese neighbourhood market in District 10.",
+   "slug": "nhat-tao-market"
   },
   {
    "id": "7w9rn3i",
@@ -396,7 +428,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Hai Thuong Lan Ong street, lined with traditional Chinese herbal medicine shops. Great for photos and smells."
+   "noteEn": "Hai Thuong Lan Ong street, lined with traditional Chinese herbal medicine shops. Great for photos and smells.",
+   "slug": "herbal-medicine-street"
   },
   {
    "id": "2yc21tc",
@@ -408,7 +441,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Packed, authentic Chinese breakfast spot in District 6. Open 6–10am."
+   "noteEn": "Packed, authentic Chinese breakfast spot in District 6. Open 6–10am.",
+   "slug": "chinese-eatery-147-binh-tien"
   },
   {
    "id": "a8sqyhq",
@@ -420,7 +454,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Third-generation Chinese shop serving hu tieu with satay venison (about 95,000 dong)."
+   "noteEn": "Third-generation Chinese shop serving hu tieu with satay venison (about 95,000 dong).",
+   "slug": "phuoc-vinh-satay-venison-noodles"
   },
   {
    "id": "z5ajkvq",
@@ -432,7 +467,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Egg noodles with wontons and congee with century egg and tofu skin. Open 6–11:30am and 3–9pm."
+   "noteEn": "Egg noodles with wontons and congee with century egg and tofu skin. Open 6–11:30am and 3–9pm.",
+   "slug": "nguu-ky-noodles"
   },
   {
    "id": "pmxdref",
@@ -444,7 +480,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese kitchen with nearly 60 years of experience, famous for sweet-and-sour pork ribs. Open 10am–10pm."
+   "noteEn": "Chinese kitchen with nearly 60 years of experience, famous for sweet-and-sour pork ribs. Open 10am–10pm.",
+   "slug": "huy-ky"
   },
   {
    "id": "7q7vimx",
@@ -456,7 +493,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Wontons packed with shrimp and pork on Ha Ton Quyen, Saigon's wonton street."
+   "noteEn": "Wontons packed with shrimp and pork on Ha Ton Quyen, Saigon's wonton street.",
+   "slug": "wonton-house-162-ha-ton-quyen"
   },
   {
    "id": "p9mpzh5",
@@ -468,7 +506,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Herbal-braised duck with egg noodles in District 5."
+   "noteEn": "Herbal-braised duck with egg noodles in District 5.",
+   "slug": "sam-ky-herbal-duck-noodles"
   },
   {
    "id": "kno6vwi",
@@ -480,7 +519,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Budget lunch spot in District 8 for herbal duck noodles."
+   "noteEn": "Budget lunch spot in District 8 for herbal duck noodles.",
+   "slug": "herbal-duck-noodles-328-ba-dinh"
   },
   {
    "id": "untlshz",
@@ -492,7 +532,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Hong Kong-style herbal duck noodles at 866 Nguyen Chi Thanh."
+   "noteEn": "Hong Kong-style herbal duck noodles at 866 Nguyen Chi Thanh.",
+   "slug": "vinh-phat-hong-kong-duck-noodles"
   },
   {
    "id": "avk1m04",
@@ -504,7 +545,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Started as a street cart nearly 50 years ago. A favourite for herbal duck noodles, at 455 Nguyen Trai."
+   "noteEn": "Started as a street cart nearly 50 years ago. A favourite for herbal duck noodles, at 455 Nguyen Trai.",
+   "slug": "thiem-huy-noodles"
   },
   {
    "id": "we2lrjy",
@@ -516,7 +558,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese restaurant in Cholon, District 5."
+   "noteEn": "Chinese restaurant in Cholon, District 5.",
+   "slug": "hao-hue-restaurant"
   },
   {
    "id": "9vo15xg",
@@ -528,7 +571,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Dim sum spot in District 5."
+   "noteEn": "Dim sum spot in District 5.",
+   "slug": "baoz-dimsum"
   },
   {
    "id": "m27guh9",
@@ -540,7 +584,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Dim sum restaurant on Nguyen Tri Phuong known for its trendy custard buns."
+   "noteEn": "Dim sum restaurant on Nguyen Tri Phuong known for its trendy custard buns.",
+   "slug": "dimsum-88"
   },
   {
    "id": "plpsac2",
@@ -552,7 +597,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Popular sweet soup (che) stall in District 5."
+   "noteEn": "Popular sweet soup (che) stall in District 5.",
+   "slug": "lamp-post-sweet-soup"
   },
   {
    "id": "x8f3u5g",
@@ -564,7 +610,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Small but mighty Cantonese restaurant with good-value dim sum, sweet-and-sour ribs, coconut prawns and baked crab."
+   "noteEn": "Small but mighty Cantonese restaurant with good-value dim sum, sweet-and-sour ribs, coconut prawns and baked crab.",
+   "slug": "shan-dimsum"
   },
   {
    "id": "2522a12",
@@ -576,7 +623,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Famous Chinese dumpling shop at 57 De Tham, District 1. Plates from about 35,000 dong. Open 1–10pm."
+   "noteEn": "Famous Chinese dumpling shop at 57 De Tham, District 1. Plates from about 35,000 dong. Open 1–10pm.",
+   "slug": "kieu-ky-har-gow"
   },
   {
    "id": "mv4ucd9",
@@ -588,7 +636,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Egg noodles with char siu pork, and noodles with chicken and dried fish, in District 5."
+   "noteEn": "Egg noodles with char siu pork, and noodles with chicken and dried fish, in District 5.",
+   "slug": "luc-ky-noodles"
   },
   {
    "id": "ue7pdsy",
@@ -600,7 +649,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Cheap and tasty sidewalk hu tieu (around 30,000 dong). Evenings from 5pm."
+   "noteEn": "Cheap and tasty sidewalk hu tieu (around 30,000 dong). Evenings from 5pm.",
+   "slug": "sidewalk-noodles-187-huynh-man-dat"
   },
   {
    "id": "8d3jk26",
@@ -612,7 +662,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Hu tieu Nam Vang (Phnom Penh-style noodle soup) in central Saigon."
+   "noteEn": "Hu tieu Nam Vang (Phnom Penh-style noodle soup) in central Saigon.",
+   "slug": "kim-khanh-phnom-penh-noodles"
   },
   {
    "id": "xlgxs6k",
@@ -624,7 +675,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Huge pot of vegetarian noodle soup with napa cabbage and lotus seeds, served on the 1st and 15th of the lunar month, 6–9am. Expect queues."
+   "noteEn": "Huge pot of vegetarian noodle soup with napa cabbage and lotus seeds, served on the 1st and 15th of the lunar month, 6–9am. Expect queues.",
+   "slug": "vegetarian-noodles-124b-ngo-nhan-tinh"
   },
   {
    "id": "eaa5m3u",
@@ -636,7 +688,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "60-year family recipe for satay venison noodle soup at 331 Minh Phung. Open 7–11am and 5–9pm."
+   "noteEn": "60-year family recipe for satay venison noodle soup at 331 Minh Phung. Open 7–11am and 5–9pm.",
+   "slug": "to-ky-satay-venison-noodles"
   },
   {
    "id": "wtu43ob",
@@ -648,7 +701,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese vegetarian noodles with fragrant satay broth and plant-based meatballs. Open 6am–1pm."
+   "noteEn": "Chinese vegetarian noodles with fragrant satay broth and plant-based meatballs. Open 6am–1pm.",
+   "slug": "buu-loi-ky-vegetarian"
   },
   {
    "id": "nh2jytx",
@@ -660,7 +714,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Chinese dessert shop with almost 40 sweet soups, running for over 30 years. Open 10am–10pm."
+   "noteEn": "Chinese dessert shop with almost 40 sweet soups, running for over 30 years. Open 10am–10pm.",
+   "slug": "ha-ky-sweet-soups"
   },
   {
    "id": "gk9zgjq",
@@ -672,7 +727,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Long-established sweet soup shop in District 5."
+   "noteEn": "Long-established sweet soup shop in District 5.",
+   "slug": "lam-thanh-sweet-soups"
   },
   {
    "id": "7b3et3u",
@@ -684,7 +740,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Café filled with antiques and gemstones, where collectors meet to trade."
+   "noteEn": "Café filled with antiques and gemstones, where collectors meet to trade.",
+   "slug": "no-1-tan-da-antique-cafe"
   },
   {
    "id": "r1t52ox",
@@ -696,7 +753,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Neighbourhood café at 70 Street 5, Binh Phu."
+   "noteEn": "Neighbourhood café at 70 Street 5, Binh Phu.",
+   "slug": "chuyen-ca-phe"
   },
   {
    "id": "dcixyij",
@@ -708,7 +766,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Cute drinks shop in Cholon."
+   "noteEn": "Cute drinks shop in Cholon.",
+   "slug": "cielo-cholon"
   },
   {
    "id": "s0ye0jq",
@@ -720,7 +779,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Cholon's century-old wholesale market. A busy, colourful place to see Chinatown trading life."
+   "noteEn": "Cholon's century-old wholesale market. A busy, colourful place to see Chinatown trading life.",
+   "slug": "binh-tay-market"
   },
   {
    "id": "7owuv3k",
@@ -732,7 +792,8 @@
    "lat": "",
    "lng": "",
    "note": "",
-   "noteEn": "Classic Cholon restaurant for a Sunday dim sum feast."
+   "noteEn": "Classic Cholon restaurant for a Sunday dim sum feast.",
+   "slug": "ai-hue-restaurant"
   }
  ],
  "videos": [
@@ -1595,6 +1656,48 @@
    "views": 185,
    "added": "2026-10-18",
    "titleEn": "Saigon Chinatown's lantern street at Mid-Autumn"
+  }
+ ],
+ "guides": [
+  {
+   "slug": "cholon-food-guide",
+   "title": "Cholon food guide",
+   "count": 43
+  },
+  {
+   "slug": "noodle-soups-ho-chi-minh-city",
+   "title": "Noodle soups",
+   "count": 18
+  },
+  {
+   "slug": "dim-sum-and-wontons-saigon",
+   "title": "Dim sum & wontons",
+   "count": 9
+  },
+  {
+   "slug": "chinese-vietnamese-restaurants-cholon",
+   "title": "Chinese-Vietnamese kitchens",
+   "count": 14
+  },
+  {
+   "slug": "vegetarian-food-ho-chi-minh-city",
+   "title": "Vegetarian food",
+   "count": 4
+  },
+  {
+   "slug": "che-sweet-soup-saigon",
+   "title": "Sweet soups (chè)",
+   "count": 4
+  },
+  {
+   "slug": "cholon-markets-and-old-streets",
+   "title": "Markets & old streets",
+   "count": 7
+  },
+  {
+   "slug": "hcmc-metro",
+   "title": "Metro guide",
+   "count": 0
   }
  ]
 }
