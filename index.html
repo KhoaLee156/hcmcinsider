@@ -177,6 +177,30 @@ details.vids[open] summary::after{transform:rotate(180deg)}
 .nums{display:flex;gap:8px;flex-wrap:wrap}
 .nums b{background:rgba(255,255,255,.16);border-radius:10px;padding:6px 10px;font-size:15px;font-variant-numeric:tabular-nums}
 
+/* metro */
+.metro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
+.line{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 8px}
+.line h3{margin:0 0 4px;font-size:17px;font-weight:800}
+.line .sub{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.stops{list-style:none;margin:0;padding:0;position:relative}
+.stops:before{content:"";position:absolute;left:9px;top:10px;bottom:18px;width:4px;border-radius:2px;background:var(--jade)}
+.stops li{position:relative;padding:0 0 10px 30px;font-size:15px;line-height:1.35}
+.stops li:before{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--jade);box-sizing:border-box}
+.stops li.key:before{background:var(--amber);border-color:var(--amber)}
+.stops b{font-weight:700}
+.stops em{display:block;font-style:normal;font-size:13px;color:var(--muted)}
+.stops .ug{font-size:11px;font-weight:700;color:var(--jade);background:var(--jade-soft);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:6px;align-content:start}
+.fact h3{margin:0;font-size:16px;font-weight:800}
+.fact p,.fact li{margin:0;font-size:14.5px;color:var(--muted)}
+.fact ul{margin:0;padding-left:18px;display:grid;gap:3px}
+.fact strong{color:var(--ink)}
+.fact.wide{grid-column:1/-1}
+.checked{margin:14px 0 0;font-size:13px;color:var(--muted)}
+.checked a{color:var(--jade)}
+@media (max-width:760px){.metro{grid-template-columns:minmax(0,1fr)}.facts{grid-template-columns:minmax(0,1fr)}}
+
 /* plan your trip (affiliate) */
 .plan{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
 .pc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:10px;grid-template-rows:auto auto 1fr auto}
@@ -323,13 +347,33 @@ function render(){
   var LOGO='<svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--jade)"/><path d="M16 5.5v3.5" stroke="var(--amber)" stroke-width="2"/><ellipse cx="16" cy="18" rx="7.5" ry="8.5" fill="var(--amber)"/><path d="M8.6 18h14.8" stroke="var(--jade)" stroke-width="1.6"/></svg>';
   var tips=[
     ["Cash and QR","Small stalls take cash (VND). Many shops accept bank-app QR. Keep small notes; 10,000–50,000 dong covers most street dishes.",'<path d="M3 7h18v10H3z"/><circle cx="12" cy="12" r="2.5"/>'],
-    ["Getting around","Ride-hailing apps (car or motorbike) show the price before you ride. Metro Line 1 runs from Ben Thanh east to Suoi Tien.",'<path d="M5 16V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v8"/><path d="M5 16h14v2H5z"/><circle cx="8" cy="18.5" r="1.3"/><circle cx="16" cy="18.5" r="1.3"/>'],
+    ["Getting around","Ride-hailing apps (car or motorbike) show the price before you ride. Metro Line 1 runs from Ben Thanh east to Suoi Tien (see below).",'<path d="M5 16V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v8"/><path d="M5 16h14v2H5z"/><circle cx="8" cy="18.5" r="1.3"/><circle cx="16" cy="18.5" r="1.3"/>'],
     ["Crossing the street","Walk at a slow, steady pace and don’t stop suddenly. Riders steer around you. Raise a hand to be seen.",'<path d="M7 4l3 8-3 8M14 4h6M14 12h6M14 20h6"/>'],
     ["Temples and assembly halls","Cover shoulders and knees, take off your hat, speak softly, and ask before photographing people praying.",'<path d="M4 10l8-6 8 6M6 10v9h12v-9M10 19v-5h4v5"/>'],
     ["Street food, safely","Choose busy stalls where food is cooked in front of you. Drink bottled water; ice at busy places is usually factory-made.",'<path d="M4 11h16a8 8 0 0 1-16 0zM8 7c0-1 1-2 1-3M12 7c0-1 1-2 1-3M16 7c0-1 1-2 1-3"/>']
   ];
   var tipHtml=tips.map(function(t){return '<div class="tip"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t[2]+'</svg></div><h3>'+t[0]+'</h3><p>'+t[1]+'</p></div>'}).join("")+
     '<div class="tip sos"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Emergency numbers</h3><div class="nums"><b>113 Police</b><b>114 Fire</b><b>115 Ambulance</b></div><p>Free from any phone in Vietnam. If you don’t speak Vietnamese, ask your hotel or a shop owner to call for you.</p></div>';
+  var STOPS=[
+    ["Ben Thanh","Ben Thanh Market, Bui Vien Street, Tao Dan Park",1,1],
+    ["Opera House","Opera House, Nguyen Hue walking street; Notre Dame and the Post Office a short walk away",1,1],
+    ["Ba Son","Bach Dang Wharf and the riverside park",1,1],
+    ["Van Thanh Park","",0,0],
+    ["Tan Cang","Landmark 81 and Vinhomes Central Park",1,0],
+    ["Thao Dien","Cafes, restaurants and boutiques of the expat quarter",1,0],
+    ["An Phu","Vincom Mega Mall",0,0],
+    ["Rach Chiec","",0,0],["Phuoc Long","",0,0],["Binh Thai","",0,0],["Thu Duc","Thu Duc Market",0,0],
+    ["High-Tech Park","",0,0],["National University","",0,0],
+    ["Suoi Tien Bus Station","End of the line; Suoi Tien Theme Park is nearby",1,0]
+  ];
+  var stopHtml=STOPS.map(function(t){return '<li class="'+(t[2]?'key':'')+'"><b>'+t[0]+'</b>'+(t[3]?'<span class="ug">underground</span>':'')+(t[1]?'<em>'+t[1]+'</em>':'')+'</li>'}).join("");
+  var metroHtml='<div class="metro"><div class="line"><h3>Metro Line 1 · Ben Thanh – Suoi Tien</h3><p class="sub">14 stations, about 20 km, roughly 30 minutes end to end. Orange dots are the stops most visitors use.</p><ol class="stops">'+stopHtml+'</ol></div>'+
+    '<div class="facts">'+
+    '<div class="fact"><h3>Hours</h3><ul><li><strong>Mon–Fri:</strong> 5:00 am – 10:00 pm</li><li><strong>Weekends and holidays:</strong> until 11:00 pm</li><li>Trains every 6–8 min at rush hour, 10–12 min otherwise</li></ul></div>'+
+    '<div class="fact"><h3>Fares</h3><ul><li><strong>Single trip:</strong> 7,000–20,000 dong cash, 1,000 less by card or app</li><li><strong>1-day pass:</strong> 40,000 dong</li><li><strong>3-day pass:</strong> 90,000 dong</li></ul></div>'+
+    '<div class="fact wide"><h3>How to pay</h3><ul><li><strong>Tap your bank card or phone</strong> at the gate: Visa, Mastercard, JCB, Amex and UnionPay contactless cards, Apple Pay and Samsung Pay. Tap in and out with the same card or phone.</li><li><strong>Ticket machines</strong> take cash (1,000–200,000 dong notes) and issue a card with a small refundable deposit; return it at the machine after your trip.</li><li><strong>HCMC Metro app:</strong> buy a ticket and scan the QR code at the gate.</li></ul></div>'+
+    '<div class="fact wide"><h3>Good to know</h3><ul><li>No eating, drinking or smoking in stations or on trains; no pets.</li><li>Large or bulky luggage may be refused. A carry-on is fine.</li><li>Line 1 does not go to the airport or Cholon yet. Line 2 (Ben Thanh – Tham Luong) started construction in January 2026.</li></ul></div>'+
+    '</div></div><p class="checked">Last checked: October 2026. Sources: <a href="https://www.sggp.org.vn/tphcm-ban-hanh-gia-ve-metro-so-1-ben-thanh-suoi-tien-post769364.html" target="_blank" rel="noopener">fares (SGGP)</a> · <a href="https://news.tuoitre.vn/ho-chi-minh-city-metro-line-adds-more-trips-extends-operating-hours-on-weekends-103250817102502158.htm" target="_blank" rel="noopener">hours (Tuoi Tre News)</a> · <a href="https://www.visa.com.vn/en_VN/about-visa/newsroom/press-releases/visa-offers-seamless-tap-to-ride-experiences-for-visa-cardholders-on-ho-chi-minh-city-metro-line-1.html" target="_blank" rel="noopener">tap to ride (Visa)</a>. Times and prices can change; check the signs at the station.</p>';
   var PLAN=[
     ["Get an eSIM before you land","Install it at home, switch it on when the plane lands, and you have data for ride-hailing apps and maps before you reach the taxi rank. Most phones from 2019 on support eSIM.",'<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 7h4v4h-4z"/>',[["Airalo","https://airalo.tpo.lu/KP1dEp49"],["Saily","https://saily.tpo.lu/THj5dEjG"]]],
     ["Airport pickup","Tan Son Nhat (SGN) is about 7 km from District 1; the ride takes 20–45 minutes depending on traffic. A pre-booked driver waits with your name and a fixed price, which helps after a late flight.",'<path d="M2 16l20-6-2-3-7 2-5-5-2 1 3 6-5 1-2-2-1 1z"/><path d="M3 20h18"/>',[["Kiwitaxi","https://kiwitaxi.tpo.lu/cz2amFE5"],["Welcome Pickups","https://tpo.lu/X74r1v7P"]]],
@@ -338,7 +382,7 @@ function render(){
   ];
   var planHtml=PLAN.map(function(t){return '<div class="pc"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t[2]+'</svg></div><h3>'+t[0]+'</h3><p>'+t[1]+'</p><div class="go">'+t[3].map(function(l,i){return '<a class="'+(i?'':'pri')+'" href="'+l[1]+'" target="_blank" rel="sponsored noopener">'+l[0]+' ↗</a>'}).join("")+'</div></div>'}).join("");
   var html=
-  '<header class="nav"><div class="wrap"><a class="logo" href="#top">'+LOGO+'<span>HCMC <b>Insider</b></span></a><nav class="links" aria-label="Main"><a href="#eat">Eat</a><a href="#map">Map</a><a href="#tips">Tips</a><a href="#plan">Plan</a><a href="#ask">Ask a local</a></nav><a class="cta" href="#eat">Explore</a></div></header>'+
+  '<header class="nav"><div class="wrap"><a class="logo" href="#top">'+LOGO+'<span>HCMC <b>Insider</b></span></a><nav class="links" aria-label="Main"><a href="#eat">Eat</a><a href="#map">Map</a><a href="#tips">Tips</a><a href="#move">Metro</a><a href="#plan">Plan</a><a href="#ask">Ask a local</a></nav><a class="cta" href="#eat">Explore</a></div></header>'+
   '<section class="hero" id="top"><div class="wrap"><div><p class="eyebrow">Ho Chi Minh City (Saigon) · by locals</p><h1>Eat, explore and wander like a <span>local</span>.</h1><p class="lede">Hand-picked noodle stalls, dim sum halls, sweet-soup shops and old markets, found through '+nC+' local food creators and explained in plain English.</p>'+
    '<form class="searchbox" id="hs" role="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Try “duck noodles” or “District 5”" value="'+esc(ui.q)+'" aria-label="Search places"><button class="cta amber" type="submit">Search</button></form>'+
    '<div class="quick">'+QUICK.map(function(w){return '<button type="button" data-q="'+w+'" aria-pressed="'+(ui.q.toLowerCase()===w.toLowerCase())+'">'+w+'</button>'}).join("")+'</div>'+
@@ -350,6 +394,7 @@ function render(){
   '<section class="sec" id="map"><div class="wrap"><div class="sec-head"><div><p class="kicker">Map</p><h2>See what’s near you</h2><p class="sub">'+list.filter(hasXY).length+' of '+list.length+' places pinned so far. We add more every week.</p></div></div><div class="mapcard"><div id="mapslot"></div><div class="legend">'+CATS.slice(0,4).map(function(c){return '<span><i style="background:'+cc(c.k)+'"></i>'+c.en+'</span>'}).join("")+'</div></div></div></section>'+
   '<section class="sec" id="top-picks"><div class="wrap"><div class="sec-head"><div><p class="kicker">Most watched</p><h2>Top 8 this month</h2></div></div><ol class="top">'+top.slice(0,8).map(function(p,i){return '<li><button data-go="'+esc(p.id)+'"><span class="n">'+(i+1)+'</span><strong>'+esc(pName(p))+'</strong><span>'+esc(dishEn(p))+' · '+compact(viewsOf(p.id))+' views</span></button></li>'}).join("")+'</ol></div></section>'+
   '<section class="sec" id="tips"><div class="wrap"><div class="sec-head"><div><p class="kicker">Before you go</p><h2>Six things to know</h2></div></div><div class="tips">'+tipHtml+'</div></div></section>'+
+  '<section class="sec" id="move"><div class="wrap"><div class="sec-head"><div><p class="kicker">Getting around</p><h2>Ride the metro</h2></div></div>'+metroHtml+'</div></section>'+
   '<section class="sec" id="plan"><div class="wrap"><div class="sec-head"><div><p class="kicker">Plan your trip</p><h2>Sorted before you arrive</h2></div></div><div class="plan">'+planHtml+'</div><p class="aff-note">These are affiliate links: if you book, we may earn a small commission at no extra cost to you. It helps keep this guide free.</p></div></section>'+
   '<section class="sec" id="ask"><div class="wrap"><div class="sec-head"><div><p class="kicker">Ask a local</p><h2>Questions visitors ask us</h2><p class="sub">Can’t find your answer? Send us your question. We answer the most useful ones here.</p></div></div><div class="ask"><div class="faq">'+FAQ.map(function(f,i){return '<details'+(i===0?' open':'')+'><summary>'+esc(f[0])+'</summary><p>'+esc(f[1])+'</p></details>'}).join("")+'</div>'+
    '<form class="askbox" id="fAsk"><h3>Ask your question</h3><label class="f">Your question<textarea id="a-q" placeholder="e.g. Where can I find good vegetarian food near Binh Tay Market?"></textarea></label><label class="f">Your email <small>(optional, if you’d like a reply)</small><input id="a-me" type="email" placeholder="you@example.com"></label><button class="cta" type="submit">Create my question</button>'+
