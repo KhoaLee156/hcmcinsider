@@ -17,3 +17,5 @@ Cloudflare Pages: Framework preset **None**, build command empty, output directo
 Guide topics and their intro text live in the `GUIDES` list in `build.py`. Dish labels come from the `DISH` table in `index.html`.
 
 `tips.json` holds "Local tips" per place id (hours, price, what to order, notes, more precise address), taken only from what creators state in their video descriptions, with the creator names as source. It is separate from `data.json` so weekly updates never overwrite it.
+
+Share images: `build.py` writes `og/cards.json`; then `node tools/og-cards.js` (needs `npm i playwright @fontsource/be-vietnam-pro`) renders `og/<slug>.png`; run `build.py` again so pages point to them.

@@ -6,3 +6,5 @@ node_modules
 .wrangler
 build.py
 tips.json
+tools
+og/cards.json

@@ -1,0 +1,612 @@
+[
+ {
+  "slug": "tan-nha-eatery",
+  "name": "Tan Nha Eatery",
+  "vn": "Quán ăn Tân Nhã",
+  "dish": "Eat",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "bitter-melon-chilli-snack-stall",
+  "name": "Bitter Melon & Chilli Snack Stall",
+  "vn": "Khổ Qua Cà Chớn",
+  "dish": "Stuffed bitter melon",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "goat-restaurant-239-1-doc-lap",
+  "name": "Goat Restaurant, 239/1 Doc Lap",
+  "vn": "Quán dê 239/1 Độc Lập",
+  "dish": "Goat dishes",
+  "area": "Tan Phu",
+  "cat": "food",
+  "hours": "10am – midnight",
+  "price": "30,000–750,000 dong depending on the dish"
+ },
+ {
+  "slug": "thuan-phat-chinese-stir-fry",
+  "name": "Thuan Phat Chinese Stir-fry",
+  "vn": "Quán Thuận Phát (món Hoa chiên xào)",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "yukii-desserts",
+  "name": "Yukii Desserts",
+  "vn": "Yukii Desserts",
+  "dish": "Sweet soup desserts",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "uncle-dinh-5-snail-bar",
+  "name": "Uncle Dinh 5 Snail Bar",
+  "vn": "Ốc Chú Đỉnh 5",
+  "dish": "Snails & shellfish",
+  "area": "District 7",
+  "cat": "food",
+  "hours": "Evenings and late night",
+  "price": ""
+ },
+ {
+  "slug": "8-000-dong-noodle-cart",
+  "name": "8,000-dong Noodle Cart",
+  "vn": "Hủ tiếu gõ 8K Nguyễn Duy Dương",
+  "dish": "Hu tieu noodle soup",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "5pm – 9pm",
+  "price": "About 8,000 dong a bowl"
+ },
+ {
+  "slug": "dong-giang-restaurant",
+  "name": "Dong Giang Restaurant",
+  "vn": "Đông Giang Quán",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "10am – 9pm",
+  "price": ""
+ },
+ {
+  "slug": "phuong-s-noodle-shop",
+  "name": "Phuong's Noodle Shop",
+  "vn": "Quán Phượng (bún riêu, hủ tiếu)",
+  "dish": "Hu tieu noodle soup",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "cuu-long-restaurant",
+  "name": "Cuu Long Restaurant",
+  "vn": "Cửu Long Quán",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "pork-rib-noodle-soup-bui-huu-nghia",
+  "name": "Pork Rib Noodle Soup, Bui Huu Nghia",
+  "vn": "Bánh canh sườn cây Bùi Hữu Nghĩa",
+  "dish": "Thick noodle soup",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "dat-thep-pho",
+  "name": "Dat Thep Pho",
+  "vn": "Phở Đất Thép",
+  "dish": "Pho",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "bao-binh-eatery",
+  "name": "Bao Binh Eatery",
+  "vn": "Quán Bảo Bình",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "dong-nguyen-chicken-rice",
+  "name": "Dong Nguyen Chicken Rice",
+  "vn": "Cơm gà Đông Nguyên",
+  "dish": "Chicken rice",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "thiec-market",
+  "name": "Thiec Market",
+  "vn": "Chợ Thiếc",
+  "dish": "Local market",
+  "area": "Cholon (District 11)",
+  "cat": "shop",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "phung-hung-market",
+  "name": "Phung Hung Market",
+  "vn": "Chợ Phùng Hưng",
+  "dish": "Local market",
+  "area": "Cholon (District 5)",
+  "cat": "shop",
+  "hours": "Busiest 6am – 9am",
+  "price": ""
+ },
+ {
+  "slug": "cholon-braised-pork-rice",
+  "name": "Cholon Braised Pork Rice",
+  "vn": "Cơm Giò Hầm Chợ Lớn",
+  "dish": "Braised pork rice",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "9am – 8pm",
+  "price": "35,000–200,000 dong"
+ },
+ {
+  "slug": "lantern-street-luong-nhu-hoc",
+  "name": "Lantern Street (Luong Nhu Hoc)",
+  "vn": "Phố lồng đèn Lương Nhữ Học",
+  "dish": "Lantern street",
+  "area": "Cholon (District 5)",
+  "cat": "culture",
+  "hours": "Best in the weeks before the Mid-Autumn Festival, in the evening",
+  "price": ""
+ },
+ {
+  "slug": "thien-huong-crispy-chicken-rice",
+  "name": "Thien Huong Crispy Chicken Rice",
+  "vn": "Thiên Hương – cơm gà xối mỡ",
+  "dish": "Chicken rice",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "hoa-binh-market",
+  "name": "Hoa Binh Market",
+  "vn": "Chợ Hòa Bình",
+  "dish": "Local market",
+  "area": "Cholon (District 5)",
+  "cat": "shop",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "teochew-rice-shop",
+  "name": "Teochew Rice Shop",
+  "vn": "Tiệm cơm Tiều Châu 68 Phan Xích Long",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "11am – 9pm",
+  "price": "50,000–500,000 dong"
+ },
+ {
+  "slug": "phat-ky",
+  "name": "Phat Ky",
+  "vn": "Phát Ký",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "4pm – 10:30pm",
+  "price": ""
+ },
+ {
+  "slug": "co-lan-crab-soup",
+  "name": "Co Lan Crab Soup",
+  "vn": "Súp cua Cô Lan",
+  "dish": "Crab soup",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "tien-nhan-goat-noodle-soup",
+  "name": "Tien Nhan Goat Noodle Soup",
+  "vn": "Hủ tiếu dê Tiến Nhàn",
+  "dish": "Goat noodle soup",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "minh-ky-chicken-rice",
+  "name": "Minh Ky Chicken Rice",
+  "vn": "Cơm gà Minh Ký",
+  "dish": "Chicken rice",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "man-tu-charity-kitchen",
+  "name": "Man Tu Charity Kitchen",
+  "vn": "Bếp Thiện Nguyện Mãn Tự (quán chay 0 đồng)",
+  "dish": "Vegetarian",
+  "area": "Ho Chi Minh City",
+  "cat": "food",
+  "hours": "Lunch 11am – 2pm, dinner 5pm – 8pm",
+  "price": "Free"
+ },
+ {
+  "slug": "mooncake-bakery-187-pham-phu-thu",
+  "name": "Mooncake Bakery, 187 Pham Phu Thu",
+  "vn": "Tiệm bánh trung thu 187 Phạm Phú Thứ",
+  "dish": "Mooncakes",
+  "area": "Cholon (District 6)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "phuong-s-hue-beef-noodles",
+  "name": "Phuong's Hue Beef Noodles",
+  "vn": "Bún bò Huế Phượng",
+  "dish": "Spicy Hue beef noodles",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "Two sessions a day: from 5am, and from 4pm to 8pm",
+  "price": "50,000 dong (brisket and pork roll), 60,000 (mixed), 100,000 (special)"
+ },
+ {
+  "slug": "crab-noodle-soup-260",
+  "name": "Crab Noodle Soup 260",
+  "vn": "Bánh canh cua 260",
+  "dish": "Crab noodle soup",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "6am – 9pm",
+  "price": "40,000 dong regular, 55,000 special; fried dough sticks 6,000 a plate"
+ },
+ {
+  "slug": "no-7-vegetarian",
+  "name": "No. 7 Vegetarian",
+  "vn": "Quán Chay Số 7 Chợ Lớn",
+  "dish": "Vegetarian",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "huynh-le-noodle-cart",
+  "name": "Huynh Le Noodle Cart",
+  "vn": "Mì Gia Huỳnh Lê",
+  "dish": "Egg noodles & wontons",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "6:20am – 10am and 4:30pm – 9pm",
+  "price": ""
+ },
+ {
+  "slug": "nhat-tao-market",
+  "name": "Nhat Tao Market",
+  "vn": "Chợ Nhật Tảo",
+  "dish": "Local market",
+  "area": "District 10",
+  "cat": "shop",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "herbal-medicine-street",
+  "name": "Herbal Medicine Street",
+  "vn": "Phố thuốc bắc Hải Thượng Lãn Ông",
+  "dish": "Herbal medicine street",
+  "area": "Cholon (District 5)",
+  "cat": "culture",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "chinese-eatery-147-binh-tien",
+  "name": "Chinese Eatery, 147 Binh Tien",
+  "vn": "Quán ăn người Hoa 147 Bình Tiên",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon (District 6)",
+  "cat": "food",
+  "hours": "6am – 10am",
+  "price": ""
+ },
+ {
+  "slug": "phuoc-vinh-satay-venison-noodles",
+  "name": "Phuoc Vinh Satay Venison Noodles",
+  "vn": "Hủ tiếu sa tế nai Phước Vinh",
+  "dish": "Satay venison noodles",
+  "area": "Ho Chi Minh City",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "nguu-ky-noodles",
+  "name": "Nguu Ky Noodles",
+  "vn": "Hủ tiếu mì Ngầu Ký",
+  "dish": "Egg noodles & wontons",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "6am – 11:30am and 3pm – 9pm",
+  "price": ""
+ },
+ {
+  "slug": "huy-ky",
+  "name": "Huy Ky",
+  "vn": "Huy Ký (sườn xào chua ngọt)",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Ho Chi Minh City",
+  "cat": "food",
+  "hours": "10am – 10pm",
+  "price": "About 45,000 dong"
+ },
+ {
+  "slug": "wonton-house-162-ha-ton-quyen",
+  "name": "Wonton House 162 Ha Ton Quyen",
+  "vn": "Sủi cảo 162 Hà Tôn Quyền",
+  "dish": "Wonton dumplings",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "sam-ky-herbal-duck-noodles",
+  "name": "Sam Ky Herbal Duck Noodles",
+  "vn": "Mì vịt tiềm Sâm Ký",
+  "dish": "Herbal duck noodles",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "herbal-duck-noodles-328-ba-dinh",
+  "name": "Herbal Duck Noodles, 328 Ba Dinh",
+  "vn": "Mì vịt tiềm 328 Ba Đình",
+  "dish": "Herbal duck noodles",
+  "area": "District 8",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "vinh-phat-hong-kong-duck-noodles",
+  "name": "Vinh Phat Hong Kong Duck Noodles",
+  "vn": "Mì vịt tiềm Vĩnh Phát Hong Kong",
+  "dish": "Herbal duck noodles",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "thiem-huy-noodles",
+  "name": "Thiem Huy Noodles",
+  "vn": "Thiêm Huy Mì Gia",
+  "dish": "Egg noodles & wontons",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "hao-hue-restaurant",
+  "name": "Hao Hue Restaurant",
+  "vn": "Nhà hàng Hào Huê",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "baoz-dimsum",
+  "name": "BaoZ Dimsum",
+  "vn": "BaoZ Dimsum",
+  "dish": "Dim sum",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "dimsum-88",
+  "name": "Dimsum 88",
+  "vn": "Dimsum 88",
+  "dish": "Dim sum",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "lamp-post-sweet-soup",
+  "name": "Lamp-post Sweet Soup",
+  "vn": "Chè Cột Điện",
+  "dish": "Sweet soup desserts",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "shan-dimsum",
+  "name": "Shan Dimsum",
+  "vn": "Shan Dimsum",
+  "dish": "Dim sum",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "kieu-ky-har-gow",
+  "name": "Kieu Ky Har Gow",
+  "vn": "Há cảo Kiều Ký",
+  "dish": "Dim sum",
+  "area": "District 1",
+  "cat": "food",
+  "hours": "1pm – 10pm",
+  "price": ""
+ },
+ {
+  "slug": "luc-ky-noodles",
+  "name": "Luc Ky Noodles",
+  "vn": "Lục Ký (hủ tiếu mì xá xíu)",
+  "dish": "Egg noodles & wontons",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "Open 24 hours",
+  "price": ""
+ },
+ {
+  "slug": "sidewalk-noodles-187-huynh-man-dat",
+  "name": "Sidewalk Noodles, 187 Huynh Man Dat",
+  "vn": "Hủ tiếu vỉa hè 187 Huỳnh Mẫn Đạt",
+  "dish": "Hu tieu noodle soup",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "5pm – 11pm",
+  "price": "25,000–35,000 dong a bowl"
+ },
+ {
+  "slug": "kim-khanh-phnom-penh-noodles",
+  "name": "Kim Khanh Phnom Penh Noodles",
+  "vn": "Hủ tiếu Nam Vang Kim Khánh",
+  "dish": "Hu tieu noodle soup",
+  "area": "Ho Chi Minh City",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "vegetarian-noodles-124b-ngo-nhan-tinh",
+  "name": "Vegetarian Noodles, 124B Ngo Nhan Tinh",
+  "vn": "Hủ tiếu chay 124B Ngô Nhân Tịnh",
+  "dish": "Vegetarian",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "Only on the 1st and 15th days of the lunar month, from 6am until about 9am",
+  "price": "About 35,000 dong"
+ },
+ {
+  "slug": "to-ky-satay-venison-noodles",
+  "name": "To Ky Satay Venison Noodles",
+  "vn": "Tô Ký – hủ tiếu sa tế nai",
+  "dish": "Satay venison noodles",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "7am – 11am and 5pm – 9pm; closed on the 1st and 15th days of the lunar month",
+  "price": ""
+ },
+ {
+  "slug": "buu-loi-ky-vegetarian",
+  "name": "Buu Loi Ky Vegetarian",
+  "vn": "Bửu Lợi Ký – quán chay",
+  "dish": "Vegetarian",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "6am – 1pm",
+  "price": ""
+ },
+ {
+  "slug": "ha-ky-sweet-soups",
+  "name": "Ha Ky Sweet Soups",
+  "vn": "Chè Hà Ký",
+  "dish": "Sweet soup desserts",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "10am – 10pm",
+  "price": ""
+ },
+ {
+  "slug": "lam-thanh-sweet-soups",
+  "name": "Lam Thanh Sweet Soups",
+  "vn": "Chè Lâm Thạnh",
+  "dish": "Sweet soup desserts",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "no-1-tan-da-antique-cafe",
+  "name": "No. 1 Tan Da Antique Café",
+  "vn": "Cà phê số 1 Tản Đà",
+  "dish": "Café",
+  "area": "Cholon (District 5)",
+  "cat": "cafe",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "chuyen-ca-phe",
+  "name": "Chuyen Ca Phe",
+  "vn": "Chuyện Cà Phê",
+  "dish": "Café",
+  "area": "Cholon",
+  "cat": "cafe",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "cielo-cholon",
+  "name": "CIELO Cholon",
+  "vn": "Tiệm nước CIELO Chợ Lớn",
+  "dish": "Café",
+  "area": "Cholon",
+  "cat": "cafe",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "binh-tay-market",
+  "name": "Binh Tay Market",
+  "vn": "Chợ Bình Tây",
+  "dish": "Local market",
+  "area": "Cholon (District 6)",
+  "cat": "shop",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "ai-hue-restaurant",
+  "name": "Ai Hue Restaurant",
+  "vn": "Nhà hàng Ái Huê",
+  "dish": "Chinese-Vietnamese kitchen",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ }
+]

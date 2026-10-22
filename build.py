@@ -466,15 +466,22 @@ def main():
             ld["address"] = {"@type": "PostalAddress", "streetAddress": addr, "addressLocality": "Ho Chi Minh City", "addressCountry": "VN"}
         if has_xy(p):
             ld["geo"] = {"@type": "GeoCoordinates", "latitude": float(p["lat"]), "longitude": float(p["lng"])}
-        ld["image"] = SITE + "/og-image.png"
+        ld["image"] = (SITE + "/og/%s.png" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".png")) else SITE + "/og-image.png"
         if p["cat"] == "food" and dish not in CATS.values():
             ld["servesCuisine"] = dish
         where = area if area != "Ho Chi Minh City" else "Saigon"
         title = "%s – %s in %s | HCMC Insider" % (name, dish if dish not in CATS.values() else "local spot", where)
         desc = (p.get("noteEn") or "%s in %s." % (dish, area)).rstrip(".") + ". Vietnamese name, address, directions and local creator videos."
         write("/places/%s/" % p["slug"], page("/places/%s/" % p["slug"], title, desc[:300], body, [ld, bld],
-                                              ))
+                                              og_image=(SITE + "/og/%s.png" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".png")) else None))
         urls.append("/places/%s/" % p["slug"])
+
+    # ---- share-card data for tools/og-cards.js
+    os.makedirs(os.path.join(ROOT, "og"), exist_ok=True)
+    cards = [{"slug": p["slug"], "name": p["_name"], "vn": p["name"], "dish": p["_dish"], "area": p["_area"], "cat": p["cat"],
+              "hours": (TIPS.get(p["id"]) or {}).get("hours", ""), "price": (TIPS.get(p["id"]) or {}).get("price", "")} for p in places]
+    with open(os.path.join(ROOT, "og", "cards.json"), "w", encoding="utf-8") as f:
+        json.dump(cards, f, ensure_ascii=False, indent=1)
 
     # ---- guide pages
     for g in GUIDES:
