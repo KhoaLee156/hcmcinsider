@@ -177,6 +177,18 @@ details.vids[open] summary::after{transform:rotate(180deg)}
 .nums{display:flex;gap:8px;flex-wrap:wrap}
 .nums b{background:rgba(255,255,255,.16);border-radius:10px;padding:6px 10px;font-size:15px;font-variant-numeric:tabular-nums}
 
+/* plan your trip (affiliate) */
+.plan{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
+.pc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:10px;grid-template-rows:auto auto 1fr auto}
+.pc .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--jade-soft);color:var(--jade)}
+.pc h3{margin:0;font-size:17px;font-weight:800}
+.pc p{margin:0;font-size:15px;color:var(--muted)}
+.pc .go{display:flex;gap:8px;flex-wrap:wrap}
+.pc .go a{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 14px;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--jade);color:var(--jade)}
+.pc .go a.pri{background:var(--jade);color:#fff}
+.pc .go a:hover{filter:brightness(1.08)}
+.aff-note{margin:14px 0 0;font-size:13px;color:var(--muted)}
+
 /* suggest */
 .suggest{background:var(--jade-soft);border-radius:calc(var(--r) + 6px);padding:28px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;align-items:start}
 .fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -318,8 +330,15 @@ function render(){
   ];
   var tipHtml=tips.map(function(t){return '<div class="tip"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t[2]+'</svg></div><h3>'+t[0]+'</h3><p>'+t[1]+'</p></div>'}).join("")+
     '<div class="tip sos"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Emergency numbers</h3><div class="nums"><b>113 Police</b><b>114 Fire</b><b>115 Ambulance</b></div><p>Free from any phone in Vietnam. If you don’t speak Vietnamese, ask your hotel or a shop owner to call for you.</p></div>';
+  var PLAN=[
+    ["Get an eSIM before you land","Install it at home, switch it on when the plane lands, and you have data for ride-hailing apps and maps before you reach the taxi rank. Most phones from 2019 on support eSIM.",'<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 7h4v4h-4z"/>',[["Airalo","https://airalo.tpo.lu/KP1dEp49"],["Saily","https://saily.tpo.lu/THj5dEjG"]]],
+    ["Airport pickup","Tan Son Nhat (SGN) is about 7 km from District 1; the ride takes 20–45 minutes depending on traffic. A pre-booked driver waits with your name and a fixed price, which helps after a late flight.",'<path d="M2 16l20-6-2-3-7 2-5-5-2 1 3 6-5 1-2-2-1 1z"/><path d="M3 20h18"/>',[["Book a transfer","https://kiwitaxi.tpo.lu/cz2amFE5"]]],
+    ["Day trips and food tours","Popular picks: the Cu Chi Tunnels (half day, go early to beat the heat), the Mekong Delta (full day), and an evening street-food tour on the back of a motorbike.",'<circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>',[["Klook","https://klook.tpo.lu/FZ8vNhYU"],["KKday","https://kkday.tpo.lu/OXMmolqt"]]],
+    ["Store your bags","Checked out at noon but flying at night? Leave your luggage at a nearby shop or hotel and spend the afternoon eating instead of dragging a suitcase.",'<rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 7V4h6v3M9 11v5M15 11v5"/>',[["Find storage","https://radicalstorage.tpo.lu/xhWH7Ifs"]]]
+  ];
+  var planHtml=PLAN.map(function(t){return '<div class="pc"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t[2]+'</svg></div><h3>'+t[0]+'</h3><p>'+t[1]+'</p><div class="go">'+t[3].map(function(l,i){return '<a class="'+(i?'':'pri')+'" href="'+l[1]+'" target="_blank" rel="sponsored noopener">'+l[0]+' ↗</a>'}).join("")+'</div></div>'}).join("");
   var html=
-  '<header class="nav"><div class="wrap"><a class="logo" href="#top">'+LOGO+'<span>HCMC <b>Insider</b></span></a><nav class="links" aria-label="Main"><a href="#eat">Eat</a><a href="#map">Map</a><a href="#tips">Tips</a><a href="#ask">Ask a local</a></nav><a class="cta" href="#eat">Explore</a></div></header>'+
+  '<header class="nav"><div class="wrap"><a class="logo" href="#top">'+LOGO+'<span>HCMC <b>Insider</b></span></a><nav class="links" aria-label="Main"><a href="#eat">Eat</a><a href="#map">Map</a><a href="#tips">Tips</a><a href="#plan">Plan</a><a href="#ask">Ask a local</a></nav><a class="cta" href="#eat">Explore</a></div></header>'+
   '<section class="hero" id="top"><div class="wrap"><div><p class="eyebrow">Ho Chi Minh City (Saigon) · by locals</p><h1>Eat, explore and wander like a <span>local</span>.</h1><p class="lede">Hand-picked noodle stalls, dim sum halls, sweet-soup shops and old markets, found through '+nC+' local food creators and explained in plain English.</p>'+
    '<form class="searchbox" id="hs" role="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Try “duck noodles” or “District 5”" value="'+esc(ui.q)+'" aria-label="Search places"><button class="cta amber" type="submit">Search</button></form>'+
    '<div class="quick">'+QUICK.map(function(w){return '<button type="button" data-q="'+w+'" aria-pressed="'+(ui.q.toLowerCase()===w.toLowerCase())+'">'+w+'</button>'}).join("")+'</div>'+
@@ -331,6 +350,7 @@ function render(){
   '<section class="sec" id="map"><div class="wrap"><div class="sec-head"><div><p class="kicker">Map</p><h2>See what’s near you</h2><p class="sub">'+list.filter(hasXY).length+' of '+list.length+' places pinned so far. We add more every week.</p></div></div><div class="mapcard"><div id="mapslot"></div><div class="legend">'+CATS.slice(0,4).map(function(c){return '<span><i style="background:'+cc(c.k)+'"></i>'+c.en+'</span>'}).join("")+'</div></div></div></section>'+
   '<section class="sec" id="top-picks"><div class="wrap"><div class="sec-head"><div><p class="kicker">Most watched</p><h2>Top 8 this month</h2></div></div><ol class="top">'+top.slice(0,8).map(function(p,i){return '<li><button data-go="'+esc(p.id)+'"><span class="n">'+(i+1)+'</span><strong>'+esc(pName(p))+'</strong><span>'+esc(dishEn(p))+' · '+compact(viewsOf(p.id))+' views</span></button></li>'}).join("")+'</ol></div></section>'+
   '<section class="sec" id="tips"><div class="wrap"><div class="sec-head"><div><p class="kicker">Before you go</p><h2>Six things to know</h2></div></div><div class="tips">'+tipHtml+'</div></div></section>'+
+  '<section class="sec" id="plan"><div class="wrap"><div class="sec-head"><div><p class="kicker">Plan your trip</p><h2>Sorted before you arrive</h2></div></div><div class="plan">'+planHtml+'</div><p class="aff-note">These are affiliate links: if you book, we may earn a small commission at no extra cost to you. It helps keep this guide free.</p></div></section>'+
   '<section class="sec" id="ask"><div class="wrap"><div class="sec-head"><div><p class="kicker">Ask a local</p><h2>Questions visitors ask us</h2><p class="sub">Can’t find your answer? Send us your question. We answer the most useful ones here.</p></div></div><div class="ask"><div class="faq">'+FAQ.map(function(f,i){return '<details'+(i===0?' open':'')+'><summary>'+esc(f[0])+'</summary><p>'+esc(f[1])+'</p></details>'}).join("")+'</div>'+
    '<form class="askbox" id="fAsk"><h3>Ask your question</h3><label class="f">Your question<textarea id="a-q" placeholder="e.g. Where can I find good vegetarian food near Binh Tay Market?"></textarea></label><label class="f">Your email <small>(optional, if you’d like a reply)</small><input id="a-me" type="email" placeholder="you@example.com"></label><button class="cta" type="submit">Create my question</button>'+
    (ui.askErr?'<p class="hint" style="color:var(--c-food);margin:0">'+esc(ui.askErr)+'</p>':'')+
