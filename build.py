@@ -447,15 +447,14 @@ def main():
             ld["address"] = {"@type": "PostalAddress", "streetAddress": addr, "addressLocality": "Ho Chi Minh City", "addressCountry": "VN"}
         if has_xy(p):
             ld["geo"] = {"@type": "GeoCoordinates", "latitude": float(p["lat"]), "longitude": float(p["lng"])}
-        if p["_yt"]:
-            ld["image"] = "https://i.ytimg.com/vi/%s/hqdefault.jpg" % p["_yt"]
+        ld["image"] = SITE + "/og-image.png"
         if p["cat"] == "food" and dish not in CATS.values():
             ld["servesCuisine"] = dish
         where = area if area != "Ho Chi Minh City" else "Saigon"
         title = "%s – %s in %s | HCMC Insider" % (name, dish if dish not in CATS.values() else "local spot", where)
         desc = (p.get("noteEn") or "%s in %s." % (dish, area)).rstrip(".") + ". Vietnamese name, address, directions and local creator videos."
         write("/places/%s/" % p["slug"], page("/places/%s/" % p["slug"], title, desc[:300], body, [ld, bld],
-                                              og_image=("https://i.ytimg.com/vi/%s/hqdefault.jpg" % p["_yt"]) if p["_yt"] else None))
+                                              ))
         urls.append("/places/%s/" % p["slug"])
 
     # ---- guide pages
