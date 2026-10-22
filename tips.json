@@ -1,0 +1,280 @@
+{
+ "_about": "Local tips per place id, taken only from what creators state in their YouTube video descriptions. Kept separate from data.json so weekly data updates never overwrite it. Fields: hours, price, order, note, addr (more precise address), src (creator names).",
+ "ykfnu3c": {
+  "hours": "10am – midnight",
+  "price": "30,000–750,000 dong depending on the dish",
+  "src": [
+   "ĐI ĐÂU ĂN GÌ ?"
+  ]
+ },
+ "5nsfmcz": {
+  "hours": "10am – 9pm",
+  "note": "A long-running Chinese (Hoa) restaurant in the Cholon area.",
+  "src": [
+   "ĐI ĐÂU ĂN GÌ ?"
+  ]
+ },
+ "ig4y6os": {
+  "hours": "5pm – 9pm",
+  "price": "About 8,000 dong a bowl",
+  "order": "Hủ tiếu gõ, the classic Saigon cart noodle soup",
+  "src": [
+   "Tung Thanh Ly Vietnam"
+  ]
+ },
+ "ao5gq22": {
+  "order": "Both bún riêu (crab and tomato noodles) and hủ tiếu",
+  "src": [
+   "BI ƠI OFFICIAL"
+  ]
+ },
+ "b8goeiu": {
+  "order": "Bánh canh sườn cây: thick noodle soup with very large pork rib pieces and daikon",
+  "note": "Became popular after a review by the Vietnamese comedian Trấn Thành.",
+  "src": [
+   "Little Bites"
+  ]
+ },
+ "ossgk2u": {
+  "addr": "42 An Điềm, Phường Chợ Lớn",
+  "order": "Phở with generous toppings; the video singles out the side bowl of tiết hột gà",
+  "src": [
+   "BI ƠI OFFICIAL"
+  ]
+ },
+ "p0rubjw": {
+  "order": "Poached chicken with fragrant rice cooked in chicken stock and the house dipping sauce",
+  "note": "HTV describes the brand as more than 80 years old.",
+  "src": [
+   "HTV Thành phố không ngủ"
+  ]
+ },
+ "4a8qn6p": {
+  "note": "An old market of the Chinese community, with many Hoa snacks and dishes to try.",
+  "src": [
+   "HTV Thành phố không ngủ",
+   "66Vlog"
+  ]
+ },
+ "ro1epl3": {
+  "hours": "Busiest 6am – 9am",
+  "order": "Sticky rice from the Lan Anh stall (20,000–25,000 dong; the vendor has sold here for 49 years), Hong Kong-style rice rolls with pork, shrimp, scallop or crab (28,000–47,000 dong), Ba Lù coffee, Tăng bánh mì and the stuffed bitter melon and chilli stall",
+  "note": "Locals also call it chợ Thủ Đô or the \"rich people's market\".",
+  "src": [
+   "CuongCanCook Official",
+   "Tan Vi Vu",
+   "Wego",
+   "Én điệu ham vui"
+  ]
+ },
+ "gwn1ori": {
+  "hours": "9am – 8pm",
+  "price": "35,000–200,000 dong",
+  "src": [
+   "ĐI ĐÂU ĂN GÌ ?"
+  ]
+ },
+ "n8v670u": {
+  "hours": "Best in the weeks before the Mid-Autumn Festival, in the evening",
+  "note": "The lantern area spreads over Lương Nhữ Học, Hải Thượng Lãn Ông and Phú Định streets, where handmade lantern-making has been passed down through generations.",
+  "src": [
+   "HTV Thành phố không ngủ",
+   "Cecilia Ninh"
+  ]
+ },
+ "7fcntj7": {
+  "order": "Cơm gà xối mỡ: chicken with crispy skin over golden fried rice",
+  "src": [
+   "4PIN LIFE"
+  ]
+ },
+ "gtsh9ie": {
+  "order": "Inside the market hall: vegetarian stir-fried vermicelli (about 30,000 dong) and sâm bổ lượng iced sweet soup (about 20,000 dong)",
+  "note": "One of Saigon's old markets with distinctive architecture, and a good place to buy dried goods for Chinese cooking. In the evening, stalls nearby sell stir-fried noodles.",
+  "src": [
+   "CuongCanCook Official",
+   "VINH LAM TV"
+  ]
+ },
+ "fdt6sv2": {
+  "hours": "11am – 9pm",
+  "price": "50,000–500,000 dong",
+  "src": [
+   "ĐI ĐÂU ĂN GÌ ?"
+  ]
+ },
+ "0nw7att": {
+  "hours": "4pm – 10:30pm",
+  "addr": "11 Tân Hàng (alley off Tăng Bạt Hổ), Phường Chợ Lớn",
+  "order": "Salt-roasted soft-shell crab tossed over a big flame, and Yangzhou fried rice",
+  "note": "A family wok kitchen running for more than 40 years; a pot of bone broth is served free to diners.",
+  "src": [
+   "Ăn Đâu Đây?",
+   "Địa điểm ăn uống"
+  ]
+ },
+ "r195o15": {
+  "order": "Crab soup with fish maw",
+  "note": "SaigonTV calls it one of the pricier crab soups in Cholon.",
+  "src": [
+   "SAIGONTV OFFICIAL"
+  ]
+ },
+ "aatdfka": {
+  "order": "Cơm gà xối mỡ (crispy fried chicken rice)",
+  "note": "A budget favourite in Cholon.",
+  "src": [
+   "SAIGONTV OFFICIAL"
+  ]
+ },
+ "w0k8q1h": {
+  "hours": "Lunch 11am – 2pm, dinner 5pm – 8pm",
+  "price": "Free",
+  "addr": "17 Tạ Uyên, Phường Chợ Lớn",
+  "note": "A charity kitchen serving free vegetarian meals. If you visit, be respectful and leave room for people who need a meal.",
+  "src": [
+   "Sài Gòn Vlog"
+  ]
+ },
+ "xglly60": {
+  "hours": "Two sessions a day: from 5am, and from 4pm to 8pm",
+  "price": "50,000 dong (brisket and pork roll), 60,000 (mixed), 100,000 (special)",
+  "src": [
+   "Banh Mi TV9"
+  ]
+ },
+ "tj97zfj": {
+  "hours": "6am – 9pm",
+  "price": "40,000 dong regular, 55,000 special; fried dough sticks 6,000 a plate",
+  "src": [
+   "Banh Mi TV9"
+  ]
+ },
+ "6449o1t": {
+  "order": "Vegetarian hủ tiếu and vegetarian bánh xèo (crispy pancake)",
+  "src": [
+   "Hào Du Hí"
+  ]
+ },
+ "zx5w511": {
+  "hours": "6:20am – 10am and 4:30pm – 9pm",
+  "order": "Hủ tiếu mì and sủi cảo (wontons)",
+  "src": [
+   "Vương Anh Phát Sài Gòn"
+  ]
+ },
+ "2yc21tc": {
+  "hours": "6am – 10am",
+  "note": "An old-school Chinese breakfast shop that fills up early.",
+  "src": [
+   "Ăn Vặt Sài Gòn Và Du Lịch"
+  ]
+ },
+ "z5ajkvq": {
+  "hours": "6am – 11:30am and 3pm – 9pm",
+  "src": [
+   "Vương Anh Phát Sài Gòn"
+  ]
+ },
+ "pmxdref": {
+  "hours": "10am – 10pm",
+  "price": "About 45,000 dong",
+  "addr": "Opposite 507 Kênh Tân Hóa, Tân Phú",
+  "order": "Sườn xào chua ngọt (sweet and sour pork ribs), a recipe the family has made for nearly 60 years",
+  "src": [
+   "VNT FOOD & TRAVEL"
+  ]
+ },
+ "untlshz": {
+  "order": "Hong Kong-style mì vịt tiềm (herbal duck noodles); a good evening stop",
+  "src": [
+   "Walking Saigon"
+  ]
+ },
+ "x8f3u5g": {
+  "addr": "Phù Đổng Thiên Vương street, District 5",
+  "order": "Shrimp har gow, siu mai, char siu and sweet and sour ribs",
+  "note": "Cantonese and Hong Kong-style dim sum at fairly local prices.",
+  "src": [
+   "BiBi Foodaholic",
+   "HTV Thành phố không ngủ"
+  ]
+ },
+ "2522a12": {
+  "hours": "1pm – 10pm",
+  "src": [
+   "Địa điểm ăn uống"
+  ]
+ },
+ "mv4ucd9": {
+  "hours": "Open 24 hours",
+  "addr": "103 Lê Hồng Phong, Phường Chợ Quán",
+  "src": [
+   "BI ƠI OFFICIAL"
+  ]
+ },
+ "ue7pdsy": {
+  "hours": "5pm – 11pm",
+  "price": "25,000–35,000 dong a bowl",
+  "order": "Dry hủ tiếu mì with soup on the side, topped with sliced pork, beef balls, wontons, pork roll and quail eggs",
+  "src": [
+   "Bá Kim"
+  ]
+ },
+ "xlgxs6k": {
+  "hours": "Only on the 1st and 15th days of the lunar month, from 6am until about 9am",
+  "price": "About 35,000 dong",
+  "order": "Vegetarian hủ tiếu with napa cabbage and lotus seeds",
+  "note": "Very busy on those days; check a lunar calendar before you go.",
+  "src": [
+   "Nghĩa Ơi Du Ký",
+   "Cuoc Song Sai Gon TV"
+  ]
+ },
+ "eaa5m3u": {
+  "hours": "7am – 11am and 5pm – 9pm; closed on the 1st and 15th days of the lunar month",
+  "src": [
+   "Vương Anh Phát Sài Gòn"
+  ]
+ },
+ "wtu43ob": {
+  "hours": "6am – 1pm",
+  "src": [
+   "Vương Anh Phát Sài Gòn"
+  ]
+ },
+ "nh2jytx": {
+  "hours": "10am – 10pm",
+  "note": "A Chinese-style dessert shop with nearly 40 kinds of chè.",
+  "src": [
+   "Sài Gòn Phố Xá"
+  ]
+ },
+ "s0ye0jq": {
+  "order": "Bún thịt nướng (grilled pork noodles) and chè nhãn nhục (longan sweet soup) from the market stalls",
+  "note": "A historic market around 100 years old; mornings are the liveliest.",
+  "src": [
+   "Andrew's Cozy Corner"
+  ]
+ },
+ "7owuv3k": {
+  "order": "Dim sum, especially for a weekend family brunch",
+  "src": [
+   "A Zia Vlog"
+  ]
+ },
+ "h414cna": {
+  "order": "Chinese-style chè, the lotus-flower dessert and the strawberry snow ice",
+  "src": [
+   "Én điệu ham vui"
+  ]
+ },
+ "7q9o2eh": {
+  "hours": "Evenings and late night",
+  "order": "Snails, clams and drinking snacks",
+  "note": "A no-frills, cheap night spot with fast service.",
+  "src": [
+   "Little Bites"
+  ]
+ }
+}

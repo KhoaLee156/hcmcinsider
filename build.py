@@ -125,6 +125,22 @@ def dir_link(p):
     return "https://www.google.com/maps/search/?api=1&query=" + quote(p["name"] + " " + (p.get("addr") or "") + " Hồ Chí Minh")
 
 
+
+TIPS = {}
+
+
+def tips_html(p):
+    t = TIPS.get(p["id"])
+    if not t:
+        return ""
+    rows = [(k, lab) for k, lab in (("hours", "Hours"), ("price", "Price"), ("order", "What to order"), ("note", "Good to know")) if t.get(k)]
+    if not rows:
+        return ""
+    dl = "".join('<div><dt>%s</dt><dd>%s</dd></div>' % (lab, E(t[k])) for k, lab in rows)
+    src = ", ".join(t.get("src") or [])
+    return ('<section class="box ltips"><h2>Local tips</h2><dl>%s</dl><p class="small">From the video description%s by %s. '
+            'Hours and prices change, so check before you go.</p></section>') % (dl, "s" if len(t.get("src") or []) > 1 else "", E(src))
+
 # ---------------------------------------------------------------- shared layout
 LOGO = None  # filled from favicon.svg
 
@@ -342,6 +358,9 @@ def metro_page():
 # ---------------------------------------------------------------- build
 def main():
     d = load()
+    tp = os.path.join(ROOT, "tips.json")
+    if os.path.exists(tp):
+        TIPS.update({k: v for k, v in json.load(open(tp, encoding="utf-8")).items() if not k.startswith("_")})
     rules = dish_rules()
     places, videos = d["places"], d["videos"]
     vids = {}
@@ -410,7 +429,7 @@ def main():
                 E(first["url"]), E(name), p["_yt"])
         else:
             hero = '<div class="hero-thumb ph" style="--cc:var(--c-%s)"><span>%s</span></div>' % (p["cat"] if p["cat"] in CATS else "other", E(dish))
-        addr = p.get("addr") or ""
+        addr = (TIPS.get(p["id"]) or {}).get("addr") or p.get("addr") or ""
         related = [q for q in places_sorted if q is not p and (q["_dish"] == dish)][:3]
         related += [q for q in places_sorted if q is not p and q not in related and q["_area"] == area][:6 - len(related)]
         guides_links = "".join('<a class="chip" href="/guides/%s/">%s</a>' % (g["slug"], E(g["nav"])) for g in p["_guides"])
@@ -425,7 +444,7 @@ def main():
 </div>
 %s
 </div>
-<section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p>%s<p class="small">Ride-hailing apps work best: paste the name or address, or tap Directions above.</p></section>
+%s<section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p>%s<p class="small">Ride-hailing apps work best: paste the name or address, or tap Directions above.</p></section>
 %s
 %s
 %s
@@ -434,7 +453,7 @@ def main():
             ('<p class="lead">%s</p>' % E(p["noteEn"])) if p.get("noteEn") else "",
             E(dir_link(p)),
             ('<a class="btn" href="%s" target="_blank" rel="noopener">Watch video</a>' % E(p["_vids"][0]["url"])) if p["_vids"] else "",
-            hero, E(p["name"]),
+            hero, tips_html(p), E(p["name"]),
             ('<p class="addr" lang="vi">%s</p><p class="small">%s</p>' % (E(addr), E(addr_en(addr)))) if addr else "",
             ('<section><h2 class="h2s">Creator videos</h2><div class="vlist">%s</div><p class="small">Videos belong to their creators and open on the original platform.</p></section>' % vl) if vl else "",
             ('<section><h2 class="h2s">In these guides</h2><div class="chips">%s</div></section>' % guides_links) if guides_links else "",
