@@ -219,17 +219,31 @@ details.vids[open] summary::after{transform:rotate(180deg)}
 .checked a{color:var(--jade)}
 @media (max-width:760px){.metro{grid-template-columns:minmax(0,1fr)}.facts{grid-template-columns:minmax(0,1fr)}}
 
-/* plan your trip (affiliate) */
-.plan{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
-.pc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:10px;grid-template-rows:auto auto 1fr auto}
-.pc .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--jade-soft);color:var(--jade)}
-.pc h3{margin:0;font-size:17px;font-weight:800}
-.pc p{margin:0;font-size:15px;color:var(--muted)}
-.pc .go{display:flex;gap:8px;flex-wrap:wrap}
-.pc .go a{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 14px;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--jade);color:var(--jade)}
-.pc .go a.pri{background:var(--jade);color:#fff}
-.pc .go a:hover{filter:brightness(1.08)}
-.aff-note{margin:14px 0 0;font-size:13px;color:var(--muted)}
+/* plan your trip (affiliate) – the money section: dark band, journey steps, strong CTAs */
+#plan{background:radial-gradient(circle at 85% 0%,rgba(244,166,52,.28),transparent 45%),linear-gradient(160deg,#0E6655,#083C33);color:#fff;padding-block:44px 40px;margin-top:40px}
+#plan .kicker{color:#FFD08A}
+#plan h2{color:#fff}
+#plan .sub{color:rgba(255,255,255,.82);margin:6px 0 0;max-width:60ch;font-size:16px}
+.plan{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:22px;counter-reset:step}
+.pc{background:var(--surface);color:var(--ink);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px -22px rgba(0,0,0,.6);transition:transform .18s}
+.pc:hover{transform:translateY(-4px)}
+.pc .band{position:relative;height:96px;background:linear-gradient(135deg,var(--pcol),color-mix(in srgb,var(--pcol) 55%,#000));display:flex;align-items:center;justify-content:space-between;padding:0 18px;color:#fff}
+.pc .band svg{width:46px;height:46px;opacity:.95}
+.pc .step{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.22);border-radius:999px;padding:5px 11px}
+.pc .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.pc h3{margin:0;font-size:18px;font-weight:800;line-height:1.25}
+.pc ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:14.5px;color:var(--muted)}
+.pc li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;line-height:1.4}
+.pc li::before{content:"✓";color:var(--jade);font-weight:800}
+.pc .go{margin-top:auto;display:grid;gap:8px;padding-top:6px}
+.pc .go a{display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:12px 14px;font-weight:800;font-size:15px;text-decoration:none;text-align:center}
+.pc .go a.pri{background:var(--amber);color:var(--amber-ink);box-shadow:0 6px 16px -8px rgba(244,166,52,.9)}
+.pc .go a.pri:hover{filter:brightness(1.06)}
+.pc .go a.alt{background:transparent;color:var(--jade);border:1.5px solid var(--line);padding:9px 14px;font-weight:700;font-size:14px}
+.pc .go a.alt:hover{border-color:var(--jade)}
+.aff-note{margin:18px 0 0;font-size:13px;color:rgba(255,255,255,.75)}
+@media (max-width:980px){.plan{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.plan{grid-template-columns:minmax(0,1fr)}.pc .band{height:78px}}
 
 /* suggest */
 .suggest{background:var(--jade-soft);border-radius:calc(var(--r) + 6px);padding:28px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;align-items:start}
@@ -393,13 +407,17 @@ function render(){
     '<div class="fact wide"><h3>Good to know</h3><ul><li>No eating, drinking or smoking in stations or on trains; no pets.</li><li>Large or bulky luggage may be refused. A carry-on is fine.</li><li>Line 1 does not go to the airport or Cholon yet. Line 2 (Ben Thanh – Tham Luong) started construction in January 2026.</li></ul></div>'+
     '</div></div><p class="checked">Last checked: October 2026. Sources: <a href="https://www.sggp.org.vn/tphcm-ban-hanh-gia-ve-metro-so-1-ben-thanh-suoi-tien-post769364.html" target="_blank" rel="noopener">fares (SGGP)</a> · <a href="https://news.tuoitre.vn/ho-chi-minh-city-metro-line-adds-more-trips-extends-operating-hours-on-weekends-103250817102502158.htm" target="_blank" rel="noopener">hours (Tuoi Tre News)</a> · <a href="https://www.visa.com.vn/en_VN/about-visa/newsroom/press-releases/visa-offers-seamless-tap-to-ride-experiences-for-visa-cardholders-on-ho-chi-minh-city-metro-line-1.html" target="_blank" rel="noopener">tap to ride (Visa)</a>. Times and prices can change; check the signs at the station.</p>';
   var guideHtml=(STATE.guides||[]).map(function(g){return '<a href="/guides/'+esc(g.slug)+'/"><strong>'+esc(g.title)+'</strong><span>'+(g.count?g.count+' places':(g.slug==='hcmc-metro'?'Stations, fares, how to pay':'Free buses, airport, river bus'))+'</span></a>'}).join("");
+  var PI={sim:'<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 7h5v5h-5z"/><path d="M10 17h4"/>',
+    plane:'<path d="M2.5 16.5l19-5.5-1.8-2.8-6.7 1.9-4.8-4.8-1.9.9 2.9 5.6-4.8 1.3-1.9-1.9-1 .9z"/><path d="M3 20.5h18"/>',
+    pin:'<circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>',
+    bag:'<rect x="4.5" y="7" width="15" height="13.5" rx="2.5"/><path d="M9 7V4h6v3M9 11v5.5M15 11v5.5"/>'};
   var PLAN=[
-    ["Get an eSIM before you land","Install it at home, switch it on when the plane lands, and you have data for ride-hailing apps and maps before you reach the taxi rank. Most phones from 2019 on support eSIM.",'<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 7h4v4h-4z"/>',[["Airalo","https://airalo.tpo.lu/KP1dEp49"],["Saily","https://saily.tpo.lu/THj5dEjG"]]],
-    ["Airport pickup","Tan Son Nhat (SGN) is about 7 km from District 1; the ride takes 20–45 minutes depending on traffic. A pre-booked driver waits with your name and a fixed price, which helps after a late flight.",'<path d="M2 16l20-6-2-3-7 2-5-5-2 1 3 6-5 1-2-2-1 1z"/><path d="M3 20h18"/>',[["Kiwitaxi","https://kiwitaxi.tpo.lu/cz2amFE5"],["Welcome Pickups","https://tpo.lu/X74r1v7P"]]],
-    ["Day trips and food tours","Popular picks: the Cu Chi Tunnels (half day, go early to beat the heat), the Mekong Delta (full day), and an evening street-food tour on the back of a motorbike.",'<circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>',[["Klook","https://klook.tpo.lu/FZ8vNhYU"],["KKday","https://kkday.tpo.lu/OXMmolqt"]]],
-    ["Store your bags","Checked out at noon but flying at night? Leave your luggage at a nearby shop or hotel and spend the afternoon eating instead of dragging a suitcase.",'<rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 7V4h6v3M9 11v5M15 11v5"/>',[["Find storage","https://radicalstorage.tpo.lu/xhWH7Ifs"]]]
+    {step:"1 · Before you fly",col:"#2C6FD1",ic:"sim",t:"Get an eSIM before you land",b:["Data the moment the plane lands","Ride-hailing and maps work right away","Install at home, switch on after landing"],l:[["Get Vietnam eSIM – Airalo","https://airalo.tpo.lu/KP1dEp49"],["Compare: Saily","https://saily.tpo.lu/THj5dEjG"]]},
+    {step:"2 · When you land",col:"#E8901A",ic:"plane",t:"Airport pickup",b:["Driver waits with your name at arrivals","Fixed price agreed before you fly","Tan Son Nhat to District 1: about 20–45 min"],l:[["Book a transfer – Kiwitaxi","https://kiwitaxi.tpo.lu/cz2amFE5"],["Compare: Welcome Pickups","https://tpo.lu/X74r1v7P"]]},
+    {step:"3 · During your stay",col:"#E2572F",ic:"pin",t:"Day trips and food tours",b:["Cu Chi Tunnels: half day, go early","Mekong Delta: full day","Evening street-food tour by motorbike"],l:[["See tours – Klook","https://klook.tpo.lu/FZ8vNhYU"],["Compare: KKday","https://kkday.tpo.lu/OXMmolqt"]]},
+    {step:"4 · On your last day",col:"#6A4BC4",ic:"bag",t:"Store your bags",b:["Checked out at noon, flying at night?","Leave luggage at a nearby shop or hotel","Spend the afternoon eating, not dragging a suitcase"],l:[["Find luggage storage","https://radicalstorage.tpo.lu/xhWH7Ifs"]]}
   ];
-  var planHtml=PLAN.map(function(t){return '<div class="pc"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+t[2]+'</svg></div><h3>'+t[0]+'</h3><p>'+t[1]+'</p><div class="go">'+t[3].map(function(l,i){return '<a class="'+(i?'':'pri')+'" href="'+l[1]+'" target="_blank" rel="sponsored noopener">'+l[0]+' ↗</a>'}).join("")+'</div></div>'}).join("");
+  var planHtml=PLAN.map(function(t){return '<div class="pc" style="--pcol:'+t.col+'"><div class="band"><span class="step">'+t.step+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+PI[t.ic]+'</svg></div><div class="body"><h3>'+t.t+'</h3><ul>'+t.b.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul><div class="go">'+t.l.map(function(l,i){return '<a class="'+(i?'alt':'pri')+'" href="'+l[1]+'" target="_blank" rel="sponsored noopener">'+l[0]+' ↗</a>'}).join("")+'</div></div></div>'}).join("");
   var html=
   '<header class="nav"><div class="wrap"><a class="logo" href="#top">'+LOGO+'<span>HCMC <b>Insider</b></span></a><nav class="links" aria-label="Main"><a href="#eat">Eat</a><a href="#map">Map</a><a href="#plan">Plan</a><a href="#move">Getting around</a><a href="/guides/">Guides</a><a href="#tips">Tips</a><a href="#ask">Ask a local</a></nav><a class="cta" href="#eat">Explore</a></div></header>'+
   '<section class="hero" id="top"><div class="wrap"><div><p class="eyebrow">Ho Chi Minh City (Saigon) · by locals</p><h1>Eat, explore and wander like a <span>local</span>.</h1><p class="lede">Hand-picked noodle stalls, dim sum halls, sweet-soup shops and old markets, found through '+nC+' local food creators and explained in plain English.</p>'+
@@ -411,7 +429,7 @@ function render(){
   '<section class="sec" id="eat"><div class="wrap"><div class="sec-head"><div><p class="kicker">Where to eat</p><h2>Places locals film and love</h2><p class="sub">Sorted by how many people watched the creators’ reviews. Tap a photo to watch, or Directions to go.</p></div></div><div class="grid">'+cards+'</div>'+
    (list.length>ui.shown?'<div class="more-wrap"><button class="btn" id="more">Show '+Math.min(PAGE,list.length-ui.shown)+' more of '+(list.length-ui.shown)+'</button></div>':'')+'</div></section>'+
   '<section class="sec" id="map"><div class="wrap"><div class="sec-head"><div><p class="kicker">Map</p><h2>See what’s near you</h2><p class="sub">'+list.filter(hasXY).length+' of '+list.length+' places pinned so far. We add more every week.</p></div></div><div class="mapcard"><div id="mapslot"></div><div class="legend">'+CATS.slice(0,4).map(function(c){return '<span><i style="background:'+cc(c.k)+'"></i>'+c.en+'</span>'}).join("")+'</div></div></div></section>'+
-  '<section class="sec" id="plan"><div class="wrap"><div class="sec-head"><div><p class="kicker">Plan your trip</p><h2>Sorted before you arrive</h2></div></div><div class="plan">'+planHtml+'</div><p class="aff-note">These are affiliate links: if you book, we may earn a small commission at no extra cost to you. It helps keep this guide free.</p></div></section>'+
+  '<section class="sec" id="plan"><div class="wrap"><div class="sec-head"><div><p class="kicker">Plan your trip</p><h2>Sorted before you arrive</h2><p class="sub">Four small bookings that make your first and last day in Saigon much easier.</p></div></div><div class="plan">'+planHtml+'</div><p class="aff-note">Affiliate links: you book on the partner\'s site at their normal price, and we may earn a small commission. It helps keep this guide free.</p></div></section>'+
   '<section class="sec" id="move"><div class="wrap"><div class="sec-head"><div><p class="kicker">Getting around</p><h2>Ride the metro</h2></div></div>'+metroHtml+'<a class="busbar" href="/guides/getting-around-hcmc/"><strong>🚌 City buses are free until 31 Dec 2026</strong><span>Tap a contactless card to check in. Airport buses 109 and 152, buses to Cholon and Cu Chi, the river bus and more →</span></a></div></section>'+
   '<section class="sec" id="top-picks"><div class="wrap"><div class="sec-head"><div><p class="kicker">Most watched</p><h2>Top 8 this month</h2></div></div><ol class="top">'+top.slice(0,8).map(function(p,i){return '<li><button data-go="'+esc(p.id)+'"><span class="n">'+(i+1)+'</span><strong>'+esc(pName(p))+'</strong><span>'+esc(dishEn(p))+' · '+compact(viewsOf(p.id))+' views</span></button></li>'}).join("")+'</ol></div></section>'+
   (guideHtml?'<section class="sec" id="guides"><div class="wrap"><div class="sec-head"><div><p class="kicker">Local guides</p><h2>Start with a guide</h2></div><a class="more-link" href="/guides/">All guides →</a></div><div class="gl">'+guideHtml+'</div></div></section>':'')+
