@@ -185,9 +185,9 @@ details.vids[open] summary::after{transform:rotate(180deg)}
 .busbar:hover{border-color:var(--amber)}
 /* wide screens: side rail next to the places grid */
 .rail{display:none}
-@media (min-width:1400px){
-  .wrap{max-width:1520px}
-  .eatlay{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+@media (min-width:1400px){.wrap{max-width:1520px}}
+@media (min-width:1200px){
+  .eatlay{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}
   .rail{display:grid;gap:14px;position:sticky;top:140px;max-height:calc(100vh - 156px);overflow:auto;scrollbar-width:none;padding-bottom:4px}
 }
 .rcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:6px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink)}
