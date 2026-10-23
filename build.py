@@ -329,6 +329,57 @@ METRO_FAQ = [
 ]
 
 
+BUS_FAQ = [
+    ("Are buses in Ho Chi Minh City free?", "Yes, for now. From 1 July to 31 December 2026 the city has waived fares on 134 city bus routes, including airport routes 109 and 152. Intercity routes and open-top sightseeing buses are not included."),
+    ("Do I need to tap a card on a free bus?", "Since 1 October 2026 every passenger has to check in when boarding, to count the trip. Nothing is charged. You can tap a Visa or Mastercard contactless card, Apple Pay, Google Pay or Samsung Pay at the reader by the door; Vietnamese residents can also use their ID card or the VNeID app. If it doesn't work, the driver or attendant will help."),
+    ("How do I get from Tan Son Nhat airport to the city centre by bus?", "Take bus 152 (via Ben Thanh Market) or bus 109 (to Saigon bus station near Ben Thanh). Both are on the free-fare list until the end of 2026. Look for the bus stop signs outside arrivals and ask airport staff if you are unsure which terminal the bus stops at."),
+    ("Can I get to the Cu Chi Tunnels by public bus?", "Yes, but it is slow. Take bus 13 from Saigon bus station to Cu Chi bus station, then bus 79 to Ben Duoc. Allow two hours or more each way. Most visitors book a tour or transfer instead."),
+    ("How much does the Saigon river bus cost?", "About 15,000 dong per trip on the Bach Dang – Linh Dong route. Boats start at 8:30 am from Bach Dang pier in District 1."),
+]
+
+
+def transport_page():
+    faq = "".join('<details class="faq"><summary>%s</summary><p>%s</p></details>' % (E(q), E(a)) for q, a in BUS_FAQ)
+    bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Getting around", None)])
+    body = """<div class="wrap narrow">%s
+<p class="kicker">Getting around</p>
+<h1>Getting around Ho Chi Minh City: buses, airport and river bus</h1>
+<p class="lead">City buses are free until the end of 2026, the airport has its own cheap bus lines, and the river bus is one of the nicest rides in Saigon. Here is what visitors need to know, checked against official announcements and Vietnamese news sources.</p>
+<div class="box driver"><h2>Buses are free until 31 December 2026</h2><p>The city has waived fares on 134 bus routes. Since 1 October 2026, tap a contactless bank card or phone (Visa, Mastercard, Apple Pay, Google Pay, Samsung Pay) on the reader when you board. It only records the trip; nothing is charged.</p></div>
+<h2 class="h2s">From the airport (Tan Son Nhat, SGN)</h2>
+<div class="facts two">
+<div class="fact"><h3>Bus 152</h3><ul><li>Airport → Ben Thanh Market → Trung Son</li><li>The easiest bus to the city centre</li><li>On the city's free-fare list until 31 Dec 2026</li></ul></div>
+<div class="fact"><h3>Bus 109</h3><ul><li>Airport → Saigon bus station (near Ben Thanh and 23/9 Park)</li><li>On the city's free-fare list until 31 Dec 2026</li></ul></div>
+</div>
+<p class="small">Bus stops are outside the arrivals halls; ask airport staff which terminal your bus serves. Late at night, use a ride-hailing app or a <a href="https://kiwitaxi.tpo.lu/cz2amFE5" target="_blank" rel="sponsored noopener">pre-booked transfer ↗</a>.</p>
+<h2 class="h2s">City buses visitors use</h2>
+<div class="facts two">
+<div class="fact"><h3>Bus 1 · to Cholon</h3><ul><li>Ba Son metro station → city centre → Cholon bus station (Chinatown)</li><li>Handy for the food spots on this site</li></ul></div>
+<div class="fact"><h3>Bus 150 · Cholon to the east</h3><ul><li>Cholon bus station → New Mien Dong bus station</li><li>Crosses the city from Chinatown to the big new eastern bus station</li></ul></div>
+<div class="fact"><h3>Bus 13 + 79 · Cu Chi Tunnels</h3><ul><li>Bus 13: Saigon bus station → Cu Chi bus station</li><li>Bus 79: Cu Chi bus station → Ben Duoc</li><li>Slow: allow 2+ hours each way. <a href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">Tours ↗</a> are easier.</li></ul></div>
+<div class="fact"><h3>Bus 94 · Cholon to Cu Chi</h3><ul><li>Cholon bus station → Cu Chi bus station</li><li>An alternative start if you stay in Chinatown</li></ul></div>
+</div>
+<p class="small">For routes and live arrival times, use the BusMap app or Google Maps. Wave clearly at the bus as it approaches; buses may not stop if nobody signals.</p>
+<h2 class="h2s">Saigon river bus</h2>
+<div class="facts two">
+<div class="fact"><h3>Route</h3><ul><li>Bach Dang pier (District 1) → Binh An → Thanh Da → Hiep Binh Chanh → Linh Dong</li><li>Great views of the skyline and the Saigon River</li></ul></div>
+<div class="fact"><h3>Times and fares</h3><ul><li>From 8:30 am daily, last departures in the evening</li><li>About 15,000 dong per trip</li><li>Tickets at the pier or online</li></ul></div>
+</div>
+<h2 class="h2s">Sightseeing bus</h2>
+<div class="fact"><ul><li>Open-top double-decker buses leave from 92–96 Nguyen Hue (District 1), roughly every 30 minutes from 9:00 am to 10:30 pm; a loop takes about an hour.</li><li>The route passes the Zoo, the War Remnants Museum, Bui Vien, Ben Thanh Market, Nguyen Hue and the Opera House, with an audio guide.</li><li>This is a paid tourist service and not part of the free-bus programme; check prices at the counter.</li></ul></div>
+<h2 class="h2s">Stay safe on the move</h2>
+<div class="fact"><ul><li>Phone and bag snatching from passing motorbikes happens. Keep your phone away from the street side and bags zipped and across your body.</li><li>Carry a light rain jacket from May to November; afternoon downpours are common.</li><li>Offer your seat to older people, pregnant women and children.</li></ul></div>
+<h2 class="h2s">Questions visitors ask</h2>%s
+<p class="small">Last checked: %s. Sources: <a href="https://thuvienphapluat.vn/phap-luat/ho-tro-phap-luat/danh-sach-134-tuyen-xe-buyt-duoc-mien-phi-ve-tai-tphcm-tu-172026-den-het-31122026-chi-tiet-ra-sao-276012.html" target="_blank" rel="noopener">free route list (Thu Vien Phap Luat)</a> · <a href="https://baoxaydung.vn/tphcm-hanh-khach-di-xe-buyt-mien-phi-phai-xac-thuc-luot-su-dung-tu-1-10-192260930141026672.htm" target="_blank" rel="noopener">check-in from 1 Oct (Bao Xay Dung)</a> · <a href="https://thanhnien.vn/tphcm-mien-phi-134-tuyen-xe-buyt-tu-hom-nay-nhung-dieu-hanh-khach-can-biet-185260630230637782.htm" target="_blank" rel="noopener">free buses (Thanh Nien)</a> · <a href="https://vnexpress.net/cam-nang-du-lich-tp-hcm-4608205.html" target="_blank" rel="noopener">river bus and sightseeing bus (VnExpress)</a>. Routes and rules can change; check at the stop.</p>
+<p><a class="btn" href="/guides/hcmc-metro/">Metro Line 1 guide →</a></p>
+</div>""" % (bc, faq, MONTH)
+    faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in BUS_FAQ]}
+    return page("/guides/getting-around-hcmc/", "Getting Around Ho Chi Minh City: Free Buses, Airport Bus, River Bus (2026) | HCMC Insider",
+                "How to get around Ho Chi Minh City as a visitor: free city buses until end of 2026 and how to tap in, airport buses 109 and 152, bus to Cholon and Cu Chi, Saigon river bus and sightseeing bus.",
+                body, [bld, faqld])
+
+
 def metro_page():
     stops = "".join('<li class="%s"><b>%s</b>%s%s</li>' % ("key" if k else "", E(n), '<span class="ug">underground</span>' if u else "",
                                                           ('<em>%s</em>' % E(t)) if t else "") for n, t, k, u in STOPS)
@@ -346,6 +397,7 @@ def metro_page():
 <div class="fact"><h3>Good to know</h3><ul><li>No eating, drinking or smoking in stations or on trains; no pets.</li><li>Large or bulky luggage may be refused. A carry-on is fine.</li><li>Line 1 does not go to the airport or Cholon yet. Line 2 (Ben Thanh – Tham Luong) started construction in January 2026.</li></ul></div>
 </div></div>
 <h2 class="h2s">Questions visitors ask</h2>%s
+<p><a class="btn" href="/guides/getting-around-hcmc/">Buses, airport and river bus →</a></p>
 <p class="small">Last checked: %s. Sources: <a href="https://www.sggp.org.vn/tphcm-ban-hanh-gia-ve-metro-so-1-ben-thanh-suoi-tien-post769364.html" target="_blank" rel="noopener">fares (SGGP)</a> · <a href="https://news.tuoitre.vn/ho-chi-minh-city-metro-line-adds-more-trips-extends-operating-hours-on-weekends-103250817102502158.htm" target="_blank" rel="noopener">hours (Tuoi Tre News)</a> · <a href="https://www.visa.com.vn/en_VN/about-visa/newsroom/press-releases/visa-offers-seamless-tap-to-ride-experiences-for-visa-cardholders-on-ho-chi-minh-city-metro-line-1.html" target="_blank" rel="noopener">tap to ride (Visa)</a>. Times and prices can change; check the signs at the station.</p>
 </div>""" % (bc, stops, faq, MONTH)
     faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
@@ -404,7 +456,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
-    urls = ["/", "/guides/", "/guides/hcmc-metro/"]
+    urls = ["/", "/guides/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
 
     # ---- place pages
     for p in places:
@@ -497,7 +549,7 @@ def main():
 </div>
 <h2 class="h2s">The places</h2>
 %s
-<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/hcmc-metro/">Metro guide</a></div></section>
+<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
 </div>""" % (bc, len(items), E(g["h1"]), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
               "".join("<li>%s</li>" % E(t) for t in g["tips"]), guide_cards(items), others)
         il = {"@context": "https://schema.org", "@type": "ItemList", "name": g["h1"], "itemListElement": [
@@ -507,16 +559,19 @@ def main():
         guides_out.append({"slug": g["slug"], "title": g["nav"], "count": len(items)})
 
     write("/guides/hcmc-metro/", metro_page())
+    write("/guides/getting-around-hcmc/", transport_page())
 
     # ---- guides index
     bc, bld = crumbs([("Home", "/"), ("Guides", None)])
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
         g["slug"], E(g["nav"]), E(g["desc"]), len(g["items"])) for g in GUIDES)
     gl += '<a class="gcard" href="/guides/hcmc-metro/"><strong>Metro guide</strong><span>Stations, fares, hours and paying with a foreign card on Metro Line 1.</span><em>Getting around</em></a>'
+    gl += '<a class="gcard" href="/guides/getting-around-hcmc/"><strong>Getting around</strong><span>Free city buses until end of 2026, airport buses 109 and 152, buses to Cholon and Cu Chi, the river bus and sightseeing bus.</span><em>Buses &amp; boats</em></a>'
     body = '<div class="wrap">%s<p class="kicker">Local guides</p><h1>Ho Chi Minh City guides by locals</h1><p class="lead">Food, markets and getting around in Ho Chi Minh City (Saigon), built from places local creators keep coming back to.</p><div class="ggrid">%s</div></div>' % (bc, gl)
     write("/guides/", page("/guides/", "Ho Chi Minh City (Saigon) Travel Guides by Locals | HCMC Insider",
                            "Local guides to Ho Chi Minh City: Cholon food, noodle soups, dim sum, vegetarian food, sweet soups, markets and the metro.", body, [bld]))
     guides_out.append({"slug": "hcmc-metro", "title": "Metro guide", "count": 0})
+    guides_out.append({"slug": "getting-around-hcmc", "title": "Buses & river bus", "count": 0})
 
     # ---- data.json: keep only real fields + slug + guides
     for p in places:
@@ -530,7 +585,7 @@ def main():
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
     dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1>'
-                '<h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li></ul><h2>Places</h2><ul>%s</ul></nav><!--/DIR--></div>') % (
+                '<h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2>Places</h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
     src, n = re.subn(r'<div id="root">.*?</div>(?=\n<div hidden>)', lambda m: dir_html, src, count=1, flags=re.S)
