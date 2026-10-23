@@ -199,7 +199,6 @@ def page(path, title, desc, body, jsonld=(), og_image=None):
 </main>
 {plan}
 {foot}
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "38c19ea9669e4382b52797002f590e63"}}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 """.format(title=E(title), desc=E(desc), url=url, og=og_image or SITE + "/og-image.png", ld=ld,
