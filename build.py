@@ -224,7 +224,8 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
     foot = ('<footer><div class="wrap"><a class="logo" href="/">%s<span>HCMC <b>Insider</b></span></a>'
             '<p>An independent guide to Ho Chi Minh City by locals. Videos belong to their creators; we only link to the original platforms. '
             'Places are suggestions, not endorsements: check opening hours before you go. '
-            '<a href="mailto:hello@hcmcinsider.com">hello@hcmcinsider.com</a> · <a href="/privacy">Privacy</a> · '
+            '<a href="mailto:hello@hcmcinsider.com">hello@hcmcinsider.com</a> · '
+            '<a href="https://x.com/HCMCInsider" target="_blank" rel="noopener me">X</a> · <a href="https://www.facebook.com/share/1JL6tXwJwd/" target="_blank" rel="noopener me">Facebook</a> · <a href="/privacy">Privacy</a> · '
             '<a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms</a></p></div></footer>') % logo_svg(28)
     return """<!doctype html>
 <html lang="en">
