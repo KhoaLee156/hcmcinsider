@@ -39,6 +39,9 @@ def dish_rules():
     return [(re.compile(p, re.I), label) for p, label in re.findall(r'\[/(.+?)/i,"(.+?)"\]', line)]
 
 
+# Update these dates when you edit the hand-written pages.
+STATIC_LASTMOD = {"/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-23"}
+THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
                "culture": "TouristAttraction", "stay": "LodgingBusiness", "other": "Place"}
@@ -127,6 +130,7 @@ def dir_link(p):
 
 
 TIPS = {}
+LABELS = {}
 
 
 def tips_html(p):
@@ -140,6 +144,58 @@ def tips_html(p):
     src = ", ".join(t.get("src") or [])
     return ('<section class="box ltips"><h2>Local tips</h2><dl>%s</dl><p class="small">From the video description%s by %s. '
             'Hours and prices change, so check before you go.</p></section>') % (dl, "s" if len(t.get("src") or []) > 1 else "", E(src))
+
+
+# Short, factual explainers per dish label (shown on place pages as "What is …?").
+DISH_INFO = {
+    "Herbal duck noodles": ("mì vịt tiềm", "Mì vịt tiềm is a Chinese-Vietnamese noodle soup: a duck leg slow-braised in a dark broth with Chinese medicinal herbs, served with springy egg noodles and greens. It is a Cholon classic, rich but not spicy."),
+    "Goat noodle soup": ("hủ tiếu dê", "Hủ tiếu dê is a Chinese-Vietnamese noodle soup with tender goat meat in a rich broth. It is a warming dish that Cholon families have cooked for generations."),
+    "Satay venison noodles": ("hủ tiếu sa tế nai", "Hủ tiếu sa tế nai is a Teochew-style noodle soup with venison in a red satay broth of chilli, peanut and aromatics. Expect gentle heat and a deep, nutty flavour."),
+    "Vegetarian": ("chay", "Chay means vegetarian, usually Buddhist-style: no meat, no fish sauce, and often no garlic or onion. Chay shops make noodle soups, rice plates and mock meats from tofu, mushrooms and wheat gluten. They are busiest on the 1st and 15th days of the lunar month."),
+    "Egg noodles & wontons": ("mì and hoành thánh", "Mì are thin, springy wheat-and-egg noodles brought to Saigon by Chinese families, usually served with wontons (hoành thánh), char siu pork or greens. Order them in soup, or khô (dry) with the broth on the side."),
+    "Hu tieu noodle soup": ("hủ tiếu", "Hủ tiếu is southern Vietnam's favourite noodle soup: rice noodles in a clear, slightly sweet pork-bone broth with pork, shrimp or offal. Nam Vang (Phnom Penh) style is the best known; hủ tiếu gõ is the cheap street-cart version, named after the knocking sound vendors make."),
+    "Wonton dumplings": ("sủi cảo", "Sủi cảo are plump Chinese dumplings, usually filled with shrimp and pork and served in a clear broth, sometimes with egg noodles."),
+    "Dim sum": ("dim sum (điểm tâm)", "Dim sum are small Cantonese dishes served in steamers or on plates: há cảo (har gow, shrimp dumplings), xíu mại (siu mai), buns and rice rolls. In Saigon it is mostly a morning and weekend meal, best shared."),
+    "Sweet soup desserts": ("chè", "Chè is the Vietnamese family of sweet soups and puddings: beans, jellies, lotus seeds, taro and fruit, served hot or over ice and often with coconut milk. Chinese-style shops in Cholon add desserts like black sesame soup and herbal jelly."),
+    "Chicken rice": ("cơm gà", "Cơm gà is chicken rice. Some shops serve Hainanese-style poached chicken over rice cooked in chicken stock; others make cơm gà xối mỡ, chicken fried until the skin crackles, with golden fried rice."),
+    "Braised pork rice": ("cơm with braised pork", "A Chinese-Vietnamese comfort plate: rice with slow-braised pork in a savoury, slightly sweet sauce, often with pickles and soup on the side."),
+    "Chinese-Vietnamese kitchen": ("Hoa cooking", "Cholon's family restaurants cook Teochew and Cantonese dishes for sharing: wok-fried noodles and rice, roast meats, seafood and soups. Go with a group and order several dishes."),
+    "Crab noodle soup": ("bánh canh cua", "Bánh canh cua is a thick, slightly chewy noodle soup in a rich, thickened crab broth, topped with crab meat and often quail eggs or pork."),
+    "Thick noodle soup": ("bánh canh", "Bánh canh is a noodle soup with thick, chewy noodles made from tapioca or rice flour, usually in a pork-bone broth."),
+    "Spicy Hue beef noodles": ("bún bò Huế", "Bún bò Huế comes from the old imperial city of Hue: round rice noodles in a beef broth scented with lemongrass and chilli, with beef shank and pork. It is spicier and punchier than pho."),
+    "Crab & tomato noodles": ("bún riêu", "Bún riêu is rice vermicelli in a tangy tomato broth with soft crab cakes, tofu and herbs. A popular breakfast and lunch dish."),
+    "Pho": ("phở", "Phở is the rice noodle soup Vietnam is famous for: beef or chicken broth simmered with star anise, cinnamon and charred onion, topped with sliced meat and fresh herbs."),
+    "Snails & shellfish": ("ốc", "Saigon's quán ốc are casual evening spots serving snails, clams and shellfish cooked with garlic, tamarind, chilli or coconut. Order several plates to share."),
+    "Crab soup": ("súp cua", "Súp cua is a thick crab soup with shredded crab meat, egg and sometimes fish maw. Locals eat it as an afternoon or evening snack."),
+    "Stuffed bitter melon": ("khổ qua nhồi", "Bitter melon stuffed with seasoned fish or pork paste is a Chinese-Vietnamese favourite. The bitterness softens as it cooks; many stalls serve it in a light broth with stuffed chillies."),
+    "Goat dishes": ("món dê", "Goat restaurants serve goat hotpot, grilled and stir-fried goat and goat curry, often cooked at the table for a group."),
+    "Mooncakes": ("bánh trung thu", "Mooncakes are rich baked or soft 'snow skin' cakes made for the Mid-Autumn Festival, with fillings like lotus seed, mung bean and salted egg yolk. Cholon's bakeries are busiest in the weeks before the festival."),
+    "Lantern street": ("phố lồng đèn", "Before the Mid-Autumn Festival, the streets around Lương Nhữ Học in Cholon fill with handmade and modern lanterns. It is one of Saigon's most colourful evening walks."),
+    "Herbal medicine street": ("phố thuốc Bắc", "Hải Thượng Lãn Ông street is lined with traditional Chinese medicine shops selling dried roots, herbs and tonics. Come for the smells, the old shopfronts and a glimpse of Cholon's trade history."),
+    "Local market": ("chợ", "Vietnamese markets are busiest and most interesting early in the morning, when locals shop for fresh food and stop for breakfast at the stalls."),
+    "Café": ("cà phê", "Vietnamese coffee is strong and usually drip-brewed in a phin filter. Try cà phê sữa đá (iced with condensed milk); old Cholon cafés still make cà phê vợt, filtered through a cloth sock."),
+}
+
+
+def nice_date(iso):
+    return datetime.date.fromisoformat(iso).strftime("%-d %B %Y")
+
+
+def dish_html(dish):
+    info = DISH_INFO.get(dish)
+    if not info:
+        return ""
+    term, text = info
+    return '<section class="box"><h2>What is %s?</h2><p>%s</p></section>' % (E(term), E(text))
+
+
+def richness(p):
+    """Rough content-depth score used to keep very thin pages out of the index until they have more data."""
+    t = TIPS.get(p["id"]) or {}
+    addr = t.get("addr") or p.get("addr") or ""
+    street = bool(re.match(r"\s*(\d|Đối diện|Opposite|Góc|Chợ )", addr)) and addr.strip() != "Chợ Lớn"
+    return (len(p.get("noteEn", "")) // 40 + 2 * len([k for k in ("hours", "price", "order", "note") if t.get(k)])
+            + (2 if street else 0) + min(len(p["_vids"]), 3))
 
 # ---------------------------------------------------------------- shared layout
 LOGO = None  # filled from favicon.svg
@@ -156,19 +212,19 @@ AFF = [("Get a Vietnam eSIM", "https://airalo.tpo.lu/KP1dEp49"),
        ("Food tours & day trips", "https://klook.tpo.lu/FZ8vNhYU")]
 
 
-def page(path, title, desc, body, jsonld=(), og_image=None):
+def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
     url = SITE + path
     ld = "".join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in jsonld)
     nav = ('<header class="nav"><div class="wrap"><a class="logo" href="/">%s<span>HCMC <b>Insider</b></span></a>'
            '<nav class="links" aria-label="Main"><a href="/#eat">Eat</a><a href="/guides/">Guides</a>'
-           '<a href="/guides/hcmc-metro/">Metro</a><a href="/#plan">Plan</a></nav></div></header>') % logo_svg()
+           '<a href="/guides/getting-around-hcmc/">Getting around</a><a href="/#plan">Plan</a></nav></div></header>') % logo_svg()
     plan = ('<aside class="plan"><div class="wrap"><p class="kicker">Plan your trip</p><div class="planrow">%s</div>'
             '<p class="small">Affiliate links: if you book, we may earn a small commission at no extra cost to you.</p></div></aside>'
             % "".join('<a href="%s" target="_blank" rel="sponsored noopener">%s ↗</a>' % (u, E(t)) for t, u in AFF))
     foot = ('<footer><div class="wrap"><a class="logo" href="/">%s<span>HCMC <b>Insider</b></span></a>'
             '<p>An independent guide to Ho Chi Minh City by locals. Videos belong to their creators; we only link to the original platforms. '
             'Places are suggestions, not endorsements: check opening hours before you go. '
-            '<a href="mailto:hello@hcmcinsider.com">hello@hcmcinsider.com</a> · <a href="/privacy.html">Privacy</a> · '
+            '<a href="mailto:hello@hcmcinsider.com">hello@hcmcinsider.com</a> · <a href="/privacy">Privacy</a> · '
             '<a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms</a></p></div></footer>') % logo_svg(28)
     return """<!doctype html>
 <html lang="en">
@@ -185,7 +241,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None):
 <meta property="og:image" content="{og}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0E6655">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{robots}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -202,7 +258,8 @@ def page(path, title, desc, body, jsonld=(), og_image=None):
 </body>
 </html>
 """.format(title=E(title), desc=E(desc), url=url, og=og_image or SITE + "/og-image.png", ld=ld,
-           nav=nav, body=body, plan=plan, foot=foot)
+           nav=nav, body=body, plan=plan, foot=foot,
+           robots=('<meta name="robots" content="%s">\n' % robots) if robots else "")
 
 
 def crumbs(items):
@@ -222,9 +279,9 @@ NOODLES = {"Hu tieu noodle soup", "Egg noodles & wontons", "Herbal duck noodles"
 
 GUIDES = [
     dict(slug="cholon-food-guide", nav="Cholon food guide",
-         title="Cholon Food Guide: Where to Eat in Saigon's Chinatown",
-         h1="Cholon food guide: where to eat in Saigon's Chinatown",
-         desc="Where locals eat in Cholon, Ho Chi Minh City's Chinatown: noodle carts, dim sum, herbal duck noodles, sweet soups and Chinese-Vietnamese kitchens, with Vietnamese names, addresses and directions.",
+         title="Cholon Food Guide: Where to Eat in Saigon Chinatown (District 5)",
+         h1="Cholon food guide: where to eat in Saigon Chinatown (Chợ Lớn)",
+         desc="Where locals eat in Cholon (Chợ Lớn), Saigon's Chinatown in Districts 5, 6 and 11: noodle carts, dim sum, herbal duck noodles, sweet soups and Chinese-Vietnamese kitchens, with Vietnamese names, addresses and directions.",
          pick=lambda p, d: p["cat"] == "food" and in_cholon(p),
          intro=["Cholon is Ho Chi Minh City's historic Chinatown, spread across the old Districts 5, 6 and 11. Families of Cantonese, Teochew, Hokkien, Hakka and Hainanese origin have cooked here for generations, and it is one of the best neighbourhoods in Vietnam to eat.",
                 "Expect tiny noodle shops that have done one dish for decades, dim sum halls that are busiest in the morning, herbal duck noodles, sweet-soup shops and family-run Chinese-Vietnamese kitchens. Most places are cheap, cash-friendly and have little English, so every spot below shows its Vietnamese name for you to show a driver or the cook."],
@@ -233,8 +290,8 @@ GUIDES = [
                "Carry small notes (10,000–100,000 dong). Many stalls take cash only.",
                "Ride-hailing apps are the easiest way to get there; Metro Line 1 does not reach Cholon yet."]),
     dict(slug="noodle-soups-ho-chi-minh-city", nav="Noodle soups",
-         title="Best Noodle Soups in Ho Chi Minh City, Picked by Locals",
-         h1="The best noodle soups in Ho Chi Minh City",
+         title="Best Noodle Soups in Saigon: Hu Tieu, Duck Noodles, Pho & More",
+         h1="Where to eat noodle soup in Saigon: hu tieu, duck noodles, pho and more",
          desc="Hu tieu, wonton egg noodles, herbal duck noodles, pho, spicy Hue beef noodles and more: local noodle shops in Ho Chi Minh City (Saigon) with addresses, directions and creator videos.",
          pick=lambda p, d: d in NOODLES,
          intro=["Noodle soup is breakfast, lunch and late-night food in Saigon. Pho gets the fame, but locals are just as loyal to hu tieu (a clear pork-and-seafood broth with rice noodles, often in Phnom Penh style), Chinese egg noodles with wontons, herbal duck noodles and spicy Hue-style beef noodles.",
@@ -243,8 +300,8 @@ GUIDES = [
                "Fresh herbs and chilli on the table are free; taste the broth before you add sauces.",
                "Popular carts sell out early, so go before noon for morning-only places."]),
     dict(slug="dim-sum-and-wontons-saigon", nav="Dim sum & wontons",
-         title="Dim Sum, Wontons and Egg Noodles in Saigon (Cholon)",
-         h1="Dim sum, wontons and egg noodles in Saigon",
+         title="Dim Sum in Saigon: Where Locals Go in Cholon (District 5)",
+         h1="Dim sum in Saigon: dumplings, wontons and egg noodles in Cholon",
          desc="Where to eat dim sum, har gow, wonton dumplings and Chinese egg noodles in Ho Chi Minh City's Cholon, with Vietnamese names, addresses and directions.",
          pick=lambda p, d: d in ("Dim sum", "Wonton dumplings", "Egg noodles & wontons"),
          intro=["Cantonese and Teochew families brought dim sum, wontons and springy egg noodles to Cholon, and the old shops still make them by hand. In Vietnamese you will see há cảo (har gow), xíu mại (siu mai), sủi cảo (wonton dumplings) and mì (egg noodles).",
@@ -253,8 +310,8 @@ GUIDES = [
                "Ask for 'mì khô' for dry egg noodles with soup on the side.",
                "Cash is the norm at older shops."]),
     dict(slug="chinese-vietnamese-restaurants-cholon", nav="Chinese-Vietnamese kitchens",
-         title="Chinese-Vietnamese Restaurants and Chicken Rice in Cholon",
-         h1="Chinese-Vietnamese kitchens and chicken rice in Cholon",
+         title="Chinese Restaurants in Saigon Chinatown & Cholon Chicken Rice",
+         h1="Chinese restaurants and chicken rice in Saigon Chinatown",
          desc="Old family restaurants in Cholon serving Teochew and Cantonese-style stir-fries, chicken rice and braised pork rice, with Vietnamese names, addresses and directions.",
          pick=lambda p, d: d in ("Chinese-Vietnamese kitchen", "Chicken rice", "Braised pork rice"),
          intro=["Beyond street stalls, Cholon is full of family restaurants cooking Teochew and Cantonese dishes for big tables: stir-fries, soups, roast meats and rice plates. Many have been run by the same family for decades.",
@@ -263,8 +320,8 @@ GUIDES = [
                "Lunch and early dinner are the busiest times.",
                "Ask the price of seafood dishes before ordering; they are often priced by weight."]),
     dict(slug="vegetarian-food-ho-chi-minh-city", nav="Vegetarian food",
-         title="Vegetarian Food in Ho Chi Minh City: Local Chay Shops",
-         h1="Vegetarian food in Ho Chi Minh City",
+         title="Vegetarian Food in Ho Chi Minh City: Local Chay Shops in Cholon",
+         h1="Vegetarian food in Ho Chi Minh City: where locals eat chay",
          desc="Local vegetarian (chay) noodle shops and kitchens in Ho Chi Minh City and Cholon, with Vietnamese names, addresses, directions and creator videos.",
          pick=lambda p, d: d == "Vegetarian",
          intro=["Eating vegetarian in Saigon is easy once you know the word chay. Buddhist vegetarian shops are everywhere in Cholon, serving noodle soups, rice plates and mock-meat dishes made from tofu, mushrooms and wheat gluten.",
@@ -273,7 +330,7 @@ GUIDES = [
                "Fish sauce is common in regular Vietnamese food; chay shops use soy sauce instead.",
                "Some charity kitchens serve free or pay-what-you-can meals: be respectful and leave room for those who need it."]),
     dict(slug="che-sweet-soup-saigon", nav="Sweet soups (chè)",
-         title="Chè: Where to Try Vietnamese Sweet Soups in Saigon",
+         title="Chè in Saigon: Where to Try Vietnamese Sweet Soup Desserts",
          h1="Chè: Vietnamese sweet soups in Saigon",
          desc="Where to eat chè, Vietnamese sweet soups and desserts, in Ho Chi Minh City's Cholon: old dessert shops with Vietnamese names, addresses and directions.",
          pick=lambda p, d: d == "Sweet soup desserts",
@@ -283,7 +340,7 @@ GUIDES = [
                "Mixed bowls let you try several toppings at once.",
                "Small shops are cash-only; a bowl usually costs less than a coffee in the city centre."]),
     dict(slug="cholon-markets-and-old-streets", nav="Markets & old streets",
-         title="Cholon Markets and Old Streets: Binh Tay, Lantern Street and More",
+         title="Cholon Markets: Binh Tay, Lantern Street & Saigon Chinatown Streets",
          h1="Markets and old streets of Cholon",
          desc="Binh Tay Market, Hoa Binh and Phung Hung markets, Lantern Street and the herbal medicine street: what to see in Cholon, Ho Chi Minh City, with directions.",
          pick=lambda p, d: p["cat"] in ("shop", "culture"),
@@ -293,6 +350,16 @@ GUIDES = [
                "Keep your phone and bag on the side away from passing motorbikes.",
                "Ask before photographing vendors, and buy a snack if you linger at a stall."]),
 ]
+
+
+def short_answer(items):
+    top = items[:3]
+    if len(top) < 2:
+        return ""
+    names = ['<a href="/places/%s/">%s</a> (%s)' % (p["slug"], E(p["_name"]), E(p["_dish"].lower() if p["_dish"] not in CATS.values() else p["_area"])) for p in top]
+    lst = ", ".join(names[:-1]) + " and " + names[-1]
+    return ('<div class="box answer"><p><strong>Short answer:</strong> if you only have time for a few, start with the spots local creators\' videos '
+            'have been watched most: %s. Every place below shows its Vietnamese name, address and directions.</p></div>' % lst)
 
 
 def guide_cards(items):
@@ -375,7 +442,7 @@ def transport_page():
 </div>""" % (bc, faq, MONTH)
     faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in BUS_FAQ]}
-    return page("/guides/getting-around-hcmc/", "Getting Around Ho Chi Minh City: Free Buses, Airport Bus, River Bus (2026) | HCMC Insider",
+    return page("/guides/getting-around-hcmc/", "Ho Chi Minh City Buses 2026: Airport to District 1, Free City Buses, River Bus | HCMC Insider",
                 "How to get around Ho Chi Minh City as a visitor: free city buses until end of 2026 and how to tap in, airport buses 109 and 152, bus to Cholon and Cu Chi, Saigon river bus and sightseeing bus.",
                 body, [bld, faqld])
 
@@ -434,6 +501,7 @@ def main():
         p["_area"] = area_of(p)
         p["_vids"] = vids.get(p["id"], [])
         p["_views"] = sum(int(v.get("views") or 0) for v in p["_vids"])
+        p["_updated"] = max([v.get("added") or "" for v in p["_vids"]] + ["2026-10-17"])
         yid = next((yt_id(v["url"]) for v in p["_vids"] if yt_id(v["url"])), "")
         p["_yt"] = yid
         p["_thumb"] = "https://i.ytimg.com/vi/%s/mqdefault.jpg" % yid if yid else ""
@@ -457,6 +525,7 @@ def main():
             f.write(text)
 
     urls = ["/", "/guides/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
+    thin_list, lastmod = [], {}
 
     # ---- place pages
     for p in places:
@@ -500,6 +569,7 @@ def main():
 %s
 %s
 %s
+%s
 </div>""" % (
             bc, E(dish), E(area), E(name), E(p["name"]),
             ('<p class="lead">%s</p>' % E(p["noteEn"])) if p.get("noteEn") else "",
@@ -507,9 +577,12 @@ def main():
             ('<a class="btn" href="%s" target="_blank" rel="noopener">Watch video</a>' % E(p["_vids"][0]["url"])) if p["_vids"] else "",
             hero, tips_html(p), E(p["name"]),
             ('<p class="addr" lang="vi">%s</p><p class="small">%s</p>' % (E(addr), E(addr_en(addr)))) if addr else "",
+            dish_html(dish),
             ('<section><h2 class="h2s">Creator videos</h2><div class="vlist">%s</div><p class="small">Videos belong to their creators and open on the original platform.</p></section>' % vl) if vl else "",
             ('<section><h2 class="h2s">In these guides</h2><div class="chips">%s</div></section>' % guides_links) if guides_links else "",
             ('<section><h2 class="h2s">More like this</h2>%s</section>' % guide_cards(related)) if related else "")
+        head, tail = body.rsplit("\n</div>", 1)
+        body = head + '\n<p class="small">Last updated: %s. Facts come from local creators\' videos and their descriptions; hours and prices change, so check before you go.</p>\n</div>' % nice_date(p["_updated"]) + tail
         ld = {"@context": "https://schema.org", "@type": SCHEMA_TYPE.get(p["cat"], "Place"), "name": name,
               "alternateName": p["name"], "url": SITE + "/places/%s/" % p["slug"]}
         if p.get("noteEn"):
@@ -522,11 +595,23 @@ def main():
         if p["cat"] == "food" and dish not in CATS.values():
             ld["servesCuisine"] = dish
         where = area if area != "Ho Chi Minh City" else "Saigon"
-        title = "%s – %s in %s | HCMC Insider" % (name, dish if dish not in CATS.values() else "local spot", where)
+        dish_words = set(re.findall(r"[a-z]+", dish.lower())) - {"and", "the"}
+        if dish in CATS.values() or dish_words & set(re.findall(r"[a-z]+", name.lower())):
+            title = "%s (%s), %s | HCMC Insider" % (name, p["name"], where) if p["name"] != name else "%s, %s | HCMC Insider" % (name, where)
+        else:
+            title = "%s – %s in %s | HCMC Insider" % (name, dish, where)
+        if len(title) > 70:
+            title = title.replace(" | HCMC Insider", "")
         desc = (p.get("noteEn") or "%s in %s." % (dish, area)).rstrip(".") + ". Vietnamese name, address, directions and local creator videos."
+        thin = richness(p) + (2 if dish in DISH_INFO else 0) < THIN
         write("/places/%s/" % p["slug"], page("/places/%s/" % p["slug"], title, desc[:300], body, [ld, bld],
-                                              og_image=(SITE + "/og/%s.jpg" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".jpg")) else None))
-        urls.append("/places/%s/" % p["slug"])
+                                              og_image=(SITE + "/og/%s.jpg" % p["slug"]) if os.path.exists(os.path.join(ROOT, "og", p["slug"] + ".jpg")) else None,
+                                              robots="noindex,follow" if thin else None))
+        if thin:
+            thin_list.append(p["slug"])
+        else:
+            urls.append("/places/%s/" % p["slug"])
+        lastmod["/places/%s/" % p["slug"]] = p["_updated"]
 
     # ---- share-card data for tools/og-cards.js
     os.makedirs(os.path.join(ROOT, "og"), exist_ok=True)
@@ -540,22 +625,28 @@ def main():
         items = g["items"]
         bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), (g["nav"], None)])
         others = "".join('<a class="chip" href="/guides/%s/">%s</a>' % (o["slug"], E(o["nav"])) for o in GUIDES if o is not g)
+        g_updated = max([p["_updated"] for p in items] + ["2026-10-23"])
         body = """<div class="wrap">%s
 <div class="narrow0">
-<p class="kicker">Local guide · %d places</p>
+<p class="kicker">Local guide · %d places · updated %s</p>
 <h1>%s</h1>
+%s
 %s
 <div class="box tips"><h2>Before you go</h2><ul>%s</ul></div>
 </div>
 <h2 class="h2s">The places</h2>
 %s
 <section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
-</div>""" % (bc, len(items), E(g["h1"]), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
+</div>""" % (bc, len(items), nice_date(g_updated), E(g["h1"]), short_answer(items), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
               "".join("<li>%s</li>" % E(t) for t in g["tips"]), guide_cards(items), others)
-        il = {"@context": "https://schema.org", "@type": "ItemList", "name": g["h1"], "itemListElement": [
-            {"@type": "ListItem", "position": i + 1, "url": SITE + "/places/%s/" % p["slug"], "name": p["_name"]} for i, p in enumerate(items)]}
+        il = {"@context": "https://schema.org", "@type": "CollectionPage", "name": g["h1"], "url": SITE + "/guides/%s/" % g["slug"],
+              "description": g["desc"], "inLanguage": "en", "dateModified": g_updated,
+              "publisher": {"@type": "Organization", "name": "HCMC Insider", "url": SITE + "/"},
+              "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": [
+                  {"@type": "ListItem", "position": i + 1, "url": SITE + "/places/%s/" % p["slug"], "name": p["_name"]} for i, p in enumerate(items)]}}
         write("/guides/%s/" % g["slug"], page("/guides/%s/" % g["slug"], g["title"] + " | HCMC Insider", g["desc"], body, [bld, il]))
         urls.append("/guides/%s/" % g["slug"])
+        lastmod["/guides/%s/" % g["slug"]] = g_updated
         guides_out.append({"slug": g["slug"], "title": g["nav"], "count": len(items)})
 
     write("/guides/hcmc-metro/", metro_page())
@@ -575,6 +666,9 @@ def main():
 
     # ---- data.json: keep only real fields + slug + guides
     for p in places:
+        p_dish, p_area = p["_dish"], p["_area"]
+        LABELS[p["id"]] = (p_dish, p_area)
+    for p in places:
         for k in [k for k in p if k.startswith("_")]:
             del p[k]
     d["guides"] = guides_out
@@ -584,18 +678,49 @@ def main():
     # ---- crawlable directory inside #root of index.html (replaced by the app on load)
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
-    dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1>'
+    dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1><p>HCMC Insider is an independent English guide to Ho Chi Minh City (Saigon) by locals. It lists NPLACES food spots, markets and sights, mostly in Cholon (Saigon Chinatown), each with its Vietnamese name, address, directions and links to local creators\' videos, plus practical guides to the metro, free city buses and the airport bus.</p>'
                 '<h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2>Places</h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
+    dir_html = dir_html.replace("NPLACES", str(len(places)), 1)
     src, n = re.subn(r'<div id="root">.*?</div>(?=\n<div hidden>)', lambda m: dir_html, src, count=1, flags=re.S)
     assert n == 1, "root div not found"
     open(idx_path, "w", encoding="utf-8").write(src)
 
+    # ---- llms.txt (for AI assistants)
+    L = ["# HCMC Insider", "",
+         "> An independent English guide to Ho Chi Minh City (Saigon), Vietnam, written by locals for international visitors. "
+         "It covers where locals eat (mostly Cholon, Saigon's Chinatown, in old Districts 5, 6 and 11), markets and old streets, "
+         "and practical transport: Metro Line 1, free city buses (until 31 Dec 2026), airport buses and the river bus.", "",
+         "Every place page gives the English and Vietnamese name, address, directions, local tips taken from creators' video descriptions "
+         "(hours, prices, what to order) and links to the original YouTube videos. Facts are checked against creators' descriptions and "
+         "Vietnamese news sources; each page shows when it was last updated. Contact: hello@hcmcinsider.com", "",
+         "## Guides", ""]
+    L += ["- [%s](%s/guides/%s/): %s" % (g["title"], SITE, g["slug"], g["desc"]) for g in GUIDES]
+    L += ["- [Ho Chi Minh City metro guide](%s/guides/hcmc-metro/): Metro Line 1 stations, fares, opening hours and paying with a foreign bank card." % SITE,
+          "- [Getting around Ho Chi Minh City](%s/guides/getting-around-hcmc/): free city buses in 2026 and how to tap in, airport buses 109 and 152, buses to Cholon and Cu Chi, Saigon river bus." % SITE,
+          "", "## Places", ""]
+    for p in places_sorted:
+        if p["slug"] in thin_list:
+            continue
+        L.append("- [%s (%s)](%s/places/%s/): %s, %s. %s" % (p.get("nameEn") or p["name"], p["name"], SITE, p["slug"],
+                                                          LABELS[p["id"]][0], LABELS[p["id"]][1], p.get("noteEn", "")))
+    L += ["", "## Optional", "", "- [All guides](%s/guides/)" % SITE, "- [Privacy](%s/privacy)" % SITE, ""]
+    open(os.path.join(ROOT, "llms.txt"), "w", encoding="utf-8").write("\n".join(L))
+    open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(
+        "# Search engines and AI assistants are welcome to read and cite this site.\n"
+        "User-agent: *\nAllow: /\n\n"
+        "User-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\n"
+        "User-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\n"
+        "Sitemap: %s/sitemap.xml\n" % SITE)
+
     # ---- sitemap
-    urls.append("/privacy.html")
+    urls.append("/privacy")
+    newest = max(lastmod.values())
+    if thin_list:
+        print("noindex (thin, add tips or a better description to publish):", ", ".join(thin_list))
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % "".join(
-        "  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>\n" % (SITE, u, TODAY) for u in urls)
+        "  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>\n" % (SITE, u, lastmod.get(u) or STATIC_LASTMOD.get(u) or newest) for u in urls)
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(sm)
     print("built %d place pages, %d guides, %d urls in sitemap" % (len(places), len(GUIDES) + 1, len(urls)))
 

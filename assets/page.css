@@ -137,3 +137,5 @@ footer{background:var(--surface);border-top:1px solid var(--line)}
 footer .wrap{padding-block:26px 40px;display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:space-between;font-size:14px;color:var(--muted)}
 footer p{margin:0;max-width:62ch}
 :focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+.box.answer{margin-top:4px;margin-bottom:14px;border-left:5px solid var(--jade);background:var(--jade-soft);border-color:var(--jade)}
+.box.answer p{margin:0;font-size:16.5px;line-height:1.6}
