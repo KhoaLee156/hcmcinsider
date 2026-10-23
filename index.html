@@ -183,6 +183,34 @@ details.vids[open] summary::after{transform:rotate(180deg)}
 .busbar strong{font-size:17px}
 .busbar span{font-size:14.5px;color:var(--muted)}
 .busbar:hover{border-color:var(--amber)}
+/* wide screens: side rail next to the places grid */
+.rail{display:none}
+@media (min-width:1400px){
+  .wrap{max-width:1520px}
+  .eatlay{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+  .rail{display:grid;gap:14px;position:sticky;top:140px;max-height:calc(100vh - 156px);overflow:auto;scrollbar-width:none;padding-bottom:4px}
+}
+.rcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:6px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink)}
+.rcard .kicker{margin:0}
+.rplan{background:linear-gradient(160deg,#0E6655,#083C33);border:0;color:#fff;gap:8px}
+.rplan .kicker{color:#FFD08A}
+.rtitle{font-size:18px;line-height:1.2;margin-bottom:4px}
+.rrow{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:9px 10px;text-decoration:none;color:#fff;transition:background .15s}
+.rrow:hover{background:rgba(255,255,255,.16)}
+.rrow i{width:40px;height:40px;border-radius:10px;background:var(--pcol);display:grid;place-items:center}
+.rrow svg{width:22px;height:22px}
+.rrow b{display:block;font-size:14.5px;line-height:1.25}
+.rrow em{font-style:normal;font-size:12.5px;color:#FFD08A}
+.rmore{color:#fff;font-weight:700;font-size:14px;text-decoration:none;margin-top:2px}
+.rmore:hover{text-decoration:underline}
+.rnote{margin:0;font-size:11.5px;color:rgba(255,255,255,.65)}
+.rlink{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px}
+.rlink:first-of-type{border-top:0}
+.rlink:hover{color:var(--jade)}
+.rlink span{color:var(--muted);font-weight:500;font-size:13px}
+.rask{background:var(--amber-soft);border-color:color-mix(in srgb,var(--amber) 45%,var(--line))}
+.rask b{font-size:15.5px}
+.rask span{font-weight:700;color:var(--jade);font-size:14px}
 /* tips */
 .tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:16px}
 .tip{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:8px;align-content:start}
@@ -415,9 +443,12 @@ function render(){
     {step:"1 · Before you fly",col:"#2C6FD1",ic:"sim",t:"Get an eSIM before you land",b:["Data the moment the plane lands","Ride-hailing and maps work right away","Install at home, switch on after landing"],l:[["Get Vietnam eSIM – Airalo","https://airalo.tpo.lu/KP1dEp49"],["Compare: Saily","https://saily.tpo.lu/THj5dEjG"]]},
     {step:"2 · When you land",col:"#E8901A",ic:"plane",t:"Airport pickup",b:["Driver waits with your name at arrivals","Fixed price agreed before you fly","Tan Son Nhat to District 1: about 20–45 min"],l:[["Book a transfer – Kiwitaxi","https://kiwitaxi.tpo.lu/cz2amFE5"],["Compare: Welcome Pickups","https://tpo.lu/X74r1v7P"]]},
     {step:"3 · During your stay",col:"#E2572F",ic:"pin",t:"Day trips and food tours",b:["Cu Chi Tunnels: half day, go early","Mekong Delta: full day","Evening street-food tour by motorbike"],l:[["See tours – Klook","https://klook.tpo.lu/FZ8vNhYU"],["Compare: KKday","https://kkday.tpo.lu/OXMmolqt"]]},
-    {step:"4 · On your last day",col:"#6A4BC4",ic:"bag",t:"Store your bags",b:["Checked out at noon, flying at night?","Leave luggage at a nearby shop or hotel","Spend the afternoon eating, not dragging a suitcase"],l:[["Find luggage storage","https://radicalstorage.tpo.lu/xhWH7Ifs"]]}
+    {step:"4 · On your last day",col:"#6A4BC4",ic:"bag",t:"Store your bags",b:["Checked out at noon, flying at night?","Leave luggage at a nearby shop or hotel","Spend the afternoon eating, not dragging a suitcase"],l:[["Find storage – Radical Storage","https://radicalstorage.tpo.lu/xhWH7Ifs"]]}
   ];
   var planHtml=PLAN.map(function(t){return '<div class="pc" style="--pcol:'+t.col+'"><div class="band"><span class="step">'+t.step+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+PI[t.ic]+'</svg></div><div class="body"><h3>'+t.t+'</h3><ul>'+t.b.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul><div class="go">'+t.l.map(function(l,i){return '<a class="'+(i?'alt':'pri')+'" href="'+l[1]+'" target="_blank" rel="sponsored noopener">'+l[0]+' ↗</a>'}).join("")+'</div></div></div>'}).join("");
+  var railHtml='<aside class="rail" aria-label="Trip planner"><div class="rcard rplan"><p class="kicker">Plan your trip</p><strong class="rtitle">Sorted before you arrive</strong>'+PLAN.map(function(t){return '<a class="rrow" href="'+t.l[0][1]+'" target="_blank" rel="sponsored noopener" style="--pcol:'+t.col+'"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+PI[t.ic]+'</svg></i><span><b>'+t.t+'</b><em>'+t.step.replace(/^\d+ · /,"")+' · '+t.l[0][0].split(" – ").pop()+' ↗</em></span></a>'}).join("")+'<a class="rmore" href="#plan">Compare options →</a><p class="rnote">Affiliate links: same price for you, a small commission for us.</p></div>'+
+    (STATE.guides&&STATE.guides.length?'<div class="rcard"><p class="kicker">Local guides</p>'+STATE.guides.map(function(g){return '<a class="rlink" href="/guides/'+esc(g.slug)+'/">'+esc(g.title)+(g.count?'<span>'+g.count+'</span>':'')+'</a>'}).join("")+'</div>':'')+
+    '<a class="rcard rask" href="#ask"><b>Got a question about Saigon?</b><span>Ask a local →</span></a></aside>';
   var html=
   '<header class="nav"><div class="wrap"><a class="logo" href="#top">'+LOGO+'<span>HCMC <b>Insider</b></span></a><nav class="links" aria-label="Main"><a href="#eat">Eat</a><a href="#map">Map</a><a href="#plan">Plan</a><a href="#move">Getting around</a><a href="/guides/">Guides</a><a href="#tips">Tips</a><a href="#ask">Ask a local</a></nav><a class="cta" href="#eat">Explore</a></div></header>'+
   '<section class="hero" id="top"><div class="wrap"><div><p class="eyebrow">Ho Chi Minh City (Saigon) · by locals</p><h1>Eat, explore and wander like a <span>local</span>.</h1><p class="lede">Hand-picked noodle stalls, dim sum halls, sweet-soup shops and old markets, found through '+nC+' local food creators and explained in plain English.</p>'+
@@ -426,8 +457,8 @@ function render(){
    '<ul class="trust"><li>'+STATE.places.length+' places, '+STATE.videos.length+' creator videos</li><li>English descriptions</li><li>Independent: no paid rankings</li></ul></div>'+
    '<div class="mosaic">'+mos.map(function(p){return '<button class="tile" data-go="'+esc(p.id)+'" style="--cc:'+cc(p.cat)+'">'+thumbHtml(p,dishEn(p))+'<span>'+esc(pName(p))+'</span></button>'}).join("")+'<div class="badge">'+compact(top.reduce(function(s,p){return s+viewsOf(p.id)},0))+' views of local reviews</div></div></div></section>'+
   '<div class="bar"><div class="wrap">'+chips+'</div></div>'+
-  '<section class="sec" id="eat"><div class="wrap"><div class="sec-head"><div><p class="kicker">Where to eat</p><h2>Places locals film and love</h2><p class="sub">Sorted by how many people watched the creators’ reviews. Tap a photo to watch, or Directions to go.</p></div></div><div class="grid">'+cards+'</div>'+
-   (list.length>ui.shown?'<div class="more-wrap"><button class="btn" id="more">Show '+Math.min(PAGE,list.length-ui.shown)+' more of '+(list.length-ui.shown)+'</button></div>':'')+'</div></section>'+
+  '<section class="sec" id="eat"><div class="wrap wide"><div class="eatlay"><div class="eatmain"><div class="sec-head"><div><p class="kicker">Where to eat</p><h2>Places locals film and love</h2><p class="sub">Sorted by how many people watched the creators’ reviews. Tap a photo to watch, or Directions to go.</p></div></div><div class="grid">'+cards+'</div>'+
+   (list.length>ui.shown?'<div class="more-wrap"><button class="btn" id="more">Show '+Math.min(PAGE,list.length-ui.shown)+' more of '+(list.length-ui.shown)+'</button></div>':'')+'</div>'+railHtml+'</div></div></section>'+
   '<section class="sec" id="map"><div class="wrap"><div class="sec-head"><div><p class="kicker">Map</p><h2>See what’s near you</h2><p class="sub">'+list.filter(hasXY).length+' of '+list.length+' places pinned so far. We add more every week.</p></div></div><div class="mapcard"><div id="mapslot"></div><div class="legend">'+CATS.slice(0,4).map(function(c){return '<span><i style="background:'+cc(c.k)+'"></i>'+c.en+'</span>'}).join("")+'</div></div></div></section>'+
   '<section class="sec" id="plan"><div class="wrap"><div class="sec-head"><div><p class="kicker">Plan your trip</p><h2>Sorted before you arrive</h2><p class="sub">Four small bookings that make your first and last day in Saigon much easier.</p></div></div><div class="plan">'+planHtml+'</div><p class="aff-note">Affiliate links: you book on the partner\'s site at their normal price, and we may earn a small commission. It helps keep this guide free.</p></div></section>'+
   '<section class="sec" id="move"><div class="wrap"><div class="sec-head"><div><p class="kicker">Getting around</p><h2>Ride the metro</h2></div></div>'+metroHtml+'<a class="busbar" href="/guides/getting-around-hcmc/"><strong>🚌 City buses are free until 31 Dec 2026</strong><span>Tap a contactless card to check in. Airport buses 109 and 152, buses to Cholon and Cu Chi, the river bus and more →</span></a></div></section>'+
