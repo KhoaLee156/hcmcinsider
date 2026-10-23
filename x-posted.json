@@ -1,6 +1,16 @@
 {
- "rounds": 1,
- "posted": [
+ "place": {
+  "round": 1,
+  "used": [
+   "ro1epl3",
+   "0nw7att",
+   "aatdfka",
+   "mv4ucd9",
+   "pmxdref",
+   "8n7jm9w"
+  ]
+ },
+ "history": [
   {
    "id": "ro1epl3",
    "date": "2026-10-23",
@@ -25,6 +35,24 @@
    "id": "pmxdref",
    "date": "2026-10-23",
    "round": 1
+  },
+  {
+   "date": "2026-10-24",
+   "place": "8n7jm9w",
+   "tip": "cholon",
+   "question": "breakfast"
   }
- ]
+ ],
+ "tip": {
+  "round": 1,
+  "used": [
+   "cholon"
+  ]
+ },
+ "question": {
+  "round": 1,
+  "used": [
+   "breakfast"
+  ]
+ }
 }
