@@ -1,0 +1,217 @@
+{
+ "_about": "Rotation seeds for the daily non-place X posts. Facts here are already on hcmcinsider.com; posts must not add new facts.",
+ "tips": [
+  {
+   "id": "metro-pay",
+   "topic": "Paying for Metro Line 1",
+   "facts": "Tap a contactless Visa, Mastercard, JCB, Amex or UnionPay card, Apple Pay or Samsung Pay at the gate; tap out with the same card. Single trip 7,000–20,000 dong; 1-day pass 40,000; 3-day pass 90,000.",
+   "link": "hcmcinsider.com/guides/hcmc-metro/"
+  },
+  {
+   "id": "metro-hours",
+   "topic": "Metro Line 1 hours",
+   "facts": "Mon–Fri 5am–10pm, weekends and holidays until 11pm. Trains every 6–8 min at rush hour, 10–12 min otherwise. Ben Thanh to Suoi Tien in about 30 min.",
+   "link": "hcmcinsider.com/guides/hcmc-metro/"
+  },
+  {
+   "id": "free-bus",
+   "topic": "City buses are free until 31 Dec 2026",
+   "facts": "134 city bus routes are free until 31 Dec 2026. Since 1 Oct, tap a contactless card or phone when boarding to record the trip; nothing is charged.",
+   "link": "hcmcinsider.com/guides/getting-around-hcmc/"
+  },
+  {
+   "id": "airport-bus",
+   "topic": "Airport to the city by bus",
+   "facts": "Bus 152 runs from Tan Son Nhat airport via Ben Thanh Market; bus 109 goes to Saigon bus station near Ben Thanh. Both are on the city's free-fare list until 31 Dec 2026.",
+   "link": "hcmcinsider.com/guides/getting-around-hcmc/"
+  },
+  {
+   "id": "river-bus",
+   "topic": "Saigon river bus",
+   "facts": "From Bach Dang pier in District 1 towards Linh Dong, about 15,000 dong a trip, first boats from 8:30am. Great skyline views.",
+   "link": "hcmcinsider.com/guides/getting-around-hcmc/"
+  },
+  {
+   "id": "cu-chi-bus",
+   "topic": "Cu Chi Tunnels by public bus",
+   "facts": "Bus 13 from Saigon bus station to Cu Chi bus station, then bus 79 to Ben Duoc. Allow 2+ hours each way; most visitors take a tour.",
+   "link": "hcmcinsider.com/guides/getting-around-hcmc/"
+  },
+  {
+   "id": "crossing",
+   "topic": "Crossing the street",
+   "facts": "Walk at a slow, steady pace and don't stop suddenly. Riders steer around you. Raise a hand to be seen.",
+   "link": "hcmcinsider.com/#tips"
+  },
+  {
+   "id": "cash",
+   "topic": "Cash and QR",
+   "facts": "Small stalls take cash in dong; many shops accept bank-app QR. Keep small notes: 10,000–50,000 dong covers most street dishes.",
+   "link": "hcmcinsider.com/#tips"
+  },
+  {
+   "id": "snatch",
+   "topic": "Phone safety",
+   "facts": "Phone and bag snatching from passing motorbikes happens. Keep your phone away from the street side and bags zipped and across your body.",
+   "link": "hcmcinsider.com/guides/getting-around-hcmc/"
+  },
+  {
+   "id": "temples",
+   "topic": "Visiting temples and assembly halls",
+   "facts": "Cover shoulders and knees, take off your hat, speak softly, and ask before photographing people praying.",
+   "link": "hcmcinsider.com/#tips"
+  },
+  {
+   "id": "street-food-safe",
+   "topic": "Street food, safely",
+   "facts": "Choose busy stalls where food is cooked in front of you. Drink bottled water. Start with cooked dishes like noodle soups.",
+   "link": "hcmcinsider.com/#tips"
+  },
+  {
+   "id": "emergency",
+   "topic": "Emergency numbers",
+   "facts": "113 police, 114 fire, 115 ambulance, free from any phone in Vietnam. Ask your hotel or a shop owner to call if you don't speak Vietnamese.",
+   "link": "hcmcinsider.com/#tips"
+  },
+  {
+   "id": "rain",
+   "topic": "Rainy season",
+   "facts": "May to November usually brings short, heavy afternoon showers rather than all-day rain. Carry a light rain jacket.",
+   "link": "hcmcinsider.com/#ask"
+  },
+  {
+   "id": "chay",
+   "topic": "Eating vegetarian",
+   "facts": "Look for 'chay' (vegetarian). Chay shops are busiest on the 1st and 15th days of the lunar month; some only open on those days.",
+   "link": "hcmcinsider.com/guides/vegetarian-food-ho-chi-minh-city/"
+  },
+  {
+   "id": "esim",
+   "topic": "Get an eSIM before you land",
+   "facts": "Install an eSIM at home and switch it on after landing so ride-hailing and maps work right away.",
+   "link": "hcmcinsider.com/#plan"
+  },
+  {
+   "id": "bags",
+   "topic": "Late flight? Store your bags",
+   "facts": "Checked out at noon but flying at night? Leave luggage at a storage spot and spend the afternoon eating instead of dragging a suitcase.",
+   "link": "hcmcinsider.com/#plan"
+  },
+  {
+   "id": "saigon-name",
+   "topic": "Saigon or Ho Chi Minh City?",
+   "facts": "The official name is Ho Chi Minh City (HCMC). Many locals still say Saigon, especially for the old centre; you'll see both on signs and maps.",
+   "link": "hcmcinsider.com/#ask"
+  },
+  {
+   "id": "cholon",
+   "topic": "What is Cholon?",
+   "facts": "Cholon is Ho Chi Minh City's historic Chinatown, around the old Districts 5, 6 and 11: noodle shops, dim sum, herbal duck noodles, sweet soups, old markets and Chinese assembly halls.",
+   "link": "hcmcinsider.com/guides/cholon-food-guide/"
+  },
+  {
+   "id": "tipping",
+   "topic": "Should I tip?",
+   "facts": "Tipping isn't expected at local eateries; it's appreciated at spas, on tours and in upscale restaurants.",
+   "link": "hcmcinsider.com/#ask"
+  }
+ ],
+ "dishes": "Use build.py DISH_INFO: one dish explainer per day as a tip ('What is mì vịt tiềm?'), linking to the matching guide.",
+ "questions": [
+  {
+   "id": "first-dish",
+   "q": "First meal in Saigon: what are you having?",
+   "options": [
+    "Phở",
+    "Bánh mì",
+    "Hủ tiếu",
+    "Dim sum"
+   ]
+  },
+  {
+   "id": "breakfast",
+   "q": "Saigon breakfast: which team are you?",
+   "options": [
+    "Noodle soup",
+    "Bánh mì",
+    "Sticky rice",
+    "Just coffee"
+   ]
+  },
+  {
+   "id": "coffee",
+   "q": "Vietnamese coffee order?",
+   "options": [
+    "Cà phê sữa đá",
+    "Black iced coffee",
+    "Egg coffee",
+    "Coconut coffee"
+   ]
+  },
+  {
+   "id": "getting-around",
+   "q": "How do you get around Saigon?",
+   "options": [
+    "Ride-hailing app",
+    "Metro",
+    "City bus",
+    "Walk everywhere"
+   ]
+  },
+  {
+   "id": "heat",
+   "q": "Saigon heat strategy?",
+   "options": [
+    "Early mornings",
+    "Cafés all afternoon",
+    "Mall hopping",
+    "Embrace the sweat"
+   ]
+  },
+  {
+   "id": "dessert",
+   "q": "Have you tried chè (Vietnamese sweet soup)?",
+   "options": [
+    "Yes, love it",
+    "Not yet",
+    "Never heard of it",
+    "Hot or cold?"
+   ]
+  },
+  {
+   "id": "cholon-visit",
+   "q": "Have you been to Cholon, Saigon's Chinatown?",
+   "options": [
+    "Yes!",
+    "Planning to",
+    "What's Cholon?",
+    "Only Ben Thanh so far"
+   ]
+  },
+  {
+   "id": "street-food",
+   "q": "Street food in a new country: you…",
+   "options": [
+    "Dive straight in",
+    "Follow the busiest stall",
+    "Ask locals first",
+    "Stick to restaurants"
+   ]
+  },
+  {
+   "id": "noodles",
+   "q": "Best noodle soup in Vietnam?",
+   "options": [
+    "Phở",
+    "Bún bò Huế",
+    "Hủ tiếu",
+    "Bún riêu"
+   ]
+  },
+  {
+   "id": "open-q",
+   "q": "What's one thing you wish you'd known before your first trip to Ho Chi Minh City?",
+   "options": []
+  }
+ ]
+}
