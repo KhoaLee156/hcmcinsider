@@ -215,13 +215,13 @@ AFF = [("Get a Vietnam eSIM", "https://airalo.tpo.lu/KP1dEp49"),
 def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
     url = SITE + path
     ld = "".join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in jsonld)
-    nav = ('<header class="nav"><div class="wrap"><a class="logo" href="/">%s<span>HCMC <b>Insider</b></span></a>'
+    nav = ('<header class="nav"><div class="wrap"><a class="logo" href="/" aria-label="HCMC Insider home">%s<span>HCMC <b>Insider</b></span></a>'
            '<nav class="links" aria-label="Main"><a href="/#eat">Eat</a><a href="/guides/">Guides</a>'
            '<a href="/guides/getting-around-hcmc/">Getting around</a><a href="/#plan">Plan</a></nav></div></header>') % logo_svg()
     plan = ('<aside class="plan"><div class="wrap"><p class="kicker">Plan your trip</p><div class="planrow">%s</div>'
             '<p class="small">Affiliate links: if you book, we may earn a small commission at no extra cost to you.</p></div></aside>'
             % "".join('<a href="%s" target="_blank" rel="sponsored noopener">%s ↗</a>' % (u, E(t)) for t, u in AFF))
-    foot = ('<footer><div class="wrap"><a class="logo" href="/">%s<span>HCMC <b>Insider</b></span></a>'
+    foot = ('<footer><div class="wrap"><a class="logo" href="/" aria-label="HCMC Insider home">%s<span>HCMC <b>Insider</b></span></a>'
             '<p>An independent guide to Ho Chi Minh City by locals. Videos belong to their creators; we only link to the original platforms. '
             'Places are suggestions, not endorsements: check opening hours before you go. '
             '<a href="mailto:hello@hcmcinsider.com">hello@hcmcinsider.com</a> · '

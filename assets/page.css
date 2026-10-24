@@ -91,7 +91,7 @@ h3{margin:0;font-size:17px;line-height:1.25;font-weight:800}
 .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .thumb .ph{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.05em;text-transform:uppercase;padding:0 12px;text-align:center}
 .pbody{padding:14px 16px 16px;display:grid;gap:3px}
-.pbody .dish{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cc)}
+.pbody .dish{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--cc) 72%,var(--ink))}
 .pbody .vn{font-size:14px;color:var(--muted)}
 .pbody .area{font-size:13.5px;color:var(--muted)}
 .pbody p{margin:6px 0 0;font-size:14.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
