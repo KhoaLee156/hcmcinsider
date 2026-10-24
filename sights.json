@@ -1,0 +1,361 @@
+{
+ "_about": "See & Do pages. Facts are checked against the listed sources; update 'checked' when re-verifying. photos: [] until we have our own (or verified-licence) photos: {src, alt, credit}.",
+ "sights": [
+  {
+   "slug": "notre-dame-cathedral-saigon",
+   "name": "Saigon Notre-Dame Cathedral",
+   "vn": "Nhà thờ Chính tòa Đức Bà Sài Gòn",
+   "kicker": "Landmark · District 1",
+   "area": "District 1 (city centre)",
+   "addr": "01 Công xã Paris, phường Sài Gòn (Quận 1 cũ)",
+   "short": "Yes, go, but mostly for the outside for now. The red-brick cathedral has been under a major restoration since 2017 and is wrapped in scaffolding; inside access has been limited to Mass and registered groups. It sits right next to the Central Post Office, so see both in one stop.",
+   "why": [
+    "Built from 1877 to 1880 with materials shipped from Europe, it is Saigon's best-known colonial landmark and still a working cathedral.",
+    "In March 2026 two gilded crosses, each about 3.7 m tall and 400 kg, were lifted to the top of the bell tower, one of the restoration's big milestones.",
+    "The square in front, with the statue of the Virgin Mary, is a classic photo spot and a short walk from Nguyen Hue and Ben Thanh Market."
+   ],
+   "status": "Restoration began in July 2017, led by Belgium's Monument group. The original 2027 target will not be met because many parts are badly damaged; no new completion date has been given (Dân Trí, March 2026). In December 2025, the inside was open for Mass at 5:30 am and 5:30 pm and for registered pilgrim groups, but not yet for general sightseeing (Thanh Niên). Check at the gate when you visit.",
+   "facts": [
+    [
+     "Inside",
+     "Mass (5:30 am and 5:30 pm daily, as of Dec 2025) and registered groups; general visits not yet reopened"
+    ],
+    [
+     "Outside",
+     "Free, any time"
+    ],
+    [
+     "Time needed",
+     "20–30 minutes, more with the Post Office"
+    ]
+   ],
+   "getting": [
+    "Metro Line 1: Opera House station, about a 10-minute walk.",
+    "City buses are free until 31 Dec 2026; many routes stop around Ben Thanh, about 15 minutes on foot.",
+    "Ride-hailing: ask for “Nhà thờ Đức Bà”."
+   ],
+   "tips": [
+    "Come early morning or late afternoon for softer light and fewer tour groups.",
+    "If you go in for Mass, cover shoulders and knees and stay quiet; photos during services are not appropriate.",
+    "The square is ringed by busy traffic: cross with the steady, slow walk locals use."
+   ],
+   "nearby_sights": [
+    "saigon-central-post-office",
+    "nguyen-hue-walking-street",
+    "ben-thanh-market"
+   ],
+   "nearby_places": [],
+   "tour": true,
+   "sources": [
+    [
+     "Dân Trí, March 2026",
+     "https://dantri.com.vn/thoi-su/nha-tho-duc-ba-sai-gon-sau-gan-mot-thap-ky-trung-tu-20260320115949442.htm"
+    ],
+    [
+     "Thanh Niên, December 2025",
+     "https://thanhnien.vn/thanh-gia-ma-vang-400-kg-trong-nha-tho-duc-ba-sai-gon-lam-sao-de-vao-chiem-ngam-185251211100515515.htm"
+    ]
+   ],
+   "checked": "2026-10-24",
+   "photos": [],
+   "teaser": "Saigon's red-brick cathedral, mid-restoration: what you can see now."
+  },
+  {
+   "slug": "saigon-central-post-office",
+   "name": "Saigon Central Post Office",
+   "vn": "Bưu điện Trung tâm Sài Gòn",
+   "kicker": "Landmark · District 1",
+   "area": "District 1 (city centre)",
+   "addr": "2 Công xã Paris, phường Sài Gòn (Quận 1 cũ)",
+   "short": "Yes. It is free, open every day from about 7 am to 7 pm, and right next to the Notre-Dame Cathedral. Step inside for the vaulted hall, old maps and wooden phone booths, and send a postcard from a post office that still works.",
+   "why": [
+    "Built between 1886 and 1891, it is usually credited to the architect Alfred Foulhoux. The popular story that Gustave Eiffel designed it has no documentary evidence.",
+    "The main hall has a steel-ribbed glass vault, a clock over the entrance and two hand-drawn 19th-century maps on the walls.",
+    "Rows of wooden public telephone booths still line the hall, and you can buy stamps and post cards home."
+   ],
+   "status": "",
+   "facts": [
+    [
+     "Hours",
+     "About 7:00 am – 7:00 pm daily, including most holidays (checked January 2026)"
+    ],
+    [
+     "Entry",
+     "Free"
+    ],
+    [
+     "Time needed",
+     "20–30 minutes"
+    ]
+   ],
+   "getting": [
+    "Next door to the Notre-Dame Cathedral.",
+    "Metro Line 1: Opera House station, about a 10-minute walk.",
+    "Ride-hailing: ask for “Bưu điện Thành phố”."
+   ],
+   "tips": [
+    "Mornings are calmer before tour buses arrive.",
+    "Souvenir stalls inside are convenient but not the cheapest; compare before buying.",
+    "Hours can shift slightly around Tết and national holidays."
+   ],
+   "nearby_sights": [
+    "notre-dame-cathedral-saigon",
+    "nguyen-hue-walking-street",
+    "ben-thanh-market"
+   ],
+   "nearby_places": [],
+   "tour": true,
+   "sources": [
+    [
+     "Vietnam Tourism guide, updated October 2026",
+     "https://www.vietnamtourism.com/vi/buu-ien-trung-tam-sai-gon-cam-nang-ay-u-ve-di-tich-thuoc-ia"
+    ]
+   ],
+   "checked": "2026-10-24",
+   "photos": [],
+   "teaser": "Free, open daily: a working 1890s post office with a glass-vaulted hall."
+  },
+  {
+   "slug": "nguyen-hue-walking-street",
+   "name": "Nguyen Hue Walking Street and the Opera House",
+   "vn": "Phố đi bộ Nguyễn Huệ · Nhà hát Thành phố",
+   "kicker": "Landmark · District 1",
+   "area": "District 1 (city centre)",
+   "addr": "Đường Nguyễn Huệ, phường Sài Gòn (Quận 1 cũ)",
+   "short": "Yes, go in the evening. The pedestrian boulevard runs about 670 m from the City Hall area down towards the Saigon River, is free and open around the clock, and is at its liveliest after dark, especially at weekends. The Opera House is a few minutes' walk away on Le Loi.",
+   "why": [
+    "The central section became a pedestrian square around 2015 and is now Saigon's main open-air living room: families, skaters, buskers and dancers by the fountain in the evening.",
+    "A large bronze statue of Ho Chi Minh stands at the top end in front of the colonial City Hall; the other end opens towards the river.",
+    "Early mornings are for locals: tai chi, badminton and runners from about 6:30 to 8:00 am.",
+    "Around Lunar New Year the street turns into the Tết flower street, one of the city's biggest seasonal displays."
+   ],
+   "status": "",
+   "facts": [
+    [
+     "Hours",
+     "Open 24 hours"
+    ],
+    [
+     "Entry",
+     "Free"
+    ],
+    [
+     "Opera House",
+     "Outside free; shows are ticketed"
+    ],
+    [
+     "Time needed",
+     "45 minutes to an evening"
+    ]
+   ],
+   "getting": [
+    "Metro Line 1: Opera House station, a few minutes' walk.",
+    "From Ben Thanh Market, walk east along Le Loi for about 10 minutes.",
+    "Walk to the river end for Bach Dang pier, where the river bus leaves."
+   ],
+   "tips": [
+    "Come after sunset when it is cooler and the buildings are lit.",
+    "Keep your phone away from the kerb side: snatching from passing motorbikes happens in busy areas.",
+    "Many cafés sit in the old apartment blocks along the street; look for the stairwells with café signs."
+   ],
+   "nearby_sights": [
+    "saigon-central-post-office",
+    "notre-dame-cathedral-saigon",
+    "ben-thanh-market"
+   ],
+   "nearby_places": [],
+   "tour": true,
+   "sources": [
+    [
+     "Vietnam Tourism guide, updated October 2026",
+     "https://www.vietnamtourism.com/vi/pho-i-bo-nguyen-hue-cam-nang-ay-u-ve-ai-lo-i-bo-sai-gon"
+    ],
+    [
+     "VOH, Tết flower street 2026",
+     "https://voh.com.vn/xa-hoi/duong-hoa-tet-2026-o-tphcm-mo-cua-8-ngay-giu-dai-canh-den-cuoi-thang-3-642101.html"
+    ]
+   ],
+   "checked": "2026-10-24",
+   "photos": [],
+   "teaser": "The city's open-air living room, best after dark, by the Opera House."
+  },
+  {
+   "slug": "ben-thanh-market",
+   "name": "Ben Thanh Market",
+   "vn": "Chợ Bến Thành",
+   "kicker": "Market · District 1",
+   "area": "District 1 (city centre)",
+   "addr": "Chợ Bến Thành, phường Bến Thành (Quận 1 cũ)",
+   "short": "Worth a look for the building and the food stalls, but it is the city's most touristy market: prices for souvenirs start high. The market runs from about 6 am to 6 pm, then a night market sets up on the side streets until about 10 pm. Metro Line 1 starts right next to it.",
+   "why": [
+    "The current building with its famous clock tower was finished in 1914 and is one of Saigon's symbols.",
+    "Inside you will find clothes, coffee, dried fruit and a food section where you can try many Vietnamese dishes under one roof.",
+    "After 6 pm, stalls on Phan Bội Châu and Phan Chu Trinh streets add an evening market with more food."
+   ],
+   "status": "",
+   "facts": [
+    [
+     "Hours",
+     "About 6:00 am – 6:00 pm; night market on the side streets until about 10:00 pm"
+    ],
+    [
+     "Entry",
+     "Free"
+    ],
+    [
+     "Time needed",
+     "45–90 minutes"
+    ]
+   ],
+   "getting": [
+    "Metro Line 1: Ben Thanh station is right next to the market.",
+    "Airport bus 152 runs via Ben Thanh Market; city buses are free until 31 Dec 2026.",
+    "Ride-hailing: ask for “Chợ Bến Thành”."
+   ],
+   "tips": [
+    "Ask the price before you order or buy, and bargain politely for souvenirs.",
+    "Crowds attract pickpockets: carry your bag in front.",
+    "For more local markets, head to Cholon: Binh Tay, Phung Hung and Hoa Binh."
+   ],
+   "nearby_sights": [
+    "nguyen-hue-walking-street",
+    "saigon-central-post-office",
+    "binh-tay-market"
+   ],
+   "nearby_places": [
+    "kieu-ky-har-gow"
+   ],
+   "tour": true,
+   "sources": [
+    [
+     "Wikipedia: Bến Thành Market",
+     "https://en.wikipedia.org/wiki/B%E1%BA%BFn_Th%C3%A0nh_Market"
+    ]
+   ],
+   "checked": "2026-10-24",
+   "photos": [],
+   "teaser": "The 1914 clock-tower market: food stalls by day, night market after 6 pm."
+  },
+  {
+   "slug": "thien-hau-temple-cholon",
+   "name": "Thien Hau Temple (Tue Thanh Assembly Hall)",
+   "vn": "Chùa Bà Thiên Hậu · Hội quán Tuệ Thành",
+   "kicker": "Temple · Cholon",
+   "area": "Cholon (District 5)",
+   "addr": "710 Nguyễn Trãi, phường Chợ Lớn (Quận 5 cũ)",
+   "short": "Yes, it is one of the most atmospheric temples in Cholon. The Cantonese community's assembly hall honours Thiên Hậu, goddess of the sea, and is known for its ceramic roof figures and giant hanging incense coils. Open daily about 6:30 am to 4:30 pm.",
+   "why": [
+    "Founded by Chinese families from Guangzhou (Tuệ Thành), it was already recorded around 1820; inscriptions on its bell and incense burner date to 1830.",
+    "The roof, walls and eaves are lined with ceramic figures telling Chinese stories, and the central courtyard light well lets sun fall through the incense smoke.",
+    "People hang spiral incense coils that burn for days as prayers; the temple keeps hundreds of antique pieces."
+   ],
+   "status": "",
+   "facts": [
+    [
+     "Hours",
+     "About 6:30 am – 4:30 pm"
+    ],
+    [
+     "Festival",
+     "Vía Bà, 22nd–24th day of the 3rd lunar month (very crowded)"
+    ],
+    [
+     "Time needed",
+     "30 minutes"
+    ]
+   ],
+   "getting": [
+    "Ride-hailing from District 1 takes about 20–30 minutes depending on traffic.",
+    "City bus 1 runs from the centre to Cholon (free until 31 Dec 2026).",
+    "Combine with Lantern Street, the herbal medicine street and Phung Hung Market nearby."
+   ],
+   "tips": [
+    "Dress modestly, speak softly and ask before photographing people praying.",
+    "Do not touch altars or offerings; donations are welcome.",
+    "Mornings are quieter and the light through the courtyard is best."
+   ],
+   "nearby_sights": [
+    "binh-tay-market",
+    "ben-thanh-market"
+   ],
+   "nearby_places": [
+    "phung-hung-market",
+    "lantern-street-luong-nhu-hoc",
+    "herbal-medicine-street",
+    "ha-ky-sweet-soups"
+   ],
+   "tour": false,
+   "sources": [
+    [
+     "Mia.vn guide, February 2026",
+     "https://mia.vn/cam-nang-du-lich/chua-ba-thien-hau-quan-5-12478"
+    ]
+   ],
+   "checked": "2026-10-24",
+   "photos": [],
+   "teaser": "Cholon's Cantonese temple of the sea goddess, with giant incense coils."
+  },
+  {
+   "slug": "binh-tay-market",
+   "name": "Binh Tay Market",
+   "vn": "Chợ Bình Tây",
+   "kicker": "Market · Cholon",
+   "area": "Cholon (District 6)",
+   "addr": "57A Tháp Mười, phường Bình Tây (Quận 6 cũ)",
+   "short": "Yes, it is Cholon's grand old market and far more local than Ben Thanh. Come in the morning for the wholesale bustle and breakfast stalls, or in the evening for the Cholon night street of food stalls around the market (daily 6 pm to midnight).",
+   "why": [
+    "Built in 1928 and opened in 1930, it was funded by the merchant Quách Đàm, whose statue stands in the courtyard. Its Chinese-style roofs make it one of Saigon's most photogenic buildings.",
+    "It is a working wholesale market: dried goods, spices, kitchenware and snacks sold by the sack.",
+    "Since December 2025 the Phố đêm Chợ Lớn night street fills the four streets around the market with food stalls and food trucks every evening."
+   ],
+   "status": "",
+   "facts": [
+    [
+     "Day market",
+     "Busiest in the early morning"
+    ],
+    [
+     "Night street",
+     "Daily 6:00 pm – midnight around the market"
+    ],
+    [
+     "Time needed",
+     "1 hour, more if you eat"
+    ]
+   ],
+   "getting": [
+    "City bus 1 ends at Cholon bus station near the market (free until 31 Dec 2026).",
+    "Ride-hailing from District 1 takes about 25–35 minutes depending on traffic.",
+    "Ask for “Chợ Bình Tây”."
+   ],
+   "tips": [
+    "Inside the market, try bún thịt nướng and chè nhãn nhục (longan sweet soup), as recommended in creators' videos.",
+    "Wholesale stalls may not sell single items; snack and souvenir stalls do.",
+    "Keep bags zipped in the crowded aisles."
+   ],
+   "nearby_sights": [
+    "thien-hau-temple-cholon",
+    "ben-thanh-market"
+   ],
+   "nearby_places": [
+    "binh-tay-market",
+    "mooncake-bakery-187-pham-phu-thu",
+    "chinese-eatery-147-binh-tien"
+   ],
+   "tour": false,
+   "sources": [
+    [
+     "Wikipedia: Bình Tây Market",
+     "https://en.wikipedia.org/wiki/B%C3%ACnh_T%C3%A2y_Market"
+    ],
+    [
+     "SGGP, November 2025",
+     "https://www.sggp.org.vn/cho-binh-tay-tap-nap-don-khach-ca-ngay-va-dem-post826131.html"
+    ]
+   ],
+   "checked": "2026-10-24",
+   "photos": [],
+   "teaser": "Cholon's grand 1930 market, plus a nightly street-food market around it."
+  }
+ ]
+}

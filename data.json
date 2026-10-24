@@ -1704,5 +1704,43 @@
    "title": "Buses & river bus",
    "count": 0
   }
+ ],
+ "sights": [
+  {
+   "slug": "notre-dame-cathedral-saigon",
+   "name": "Saigon Notre-Dame Cathedral",
+   "kicker": "Landmark · District 1",
+   "short": "Saigon's red-brick cathedral, mid-restoration: what you can see now."
+  },
+  {
+   "slug": "saigon-central-post-office",
+   "name": "Saigon Central Post Office",
+   "kicker": "Landmark · District 1",
+   "short": "Free, open daily: a working 1890s post office with a glass-vaulted hall."
+  },
+  {
+   "slug": "nguyen-hue-walking-street",
+   "name": "Nguyen Hue Walking Street and the Opera House",
+   "kicker": "Landmark · District 1",
+   "short": "The city's open-air living room, best after dark, by the Opera House."
+  },
+  {
+   "slug": "ben-thanh-market",
+   "name": "Ben Thanh Market",
+   "kicker": "Market · District 1",
+   "short": "The 1914 clock-tower market: food stalls by day, night market after 6 pm."
+  },
+  {
+   "slug": "thien-hau-temple-cholon",
+   "name": "Thien Hau Temple (Tue Thanh Assembly Hall)",
+   "kicker": "Temple · Cholon",
+   "short": "Cholon's Cantonese temple of the sea goddess, with giant incense coils."
+  },
+  {
+   "slug": "binh-tay-market",
+   "name": "Binh Tay Market",
+   "kicker": "Market · Cholon",
+   "short": "Cholon's grand 1930 market, plus a nightly street-food market around it."
+  }
  ]
 }

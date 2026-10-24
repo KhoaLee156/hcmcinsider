@@ -608,5 +608,65 @@
   "cat": "food",
   "hours": "",
   "price": ""
+ },
+ {
+  "slug": "sight-notre-dame-cathedral-saigon",
+  "name": "Saigon Notre-Dame Cathedral",
+  "vn": "Nhà thờ Chính tòa Đức Bà Sài Gòn",
+  "dish": "Landmark",
+  "area": "District 1 (city centre)",
+  "cat": "culture",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "sight-saigon-central-post-office",
+  "name": "Saigon Central Post Office",
+  "vn": "Bưu điện Trung tâm Sài Gòn",
+  "dish": "Landmark",
+  "area": "District 1 (city centre)",
+  "cat": "culture",
+  "hours": "About 7:00 am – 7:00 pm daily, including most holidays (checked January 2026)",
+  "price": ""
+ },
+ {
+  "slug": "sight-nguyen-hue-walking-street",
+  "name": "Nguyen Hue Walking Street and the Opera House",
+  "vn": "Phố đi bộ Nguyễn Huệ · Nhà hát Thành phố",
+  "dish": "Landmark",
+  "area": "District 1 (city centre)",
+  "cat": "culture",
+  "hours": "Open 24 hours",
+  "price": ""
+ },
+ {
+  "slug": "sight-ben-thanh-market",
+  "name": "Ben Thanh Market",
+  "vn": "Chợ Bến Thành",
+  "dish": "Market",
+  "area": "District 1 (city centre)",
+  "cat": "shop",
+  "hours": "About 6:00 am – 6:00 pm; night market on the side streets until about 10:00 pm",
+  "price": ""
+ },
+ {
+  "slug": "sight-thien-hau-temple-cholon",
+  "name": "Thien Hau Temple (Tue Thanh Assembly Hall)",
+  "vn": "Chùa Bà Thiên Hậu · Hội quán Tuệ Thành",
+  "dish": "Temple",
+  "area": "Cholon (District 5)",
+  "cat": "culture",
+  "hours": "About 6:30 am – 4:30 pm",
+  "price": ""
+ },
+ {
+  "slug": "sight-binh-tay-market",
+  "name": "Binh Tay Market",
+  "vn": "Chợ Bình Tây",
+  "dish": "Market",
+  "area": "Cholon (District 6)",
+  "cat": "shop",
+  "hours": "",
+  "price": ""
  }
 ]

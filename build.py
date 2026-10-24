@@ -131,6 +131,7 @@ def dir_link(p):
 
 TIPS = {}
 LABELS = {}
+SIGHTS_OUT = []
 
 
 def tips_html(p):
@@ -216,7 +217,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
     url = SITE + path
     ld = "".join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in jsonld)
     nav = ('<header class="nav"><div class="wrap"><a class="logo" href="/" aria-label="HCMC Insider home">%s<span>HCMC <b>Insider</b></span></a>'
-           '<nav class="links" aria-label="Main"><a href="/#eat">Eat</a><a href="/guides/">Guides</a>'
+           '<nav class="links" aria-label="Main"><a href="/#eat">Eat</a><a href="/see-and-do/">See &amp; Do</a><a href="/guides/">Guides</a>'
            '<a href="/guides/getting-around-hcmc/">Getting around</a><a href="/#plan">Plan</a></nav></div></header>') % logo_svg()
     plan = ('<aside class="plan"><div class="wrap"><p class="kicker">Plan your trip</p><div class="planrow">%s</div>'
             '<p class="small">Affiliate links: if you book, we may earn a small commission at no extra cost to you.</p></div></aside>'
@@ -528,6 +529,8 @@ def main():
     urls = ["/", "/guides/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
     thin_list, lastmod = [], {}
 
+    sp0 = os.path.join(ROOT, "sights.json")
+    SIGHT_SLUGS = {s["slug"] for s in json.load(open(sp0, encoding="utf-8"))["sights"]} if os.path.exists(sp0) else set()
     # ---- place pages
     for p in places:
         name, dish, area = p["_name"], p["_dish"], p["_area"]
@@ -555,6 +558,8 @@ def main():
         related = [q for q in places_sorted if q is not p and (q["_dish"] == dish)][:3]
         related += [q for q in places_sorted if q is not p and q not in related and q["_area"] == area][:6 - len(related)]
         guides_links = "".join('<a class="chip" href="/guides/%s/">%s</a>' % (g["slug"], E(g["nav"])) for g in p["_guides"])
+        if p["slug"] in SIGHT_SLUGS:
+            guides_links = '<a class="chip" href="/see-and-do/%s/">Full visitor guide</a>' % p["slug"] + guides_links
         body = """<div class="wrap narrow">%s
 <div class="place">
 <div class="phead">
@@ -653,6 +658,76 @@ def main():
     write("/guides/hcmc-metro/", metro_page())
     write("/guides/getting-around-hcmc/", transport_page())
 
+    # ---- See & Do (landmark pages from sights.json)
+    sp = os.path.join(ROOT, "sights.json")
+    sights = json.load(open(sp, encoding="utf-8"))["sights"] if os.path.exists(sp) else []
+    by_slug = {p["slug"]: p for p in places}
+    sight_map = {s["slug"]: s for s in sights}
+    cardsf = os.path.join(ROOT, "og", "cards.json")
+    cards_all = json.load(open(cardsf, encoding="utf-8"))
+    for s in sights:
+        path = "/see-and-do/%s/" % s["slug"]
+        bc, bld = crumbs([("Home", "/"), ("See & Do", "/see-and-do/"), (s["name"], None)])
+        img = os.path.exists(os.path.join(ROOT, "og", "sight-%s.jpg" % s["slug"]))
+        photos = "".join('<figure class="photo"><img src="%s" alt="%s" loading="lazy"><figcaption>%s</figcaption></figure>' % (E(ph["src"]), E(ph["alt"]), E(ph.get("credit", ""))) for ph in s.get("photos", []))
+        hero = photos or (('<img class="hero-card" src="/og/sight-%s.jpg" alt="%s, Ho Chi Minh City" width="1200" height="630">' % (s["slug"], E(s["name"]))) if img else "")
+        facts = "".join('<div><dt>%s</dt><dd>%s</dd></div>' % (E(k), E(v)) for k, v in s["facts"])
+        ul = lambda xs: "<ul>%s</ul>" % "".join("<li>%s</li>" % E(x) for x in xs)
+        near_p = [by_slug[x] for x in s.get("nearby_places", []) if x in by_slug]
+        near_s = "".join('<a class="chip" href="/see-and-do/%s/">%s</a>' % (x, E(sight_map[x]["name"])) for x in s.get("nearby_sights", []) if x in sight_map)
+        tour = ('<section class="box tourbox"><h2>Prefer a guided tour?</h2><p>Many half-day city tours include this stop with transport and a guide.</p>'
+                '<p><a class="cta" href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">See Saigon city tours on Klook ↗</a></p>'
+                '<p class="small">Affiliate link: same price for you, a small commission for us.</p></section>') if s.get("tour") else ""
+        src = " · ".join('<a href="%s" target="_blank" rel="noopener">%s</a>' % (E(u), E(t)) for t, u in s["sources"])
+        body = """<div class="wrap narrow">%s
+<p class="kicker">%s</p>
+<h1>%s</h1>
+<p class="vnname" lang="vi">%s</p>
+<div class="box answer"><p><strong>Is it worth visiting?</strong> %s</p></div>
+%s
+%s
+<section class="box ltips"><h2>At a glance</h2><dl>%s</dl></section>
+<section><h2 class="h2s">Why go</h2>%s</section>
+<section><h2 class="h2s">How to get there</h2>%s</section>
+<section><h2 class="h2s">Local tips</h2>%s</section>
+<section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p><p class="addr" lang="vi">%s</p></section>
+%s
+%s
+%s
+<p class="small">Last checked: %s. Sources: %s. Hours and access can change, so check on the day.</p>
+</div>""" % (bc, E(s["kicker"]), E(s["name"]), E(s["vn"]), E(s["short"]), hero,
+             ('<section class="box status"><h2>Current status</h2><p>%s</p></section>' % E(s["status"])) if s.get("status") else "",
+             facts, ul(s["why"]), ul(s["getting"]), ul(s["tips"]), E(s["vn"]), E(s["addr"]), tour,
+             ('<section><h2 class="h2s">Eat nearby</h2>%s</section>' % guide_cards(near_p)) if near_p else "",
+             ('<section><h2 class="h2s">See next</h2><div class="chips">%s<a class="chip" href="/see-and-do/">All sights</a></div></section>' % near_s) if near_s else "",
+             nice_date(s["checked"]), src)
+        ld = {"@context": "https://schema.org", "@type": "TouristAttraction", "name": s["name"], "alternateName": s["vn"],
+              "description": s["short"], "url": SITE + path,
+              "address": {"@type": "PostalAddress", "streetAddress": s["addr"], "addressLocality": "Ho Chi Minh City", "addressCountry": "VN"},
+              "isAccessibleForFree": True}
+        if img:
+            ld["image"] = SITE + "/og/sight-%s.jpg" % s["slug"]
+        write(path, page(path, "%s: Is It Worth Visiting? Tips & How to Get There | HCMC Insider" % s["name"] if len(s["name"]) < 34 else "%s: Visitor Tips | HCMC Insider" % s["name"],
+                         s["short"][:300], body, [ld, bld], og_image=(SITE + "/og/sight-%s.jpg" % s["slug"]) if img else None))
+        urls.append(path)
+        lastmod[path] = s["checked"]
+        cards_all = [c for c in cards_all if c["slug"] != "sight-" + s["slug"]] + [
+            {"slug": "sight-" + s["slug"], "name": s["name"], "vn": s["vn"], "dish": s["kicker"].split(" · ")[0], "area": s["area"],
+             "cat": "culture" if "Market" not in s["kicker"] else "shop", "hours": dict(s["facts"]).get("Hours", ""), "price": ""}]
+    json.dump(cards_all, open(cardsf, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if sights:
+        bc, bld = crumbs([("Home", "/"), ("See & Do", None)])
+        gl = "".join('<a class="gcard" href="/see-and-do/%s/"><em>%s</em><strong>%s</strong><span>%s</span></a>' % (
+            s["slug"], E(s["kicker"]), E(s["name"]), E(s.get("teaser") or s["short"])) for s in sights)
+        body = ('<div class="wrap">%s<p class="kicker">See &amp; Do</p><h1>Saigon\'s icons, the local way</h1>'
+                '<p class="lead">The landmarks every visitor asks about, with honest advice on whether to go, current status, how to get there by metro or bus, and where to eat nearby.</p><div class="ggrid">%s</div></div>') % (bc, gl)
+        write("/see-and-do/", page("/see-and-do/", "Things to Do in Ho Chi Minh City: Landmarks, Markets & Temples | HCMC Insider",
+                                   "Saigon's must-see landmarks the local way: Notre-Dame Cathedral, Central Post Office, Nguyen Hue, Ben Thanh and Binh Tay markets, Thien Hau Temple, with current status and how to get there.", body, [bld]))
+        urls.append("/see-and-do/")
+        lastmod["/see-and-do/"] = max(s["checked"] for s in sights)
+    d["sights"] = [{"slug": s["slug"], "name": s["name"], "kicker": s["kicker"], "short": s.get("teaser") or s["short"]} for s in sights]
+    SIGHTS_OUT[:] = sights
+
     # ---- guides index
     bc, bld = crumbs([("Home", "/"), ("Guides", None)])
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
@@ -680,10 +755,10 @@ def main():
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
     dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1><p>HCMC Insider is an independent English guide to Ho Chi Minh City (Saigon) by locals. It lists NPLACES food spots, markets and sights, mostly in Cholon (Saigon Chinatown), each with its Vietnamese name, address, directions and links to local creators\' videos, plus practical guides to the metro, free city buses and the airport bus.</p>'
-                '<h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2>Places</h2><ul>%s</ul></nav><!--/DIR--></div>') % (
+                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2>Places</h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
-    dir_html = dir_html.replace("NPLACES", str(len(places)), 1)
+    dir_html = dir_html.replace("NPLACES", str(len(places)), 1).replace("SIGHTLIST", "".join('<li><a href="/see-and-do/%s/">%s</a></li>' % (s["slug"], E(s["name"])) for s in SIGHTS_OUT), 1)
     src, n = re.subn(r'<div id="root">.*?</div>(?=\n<div hidden>)', lambda m: dir_html, src, count=1, flags=re.S)
     assert n == 1, "root div not found"
     open(idx_path, "w", encoding="utf-8").write(src)
@@ -706,6 +781,8 @@ def main():
             continue
         L.append("- [%s (%s)](%s/places/%s/): %s, %s. %s" % (p.get("nameEn") or p["name"], p["name"], SITE, p["slug"],
                                                           LABELS[p["id"]][0], LABELS[p["id"]][1], p.get("noteEn", "")))
+    if SIGHTS_OUT:
+        L += ["", "## See & Do", ""] + ["- [%s (%s)](%s/see-and-do/%s/): %s" % (s["name"], s["vn"], SITE, s["slug"], s["short"]) for s in SIGHTS_OUT]
     L += ["", "## Optional", "", "- [All guides](%s/guides/)" % SITE, "- [Privacy](%s/privacy)" % SITE, ""]
     open(os.path.join(ROOT, "llms.txt"), "w", encoding="utf-8").write("\n".join(L))
     open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(

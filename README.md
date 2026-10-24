@@ -25,3 +25,6 @@ Share images: `build.py` writes `og/cards.json`; then `node tools/og-cards.js` (
 - `build.py` also writes `llms.txt` and `robots.txt`, adds a "What is …?" dish explainer and "Last updated" line to place pages, a short answer + CollectionPage schema to guides.
 - Very thin place pages get `noindex,follow` and stay out of the sitemap until they have tips or a fuller description (the build prints which).
 - Update `STATIC_LASTMOD` in `build.py` when editing the metro, getting-around or privacy pages.
+
+## See & Do
+`sights.json` holds the landmark pages (/see-and-do/<slug>/). Facts are checked against the listed sources; update `checked` when re-verifying. To add real photos, put them in `assets/photos/` and list them in the sight's `photos` as {src, alt, credit}; they replace the illustration card at the top.
