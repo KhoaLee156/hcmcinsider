@@ -8,7 +8,8 @@
    "mv4ucd9",
    "pmxdref",
    "8n7jm9w",
-   "n8v670u"
+   "n8v670u",
+   "l2eogha"
   ]
  },
  "history": [
@@ -48,19 +49,27 @@
    "place": "n8v670u",
    "tip": "Snails & shellfish",
    "question": "cholon-visit"
+  },
+  {
+   "date": "2026-10-26",
+   "place": "l2eogha",
+   "tip": "rain",
+   "question": "first-dish"
   }
  ],
  "tip": {
   "round": 1,
   "used": [
-   "cholon"
+   "cholon",
+   "rain"
   ]
  },
  "question": {
   "round": 1,
   "used": [
    "breakfast",
-   "cholon-visit"
+   "cholon-visit",
+   "first-dish"
   ]
  },
  "dish": {
