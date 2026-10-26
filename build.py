@@ -245,9 +245,8 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
 <meta name="theme-color" content="#0E6655">
 {robots}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap">
+<link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/page.css">
 {ld}</head>
 <body>
@@ -761,6 +760,14 @@ def main():
     dir_html = dir_html.replace("NPLACES", str(len(places)), 1).replace("SIGHTLIST", "".join('<li><a href="/see-and-do/%s/">%s</a></li>' % (s["slug"], E(s["name"])) for s in SIGHTS_OUT), 1)
     src, n = re.subn(r'<div id="root">.*?</div>(?=\n<div hidden>)', lambda m: dir_html, src, count=1, flags=re.S)
     assert n == 1, "root div not found"
+    # Inline the data so the homepage renders complete on the first paint (no fetch, no layout shift).
+    blob = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    tag = '<script id="hi-data">window.__DATA__=%s;</script>\n' % blob
+    if '<script id="hi-data">' in src:
+        src = re.sub(r'<script id="hi-data">.*?</script>\n', lambda m: tag, src, count=1, flags=re.S)
+    else:
+        src = src.replace('<div hidden><div id="lmap"></div></div>\n', '<div hidden><div id="lmap"></div></div>\n' + tag, 1)
+    assert '<script id="hi-data">' in src, "data script not placed"
     open(idx_path, "w", encoding="utf-8").write(src)
 
     # ---- llms.txt (for AI assistants)

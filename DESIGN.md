@@ -25,7 +25,7 @@ Rules: one primary (jade) for navigation and normal actions; amber is reserved f
 
 ## Typography
 
-- Family: **Be Vietnam Pro** (designed in Vietnam; full Vietnamese diacritics), weights 400 / 500 / 700 / 800. Fallback: system-ui.
+- Family: **Be Vietnam Pro** (designed in Vietnam; full Vietnamese diacritics), weights 400 / 500 / 600 / 700 / 800 (+ 500 italic). Self-hosted in `assets/fonts/` (OFL), latin + latin-ext + vietnamese subsets; the 400 and 800 latin files are preloaded. Fallback: "BVP Fallback" (Arial resized to Be Vietnam Pro's metrics so the font swap doesn't shift the layout), then system-ui.
 - Scale (use these; older one-off sizes like 13.5 or 14.5 should move to the nearest step when touched):
 
 | Step | Size / line height | Use |

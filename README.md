@@ -20,6 +20,10 @@ Guide topics and their intro text live in the `GUIDES` list in `build.py`. Dish 
 
 Share images: `build.py` writes `og/cards.json`; then `node tools/og-cards.js` (needs `npm i playwright @fontsource/be-vietnam-pro`) renders `og/<slug>.jpg`; run `build.py` again so pages point to them.
 
+## Speed notes (Oct 2026)
+- No third-party requests before first paint: fonts are self-hosted (`assets/fonts/`, @font-face is inlined in `index.html` and at the top of `assets/page.css`), Leaflet is self-hosted in `assets/vendor/leaflet/` and only loaded when the map nears the screen.
+- `build.py` inlines `data.json` into `index.html` (`<script id="hi-data">`), so the homepage renders complete on the first paint with no layout shift.
+
 ## SEO notes (Oct 2026)
 - `src/worker.js` runs before assets: redirects www → apex and /privacy.html → /privacy, adds security headers and image caching.
 - `build.py` also writes `llms.txt` and `robots.txt`, adds a "What is …?" dish explainer and "Last updated" line to place pages, a short answer + CollectionPage schema to guides.
