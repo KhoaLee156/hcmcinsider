@@ -276,5 +276,78 @@
   "src": [
    "Little Bites"
   ]
+ },
+ "6y1ae0c": {
+  "hours": "10am – 10pm",
+  "order": "Mì bò (egg noodles with beef)",
+  "addr": "180 Trần Hưng Đạo, Quận 5 cũ",
+  "src": [
+   "Tung Thanh Ly Vietnam"
+  ]
+ },
+ "cmgeirj": {
+  "hours": "Around 6am – 2pm (new shop, hours may still change)",
+  "order": "Hủ tiếu mì with braised pork hock (giò heo kho) or braised ribs (sườn kho)",
+  "addr": "547 Hồng Bàng, P. Chợ Lớn",
+  "src": [
+   "Vương Anh Phát Sài Gòn"
+  ]
+ },
+ "rdrv0nh": {
+  "hours": "11am – 4pm",
+  "price": "About 12,000 dong",
+  "addr": "182 Lò Siêu, Quận 11 cũ",
+  "src": [
+   "Một Góc Sài Gòn"
+  ]
+ },
+ "ca3hwvh": {
+  "hours": "From 6am until sold out; closed Sundays",
+  "order": "Cơm tấm (broken rice)",
+  "addr": "213 Trần Quý, P. Minh Phụng (Quận 11 cũ)",
+  "src": [
+   "Phố Bụi"
+  ]
+ },
+ "wdx768s": {
+  "hours": "10am – 10pm",
+  "price": "45,000 – 200,000 dong",
+  "addr": "95 Phan Xích Long, Quận 11 cũ",
+  "src": [
+   "ĐI ĐÂU ĂN GÌ ?"
+  ]
+ },
+ "edtpvtv": {
+  "hours": "6am – 8pm",
+  "price": "From 35,000 dong a bowl",
+  "order": "Hủ tiếu hồ chay (vegetarian wide rice noodles)",
+  "addr": "Q22 Nguyễn Hữu Hào, Quận 4 cũ",
+  "src": [
+   "Xuân Bắc Vê Lốc"
+  ]
+ },
+ "7nmk9a2": {
+  "hours": "4pm – 9pm",
+  "price": "40,000 dong regular, 50,000 dong special",
+  "order": "Hủ tiếu mì bò kho; they also do bánh mì with bò kho and wontons",
+  "addr": "153–154 Tôn Thất Thuyết, P. Khánh Hội (Quận 4 cũ)",
+  "src": [
+   "Bá Kim"
+  ]
+ },
+ "3z8ygas": {
+  "hours": "6am – 1pm",
+  "price": "60,000 – 80,000 dong a bowl",
+  "order": "Nam Vang, wonton, fish or shrimp-and-kidney noodles",
+  "addr": "408/37 Nguyễn Thị Minh Khai, P. Bàn Cờ (Quận 3 cũ)",
+  "src": [
+   "Thương Sài Gòn"
+  ]
+ },
+ "7b3et3u": {
+  "addr": "Số 1 Tản Đà, Quận 5 cũ",
+  "src": [
+   "Diễm Hà Vlog"
+  ]
  }
 }

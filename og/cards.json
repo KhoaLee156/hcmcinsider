@@ -610,6 +610,86 @@
   "price": ""
  },
  {
+  "slug": "beef-noodles-at-180-tran-hung-dao",
+  "name": "Beef Noodles at 180 Tran Hung Dao",
+  "vn": "Mì bò 180 Trần Hưng Đạo",
+  "dish": "Eat",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "10am – 10pm",
+  "price": ""
+ },
+ {
+  "slug": "hu-tieu-mi-47",
+  "name": "Hu Tieu Mi 47",
+  "vn": "Hủ Tíu Mì 47",
+  "dish": "Hu tieu noodle soup",
+  "area": "Cholon",
+  "cat": "food",
+  "hours": "Around 6am – 2pm (new shop, hours may still change)",
+  "price": ""
+ },
+ {
+  "slug": "lo-sieu-rice-cake-stall",
+  "name": "Lo Sieu Rice Cake Stall",
+  "vn": "Bánh bột người Hoa 182 Lò Siêu",
+  "dish": "Eat",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "11am – 4pm",
+  "price": "About 12,000 dong"
+ },
+ {
+  "slug": "tran-quy-broken-rice",
+  "name": "Tran Quy Broken Rice",
+  "vn": "Cơm tấm người Hoa 213 Trần Quý",
+  "dish": "Eat",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "From 6am until sold out; closed Sundays",
+  "price": ""
+ },
+ {
+  "slug": "chan-phat-rice-shop",
+  "name": "Chan Phat Rice Shop",
+  "vn": "Tiệm cơm Chấn Phát",
+  "dish": "Eat",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "10am – 10pm",
+  "price": "45,000 – 200,000 dong"
+ },
+ {
+  "slug": "chinese-vegetarian-noodle-stall",
+  "name": "Chinese Vegetarian Noodle Stall",
+  "vn": "Hủ tiếu hồ chay người Hoa 35K",
+  "dish": "Hu tieu noodle soup",
+  "area": "District 4",
+  "cat": "food",
+  "hours": "6am – 8pm",
+  "price": "From 35,000 dong a bowl"
+ },
+ {
+  "slug": "ton-that-thuyet-beef-stew-noodles",
+  "name": "Ton That Thuyet Beef Stew Noodles",
+  "vn": "Hủ tiếu bò kho Tôn Thất Thuyết",
+  "dish": "Hu tieu noodle soup",
+  "area": "District 4",
+  "cat": "food",
+  "hours": "4pm – 9pm",
+  "price": "40,000 dong regular, 50,000 dong special"
+ },
+ {
+  "slug": "my-kim-noodles",
+  "name": "My Kim Noodles",
+  "vn": "Hủ tíu Mỹ Kim",
+  "dish": "Hu tieu noodle soup",
+  "area": "District 3",
+  "cat": "food",
+  "hours": "6am – 1pm",
+  "price": "60,000 – 80,000 dong a bowl"
+ },
+ {
   "slug": "sight-notre-dame-cathedral-saigon",
   "name": "Saigon Notre-Dame Cathedral",
   "vn": "Nhà thờ Chính tòa Đức Bà Sài Gòn",
