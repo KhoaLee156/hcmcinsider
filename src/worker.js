@@ -19,10 +19,19 @@ export default {
       url.pathname = '/privacy';
       return Response.redirect(url.toString(), 301);
     }
+    const p = url.pathname;
+    // The 404 page itself must never answer 200 at /404 or /404.html.
+    if (p === '/404' || p === '/404.html') {
+      const nf = await env.ASSETS.fetch(new Request(new URL('/this-page-does-not-exist', url), request));
+      const r = new Response(nf.body, { status: 404, headers: nf.headers });
+      for (const [k, v] of Object.entries(SECURITY)) r.headers.set(k, v);
+      return r;
+    }
     const res = await env.ASSETS.fetch(request);
     const out = new Response(res.body, res);
     for (const [k, v] of Object.entries(SECURITY)) out.headers.set(k, v);
-    const p = url.pathname;
+    // Data and text files are for the app and AI tools, not for search results.
+    if (/\.(json|txt|csv)$/.test(p) && p !== '/robots.txt') out.headers.set('X-Robots-Tag', 'noindex');
     if (/^\/(og|assets)\//.test(p) || /\.(png|jpg|svg|woff2)$/.test(p)) out.headers.set('Cache-Control', 'public, max-age=604800');
     return out;
   }

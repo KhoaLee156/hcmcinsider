@@ -654,6 +654,28 @@ def main():
         lastmod["/guides/%s/" % g["slug"]] = g_updated
         guides_out.append({"slug": g["slug"], "title": g["nav"], "count": len(items)})
 
+    # ---- all places hub (/places/), grouped by area
+    areas = {}
+    for p in sorted(places, key=lambda p: -p["_views"]):
+        areas.setdefault(p["_area"] if p["_area"] != "Ho Chi Minh City" else "Other areas", []).append(p)
+    order = sorted(areas, key=lambda a: (not a.startswith("Cholon"), a == "Other areas", -len(areas[a]), a))
+    bc, bld = crumbs([("Home", "/"), ("All places", None)])
+    jump = "".join('<a class="chip" href="#a-%d">%s</a>' % (i, E(a)) for i, a in enumerate(order))
+    secs = "".join('<section id="a-%d"><h2 class="h2s">%s <span class="muted">· %d</span></h2>%s</section>' % (i, E(a), len(areas[a]), guide_cards(areas[a])) for i, a in enumerate(order))
+    body = ('<div class="wrap">%s<div class="narrow0"><p class="kicker">All places · %d</p><h1>All places to eat and explore in Ho Chi Minh City</h1>'
+            '<p class="lead">Every food stall, restaurant, café and market on HCMC Insider, grouped by area. Most are in Cholon, Saigon\'s Chinatown; each page has the Vietnamese name, address, directions and local creators\' videos.</p>'
+            '<div class="chips">%s</div></div>%s</div>') % (bc, len(places), jump, secs)
+    hub_ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "All places in Ho Chi Minh City", "url": SITE + "/places/",
+              "inLanguage": "en", "publisher": {"@type": "Organization", "name": "HCMC Insider", "url": SITE + "/"},
+              "mainEntity": {"@type": "ItemList", "numberOfItems": len(places), "itemListElement": [
+                  {"@type": "ListItem", "position": i + 1, "url": SITE + "/places/%s/" % p["slug"], "name": p["_name"]}
+                  for i, p in enumerate([p for a in order for p in areas[a]])]}}
+    write("/places/", page("/places/", "All Places: Ho Chi Minh City Food Spots, Cafés & Markets | HCMC Insider",
+                           "All %d food spots, cafés and markets on HCMC Insider, grouped by area, mostly in Cholon (Saigon Chinatown), with Vietnamese names, addresses and directions." % len(places),
+                           body, [bld, hub_ld]))
+    urls.append("/places/")
+    lastmod["/places/"] = max(p["_updated"] for p in places)
+
     write("/guides/hcmc-metro/", metro_page())
     write("/guides/getting-around-hcmc/", transport_page())
 
@@ -754,7 +776,7 @@ def main():
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
     dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1><p>HCMC Insider is an independent English guide to Ho Chi Minh City (Saigon) by locals. It lists NPLACES food spots, markets and sights, mostly in Cholon (Saigon Chinatown), each with its Vietnamese name, address, directions and links to local creators\' videos, plus practical guides to the metro, free city buses and the airport bus.</p>'
-                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2>Places</h2><ul>%s</ul></nav><!--/DIR--></div>') % (
+                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
     dir_html = dir_html.replace("NPLACES", str(len(places)), 1).replace("SIGHTLIST", "".join('<li><a href="/see-and-do/%s/">%s</a></li>' % (s["slug"], E(s["name"])) for s in SIGHTS_OUT), 1)
