@@ -11,8 +11,9 @@ const SECURITY = {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.hostname === 'www.' + HOST) {
+    if (url.hostname === 'www.' + HOST || url.protocol === 'http:') {
       url.hostname = HOST;
+      url.protocol = 'https:';
       return Response.redirect(url.toString(), 301);
     }
     if (url.pathname === '/privacy.html') {
