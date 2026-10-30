@@ -200,7 +200,7 @@ def richness(p):
     return (len(p.get("noteEn", "")) // 40 + 2 * len([k for k in ("hours", "price", "order", "note") if t.get(k)])
             + (2 if street else 0) + min(len(p["_vids"]), 3))
 
-def visitor_videos_html(vs):
+def visitor_videos_html(vs, heading="What visitors filmed here", note="Videos by travellers, linked to their original YouTube channels."):
     """Videos by international visitors (linked to YouTube, never re-hosted)."""
     if not vs:
         return ""
@@ -208,8 +208,8 @@ def visitor_videos_html(vs):
         ('<a class="vid" href="https://www.youtube.com/watch?v=%s" target="_blank" rel="noopener">'
          '<strong>%s</strong><span>YouTube · %s · %s views</span></a>') % (E(v["id"]), E(v["title"]), E(v["channel"]), compact(v["views"]))
         for v in vs)
-    return ('<section><h2 class="h2s">What visitors filmed here</h2><div class="vlist">%s</div>'
-            '<p class="small">Videos by travellers, linked to their original YouTube channels. View counts as of October 2026.</p></section>') % items
+    return ('<section><h2 class="h2s">%s</h2><div class="vlist">%s</div>'
+            '<p class="small">%s View counts as of October 2026.</p></section>') % (E(heading), items, E(note))
 
 
 def load_visitor_videos():
@@ -865,7 +865,7 @@ def main():
 <p class="small">Last checked: %s. Sources: %s. Hours and access can change, so check on the day.</p>
 </div>""" % (bc, E(s["kicker"]), E(s["name"]), E(s["vn"]), E(s.get("q", "Is it worth visiting?")), E(s["short"]), hero + (tour if isinstance(tv, dict) and sec != "events" else ""),
              ('<section class="box status"><h2>Current status</h2><p>%s</p></section>' % E(s["status"])) if s.get("status") else "",
-             facts, E(s.get("why_h", "Why go")), ul(s["why"]), ul(s["getting"]), ul(s["tips"]), visitor_videos_html(s.get("visitor_videos")), E(s["vn"]), E(s["addr"]), tour,
+             facts, E(s.get("why_h", "Why go")), ul(s["why"]), ul(s["getting"]), ul(s["tips"]), (visitor_videos_html(s.get("visitor_videos"), "Watch: videos from past years", "Videos by local creators and travellers, linked to their original YouTube channels.") if sec == "events" else visitor_videos_html(s.get("visitor_videos"))), E(s["vn"]), E(s["addr"]), tour,
              ('<section><h2 class="h2s">Eat nearby</h2>%s</section>' % guide_cards(near_p)) if near_p else "",
              ('<section><h2 class="h2s">See next</h2><div class="chips">%s<a class="chip" href="/%s/">%s</a></div></section>' % (near_s, sec, SEC[sec][1])) if near_s else "",
              nice_date(s["checked"]), src)
