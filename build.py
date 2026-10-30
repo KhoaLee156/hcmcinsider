@@ -217,6 +217,87 @@ def load_visitor_videos():
     return json.load(open(f, encoding="utf-8")) if os.path.exists(f) else {}
 
 
+# ---------------------------------------------------------------- stories (the owner's own posts and photos)
+def load_stories():
+    f = os.path.join(ROOT, "stories.json")
+    if not os.path.exists(f):
+        return {"author": {"name": "HCMC Insider", "about": ""}}, []
+    d = json.load(open(f, encoding="utf-8"))
+    st = sorted(d.get("stories", []), key=lambda x: x["date"], reverse=True)
+    return d.get("author", {}), st
+
+
+def story_pages(write, urls, lastmod, links):
+    author, stories = load_stories()
+    for i, st in enumerate(stories):
+        path = "/stories/%s/" % st["slug"]
+        bc, bld = crumbs([("Home", "/"), ("Stories", "/stories/"), (st["title"], None)])
+        photos = st.get("photos", [])
+        used = set()
+
+        def fig(n, first=False):
+            ph = photos[n - 1]
+            used.add(n)
+            return ('<figure class="photo"><img src="%s" alt="%s" %s><figcaption>%s</figcaption></figure>' % (
+                E(ph["src"]), E(ph.get("alt", "")), 'fetchpriority="high"' if first else 'loading="lazy"', E(ph.get("caption", ""))))
+        parts = []
+        if photos:
+            parts.append(fig(1, True))
+        for para in st.get("body", []):
+            if isinstance(para, dict) and para.get("photo") and para["photo"] <= len(photos) and para["photo"] not in used:
+                parts.append(fig(para["photo"]))
+            elif isinstance(para, str):
+                parts.append('<p>%s</p>' % E(para))
+        parts += [fig(n) for n in range(1, len(photos) + 1) if n not in used]
+        yt = ('<section><h2 class="h2s">Watch</h2><a class="vid" href="https://www.youtube.com/watch?v=%s" target="_blank" rel="noopener"><strong>Watch the video on YouTube</strong><span>%s</span></a></section>' % (
+            E(st["youtube"]), E(st.get("youtube_title", "")))) if st.get("youtube") else ""
+        chips = "".join('<a class="chip" href="%s">%s</a>' % (u, E(t)) for kind in ("places", "sights", "events") for x in st.get(kind, []) for u, t in [links.get((kind, x), (None, None))] if u)
+        others = [o for o in stories if o is not st][:3]
+        more = "".join('<a class="gcard" href="/stories/%s/"><em>%s</em><strong>%s</strong><span>%s</span></a>' % (o["slug"], E(nice_date(o["date"])), E(o["title"]), E(o.get("dek", ""))) for o in others)
+        body = """<div class="wrap narrow">%s
+<article class="story">
+<p class="kicker">%s · %s</p>
+<h1>%s</h1>
+<p class="lead">%s</p>
+<p class="small">By %s · %s</p>
+%s
+</article>
+%s
+%s
+%s
+<p class="small">Photos and words by %s. Please ask before reusing the photos.</p>
+</div>""" % (bc, E(st.get("kicker", "Story")), E(nice_date(st["date"])), E(st["title"]), E(st.get("dek", "")), E(author.get("name", "HCMC Insider")), E(nice_date(st["date"])),
+             "\n".join(parts), yt,
+             ('<section><h2 class="h2s">In this story</h2><div class="chips">%s</div></section>' % chips) if chips else "",
+             ('<section><h2 class="h2s">More stories</h2><div class="ggrid">%s</div></section>' % more) if more else "",
+             E(author.get("name", "HCMC Insider")))
+        ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": st["title"], "description": st.get("dek", ""),
+              "datePublished": st["date"], "dateModified": st.get("updated", st["date"]), "url": SITE + path, "inLanguage": "en",
+              "author": {"@type": "Person", "name": author.get("name", "HCMC Insider")},
+              "publisher": {"@type": "Organization", "name": "HCMC Insider", "url": SITE + "/"}}
+        if photos:
+            ld["image"] = [SITE + ph["src"] for ph in photos[:3]]
+        write(path, page(path, "%s | HCMC Insider" % st["title"], (st.get("dek") or st["title"])[:300], body, [ld, bld],
+                         og_image=(SITE + photos[0]["src"]) if photos else None))
+        urls.append(path)
+        lastmod[path] = st.get("updated", st["date"])
+    bc, bld = crumbs([("Home", "/"), ("Stories", None)])
+    cards = "".join(('<a class="scard" href="/stories/%s/">%s<div><em>%s</em><strong>%s</strong><span>%s</span></div></a>') % (
+        st["slug"], ('<img src="%s" alt="" loading="lazy">' % E(st["photos"][0]["src"])) if st.get("photos") else "",
+        E(nice_date(st["date"])), E(st["title"]), E(st.get("dek", ""))) for st in stories)
+    body = ('<div class="wrap">%s<p class="kicker">Stories</p><h1>Fresh from Saigon: notes and photos from a local</h1>'
+            '<p class="lead">%s Real photos from the street, the market and the table, posted as they happen.</p><div class="scards">%s</div>%s</div>') % (
+        bc, E(author.get("about", "")), cards, "" if stories else '<p class="small">The first story is coming soon.</p>')
+    write("/stories/", page("/stories/", "Stories: Notes and Photos from Ho Chi Minh City | HCMC Insider",
+                            "Real photos and first-hand notes from Ho Chi Minh City by a local: food, streets, markets and festivals, mostly around Cholon.",
+                            body, [bld], robots=None if stories else "noindex,follow"))
+    if stories:
+        urls.append("/stories/")
+        lastmod["/stories/"] = stories[0].get("updated", stories[0]["date"])
+    return [{"slug": st["slug"], "title": st["title"], "dek": st.get("dek", ""), "date": nice_date(st["date"]), "kicker": st.get("kicker", "Story"),
+             "img": st["photos"][0]["src"] if st.get("photos") else ""} for st in stories[:3]]
+
+
 # ---------------------------------------------------------------- shared layout
 LOGO = None  # filled from favicon.svg
 
@@ -239,7 +320,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
     url = SITE + path
     ld = "".join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in jsonld)
     nav = ('<header class="nav"><div class="wrap"><a class="logo" href="/" aria-label="HCMC Insider home">%s<span>HCMC <b>Insider</b></span></a>'
-           '<nav class="links" aria-label="Main"><a href="/#eat">Eat</a><a href="/see-and-do/">See &amp; Do</a><a href="/events/">Events</a><a href="/guides/">Guides</a>'
+           '<nav class="links" aria-label="Main"><a href="/#eat">Eat</a><a href="/see-and-do/">See &amp; Do</a><a href="/stories/">Stories</a><a href="/events/">Events</a><a href="/guides/">Guides</a>'
            '<a href="/guides/getting-around-hcmc/">Getting around</a><a href="/#plan">Plan</a></nav></div></header>') % logo_svg()
     plan = ('<aside class="plan"><div class="wrap"><p class="kicker">Plan your trip</p><div class="planrow">%s</div>'
             '<p class="small">Affiliate links: if you book, we may earn a small commission at no extra cost to you.</p></div></aside>'
@@ -917,6 +998,10 @@ def main():
         urls.append("/events/")
         lastmod["/events/"] = max(e["checked"] for e in events)
     EVENTS_OUT[:] = events
+    links = {("places", p["slug"]): ("/places/%s/" % p["slug"], p.get("nameEn") or p["name"]) for p in places}
+    links.update({("sights", x["slug"]): ("/see-and-do/%s/" % x["slug"], x["name"]) for x in sights})
+    links.update({("events", x["slug"]): ("/events/%s/" % x["slug"], x["name"]) for x in events})
+    d["stories"] = story_pages(write, urls, lastmod, links)
     d["sights"] = [{"slug": s["slug"], "name": s["name"], "kicker": s["kicker"], "short": s.get("teaser") or s["short"]} for s in sights]
     SIGHTS_OUT[:] = sights
 

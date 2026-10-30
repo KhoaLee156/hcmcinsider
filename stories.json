@@ -1,0 +1,5 @@
+{
+ "_how": "Newest first is automatic (by date). Each story: slug, date (YYYY-MM-DD), title, dek (one-line summary), kicker, body (list of paragraphs; a paragraph can be {\"photo\": n} to place photo n there), photos [{src, alt, caption}], optional youtube (video id), optional places/sights/events (slugs to link).",
+ "author": {"name": "HCMC Insider", "about": "A local in Ho Chi Minh City who eats, walks and photographs the city, mostly around Cholon."},
+ "stories": []
+}
