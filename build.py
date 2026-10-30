@@ -40,7 +40,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-23"}
+STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-30", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-23"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -499,6 +499,56 @@ def arrival_page():
                 body, [bld, faqld])
 
 
+# Set these to affiliate hotel-search links (e.g. Booking/Agoda via Travelpayouts) once approved; buttons appear automatically.
+HOTEL_LINKS = {}
+
+STAY_AREAS = [
+    ("district-1", "District 1 (Ben Thanh, Nguyen Hue)", "First visit, short stays, walking to the sights",
+     ["Walk to Ben Thanh Market, Nguyen Hue, the Opera House, Notre-Dame and the Post Office.",
+      "Metro Line 1 starts here (Ben Thanh and Opera House stations), and airport bus 152 stops at Ben Thanh.",
+      "Widest choice of hotels, from hostels to five-star riverside towers."],
+     ["Busiest and priciest area.", "Streets around Bui Vien (the backpacker quarter) are loud until late: pick a hotel a few blocks away if you want to sleep."]),
+    ("district-3", "District 3", "A quieter base next to the centre",
+     ["Leafy streets, old villas and local cafés, 10–20 minutes on foot from District 1.",
+      "Close to the War Remnants Museum and the Independence Palace.",
+      "Often better value than District 1 for similar hotels."],
+     ["Fewer big hotels; more boutique and serviced-apartment style.", "Nightlife is limited compared with District 1."]),
+    ("cholon", "Cholon (Districts 5, 6 and 11)", "Food lovers and repeat visitors",
+     ["Saigon's Chinatown, where most of the food spots on this site are.",
+      "Temples, Binh Tay Market and old trade streets on your doorstep.",
+      "Hotels are noticeably cheaper than in District 1."],
+     ["About 20–30 minutes by car from District 1; the metro does not reach Cholon yet (bus 1 does).", "Little English and few international-style hotels."]),
+    ("thao-dien", "Thao Dien (Thu Duc)", "Longer stays, families, a calmer pace",
+     ["The expat quarter: cafés, brunch spots, boutiques and riverside restaurants.",
+      "Metro Line 1 (Thao Dien station) reaches Ben Thanh in about 15 minutes.",
+      "More space, green streets and serviced apartments for longer stays."],
+     ["Far from Cholon and the old-town sights.", "Fewer budget options."]),
+]
+
+
+def stay_page():
+    bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Where to stay", None)])
+    cards = ""
+    for key, name, best, pros, cons in STAY_AREAS:
+        btn = ('<p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">See hotels in %s ↗</a></p>' % (E(HOTEL_LINKS[key]), E(name.split(" (")[0]))) if HOTEL_LINKS.get(key) else ""
+        cards += ('<div class="fact"><h3>%s</h3><p class="small"><strong>Best for:</strong> %s</p><ul>%s</ul><p class="small"><strong>Keep in mind:</strong> %s</p>%s</div>' % (
+            E(name), E(best), "".join("<li>%s</li>" % E(x) for x in pros), E(" ".join(cons)), btn))
+    body = """<div class="wrap narrow">%s
+<p class="kicker">Planning · Where to stay</p>
+<h1>Where to stay in Ho Chi Minh City: the best areas for visitors</h1>
+<p class="lead">Saigon is big and traffic is slow, so where you sleep decides how much of your trip is spent in a car. Here are the four areas we would pick, who each one suits, and the catch with each.</p>
+<div class="box answer"><p><strong>Short answer:</strong> first visit of 2–4 days, stay in <strong>District 1</strong> near Ben Thanh or the Opera House, but a few blocks away from Bui Vien. Want a quieter base that is still central, pick <strong>District 3</strong>. Here mainly to eat, stay in <strong>Cholon</strong>. Staying a week or more, or with kids, look at <strong>Thao Dien</strong>.</p></div>
+<div class="facts two">%s</div>
+<h2 class="h2s">Tips for booking</h2>
+<div class="fact"><ul><li>Check the map, not the name: many hotels call themselves "District 1" while being a long walk from the sights.</li><li>Ask for a room away from the street side if you are a light sleeper; motorbike traffic starts early.</li><li>Near a metro station is a real plus for getting east to Thao Dien and Landmark 81.</li><li>Arriving late? Book an <a href="/guides/arriving-in-saigon/">airport transfer</a> to the hotel door.</li></ul></div>
+<section><h2 class="h2s">Plan the rest</h2><div class="chips"><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/see-and-do/">See &amp; Do</a><a class="chip" href="/guides/cholon-food-guide/">Cholon food guide</a></div></section>
+<p class="small">Last checked: %s.</p>
+</div>""" % (bc, cards, MONTH)
+    return page("/guides/where-to-stay-ho-chi-minh-city/", "Where to Stay in Ho Chi Minh City: Best Areas for Visitors | HCMC Insider",
+                "The best areas to stay in Ho Chi Minh City (Saigon) for visitors: District 1, District 3, Cholon (Chinatown) and Thao Dien, who each suits and what to watch out for.",
+                body, [bld])
+
+
 def metro_page():
     stops = "".join('<li class="%s"><b>%s</b>%s%s</li>' % ("key" if k else "", E(n), '<span class="ug">underground</span>' if u else "",
                                                           ('<em>%s</em>' % E(t)) if t else "") for n, t, k, u in STOPS)
@@ -576,7 +626,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
-    urls = ["/", "/guides/", "/guides/arriving-in-saigon/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
+    urls = ["/", "/guides/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
     thin_list, lastmod = [], {}
 
     sp0 = os.path.join(ROOT, "sights.json")
@@ -637,6 +687,10 @@ def main():
             ('<section><h2 class="h2s">Creator videos</h2><div class="vlist">%s</div><p class="small">Videos belong to their creators and open on the original platform.</p></section>' % vl) if vl else "",
             ('<section><h2 class="h2s">In these guides</h2><div class="chips">%s</div></section>' % guides_links) if guides_links else "",
             ('<section><h2 class="h2s">More like this</h2>%s</section>' % guide_cards(related)) if related else "")
+        if p["cat"] == "food":
+            ftbox = ('<section class="box tourbox"><h2>Not sure what to order?</h2><p>A local-led street food tour is an easy first night in Saigon: a guide orders for you and explains each dish, then you can come back here on your own.</p>'
+                     '<p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">See Saigon food tours on Klook ↗</a></p><p class="small">Affiliate link: same price for you, a small commission for us.</p></section>\n' % FOODTOUR)
+            body = body.replace('<section><h2 class="h2s">More like this</h2>', ftbox + '<section><h2 class="h2s">More like this</h2>', 1) if 'More like this' in body else body
         head, tail = body.rsplit("\n</div>", 1)
         body = head + '\n<p class="small">Last updated: %s. Facts come from local creators\' videos and their descriptions; hours and prices change, so check before you go.</p>\n</div>' % nice_date(p["_updated"]) + tail
         ld = {"@context": "https://schema.org", "@type": SCHEMA_TYPE.get(p["cat"], "Place"), "name": name,
@@ -693,7 +747,7 @@ def main():
 </div>
 <h2 class="h2s">The places</h2>
 %s
-<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
+<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
 </div>""" % (bc, len(items), nice_date(g_updated), E(g["h1"]), short_answer(items), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
               "".join("<li>%s</li>" % E(t) for t in g["tips"]),
               ('<div class="box tourbox"><h2>First time eating your way around Saigon?</h2><p>A local-led street food tour (on foot or on the back of a motorbike) is an easy first night: someone orders for you and explains every dish. Then come back to the places below on your own.</p>'
@@ -732,6 +786,7 @@ def main():
     lastmod["/places/"] = max(p["_updated"] for p in places)
 
     write("/guides/arriving-in-saigon/", arrival_page())
+    write("/guides/where-to-stay-ho-chi-minh-city/", stay_page())
     write("/guides/hcmc-metro/", metro_page())
     write("/guides/getting-around-hcmc/", transport_page())
 
@@ -817,12 +872,14 @@ def main():
     bc, bld = crumbs([("Home", "/"), ("Guides", None)])
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
         g["slug"], E(g["nav"]), E(g["desc"]), len(g["items"])) for g in GUIDES)
+    gl += '<a class="gcard" href="/guides/where-to-stay-ho-chi-minh-city/"><strong>Where to stay</strong><span>District 1, District 3, Cholon or Thao Dien: which area suits your trip, and the catch with each.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/arriving-in-saigon/"><strong>Airport to city</strong><span>Tan Son Nhat to District 1 by transfer, Grab, taxi or free bus, plus eSIM and cash on arrival.</span><em>Arriving</em></a>'
     gl += '<a class="gcard" href="/guides/hcmc-metro/"><strong>Metro guide</strong><span>Stations, fares, hours and paying with a foreign card on Metro Line 1.</span><em>Getting around</em></a>'
     gl += '<a class="gcard" href="/guides/getting-around-hcmc/"><strong>Getting around</strong><span>Free city buses until end of 2026, airport buses 109 and 152, buses to Cholon and Cu Chi, the river bus and sightseeing bus.</span><em>Buses &amp; boats</em></a>'
     body = '<div class="wrap">%s<p class="kicker">Local guides</p><h1>Ho Chi Minh City guides by locals</h1><p class="lead">Food, markets and getting around in Ho Chi Minh City (Saigon), built from places local creators keep coming back to.</p><div class="ggrid">%s</div></div>' % (bc, gl)
     write("/guides/", page("/guides/", "Ho Chi Minh City (Saigon) Travel Guides by Locals | HCMC Insider",
                            "Local guides to Ho Chi Minh City: Cholon food, noodle soups, dim sum, vegetarian food, sweet soups, markets and the metro.", body, [bld]))
+    guides_out.append({"slug": "where-to-stay-ho-chi-minh-city", "title": "Where to stay", "count": 0})
     guides_out.append({"slug": "arriving-in-saigon", "title": "Airport to city", "count": 0})
     guides_out.append({"slug": "hcmc-metro", "title": "Metro guide", "count": 0})
     guides_out.append({"slug": "getting-around-hcmc", "title": "Buses & river bus", "count": 0})
@@ -842,7 +899,7 @@ def main():
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
     dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1><p>HCMC Insider is an independent English guide to Ho Chi Minh City (Saigon) by locals. It lists NPLACES food spots, markets and sights, mostly in Cholon (Saigon Chinatown), each with its Vietnamese name, address, directions and links to local creators\' videos, plus practical guides to the metro, free city buses and the airport bus.</p>'
-                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/arriving-in-saigon/">Airport to city: transfers, Grab, taxi and bus</a></li><li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
+                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/arriving-in-saigon/">Airport to city: transfers, Grab, taxi and bus</a></li><li><a href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay in Ho Chi Minh City</a></li><li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
     dir_html = dir_html.replace("NPLACES", str(len(places)), 1).replace("SIGHTLIST", "".join('<li><a href="/see-and-do/%s/">%s</a></li>' % (s["slug"], E(s["name"])) for s in SIGHTS_OUT), 1)
@@ -868,6 +925,7 @@ def main():
          "Vietnamese news sources; each page shows when it was last updated. Contact: hello@hcmcinsider.com", "",
          "## Guides", ""]
     L += ["- [%s](%s/guides/%s/): %s" % (g["title"], SITE, g["slug"], g["desc"]) for g in GUIDES]
+    L += ["- [Where to stay in Ho Chi Minh City](%s/guides/where-to-stay-ho-chi-minh-city/): District 1, District 3, Cholon and Thao Dien compared for visitors." % SITE]
     L += ["- [Tan Son Nhat airport to District 1](%s/guides/arriving-in-saigon/): transfers, ride-hailing, taxis, free buses 152 and 109, which terminal, eSIM and cash on arrival." % SITE]
     L += ["- [Ho Chi Minh City metro guide](%s/guides/hcmc-metro/): Metro Line 1 stations, fares, opening hours and paying with a foreign bank card." % SITE,
           "- [Getting around Ho Chi Minh City](%s/guides/getting-around-hcmc/): free city buses in 2026 and how to tap in, airport buses 109 and 152, buses to Cholon and Cu Chi, Saigon river bus." % SITE,

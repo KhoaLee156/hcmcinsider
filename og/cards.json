@@ -720,6 +720,36 @@
   "price": ""
  },
  {
+  "slug": "sight-mekong-delta-day-trip",
+  "name": "Mekong Delta day trip",
+  "vn": "Du lịch miền Tây: Mỹ Tho – Bến Tre",
+  "dish": "Day trip",
+  "area": "My Tho and Ben Tre (Mekong Delta)",
+  "cat": "culture",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "sight-landmark-81-skyview",
+  "name": "Landmark 81 SkyView",
+  "vn": "Đài quan sát Landmark 81 SkyView",
+  "dish": "Viewpoint",
+  "area": "Binh Thanh (east of the centre)",
+  "cat": "culture",
+  "hours": "9:00 am – 10:00 pm",
+  "price": ""
+ },
+ {
+  "slug": "sight-saigon-river-dinner-cruise",
+  "name": "Saigon River dinner cruise",
+  "vn": "Du thuyền ăn tối trên sông Sài Gòn",
+  "dish": "Evening",
+  "area": "District 1 and District 4 riverfront",
+  "cat": "culture",
+  "hours": "",
+  "price": ""
+ },
+ {
   "slug": "sight-notre-dame-cathedral-saigon",
   "name": "Saigon Notre-Dame Cathedral",
   "vn": "Nhà thờ Chính tòa Đức Bà Sài Gòn",

@@ -46,6 +46,7 @@
     "A shooting range on site sells bullets for real wartime rifles; it is loud and optional."
    ],
    "nearby_sights": [
+    "mekong-delta-day-trip",
     "war-remnants-museum",
     "independence-palace"
    ],
@@ -200,6 +201,204 @@
    "checked": "2026-10-30",
    "photos": [],
    "teaser": "Where the war ended: tickets, hours and the bunker not to miss."
+  },
+  {
+   "slug": "mekong-delta-day-trip",
+   "name": "Mekong Delta day trip",
+   "vn": "Du lịch miền Tây: Mỹ Tho – Bến Tre",
+   "kicker": "Day trip · about 70 km southwest",
+   "area": "My Tho and Ben Tre (Mekong Delta)",
+   "addr": "Bến tàu Mỹ Tho và các cồn Thới Sơn, Cồn Phụng trên sông Tiền",
+   "short": "Yes, if you want a taste of river life without staying overnight. A day trip to My Tho and Ben Tre means about two hours on the road each way, then boats between coconut-palm islands, fruit, honey tea and folk music. It is touristy but pleasant; for real floating markets you need to stay a night near Can Tho.",
+   "why": [
+    "A boat ride on the wide Tien River past the 'four sacred animal' islands and the Rach Mieu bridge.",
+    "Paddling a small sampan through narrow coconut-palm canals, the photo everyone comes for.",
+    "Coconut candy workshops, honey tea, tropical fruit and đờn ca tài tử, the traditional music of the south."
+   ],
+   "status": "Most day tours leave District 1 around 7:00 am and are back in the late afternoon. A typical route: boat from My Tho pier, coconut candy workshop, Thoi Son island with honey tea and a horse cart, sampan ride with fruit and music, lunch on Con Phung, and Vinh Trang Pagoda on the way back (iVIVU tour sheet).",
+   "facts": [
+    [
+     "Time needed",
+     "A full day, roughly 7:00 am – 5:00 pm"
+    ],
+    [
+     "Travel",
+     "About 2 hours each way by road"
+    ],
+    [
+     "Best for",
+     "A first look at the delta without staying overnight"
+    ],
+    [
+     "Floating markets",
+     "Not on most day trips; Cai Rang (Can Tho) needs an overnight stay"
+    ]
+   ],
+   "getting": [
+    "Day tour with hotel or District 1 pickup: by far the easiest, with boats, lunch and guide included.",
+    "Combined Cu Chi Tunnels + Mekong day tours exist but are rushed; pick one if you can.",
+    "Going alone: intercity buses leave from the Mien Tay bus station; you then arrange boats at My Tho pier yourself."
+   ],
+   "tips": [
+    "Bring sunscreen, a hat and insect repellent; boats have little shade.",
+    "Carry small notes for tips to the sampan rowers and musicians.",
+    "Small-group tours visit the same islands but feel much less crowded."
+   ],
+   "nearby_sights": [
+    "cu-chi-tunnels"
+   ],
+   "nearby_places": [],
+   "tour": {
+    "h": "Book a Mekong Delta day tour",
+    "p": "Day tours pick you up in District 1 and include the boats, lunch and a guide, so you spend the day on the river instead of arranging transport.",
+    "label": "See Mekong Delta day tours on Klook ↗",
+    "url": "https://klook.tpo.lu/XBZFKNfm"
+   },
+   "free": false,
+   "sources": [
+    [
+     "iVIVU tour itinerary",
+     "https://crm.ivivu.com/Tour/TourPrint.aspx?DocId=1643"
+    ],
+    [
+     "Trip.com tour listing",
+     "https://vn.trip.com/things-to-do/detail/105883995/"
+    ]
+   ],
+   "checked": "2026-10-30",
+   "photos": [],
+   "teaser": "Is a one-day Mekong trip worth it, what you'll do, and how to book."
+  },
+  {
+   "slug": "landmark-81-skyview",
+   "name": "Landmark 81 SkyView",
+   "vn": "Đài quan sát Landmark 81 SkyView",
+   "kicker": "Viewpoint · Binh Thanh",
+   "area": "Binh Thanh (east of the centre)",
+   "addr": "Landmark 81, Vinhomes Central Park, Nguyễn Hữu Cảnh, phường Thạnh Mỹ Tây (Bình Thạnh cũ)",
+   "short": "Yes, for the highest view in the city: the observation deck is on floors 79–81 of Vietnam's tallest building. Go late afternoon to see sunset and the lights come on, and come by metro to Tan Cang station. Tickets are pricier at weekends, so a weekday visit saves money.",
+   "why": [
+    "360° views over the Saigon River, District 1's skyline and the new Thu Thiem area.",
+    "A glass floor, telescopes and the 'Skytouch' open-air challenge on the top floor, with safety gear.",
+    "Bars and restaurants on floor 79 if you want to stay for a drink after dark."
+   ],
+   "status": "Reference prices (MIA.vn, Dec 2025) for the combo with a VR experience and a printed photo: about 420,000 dong for adults on weekdays and 500,000 dong at weekends; children about 220,000 / 250,000 dong. Buy online at least 2 hours ahead or at the counter on basement B1.",
+   "facts": [
+    [
+     "Hours",
+     "9:00 am – 10:00 pm"
+    ],
+    [
+     "Entry",
+     "About 420,000 dong weekdays, 500,000 dong weekends (adult combo)"
+    ],
+    [
+     "Time needed",
+     "1–1.5 hours"
+    ],
+    [
+     "Best time",
+     "4:00 pm onwards for sunset and night views"
+    ]
+   ],
+   "getting": [
+    "Metro Line 1: Tan Cang station, then a short walk to Vinhomes Central Park.",
+    "Ride-hailing: ask for “Landmark 81”, about 20–25 minutes from Ben Thanh depending on traffic.",
+    "Ticket counter: basement B1 of Vincom Landmark 81."
+   ],
+   "tips": [
+    "Check the weather: on hazy or rainy days the view drops a lot.",
+    "Drinking water and dangerous items are not allowed in; finish your drink before security.",
+    "Weekday tickets are cheaper and the deck is quieter."
+   ],
+   "nearby_sights": [
+    "nguyen-hue-walking-street"
+   ],
+   "nearby_places": [],
+   "tour": {
+    "h": "Skip the ticket counter",
+    "p": "Booking online lets you pick your time slot and walk straight up, which helps at sunset when the counter gets busy.",
+    "label": "See Landmark 81 SkyView tickets on Klook ↗",
+    "url": "https://klook.tpo.lu/FZ8vNhYU"
+   },
+   "free": false,
+   "sources": [
+    [
+     "MIA.vn, December 2025",
+     "https://mia.vn/cam-nang-du-lich/landmark-81-skyview-19792"
+    ]
+   ],
+   "checked": "2026-10-30",
+   "photos": [],
+   "teaser": "The city's highest view: tickets, best time and getting there by metro."
+  },
+  {
+   "slug": "saigon-river-dinner-cruise",
+   "name": "Saigon River dinner cruise",
+   "vn": "Du thuyền ăn tối trên sông Sài Gòn",
+   "kicker": "Evening · Saigon River",
+   "area": "District 1 and District 4 riverfront",
+   "addr": "Các bến du thuyền dọc sông Sài Gòn (Quận 1, Quận 4 cũ)",
+   "short": "Worth it if you want an easy, relaxed evening: two hours on the river with dinner and the lit-up skyline. The food is buffet or set menus rather than the city's best, so treat it as a view with dinner. Book ahead for weekends and holidays.",
+   "why": [
+    "The best way to see the skyline at night, including Landmark 81 and the Thu Thiem bridges.",
+    "Buffet or set-menu dinner on board, often with live music.",
+    "A calm break from motorbike traffic, good for families and couples."
+   ],
+   "status": "Dinner cruises usually board around 6:30–7:00 pm and return around 9:00–9:30 pm. Buffet cruises start at about 500,000 dong per person, with higher decks and fine-dining boats costing more; drinks and VAT are often extra (Vietnambooking, MIA.vn).",
+   "facts": [
+    [
+     "Times",
+     "Board around 6:30–7:00 pm, back around 9:00–9:30 pm"
+    ],
+    [
+     "Price",
+     "From about 500,000 dong per person (buffet); more for upper decks and fine dining"
+    ],
+    [
+     "Time needed",
+     "About 2.5 hours"
+    ],
+    [
+     "Often extra",
+     "Drinks, VAT, service charge"
+    ]
+   ],
+   "getting": [
+    "Piers are in District 1 (around Bach Dang) and District 4 (near Nha Rong wharf); your ticket names the exact pier.",
+    "Ride-hailing is easiest; arrive 30 minutes before departure.",
+    "On a budget, the river bus from Bach Dang pier gives similar views for a fraction of the price (no dinner)."
+   ],
+   "tips": [
+    "Check exactly what is included: drinks, VAT and transfers vary a lot between boats.",
+    "Ask for an upper or outdoor deck for the best views.",
+    "Bring a light layer: it can be windy on deck."
+   ],
+   "nearby_sights": [
+    "nguyen-hue-walking-street",
+    "landmark-81-skyview"
+   ],
+   "nearby_places": [],
+   "tour": {
+    "h": "Book a dinner cruise",
+    "p": "Compare boats, decks and what is included, and lock in a table for the night you want.",
+    "label": "See Saigon River dinner cruises on Klook ↗",
+    "url": "https://klook.tpo.lu/FZ8vNhYU"
+   },
+   "free": false,
+   "sources": [
+    [
+     "Vietnambooking",
+     "https://www.vietnambooking.com/du-lich/an-toi-tren-du-thuyen-song-sai-gon.html"
+    ],
+    [
+     "MIA.vn",
+     "https://mia.vn/cam-nang-du-lich/an-toi-tren-song-sai-gon-15557"
+    ]
+   ],
+   "checked": "2026-10-30",
+   "photos": [],
+   "teaser": "Two hours on the river with dinner: what to expect, prices and piers."
   },
   {
    "slug": "notre-dame-cathedral-saigon",
