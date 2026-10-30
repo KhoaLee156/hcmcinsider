@@ -1,5 +1,79 @@
 {
  "_how": "Newest first is automatic (by date). Each story: slug, date (YYYY-MM-DD), title, dek (one-line summary), kicker, body (list of paragraphs; a paragraph can be {\"photo\": n} to place photo n there), photos [{src, alt, caption}], optional youtube (video id), optional places/sights/events (slugs to link).",
- "author": {"name": "HCMC Insider", "about": "A local in Ho Chi Minh City who eats, walks and photographs the city, mostly around Cholon."},
- "stories": []
+ "author": {
+  "name": "HCMC Insider",
+  "about": "A local in Ho Chi Minh City who eats, walks and photographs the city, mostly around Cholon."
+ },
+ "stories": [
+  {
+   "slug": "hy-ky-chicken-noodles-phu-binh",
+   "date": "2026-10-30",
+   "kicker": "Food · Cholon (District 11)",
+   "title": "Hỷ Ký: chicken noodles with xá kén in Phú Bình",
+   "dek": "A morning-only chicken noodle shop in a Phú Bình alley, where the dipping bowl of xá kén is the real star. 50,000 dong a bowl.",
+   "photos": [
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/01.jpg",
+     "alt": "Two bowls of chicken noodle soup with bean sprouts, a steel bowl of chopped xá kén and dipping sauces on a steel table",
+     "caption": "The full spread at Hỷ Ký: chicken noodles, bean sprouts, xá kén and dipping sauces."
+    },
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/02.jpg",
+     "alt": "A piece of boiled chicken with yellow, finely dimpled skin held up with chopsticks over egg noodles",
+     "caption": "Yellow, dimpled skin over a thin ivory layer."
+    },
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/03.jpg",
+     "alt": "Chicken pieces in a clear golden broth with spring onion",
+     "caption": "Clear, golden broth, chicken on top, noodles and sprouts underneath."
+    },
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/04.jpg",
+     "alt": "A steel bowl of chopped xá kén next to small bowls of dipping sauce with chilli and green chilli slices",
+     "caption": "Help yourself: the xá kén bowl on the table, then chilli sauce, green chilli and the dark dipping sauce."
+    },
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/05.jpg",
+     "alt": "A bowl of egg noodles in broth with boiled chicken and chopped xá kén on top",
+     "caption": "A normal bowl, 50,000 dong."
+    },
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/06.jpg",
+     "alt": "Boiled chicken pieces in broth topped with spring onion",
+     "caption": "Chicken served in broth on the side."
+    },
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/07.jpg",
+     "alt": "Egg noodles in broth topped with chopped xá kén, chopsticks and spoon",
+     "caption": "Noodles with a spoonful of xá kén stirred in."
+    },
+    {
+     "src": "/assets/stories/hy-ky-chicken-noodles/08.jpg",
+     "alt": "Plain egg noodles in clear broth with spring onion and a side of bean sprouts",
+     "caption": "Yellow egg noodles in clear broth."
+    }
+   ],
+   "body": [
+    "I ate at Mì gà Hỷ Ký, a long-running shop in the Phú Bình parish area of old District 11. A normal bowl of chicken noodles with xá kén costs 50,000 dong.",
+    "The bowl arrives neat: a clear, golden broth, finely chopped spring onion, yellow egg noodles and bean sprouts at the bottom. Lift the chicken and the skin is yellow with tiny dimples, over a thin ivory layer. The meat is tender and fragrant, and even before any sauce you can clearly taste the chicken.",
+    {
+     "photo": 2
+    },
+    "Then comes the dipping bowl. Chopped xá kén sits in a whole steel bowl on the table; you spoon some into your own dish, add chilli sauce, a few slices of green chilli and a splash of the dark brown dipping sauce. Dip the chicken in and it is hot and pungent, nothing like the ginger fish sauce or salt, pepper and lime I usually have with boiled chicken. Eat it once and you remember it; it doesn't taste like anything else.",
+    {
+     "photo": 4
+    },
+    "From what I've read, xá kén is a kind of root and is considered the soul of this dish. And yellow, dimpled skin like this, as far as I know, usually means a free-range local chicken (gà ta).",
+    "The Phú Bình housing area is said to be the capital of chicken noodles with xá kén. Going there myself, I counted about five or six shops. I've eaten at quite a few, and Hỷ Ký is still the one I think is most worth it.",
+    {
+     "photo": 3
+    },
+    "Beyond the taste, the shop is very clean. The young owner has a great memory: he takes orders without writing anything down and works fast.",
+    "The downside is seating. The shop is in a narrow alley; come late and it's full, with no tables and a long wait. It sells in the morning and usually runs out by around 11 am, so go early.",
+    "You can also order a quarter or half chicken, and choose thigh, wing, back, upper thigh, feet or neck. Try a bite of chicken without sauce first to taste the bird, then move on to the xá kén. If you can't take much heat, go easy on it.",
+    "Verdict: worth the money, as long as you're willing to get up early. What do you usually dip boiled chicken in?",
+    "Practical info: Mì gà Hỷ Ký, Phú Bình parish area, old District 11, Ho Chi Minh City. 50,000 dong per normal bowl; quarter and half chickens available. Mornings only, usually sold out by about 11 am."
+   ]
+  }
+ ]
 }
