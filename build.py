@@ -208,9 +208,12 @@ def logo_svg(size=34):
                        '<svg width="%d" height="%d" viewBox="0 0 100 100" aria-hidden="true">' % (size, size), 1)
 
 
+FOODTOUR = "https://klook.tpo.lu/3S1n2OF8"
+
 AFF = [("Get a Vietnam eSIM", "https://airalo.tpo.lu/KP1dEp49"),
        ("Airport pickup", "https://kiwitaxi.tpo.lu/cz2amFE5"),
-       ("Food tours & day trips", "https://klook.tpo.lu/FZ8vNhYU")]
+       ("Food tours", "https://klook.tpo.lu/3S1n2OF8"),
+       ("Mekong day trips", "https://klook.tpo.lu/XBZFKNfm")]
 
 
 def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
@@ -424,7 +427,7 @@ def transport_page():
 <div class="facts two">
 <div class="fact"><h3>Bus 1 · to Cholon</h3><ul><li>Ba Son metro station → city centre → Cholon bus station (Chinatown)</li><li>Handy for the food spots on this site</li></ul></div>
 <div class="fact"><h3>Bus 150 · Cholon to the east</h3><ul><li>Cholon bus station → New Mien Dong bus station</li><li>Crosses the city from Chinatown to the big new eastern bus station</li></ul></div>
-<div class="fact"><h3>Bus 13 + 79 · Cu Chi Tunnels</h3><ul><li>Bus 13: Saigon bus station → Cu Chi bus station</li><li>Bus 79: Cu Chi bus station → Ben Duoc</li><li>Slow: allow 2+ hours each way. <a href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">Tours ↗</a> are easier. <a href="/see-and-do/cu-chi-tunnels/">Cu Chi visitor guide</a></li></ul></div>
+<div class="fact"><h3>Bus 13 + 79 · Cu Chi Tunnels</h3><ul><li>Bus 13: Saigon bus station → Cu Chi bus station</li><li>Bus 79: Cu Chi bus station → Ben Duoc</li><li>Slow: allow 2+ hours each way. <a href="https://klook.tpo.lu/iicfZvJp" target="_blank" rel="sponsored noopener">Tours ↗</a> are easier. <a href="/see-and-do/cu-chi-tunnels/">Cu Chi visitor guide</a></li></ul></div>
 <div class="fact"><h3>Bus 94 · Cholon to Cu Chi</h3><ul><li>Cholon bus station → Cu Chi bus station</li><li>An alternative start if you stay in Chinatown</li></ul></div>
 </div>
 <p class="small">For routes and live arrival times, use the BusMap app or Google Maps. Wave clearly at the bus as it approaches; buses may not stop if nobody signals.</p>
@@ -686,12 +689,16 @@ def main():
 %s
 %s
 <div class="box tips"><h2>Before you go</h2><ul>%s</ul></div>
+%s
 </div>
 <h2 class="h2s">The places</h2>
 %s
 <section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
 </div>""" % (bc, len(items), nice_date(g_updated), E(g["h1"]), short_answer(items), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
-              "".join("<li>%s</li>" % E(t) for t in g["tips"]), guide_cards(items), others)
+              "".join("<li>%s</li>" % E(t) for t in g["tips"]),
+              ('<div class="box tourbox"><h2>First time eating your way around Saigon?</h2><p>A local-led street food tour (on foot or on the back of a motorbike) is an easy first night: someone orders for you and explains every dish. Then come back to the places below on your own.</p>'
+               '<p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">See Saigon food tours on Klook ↗</a></p><p class="small">Affiliate link: same price for you, a small commission for us.</p></div>' % FOODTOUR) if g["slug"] != "cholon-markets-and-old-streets" else "",
+              guide_cards(items), others)
         il = {"@context": "https://schema.org", "@type": "CollectionPage", "name": g["h1"], "url": SITE + "/guides/%s/" % g["slug"],
               "description": g["desc"], "inLanguage": "en", "dateModified": g_updated,
               "publisher": {"@type": "Organization", "name": "HCMC Insider", "url": SITE + "/"},
@@ -747,8 +754,9 @@ def main():
         near_s = "".join('<a class="chip" href="/see-and-do/%s/">%s</a>' % (x, E(sight_map[x]["name"])) for x in s.get("nearby_sights", []) if x in sight_map)
         tv = s.get("tour")
         if isinstance(tv, dict):
-            tour = ('<section class="box tourbox"><h2>%s</h2><p>%s</p><p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">%s</a></p>'
-                    '<p class="small">Affiliate link: same price for you, a small commission for us.</p></section>') % (E(tv["h"]), E(tv["p"]), E(tv["url"]), E(tv["label"]))
+            tour = ('<section class="box tourbox"><h2>%s</h2><p>%s</p><p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">%s</a></p>%s'
+                    '<p class="small">Affiliate link: same price for you, a small commission for us.</p></section>') % (E(tv["h"]), E(tv["p"]), E(tv["url"]), E(tv["label"]),
+                       "".join('<p><a href="%s" target="_blank" rel="sponsored noopener">%s</a></p>' % (E(u), E(t)) for t, u in tv.get("extra", [])))
         elif tv:
             tour = ('<section class="box tourbox"><h2>Prefer a guided tour?</h2><p>Many half-day city tours include this stop with transport and a guide.</p>'
                     '<p><a class="cta" href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">See Saigon city tours on Klook ↗</a></p>'
