@@ -2,6 +2,200 @@
  "_about": "See & Do pages. Facts are checked against the listed sources; update 'checked' when re-verifying. photos: [] until we have our own (or verified-licence) photos: {src, alt, credit}.",
  "sights": [
   {
+   "slug": "cu-chi-tunnels",
+   "name": "Cu Chi Tunnels",
+   "vn": "Địa đạo Củ Chi",
+   "kicker": "Day trip · about 70 km northwest",
+   "area": "Cu Chi (outer Ho Chi Minh City)",
+   "addr": "Bến Đình (xã Nhuận Đức) hoặc Bến Dược (xã An Nhơn Tây), Củ Chi cũ, TP.HCM",
+   "short": "Yes, if you want to understand the war from the Vietnamese side. The tunnels are about 70 km from the city centre, so the real question is how you get there: a half-day tour is easiest, the public bus is cheap but slow. There are two sites, Ben Dinh (closer, busier) and Ben Duoc (further, quieter).",
+   "why": [
+    "A network of about 250 km of tunnels dug from 1948 and joined into one system in the 1960s, with kitchens, meeting rooms and field hospitals underground.",
+    "You can crawl through a short, widened section, see hidden trapdoors and booby traps, and taste steamed cassava, the wartime staple.",
+    "It is one of Vietnam's most visited sites and ranks among Tripadvisor's top attractions in Asia (CafeF, June 2026)."
+   ],
+   "status": "Open daily from 7:00 am to 5:00 pm, holidays included. Published 2026 prices differ between sources (85,000 or 125,000 dong for foreign adults; 35,000 dong for Vietnamese adults; children 7–16 half price, under 7 free), so trust the board at the gate. Most tours include the ticket.",
+   "facts": [
+    [
+     "Hours",
+     "7:00 am – 5:00 pm daily"
+    ],
+    [
+     "Entry",
+     "About 125,000 dong for foreign adults; check the board at the gate"
+    ],
+    [
+     "Time needed",
+     "Half a day including travel; 1.5–2 hours on site"
+    ],
+    [
+     "Which site",
+     "Ben Dinh: closer and set up for tours. Ben Duoc: further, quieter, with a memorial temple"
+    ]
+   ],
+   "getting": [
+    "Half-day tour from District 1 (by bus, or by speedboat on the Saigon River): the easiest option, ticket and guide usually included.",
+    "Public bus to Ben Duoc: bus 13 from Saigon bus station to Cu Chi bus station, then bus 79. Allow 2+ hours each way; city buses are free until 31 Dec 2026.",
+    "From Cholon: bus 94 from Cholon bus station to Cu Chi, then bus 79.",
+    "Ride-hailing car: about 1.5–2 hours each way depending on traffic; agree on a wait-and-return if you book by the hour."
+   ],
+   "tips": [
+    "Start early: mornings are cooler and the busiest tour groups arrive late morning.",
+    "Wear clothes you don't mind getting dusty, closed shoes and insect repellent.",
+    "The tunnels are tight and dark: skip the crawl if you are claustrophobic; there is plenty to see above ground.",
+    "A shooting range on site sells bullets for real wartime rifles; it is loud and optional."
+   ],
+   "nearby_sights": [
+    "war-remnants-museum",
+    "independence-palace"
+   ],
+   "nearby_places": [],
+   "tour": {
+    "h": "Book a Cu Chi Tunnels tour",
+    "p": "Half-day tours pick you up in District 1 and usually include the entrance ticket and an English-speaking guide, which saves the 2+ hour bus ride each way.",
+    "label": "See Cu Chi Tunnels tours on Klook ↗",
+    "url": "https://klook.tpo.lu/FZ8vNhYU"
+   },
+   "free": false,
+   "sources": [
+    [
+     "MIA.vn, September 2026",
+     "https://mia.vn/cam-nang-du-lich/dia-dao-cu-chi-12466"
+    ],
+    [
+     "Traveloka, 2026 prices",
+     "https://www.traveloka.com/vi-vn/explore/destination/dia-dao-cu-chi/156462"
+    ],
+    [
+     "CafeF, June 2026",
+     "https://cafef.vn/viet-nam-co-ngoi-lang-trong-long-dat-duoc-trang-du-lich-lon-nhat-the-gioi-vinh-danh-diem-tham-quan-hang-dau-chau-a-188260610162656819.chn"
+    ]
+   ],
+   "checked": "2026-10-30",
+   "photos": [],
+   "teaser": "How to get there, which site to pick, and whether to book a tour."
+  },
+  {
+   "slug": "war-remnants-museum",
+   "name": "War Remnants Museum",
+   "vn": "Bảo tàng Chứng tích Chiến tranh",
+   "kicker": "Museum · District 3",
+   "area": "District 3 (city centre)",
+   "addr": "28 Võ Văn Tần, phường Xuân Hòa (Quận 3 cũ), TP.HCM",
+   "short": "Yes, it is the city's most visited museum and the clearest introduction to the war's human cost. Some galleries, especially on Agent Orange, are very graphic: plan two hours and some quiet time afterwards. Tickets are cheap and can now be bought online to skip the queue.",
+   "why": [
+    "Photo galleries by war photographers from many countries, including those who died covering the conflict.",
+    "Tanks, aircraft and artillery in the courtyard, and a reconstruction of the 'tiger cage' prison cells.",
+    "A 10-minute walk from the Independence Palace, so the two fit into one morning."
+   ],
+   "status": "Since 10 February 2026 tickets can be bought online at ticket.baotangchungtichchientranh.vn: choose a time slot, pay, and scan the emailed QR code at the entrance (SGGP).",
+   "facts": [
+    [
+     "Hours",
+     "7:30 am – 5:30 pm daily; ticket counter closes 5:00 pm"
+    ],
+    [
+     "Entry",
+     "40,000 dong; students half price; under-6s free"
+    ],
+    [
+     "Time needed",
+     "1.5–2 hours"
+    ],
+    [
+     "Tickets online",
+     "ticket.baotangchungtichchientranh.vn"
+    ]
+   ],
+   "getting": [
+    "Walk: about 15 minutes from Ben Thanh Market, 10 minutes from the Independence Palace.",
+    "Metro Line 1: Ben Thanh station, then walk about 15 minutes.",
+    "Ride-hailing: ask for “Bảo tàng Chứng tích Chiến tranh”."
+   ],
+   "tips": [
+    "Go at opening time: tour groups fill the galleries from mid-morning.",
+    "Start on the top floor and work down; the hardest galleries are on the upper floors and you can skip them.",
+    "It may not suit young children; parents often see the courtyard and ground floor only."
+   ],
+   "nearby_sights": [
+    "independence-palace",
+    "ben-thanh-market",
+    "notre-dame-cathedral-saigon"
+   ],
+   "nearby_places": [],
+   "tour": true,
+   "free": false,
+   "sources": [
+    [
+     "SGGP, February 2026",
+     "https://www.sggp.org.vn/bao-tang-chung-tich-chien-tranh-van-hanh-he-thong-ban-ve-truc-tuyen-post838106.html"
+    ]
+   ],
+   "checked": "2026-10-30",
+   "photos": [],
+   "teaser": "Tickets, hours, online booking and how to handle the hardest galleries."
+  },
+  {
+   "slug": "independence-palace",
+   "name": "Independence Palace",
+   "vn": "Dinh Độc Lập",
+   "kicker": "Landmark · District 1",
+   "area": "District 1 (city centre)",
+   "addr": "135 Nam Kỳ Khởi Nghĩa, phường Bến Thành (Quận 1 cũ), TP.HCM",
+   "short": "Yes: it is where the war ended on 30 April 1975, when a tank broke through the gate, and the 1960s building is almost untouched inside. Allow 1–1.5 hours, go down to the basement command bunker, and pair it with the War Remnants Museum nearby.",
+   "why": [
+    "A rare, well-kept piece of 1960s modernist architecture, with the original meeting rooms, banquet hall and furniture.",
+    "The basement still holds the war-room maps, radio equipment and tunnels of the presidential bunker.",
+    "Replicas of the tanks that entered on 30 April 1975 stand in the grounds."
+   ],
+   "status": "Two ticket types: the palace alone, or a combo that adds the exhibition on the earlier Norodom Palace (1868–1966). Ticket sales stop at 3:30 pm (Vietnambooking, March 2026). The palace can close at short notice for state events.",
+   "facts": [
+    [
+     "Hours",
+     "Main building 8:00 am – 4:30 pm; exhibition 8:30 am – 4:30 pm; tickets until 3:30 pm"
+    ],
+    [
+     "Entry",
+     "40,000 dong (palace); 65,000 dong with the exhibition. Students 20,000 / 45,000"
+    ],
+    [
+     "Time needed",
+     "1–1.5 hours"
+    ]
+   ],
+   "getting": [
+    "Walk: about 10 minutes from Ben Thanh Market or Notre-Dame Cathedral.",
+    "Metro Line 1: Ben Thanh station, then about 10 minutes on foot.",
+    "Ride-hailing: ask for “Dinh Độc Lập”; the visitor entrance is on Nam Ky Khoi Nghia street."
+   ],
+   "tips": [
+    "Arrive before 3:00 pm; the last ticket is sold at 3:30 pm.",
+    "Don't skip the basement: the bunker is the most atmospheric part.",
+    "Signs inside are short; a guided city tour or reading up beforehand adds a lot of context."
+   ],
+   "nearby_sights": [
+    "war-remnants-museum",
+    "notre-dame-cathedral-saigon",
+    "ben-thanh-market"
+   ],
+   "nearby_places": [],
+   "tour": true,
+   "free": false,
+   "sources": [
+    [
+     "Vietnambooking, March 2026",
+     "https://www.vietnambooking.com/du-lich/blog-du-lich/dinh-doc-lap.html"
+    ],
+    [
+     "Traveloka",
+     "https://www.traveloka.com/vi-vn/explore/destination/dinh-doc-lap-acc/196891"
+    ]
+   ],
+   "checked": "2026-10-30",
+   "photos": [],
+   "teaser": "Where the war ended: tickets, hours and the bunker not to miss."
+  },
+  {
    "slug": "notre-dame-cathedral-saigon",
    "name": "Saigon Notre-Dame Cathedral",
    "vn": "Nhà thờ Chính tòa Đức Bà Sài Gòn",

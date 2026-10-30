@@ -40,7 +40,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-23"}
+STATIC_LASTMOD = {"/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-23"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -419,12 +419,12 @@ def transport_page():
 <div class="fact"><h3>Bus 152</h3><ul><li>Airport → Ben Thanh Market → Trung Son</li><li>The easiest bus to the city centre</li><li>On the city's free-fare list until 31 Dec 2026</li></ul></div>
 <div class="fact"><h3>Bus 109</h3><ul><li>Airport → Saigon bus station (near Ben Thanh and 23/9 Park)</li><li>On the city's free-fare list until 31 Dec 2026</li></ul></div>
 </div>
-<p class="small">Bus stops are outside the arrivals halls; ask airport staff which terminal your bus serves. Late at night, use a ride-hailing app or a <a href="https://kiwitaxi.tpo.lu/cz2amFE5" target="_blank" rel="sponsored noopener">pre-booked transfer ↗</a>.</p>
+<p class="small">Bus stops are outside the arrivals halls; ask airport staff which terminal your bus serves. Late at night, use a ride-hailing app or a <a href="https://kiwitaxi.tpo.lu/cz2amFE5" target="_blank" rel="sponsored noopener">pre-booked transfer ↗</a>. All options compared: <a href="/guides/arriving-in-saigon/">airport to city guide</a>.</p>
 <h2 class="h2s">City buses visitors use</h2>
 <div class="facts two">
 <div class="fact"><h3>Bus 1 · to Cholon</h3><ul><li>Ba Son metro station → city centre → Cholon bus station (Chinatown)</li><li>Handy for the food spots on this site</li></ul></div>
 <div class="fact"><h3>Bus 150 · Cholon to the east</h3><ul><li>Cholon bus station → New Mien Dong bus station</li><li>Crosses the city from Chinatown to the big new eastern bus station</li></ul></div>
-<div class="fact"><h3>Bus 13 + 79 · Cu Chi Tunnels</h3><ul><li>Bus 13: Saigon bus station → Cu Chi bus station</li><li>Bus 79: Cu Chi bus station → Ben Duoc</li><li>Slow: allow 2+ hours each way. <a href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">Tours ↗</a> are easier.</li></ul></div>
+<div class="fact"><h3>Bus 13 + 79 · Cu Chi Tunnels</h3><ul><li>Bus 13: Saigon bus station → Cu Chi bus station</li><li>Bus 79: Cu Chi bus station → Ben Duoc</li><li>Slow: allow 2+ hours each way. <a href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">Tours ↗</a> are easier. <a href="/see-and-do/cu-chi-tunnels/">Cu Chi visitor guide</a></li></ul></div>
 <div class="fact"><h3>Bus 94 · Cholon to Cu Chi</h3><ul><li>Cholon bus station → Cu Chi bus station</li><li>An alternative start if you stay in Chinatown</li></ul></div>
 </div>
 <p class="small">For routes and live arrival times, use the BusMap app or Google Maps. Wave clearly at the bus as it approaches; buses may not stop if nobody signals.</p>
@@ -445,6 +445,54 @@ def transport_page():
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in BUS_FAQ]}
     return page("/guides/getting-around-hcmc/", "Ho Chi Minh City Buses 2026: Airport to District 1, Free City Buses, River Bus | HCMC Insider",
                 "How to get around Ho Chi Minh City as a visitor: free city buses until end of 2026 and how to tap in, airport buses 109 and 152, bus to Cholon and Cu Chi, Saigon river bus and sightseeing bus.",
+                body, [bld, faqld])
+
+
+ARRIVAL_FAQ = [
+    ("How do I get from Tan Son Nhat airport to District 1?", "The easiest options are a pre-booked transfer (fixed price, driver waiting with your name) or a ride-hailing car from the app pickup area. On a budget, take bus 152 from the international terminal (daytime) to Ben Thanh Market; city buses are free until 31 December 2026."),
+    ("Which terminal will I arrive at?", "International flights use Terminal 2 (T2). Most domestic flights use the newer Terminal 3 (T3). Bus 152 serves T1/T2; bus 109 serves T3."),
+    ("Does the metro go to the airport?", "No. Metro Line 1 runs from Ben Thanh to Suoi Tien, in the opposite direction. Take a bus, taxi or ride-hailing car to the city first."),
+    ("Should I get an eSIM or a local SIM card?", "If your phone supports eSIM, install one before you fly and turn it on when you land: you have data for the ride-hailing app straight away. Local SIM cards are sold in the arrivals hall but need your passport for registration and there can be a queue."),
+    ("Are airport taxis safe?", "Use the official taxi rank outside arrivals or a ride-hailing app, and ignore people offering rides inside the hall. Make sure the meter is on before you set off."),
+]
+
+
+def arrival_page():
+    faq = "".join('<details class="faq"><summary>%s</summary><p>%s</p></details>' % (E(q), E(a)) for q, a in ARRIVAL_FAQ)
+    bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Arriving in Saigon", None)])
+    body = """<div class="wrap narrow">%s
+<p class="kicker">Arriving · Tan Son Nhat (SGN)</p>
+<h1>Tan Son Nhat airport to District 1: transfers, Grab, taxi and bus</h1>
+<p class="lead">The airport is only about 7 km from the city centre, but traffic can make it 20 minutes or an hour. Here is how to get into town, get online and get cash, sorted from easiest to cheapest.</p>
+<div class="box answer"><p><strong>Short answer:</strong> late at night, with luggage or kids, book a <a href="https://kiwitaxi.tpo.lu/cz2amFE5" target="_blank" rel="sponsored noopener">fixed-price transfer</a>. Otherwise install an <a href="https://airalo.tpo.lu/KP1dEp49" target="_blank" rel="sponsored noopener">eSIM</a> before you fly and order a ride-hailing car when you land. On a budget in daytime, bus 152 to Ben Thanh is free until the end of 2026.</p></div>
+<h2 class="h2s">Which terminal?</h2>
+<div class="facts two">
+<div class="fact"><h3>Terminal 2 · international</h3><ul><li>Most visitors arrive here</li><li>Bus 152 stops at T1/T2 (daytime)</li></ul></div>
+<div class="fact"><h3>Terminal 3 · domestic</h3><ul><li>Flights within Vietnam</li><li>Bus 109 runs from T3 to Saigon bus station, 5:30 am – 10:40 pm</li></ul></div>
+</div>
+<h2 class="h2s">Your options into the city</h2>
+<div class="facts two">
+<div class="fact"><h3>1 · Pre-booked transfer</h3><ul><li>Fixed price agreed in advance; the driver waits in arrivals with your name</li><li>Best for late flights, families and big luggage</li><li><a href="https://kiwitaxi.tpo.lu/cz2amFE5" target="_blank" rel="sponsored noopener">Book an airport transfer ↗</a></li></ul></div>
+<div class="fact"><h3>2 · Ride-hailing app</h3><ul><li>Grab, Xanh SM and Be work like Uber; you see the price before you book</li><li>Follow the signs to the app pickup area outside arrivals</li><li>You need mobile data on landing: an eSIM solves this</li></ul></div>
+<div class="fact"><h3>3 · Metered taxi</h3><ul><li>Use the official taxi rank outside arrivals</li><li>Check the meter is on; ignore touts inside the hall</li></ul></div>
+<div class="fact"><h3>4 · Bus (cheapest)</h3><ul><li>Bus 152: T1/T2 → Ben Thanh Market, daytime only</li><li>Bus 109: T3 → Saigon bus station, until about 10:40 pm</li><li>Free until 31 Dec 2026: tap a contactless card or phone when boarding. <a href="/guides/getting-around-hcmc/">Bus guide</a></li></ul></div>
+</div>
+<h2 class="h2s">Get online the moment you land</h2>
+<div class="facts two">
+<div class="fact"><h3>eSIM (easiest)</h3><ul><li>Buy and install before your flight; switch it on after landing</li><li>No queue, no passport registration at a kiosk, keep your home SIM for calls</li><li><a href="https://airalo.tpo.lu/KP1dEp49" target="_blank" rel="sponsored noopener">Vietnam eSIMs on Airalo ↗</a> · <a href="https://saily.tpo.lu/THj5dEjG" target="_blank" rel="sponsored noopener">Saily ↗</a></li></ul></div>
+<div class="fact"><h3>Local SIM card</h3><ul><li>Kiosks of the big networks in the arrivals hall</li><li>Bring your passport: SIM cards must be registered to an ID</li><li>Works on any unlocked phone</li></ul></div>
+</div>
+<h2 class="h2s">Cash and cards</h2>
+<div class="fact"><ul><li>ATMs are in the arrivals hall; take out enough dong for street food and small shops, which are often cash-only.</li><li>Cards and phone payments work in malls, hotels, the metro and on buses.</li><li>Keep small notes (10,000–100,000 dong) for taxis and stalls.</li></ul></div>
+<h2 class="h2s">Questions visitors ask</h2>%s
+<p class="small">Affiliate links (marked ↗ in the boxes above): same price for you, a small commission for HCMC Insider.</p>
+<p class="small">Last checked: %s. Sources: <a href="https://voh.com.vn/giao-thong/tuyen-xe-buyt-109-doi-lo-trinh-ket-noi-truc-tiep-nha-ga-t3-san-bay-tan-son-nhat-591657.html" target="_blank" rel="noopener">bus 109 to T3, bus 152 to T1/T2 (VOH)</a> · <a href="https://thanhnien.vn/tphcm-mien-phi-134-tuyen-xe-buyt-tu-hom-nay-nhung-dieu-hanh-khach-can-biet-185260630230637782.htm" target="_blank" rel="noopener">free buses (Thanh Nien)</a>. Bus times can change; check at the stop.</p>
+<p><a class="btn" href="/guides/hcmc-metro/">Metro Line 1 guide →</a></p>
+</div>""" % (bc, faq, MONTH)
+    faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in ARRIVAL_FAQ]}
+    return page("/guides/arriving-in-saigon/", "Tan Son Nhat Airport to District 1 (2026): Transfer, Grab, Bus | HCMC Insider",
+                "How to get from Tan Son Nhat airport (SGN) to District 1: pre-booked transfers, Grab and taxis, free buses 152 and 109, which terminal you land at, plus eSIM, SIM cards and cash on arrival.",
                 body, [bld, faqld])
 
 
@@ -525,7 +573,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
-    urls = ["/", "/guides/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
+    urls = ["/", "/guides/", "/guides/arriving-in-saigon/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
     thin_list, lastmod = [], {}
 
     sp0 = os.path.join(ROOT, "sights.json")
@@ -641,7 +689,7 @@ def main():
 </div>
 <h2 class="h2s">The places</h2>
 %s
-<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
+<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
 </div>""" % (bc, len(items), nice_date(g_updated), E(g["h1"]), short_answer(items), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
               "".join("<li>%s</li>" % E(t) for t in g["tips"]), guide_cards(items), others)
         il = {"@context": "https://schema.org", "@type": "CollectionPage", "name": g["h1"], "url": SITE + "/guides/%s/" % g["slug"],
@@ -676,6 +724,7 @@ def main():
     urls.append("/places/")
     lastmod["/places/"] = max(p["_updated"] for p in places)
 
+    write("/guides/arriving-in-saigon/", arrival_page())
     write("/guides/hcmc-metro/", metro_page())
     write("/guides/getting-around-hcmc/", transport_page())
 
@@ -696,9 +745,16 @@ def main():
         ul = lambda xs: "<ul>%s</ul>" % "".join("<li>%s</li>" % E(x) for x in xs)
         near_p = [by_slug[x] for x in s.get("nearby_places", []) if x in by_slug]
         near_s = "".join('<a class="chip" href="/see-and-do/%s/">%s</a>' % (x, E(sight_map[x]["name"])) for x in s.get("nearby_sights", []) if x in sight_map)
-        tour = ('<section class="box tourbox"><h2>Prefer a guided tour?</h2><p>Many half-day city tours include this stop with transport and a guide.</p>'
-                '<p><a class="cta" href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">See Saigon city tours on Klook ↗</a></p>'
-                '<p class="small">Affiliate link: same price for you, a small commission for us.</p></section>') if s.get("tour") else ""
+        tv = s.get("tour")
+        if isinstance(tv, dict):
+            tour = ('<section class="box tourbox"><h2>%s</h2><p>%s</p><p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">%s</a></p>'
+                    '<p class="small">Affiliate link: same price for you, a small commission for us.</p></section>') % (E(tv["h"]), E(tv["p"]), E(tv["url"]), E(tv["label"]))
+        elif tv:
+            tour = ('<section class="box tourbox"><h2>Prefer a guided tour?</h2><p>Many half-day city tours include this stop with transport and a guide.</p>'
+                    '<p><a class="cta" href="https://klook.tpo.lu/FZ8vNhYU" target="_blank" rel="sponsored noopener">See Saigon city tours on Klook ↗</a></p>'
+                    '<p class="small">Affiliate link: same price for you, a small commission for us.</p></section>')
+        else:
+            tour = ""
         src = " · ".join('<a href="%s" target="_blank" rel="noopener">%s</a>' % (E(u), E(t)) for t, u in s["sources"])
         body = """<div class="wrap narrow">%s
 <p class="kicker">%s</p>
@@ -716,7 +772,7 @@ def main():
 %s
 %s
 <p class="small">Last checked: %s. Sources: %s. Hours and access can change, so check on the day.</p>
-</div>""" % (bc, E(s["kicker"]), E(s["name"]), E(s["vn"]), E(s["short"]), hero,
+</div>""" % (bc, E(s["kicker"]), E(s["name"]), E(s["vn"]), E(s["short"]), hero + (tour if isinstance(tv, dict) else ""),
              ('<section class="box status"><h2>Current status</h2><p>%s</p></section>' % E(s["status"])) if s.get("status") else "",
              facts, ul(s["why"]), ul(s["getting"]), ul(s["tips"]), E(s["vn"]), E(s["addr"]), tour,
              ('<section><h2 class="h2s">Eat nearby</h2>%s</section>' % guide_cards(near_p)) if near_p else "",
@@ -725,7 +781,7 @@ def main():
         ld = {"@context": "https://schema.org", "@type": "TouristAttraction", "name": s["name"], "alternateName": s["vn"],
               "description": s["short"], "url": SITE + path,
               "address": {"@type": "PostalAddress", "streetAddress": s["addr"], "addressLocality": "Ho Chi Minh City", "addressCountry": "VN"},
-              "isAccessibleForFree": True}
+              "isAccessibleForFree": s.get("free", True)}
         if img:
             ld["image"] = SITE + "/og/sight-%s.jpg" % s["slug"]
         write(path, page(path, "%s: Is It Worth Visiting? Tips & How to Get There | HCMC Insider" % s["name"] if len(s["name"]) < 34 else "%s: Visitor Tips | HCMC Insider" % s["name"],
@@ -743,7 +799,7 @@ def main():
         body = ('<div class="wrap">%s<p class="kicker">See &amp; Do</p><h1>Saigon\'s icons, the local way</h1>'
                 '<p class="lead">The landmarks every visitor asks about, with honest advice on whether to go, current status, how to get there by metro or bus, and where to eat nearby.</p><div class="ggrid">%s</div></div>') % (bc, gl)
         write("/see-and-do/", page("/see-and-do/", "Things to Do in Ho Chi Minh City: Landmarks, Markets & Temples | HCMC Insider",
-                                   "Saigon's must-see landmarks the local way: Notre-Dame Cathedral, Central Post Office, Nguyen Hue, Ben Thanh and Binh Tay markets, Thien Hau Temple, with current status and how to get there.", body, [bld]))
+                                   "Saigon's must-see sights the local way: " + ", ".join(s["name"] for s in sights[:6]) + " and more, with tickets, current status and how to get there.", body, [bld]))
         urls.append("/see-and-do/")
         lastmod["/see-and-do/"] = max(s["checked"] for s in sights)
     d["sights"] = [{"slug": s["slug"], "name": s["name"], "kicker": s["kicker"], "short": s.get("teaser") or s["short"]} for s in sights]
@@ -753,11 +809,13 @@ def main():
     bc, bld = crumbs([("Home", "/"), ("Guides", None)])
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
         g["slug"], E(g["nav"]), E(g["desc"]), len(g["items"])) for g in GUIDES)
+    gl += '<a class="gcard" href="/guides/arriving-in-saigon/"><strong>Airport to city</strong><span>Tan Son Nhat to District 1 by transfer, Grab, taxi or free bus, plus eSIM and cash on arrival.</span><em>Arriving</em></a>'
     gl += '<a class="gcard" href="/guides/hcmc-metro/"><strong>Metro guide</strong><span>Stations, fares, hours and paying with a foreign card on Metro Line 1.</span><em>Getting around</em></a>'
     gl += '<a class="gcard" href="/guides/getting-around-hcmc/"><strong>Getting around</strong><span>Free city buses until end of 2026, airport buses 109 and 152, buses to Cholon and Cu Chi, the river bus and sightseeing bus.</span><em>Buses &amp; boats</em></a>'
     body = '<div class="wrap">%s<p class="kicker">Local guides</p><h1>Ho Chi Minh City guides by locals</h1><p class="lead">Food, markets and getting around in Ho Chi Minh City (Saigon), built from places local creators keep coming back to.</p><div class="ggrid">%s</div></div>' % (bc, gl)
     write("/guides/", page("/guides/", "Ho Chi Minh City (Saigon) Travel Guides by Locals | HCMC Insider",
                            "Local guides to Ho Chi Minh City: Cholon food, noodle soups, dim sum, vegetarian food, sweet soups, markets and the metro.", body, [bld]))
+    guides_out.append({"slug": "arriving-in-saigon", "title": "Airport to city", "count": 0})
     guides_out.append({"slug": "hcmc-metro", "title": "Metro guide", "count": 0})
     guides_out.append({"slug": "getting-around-hcmc", "title": "Buses & river bus", "count": 0})
 
@@ -776,7 +834,7 @@ def main():
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
     dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1><p>HCMC Insider is an independent English guide to Ho Chi Minh City (Saigon) by locals. It lists NPLACES food spots, markets and sights, mostly in Cholon (Saigon Chinatown), each with its Vietnamese name, address, directions and links to local creators\' videos, plus practical guides to the metro, free city buses and the airport bus.</p>'
-                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
+                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/arriving-in-saigon/">Airport to city: transfers, Grab, taxi and bus</a></li><li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
     dir_html = dir_html.replace("NPLACES", str(len(places)), 1).replace("SIGHTLIST", "".join('<li><a href="/see-and-do/%s/">%s</a></li>' % (s["slug"], E(s["name"])) for s in SIGHTS_OUT), 1)
@@ -802,6 +860,7 @@ def main():
          "Vietnamese news sources; each page shows when it was last updated. Contact: hello@hcmcinsider.com", "",
          "## Guides", ""]
     L += ["- [%s](%s/guides/%s/): %s" % (g["title"], SITE, g["slug"], g["desc"]) for g in GUIDES]
+    L += ["- [Tan Son Nhat airport to District 1](%s/guides/arriving-in-saigon/): transfers, ride-hailing, taxis, free buses 152 and 109, which terminal, eSIM and cash on arrival." % SITE]
     L += ["- [Ho Chi Minh City metro guide](%s/guides/hcmc-metro/): Metro Line 1 stations, fares, opening hours and paying with a foreign bank card." % SITE,
           "- [Getting around Ho Chi Minh City](%s/guides/getting-around-hcmc/): free city buses in 2026 and how to tap in, airport buses 109 and 152, buses to Cholon and Cu Chi, Saigon river bus." % SITE,
           "", "## Places", ""]
