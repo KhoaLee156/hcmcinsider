@@ -132,6 +132,7 @@ def dir_link(p):
 TIPS = {}
 LABELS = {}
 SIGHTS_OUT = []
+STORIES_ALL = load_stories()[1] if False else []
 EVENTS_OUT = []
 
 
@@ -143,6 +144,9 @@ def tips_html(p):
     if not rows:
         return ""
     dl = "".join('<div><dt>%s</dt><dd>%s</dd></div>' % (lab, E(t[k])) for k, lab in rows)
+    if t.get("own"):
+        return ('<section class="box ltips"><h2>Local tips</h2><dl>%s</dl><p class="small">From our own visit (%s). '
+                'Hours and prices change, so check before you go.</p></section>') % (dl, E(nice_date(t["own"])))
     src = ", ".join(t.get("src") or [])
     return ('<section class="box ltips"><h2>Local tips</h2><dl>%s</dl><p class="small">From the video description%s by %s. '
             'Hours and prices change, so check before you go.</p></section>') % (dl, "s" if len(t.get("src") or []) > 1 else "", E(src))
@@ -175,6 +179,7 @@ DISH_INFO = {
     "Lantern street": ("phố lồng đèn", "Before the Mid-Autumn Festival, the streets around Lương Nhữ Học in Cholon fill with handmade and modern lanterns. It is one of Saigon's most colourful evening walks."),
     "Herbal medicine street": ("phố thuốc Bắc", "Hải Thượng Lãn Ông street is lined with traditional Chinese medicine shops selling dried roots, herbs and tonics. Come for the smells, the old shopfronts and a glimpse of Cholon's trade history."),
     "Local market": ("chợ", "Vietnamese markets are busiest and most interesting early in the morning, when locals shop for fresh food and stop for breakfast at the stalls."),
+    "Chicken noodles": ("mì gà", "Mì gà is a Chinese-Vietnamese chicken noodle soup: springy yellow egg noodles in a clear chicken broth with boiled chicken. In the Phú Bình area of old District 11 it is served with xá kén, a chopped root you mix into a chilli dipping sauce for the chicken."),
     "Banh mi": ("bánh mì", "Bánh mì is Saigon's famous sandwich: a light, crackly baguette filled with pâté, cold cuts or grilled pork, pickled carrot and daikon, cucumber, coriander and chilli. Many shops also serve bánh mì chảo or ốp la, eggs and meats in a hot pan with bread on the side for breakfast."),
     "Café": ("cà phê", "Vietnamese coffee is strong and usually drip-brewed in a phin filter. Try cà phê sữa đá (iced with condensed milk); old Cholon cafés still make cà phê vợt, filtered through a cloth sock."),
 }
@@ -684,6 +689,7 @@ def main():
     if os.path.exists(tp):
         TIPS.update({k: v for k, v in json.load(open(tp, encoding="utf-8")).items() if not k.startswith("_")})
     rules = dish_rules()
+    STORIES_ALL[:] = load_stories()[1]
     places, videos = d["places"], d["videos"]
     vids = {}
     for v in videos:
@@ -788,6 +794,11 @@ def main():
             ('<section><h2 class="h2s">Creator videos</h2><div class="vlist">%s</div><p class="small">Videos belong to their creators and open on the original platform.</p></section>' % vl) if vl else "",
             ('<section><h2 class="h2s">In these guides</h2><div class="chips">%s</div></section>' % guides_links) if guides_links else "",
             ('<section><h2 class="h2s">More like this</h2>%s</section>' % guide_cards(related)) if related else "")
+        own = [x for x in STORIES_ALL if p["slug"] in x.get("places", [])]
+        if own:
+            ob = "".join('<a class="scard" href="/stories/%s/">%s<div><em>Our visit · %s</em><strong>%s</strong><span>%s</span></div></a>' % (
+                x["slug"], ('<img src="%s" alt="" loading="lazy">' % E(x["photos"][0]["src"])) if x.get("photos") else "", E(nice_date(x["date"])), E(x["title"]), E(x.get("dek", ""))) for x in own)
+            body = body.replace('<section class="box driver">', '<section><h2 class="h2s">Our visit</h2><div class="scards">%s</div></section>\n<section class="box driver">' % ob, 1)
         if p["cat"] == "food":
             ftbox = ('<section class="box tourbox"><h2>Not sure what to order?</h2><p>A local-led street food tour is an easy first night in Saigon: a guide orders for you and explains each dish, then you can come back here on your own.</p>'
                      '<p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">See Saigon food tours on Klook ↗</a></p><p class="small">Affiliate link: same price for you, a small commission for us.</p></section>\n' % FOODTOUR)

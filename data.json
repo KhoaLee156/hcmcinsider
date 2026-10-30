@@ -3,6 +3,19 @@
  "contact": "hello@hcmcinsider.com",
  "places": [
   {
+   "name": "Mì gà xá kén Hỷ Ký",
+   "nameEn": "Hy Ky Chicken Noodles",
+   "cat": "food",
+   "addr": "8L Lạc Long Quân, phường Hòa Bình (khu Phú Bình, Quận 11 cũ)",
+   "maps": "https://maps.apple.com/place?address=8%20L%20Lac%20Long%20Quan,%20Hoa%20Binh,%20Ho%20Chi%20Minh%20City,%20Vietnam&coordinate=10.771898,106.643045",
+   "lat": "10.771898",
+   "lng": "106.643045",
+   "note": "",
+   "noteEn": "Morning-only chicken noodle shop in a Phú Bình alley, known for boiled free-range chicken with a chilli dipping sauce of chopped xá kén. Our own pick of the five or six chicken noodle shops in the area.",
+   "id": "d2s8if8",
+   "slug": "hy-ky-chicken-noodles"
+  },
+  {
    "name": "Quán ăn Tân Nhã",
    "nameEn": "Tan Nha Eatery",
    "cat": "food",
@@ -1920,7 +1933,7 @@
   {
    "slug": "cholon-food-guide",
    "title": "Cholon food guide",
-   "count": 48
+   "count": 49
   },
   {
    "slug": "noodle-soups-ho-chi-minh-city",

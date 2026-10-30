@@ -1,5 +1,15 @@
 [
  {
+  "slug": "hy-ky-chicken-noodles",
+  "name": "Hy Ky Chicken Noodles",
+  "vn": "Mì gà xá kén Hỷ Ký",
+  "dish": "Chicken noodles",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "Mornings only; usually sold out by about 11 am",
+  "price": "50,000 dong for a normal bowl; quarter and half chickens available"
+ },
+ {
   "slug": "tan-nha-eatery",
   "name": "Tan Nha Eatery",
   "vn": "Quán ăn Tân Nhã",
