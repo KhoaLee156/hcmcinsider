@@ -16,3 +16,5 @@ pins/pins.json
 pins/pins-copy.txt
 pins/pinterest-bulk.csv
 .github
+events.json
+visitor_videos.json
