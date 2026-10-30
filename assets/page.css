@@ -175,3 +175,41 @@ footer p{margin:0;max-width:62ch}
 .scard div{display:grid;gap:4px;padding:14px 16px 16px}
 .scard em{font-style:normal;font-size:12.5px;color:var(--muted)}
 .scard span{color:var(--muted);font-size:14.5px}
+/* order card (place pages) */
+.box.order h2{margin-bottom:2px}
+.wrap .omenu{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:0}
+.omenu li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.omenu li>span:first-child{display:grid;min-width:0}
+.omenu b{font-size:17px;line-height:1.3}
+.omenu em{font-style:normal;font-size:14px;color:var(--muted)}
+.omenu li.on b{color:var(--jade)}
+.qty{display:flex;align-items:center;gap:4px;flex:none}
+.qty button{width:44px;height:44px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:22px;font-weight:700;line-height:1;cursor:pointer}
+.qty button:hover{border-color:var(--jade);color:var(--jade)}
+.qty output{min-width:28px;text-align:center;font-weight:800;font-size:17px}
+.oopts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 16px}
+button.chip{font:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 14px}
+button.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.ohint{color:color-mix(in srgb,var(--c-food) 72%,var(--ink));font-weight:700;font-size:14px;margin:0 0 10px}
+.acts button{font-family:inherit;cursor:pointer}
+.btn.saved{background:var(--amber-soft);border-color:var(--amber);color:var(--ink)}
+/* full-screen card for the seller or the driver */
+.noscroll,.noscroll body{overflow:hidden}
+.bigcard{position:fixed;inset:0;z-index:50;background:var(--amber-soft);color:var(--ink);display:flex;flex-direction:column;
+  padding:max(12px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto}
+.bctop{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bcbody{flex:1;display:flex;flex-direction:column;justify-content:center;padding:16px 0}
+.bcvi{font-size:clamp(30px,8.5vw,64px);line-height:1.22;font-weight:800;letter-spacing:-.01em;margin:0;overflow-wrap:anywhere}
+.bcvi .bcopt,.bcvi .bcaddr{display:block;margin-top:.45em}
+.bcvi .bcaddr{font-size:.62em;font-weight:700}
+.bcen{font-size:16px;color:var(--muted);margin:18px 0 0}
+/* saved page */
+.saved{border-top:1px solid var(--line);padding:20px 0 8px;margin-top:20px}
+.saved h2{margin:2px 0 4px}.saved h2 a{color:var(--ink);text-decoration:none}
+.saved .box.driver{margin-top:12px}.saved .box.driver h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.saved .acts{margin-top:12px}
+.st{font-size:14px;font-weight:700;margin:0}
+.st::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+.st.open{color:color-mix(in srgb,var(--jade) 85%,var(--ink))}.st.maybe,.st.unknown{color:var(--muted)}.st.closed{color:color-mix(in srgb,var(--c-food) 72%,var(--ink))}
+.offline{background:var(--amber-soft);border:1px solid var(--amber);border-radius:12px;padding:10px 14px;font-weight:600;font-size:14px}
+[hidden]{display:none!important}

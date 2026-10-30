@@ -11,6 +11,7 @@ Reads data.json and writes:
 Run after every data update:  python3 build.py
 """
 import datetime
+import hashlib
 import html
 import json
 import os
@@ -24,6 +25,8 @@ TODAY = datetime.date.today().isoformat()
 MONTH = datetime.date.today().strftime("%B %Y")
 
 E = lambda s: html.escape(str(s if s is not None else ""), quote=True)
+# /assets/ is cached for a week, so site.js is referenced with a content hash (pages, index.html and sw.js).
+SITE_JS = "/assets/site.js?v=" + hashlib.md5(open(os.path.join(ROOT, "assets", "site.js"), "rb").read()).hexdigest()[:8]
 
 
 # ---------------------------------------------------------------- data helpers
@@ -40,7 +43,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-30", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-23"}
+STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-30", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-30"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -185,6 +188,144 @@ DISH_INFO = {
 }
 
 
+# ---------------------------------------------------------------- near me: location and opening hours
+# Approximate centres of wards (after the 2025 merger) and old districts, used for "Near me" when a place has
+# no exact pin. The UI marks these distances with "≈". Wards are matched before districts.
+AREA_XY = [
+    (r"(?:P\.|Phường|phường)\s*Chợ Lớn", 10.7530, 106.6585), (r"(?:P\.|Phường|phường)\s*An Đông", 10.7580, 106.6740),
+    (r"(?:P\.|Phường|phường)\s*Chợ Quán", 10.7560, 106.6840), (r"(?:P\.|Phường|phường)\s*Minh Phụng", 10.7570, 106.6440),
+    (r"(?:P\.|Phường|phường)\s*Bình Thới", 10.7660, 106.6430), (r"(?:P\.|Phường|phường)\s*Hòa Bình", 10.7710, 106.6420),
+    (r"(?:P\.|Phường|phường)\s*Bình Phú", 10.7430, 106.6300), (r"(?:P\.|Phường|phường)\s*Phú Lâm", 10.7520, 106.6270),
+    (r"(?:P\.|Phường|phường)\s*Bình Tây", 10.7480, 106.6480), (r"(?:P\.|Phường|phường)\s*Ông Lãnh", 10.7660, 106.6970),
+    (r"(?:P\.|Phường|phường)\s*Bàn Cờ", 10.7710, 106.6840), (r"(?:P\.|Phường|phường)\s*Khánh Hội", 10.7600, 106.7000),
+    (r"(?:P\.|Phường|phường)\s*Phạm Ngũ Lão", 10.7660, 106.6920), (r"(?:P\.|Phường|phường)\s*Tân Quý", 10.7960, 106.6240),
+    (r"Quận 1\b", 10.7740, 106.6990), (r"Quận 3\b", 10.7810, 106.6860), (r"Quận 4\b", 10.7580, 106.7040),
+    (r"Quận 5\b", 10.7550, 106.6650), (r"Quận 6\b", 10.7470, 106.6360), (r"Quận 7\b", 10.7340, 106.7220),
+    (r"Quận 8\b", 10.7420, 106.6600), (r"Quận 10\b", 10.7720, 106.6680), (r"Quận 11\b", 10.7640, 106.6460),
+    (r"Tân Phú", 10.7900, 106.6280), (r"Chợ Lớn", 10.7530, 106.6585),
+]
+AREA_XY = [(re.compile(rx), la, ln) for rx, la, ln in AREA_XY]
+
+
+def geo_of(p, addr):
+    """[lat, lng, exact]: the place's own pin if it has one, else the centre of its ward or old district."""
+    if has_xy(p):
+        return [round(float(p["lat"]), 5), round(float(p["lng"]), 5), 1]
+    for rx, la, ln in AREA_XY:
+        if rx.search(addr or ""):
+            return [la, ln, 0]
+    return None
+
+
+# Hours the parser can't read on its own, written to match the tips text.
+HOURS_FIX = {
+    "d2s8if8": {"r": [[300, 660, 2]]},  # "Mornings only; usually sold out by about 11 am" (2 = start not stated; shown as "morning")
+}
+
+
+def parse_hours(pid, text):
+    """Turn the free-text 'hours' in tips.json into minute ranges for "open now".
+    r: [[start, end, about]] in minutes (about: 1 = end is approximate, 2 = only "mornings" is known) after midnight (end None = until sold out, end > 1440 = past midnight),
+    x: closed weekdays (0 = Sunday), lo: only on these lunar days, lx: closed on these lunar days."""
+    if pid in HOURS_FIX:
+        return HOURS_FIX[pid]
+    t = str(text or "")
+    if not t or re.search(r"busiest|best in", t, re.I):
+        return None
+    o = {}
+    if re.search(r"24 hours", t, re.I):
+        o["r"] = [[0, 1440, 0]]
+    else:
+        tm = re.compile(r"(\d{1,2})(?::(\d{2}))?\s*(am|pm)|midnight|noon", re.I)
+        ms = list(tm.finditer(t))
+
+        def mins(m):
+            w = m.group(0).lower()
+            if w == "midnight":
+                return 1440
+            if w == "noon":
+                return 720
+            h = int(m.group(1)) % 12 + (12 if m.group(3).lower() == "pm" else 0)
+            return h * 60 + int(m.group(2) or 0)
+        r, i = [], 0
+        while i < len(ms):
+            s = mins(ms[i]) % 1440
+            if i + 1 < len(ms) and re.search(r"–|-|\bto\b|until", t[ms[i].end():ms[i + 1].start()]):
+                e = mins(ms[i + 1])
+                if e <= s:
+                    e += 1440
+                about = 1 if re.search(r"about", t[ms[i].end():ms[i + 1].start()]) else 0
+                r.append([s, e, about])
+                i += 2
+            else:
+                r.append([s, None, 0])  # "from 5am" / "until sold out"
+                i += 1
+        if not r:
+            return None
+        o["r"] = r
+    lunar = [int(x) for x in re.findall(r"(\d+)(?:st|th)", t)] if "lunar" in t else []
+    if lunar:
+        o["lx" if re.search(r"closed on the \d", t) else "lo"] = lunar
+    days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+    x = [i for i, dname in enumerate(days) if re.search(r"closed (?:on )?%ss?\b" % dname, t, re.I)]
+    if x:
+        o["x"] = x
+    return o
+
+
+# ---------------------------------------------------------------- order card: common dishes per dish label
+# (Vietnamese, English, classifier). Every card also gets "this one" and "same as that table" plus drinks.
+ORDER_MENU = {
+    "Hu tieu noodle soup": [("hủ tiếu nước", "hu tieu in soup", "tô"), ("hủ tiếu khô", "dry hu tieu, soup on the side", "tô"), ("hủ tiếu Nam Vang", "Phnom Penh-style hu tieu", "tô")],
+    "Egg noodles & wontons": [("mì nước", "egg noodles in soup", "tô"), ("mì khô", "dry egg noodles, soup on the side", "tô"), ("hủ tiếu mì", "rice and egg noodles mixed", "tô"), ("hoành thánh", "wonton soup", "chén")],
+    "Herbal duck noodles": [("mì vịt tiềm", "herbal duck noodle soup", "tô"), ("mì vịt tiềm khô", "dry, broth on the side", "tô")],
+    "Goat noodle soup": [("hủ tiếu dê", "goat noodle soup", "tô"), ("mì dê", "goat with egg noodles", "tô")],
+    "Satay venison noodles": [("hủ tiếu sa tế", "satay noodle soup", "tô"), ("mì sa tế", "satay egg noodles", "tô")],
+    "Vegetarian": [("hủ tiếu chay", "vegetarian noodle soup", "tô"), ("cơm chay", "vegetarian rice plate", "dĩa")],
+    "Wonton dumplings": [("sủi cảo nước", "wonton dumplings in soup", "tô"), ("mì sủi cảo", "egg noodles with dumplings", "tô")],
+    "Dim sum": [("há cảo", "shrimp dumplings (har gow)", "xửng"), ("xíu mại", "siu mai", "xửng"), ("bánh bao", "steamed bun", "cái")],
+    "Sweet soup desserts": [("chè thập cẩm", "mixed sweet soup", "ly"), ("chè mè đen", "black sesame soup", "chén")],
+    "Chicken rice": [("cơm gà", "chicken rice", "dĩa"), ("thêm cơm", "extra rice", "chén")],
+    "Braised pork rice": [("cơm giò heo", "rice with braised pork", "dĩa")],
+    "Chinese-Vietnamese kitchen": [("cơm chiên Dương Châu", "Yangzhou fried rice", "dĩa"), ("mì xào giòn", "crispy fried noodles", "dĩa"), ("cơm trắng", "plain rice", "chén")],
+    "Crab noodle soup": [("bánh canh cua", "crab noodle soup", "tô")],
+    "Thick noodle soup": [("bánh canh", "thick noodle soup", "tô")],
+    "Spicy Hue beef noodles": [("bún bò Huế", "Hue beef noodle soup", "tô")],
+    "Crab & tomato noodles": [("bún riêu", "crab and tomato noodle soup", "tô")],
+    "Pho": [("phở bò tái", "pho with rare beef", "tô"), ("phở bò chín", "pho with well-done beef", "tô"), ("phở gà", "chicken pho", "tô")],
+    "Crab soup": [("súp cua", "crab soup", "chén")],
+    "Stuffed bitter melon": [("khổ qua nhồi", "stuffed bitter melon", "chén")],
+    "Goat dishes": [("lẩu dê", "goat hotpot", "nồi"), ("dê nướng", "grilled goat", "dĩa")],
+    "Chicken noodles": [("mì gà", "chicken noodle soup", "tô"), ("mì gà khô", "dry, soup on the side", "tô")],
+    "Banh mi": [("bánh mì thịt", "banh mi with cold cuts", "ổ"), ("bánh mì ốp la", "banh mi with fried eggs", "phần")],
+    "Café": [("cà phê sữa đá", "iced coffee with condensed milk", "ly"), ("cà phê đen đá", "iced black coffee", "ly"), ("cà phê sữa nóng", "hot coffee with milk", "ly"), ("bạc xỉu", "milky iced coffee", "ly")],
+}
+ORDER_ANY = [("món này", "this one (point at the menu)", "phần"), ("giống bàn kia", "the same as that table", "phần")]
+ORDER_DRINKS = [("trà đá", "iced tea", "ly"), ("nước suối", "bottled water", "chai")]
+
+
+def order_html(p, dish):
+    """Order card for food and coffee places: pick dishes and options, then show big Vietnamese text to the seller.
+    Hidden until assets/site.js runs."""
+    if p["cat"] not in ("food", "cafe"):
+        return ""
+    menu = ORDER_MENU.get("Café" if p["cat"] == "cafe" else dish, []) + ORDER_ANY
+    if p["cat"] != "cafe":
+        menu += ORDER_DRINKS
+    rows = "".join(
+        ('<li data-vi="%s" data-cl="%s"><span><b lang="vi">%s</b><em>%s</em></span>'
+         '<span class="qty"><button type="button" data-d="-1" aria-label="One less %s">−</button><output>0</output>'
+         '<button type="button" data-d="1" aria-label="One more %s">+</button></span></li>') % (
+            E(vi), E(cl), E(vi), E(en), E(en), E(en)) for vi, en, cl in menu)
+    return ('<section class="box order" id="order" data-kind="%s" hidden><h2>Order in Vietnamese</h2>'
+            '<p class="small">Tap + for what you want, add options, then show the seller your screen. These are typical dishes for this kind of place; '
+            'if yours isn\'t here, point at the menu and use “this one”.</p>'
+            '<ul class="omenu">%s</ul><div class="oopts" role="group" aria-label="Options"></div>'
+            '<div class="acts"><button class="cta" type="button" data-show="order">Show to the seller</button>'
+            '<button class="btn" type="button" data-show="bill">Ask for the bill</button></div></section>\n') % (
+        p["cat"], rows)
+
+
 def nice_date(iso):
     return datetime.date.fromisoformat(iso).strftime("%-d %B %Y")
 
@@ -326,7 +467,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
     ld = "".join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in jsonld)
     nav = ('<header class="nav"><div class="wrap"><a class="logo" href="/" aria-label="HCMC Insider home">%s<span>HCMC <b>Insider</b></span></a>'
            '<nav class="links" aria-label="Main"><a href="/#eat">Eat</a><a href="/see-and-do/">See &amp; Do</a><a href="/stories/">Stories</a><a href="/events/">Events</a><a href="/guides/">Guides</a>'
-           '<a href="/guides/getting-around-hcmc/">Getting around</a><a href="/#plan">Plan</a></nav></div></header>') % logo_svg()
+           '<a href="/guides/getting-around-hcmc/">Getting around</a><a href="/#plan">Plan</a><a href="/saved/">♥ Saved</a></nav></div></header>') % logo_svg()
     plan = ('<aside class="plan"><div class="wrap"><p class="kicker">Plan your trip</p><div class="planrow">%s</div>'
             '<p class="small">Affiliate links: if you book, we may earn a small commission at no extra cost to you.</p></div></aside>'
             % "".join('<a href="%s" target="_blank" rel="sponsored noopener">%s ↗</a>' % (u, E(t)) for t, u in AFF))
@@ -356,6 +497,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
 <link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/page.css">
+<script src="{js}" defer></script>
 {ld}</head>
 <body>
 {nav}
@@ -367,7 +509,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
 </body>
 </html>
 """.format(title=E(title), desc=E(desc), url=url, og=og_image or SITE + "/og-image.png", ld=ld,
-           nav=nav, body=body, plan=plan, foot=foot,
+           nav=nav, body=body, plan=plan, foot=foot, js=SITE_JS,
            robots=('<meta name="robots" content="%s">\n' % robots) if robots else "")
 
 
@@ -774,11 +916,11 @@ def main():
 <h1>%s</h1>
 <p class="vnname" lang="vi">%s</p>
 %s
-<div class="acts"><a class="cta" href="%s" target="_blank" rel="noopener">Directions</a>%s</div>
+<div class="acts"><a class="cta" href="%s" target="_blank" rel="noopener">Directions</a>%s<button class="btn pfav" type="button" data-fav="%s" data-slug="%s" aria-pressed="false" hidden>♡ Save</button></div>
 </div>
 %s
 </div>
-%s<section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p>%s<p class="small">Ride-hailing apps work best: paste the name or address, or tap Directions above.</p></section>
+%s%s<section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p>%s<p class="small">Ride-hailing apps work best: paste the name or address, or tap Directions above.</p><p class="fs" hidden><button class="btn" type="button" data-show="driver">Show full screen</button></p></section>
 %s
 %s
 %s
@@ -788,7 +930,8 @@ def main():
             ('<p class="lead">%s</p>' % E(p["noteEn"])) if p.get("noteEn") else "",
             E(dir_link(p)),
             ('<a class="btn" href="%s" target="_blank" rel="noopener">Watch video</a>' % E(p["_vids"][0]["url"])) if p["_vids"] else "",
-            hero, tips_html(p), E(p["name"]),
+            E(p["id"]), E(p["slug"]),
+            hero, tips_html(p), order_html(p, dish), E(p["name"]),
             ('<p class="addr" lang="vi">%s</p><p class="small">%s</p>' % (E(addr), E(addr_en(addr)))) if addr else "",
             dish_html(dish),
             ('<section><h2 class="h2s">Creator videos</h2><div class="vlist">%s</div><p class="small">Videos belong to their creators and open on the original platform.</p></section>' % vl) if vl else "",
@@ -834,6 +977,29 @@ def main():
         else:
             urls.append("/places/%s/" % p["slug"])
         lastmod["/places/%s/" % p["slug"]] = p["_updated"]
+
+    # ---- "Near me, open now" data (homepage) and the offline Saved page
+    near, saved = {}, []
+    for p in places:
+        t = TIPS.get(p["id"]) or {}
+        addr = t.get("addr") or p.get("addr") or ""
+        n = {"g": geo_of(p, addr), "h": t.get("hours", ""), "o": parse_hours(p["id"], t.get("hours"))}
+        near[p["id"]] = {k: v for k, v in n.items() if v}
+        saved.append({"id": p["id"], "slug": p["slug"], "en": p["_name"], "vi": p["name"], "dish": p["_dish"], "area": p["_area"],
+                      "addr": addr, "addrEn": addr_en(addr), "h": t.get("hours", ""), "o": n["o"], "dir": dir_link(p)})
+    d["near"] = near
+    bc, bld = crumbs([("Home", "/"), ("Saved", None)])
+    blob = json.dumps(saved, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    body = ('<div class="wrap narrow">%s<p class="kicker">Saved places</p><h1>Your saved places</h1>'
+            '<p class="lead">Tap ♡ Save on any place and it shows up here. This page and your saved places also work offline, '
+            'so you can show the Vietnamese name and address to a driver without mobile data.</p>'
+            '<p class="offline" id="offline" hidden>You are offline. Saved places still work; other pages may not load.</p>'
+            '<div id="saved"><p class="small">Loading…</p></div>'
+            '<noscript><p>Saved places need JavaScript.</p></noscript>'
+            '<p class="small">Saved places stay in this browser only; they are never sent to us.</p></div>'
+            '<script type="application/json" id="hi-places">%s</script>') % (bc, blob)
+    write("/saved/", page("/saved/", "Saved Places | HCMC Insider", "Your saved places in Ho Chi Minh City, with Vietnamese names and addresses to show your driver, available offline.",
+                          body, [bld], robots="noindex,follow"))
 
     # ---- share-card data for tools/og-cards.js
     os.makedirs(os.path.join(ROOT, "og"), exist_ok=True)
@@ -950,7 +1116,7 @@ def main():
 <section><h2 class="h2s">%s</h2>%s</section>
 <section><h2 class="h2s">How to get there</h2>%s</section>
 <section><h2 class="h2s">Local tips</h2>%s</section>%s
-<section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p><p class="addr" lang="vi">%s</p></section>
+<section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p><p class="addr" lang="vi">%s</p><p class="fs" hidden><button class="btn" type="button" data-show="driver">Show full screen</button></p></section>
 %s
 %s
 %s
@@ -1061,6 +1227,13 @@ def main():
     else:
         src = src.replace('<div hidden><div id="lmap"></div></div>\n', '<div hidden><div id="lmap"></div></div>\n' + tag, 1)
     assert '<script id="hi-data">' in src, "data script not placed"
+    src, n = re.subn(r'/assets/site\.js(?:\?v=\w+)?', SITE_JS, src)
+    assert n == 1, "site.js tag not found in index.html"
+    swp = os.path.join(ROOT, "sw.js")
+    sw = open(swp, encoding="utf-8").read()
+    sw, n = re.subn(r'/assets/site\.js(?:\?v=\w+)?', SITE_JS, sw)
+    assert n == 1, "site.js not found in sw.js"
+    open(swp, "w", encoding="utf-8").write(sw)
     open(idx_path, "w", encoding="utf-8").write(src)
 
     # ---- llms.txt (for AI assistants)
