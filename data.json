@@ -898,6 +898,32 @@
    "note": "",
    "noteEn": "Alley noodle shop in District 3 where the owner tosses the noodles with flair; shrimp, fish, kidney and pork bone toppings, in soup or dry.",
    "slug": "my-kim-noodles"
+  },
+  {
+   "name": "Bánh mì Hòa Mã",
+   "nameEn": "Hoa Ma Banh Mi",
+   "cat": "food",
+   "addr": "53 Cao Thắng, Quận 3",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Breakfast bánh mì shop at the head of an alley on Cao Thang, which Mark Wiens called the best breakfast he ate in Saigon.",
+   "id": "ev6paz4",
+   "slug": "hoa-ma-banh-mi"
+  },
+  {
+   "name": "Bánh mì Hồng Hoa",
+   "nameEn": "Hong Hoa Banh Mi",
+   "cat": "food",
+   "addr": "54 Nguyễn Văn Tráng, Phường Phạm Ngũ Lão, Quận 1",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Banh mi shop on Nguyen Van Trang near Ben Thanh Market and the backpacker area, featured in a Mark Wiens street food video.",
+   "id": "8w5ld40",
+   "slug": "hong-hoa-banh-mi"
   }
  ],
  "videos": [
@@ -1870,6 +1896,24 @@
    "views": 2337,
    "added": "2026-10-26",
    "titleEn": "Meeting the owner of the No. 1 Tan Da café"
+  },
+  {
+   "id": "lruyxdw",
+   "placeId": "ev6paz4",
+   "url": "https://www.youtube.com/watch?v=crPVJ3CXs1g",
+   "title": "Vietnamese Food - The BEST Breakfast I Ate in Saigon (Bánh Mì Hòa Mã)",
+   "creator": "Mark Wiens",
+   "views": 877681,
+   "added": "2026-10-30"
+  },
+  {
+   "id": "e3td273",
+   "placeId": "8w5ld40",
+   "url": "https://www.youtube.com/watch?v=L583pmA8zV0",
+   "title": "Banh Mi Sandwich at Bánh Mì Hồng Hoa - Amazing Vietnamese Street Food in Saigon, Vietnam",
+   "creator": "Mark Wiens",
+   "views": 801516,
+   "added": "2026-10-30"
   }
  ],
  "guides": [

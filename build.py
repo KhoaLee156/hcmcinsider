@@ -174,6 +174,7 @@ DISH_INFO = {
     "Lantern street": ("phố lồng đèn", "Before the Mid-Autumn Festival, the streets around Lương Nhữ Học in Cholon fill with handmade and modern lanterns. It is one of Saigon's most colourful evening walks."),
     "Herbal medicine street": ("phố thuốc Bắc", "Hải Thượng Lãn Ông street is lined with traditional Chinese medicine shops selling dried roots, herbs and tonics. Come for the smells, the old shopfronts and a glimpse of Cholon's trade history."),
     "Local market": ("chợ", "Vietnamese markets are busiest and most interesting early in the morning, when locals shop for fresh food and stop for breakfast at the stalls."),
+    "Banh mi": ("bánh mì", "Bánh mì is Saigon's famous sandwich: a light, crackly baguette filled with pâté, cold cuts or grilled pork, pickled carrot and daikon, cucumber, coriander and chilli. Many shops also serve bánh mì chảo or ốp la, eggs and meats in a hot pan with bread on the side for breakfast."),
     "Café": ("cà phê", "Vietnamese coffee is strong and usually drip-brewed in a phin filter. Try cà phê sữa đá (iced with condensed milk); old Cholon cafés still make cà phê vợt, filtered through a cloth sock."),
 }
 
@@ -197,6 +198,23 @@ def richness(p):
     street = bool(re.match(r"\s*(\d|Đối diện|Opposite|Góc|Chợ )", addr)) and addr.strip() != "Chợ Lớn"
     return (len(p.get("noteEn", "")) // 40 + 2 * len([k for k in ("hours", "price", "order", "note") if t.get(k)])
             + (2 if street else 0) + min(len(p["_vids"]), 3))
+
+def visitor_videos_html(vs):
+    """Videos by international visitors (linked to YouTube, never re-hosted)."""
+    if not vs:
+        return ""
+    items = "".join(
+        ('<a class="vid" href="https://www.youtube.com/watch?v=%s" target="_blank" rel="noopener">'
+         '<strong>%s</strong><span>YouTube · %s · %s views</span></a>') % (E(v["id"]), E(v["title"]), E(v["channel"]), compact(v["views"]))
+        for v in vs)
+    return ('<section><h2 class="h2s">What visitors filmed here</h2><div class="vlist">%s</div>'
+            '<p class="small">Videos by travellers, linked to their original YouTube channels. View counts as of October 2026.</p></section>') % items
+
+
+def load_visitor_videos():
+    f = os.path.join(ROOT, "visitor_videos.json")
+    return json.load(open(f, encoding="utf-8")) if os.path.exists(f) else {}
+
 
 # ---------------------------------------------------------------- shared layout
 LOGO = None  # filled from favicon.svg
@@ -487,11 +505,12 @@ def arrival_page():
 </div>
 <h2 class="h2s">Cash and cards</h2>
 <div class="fact"><ul><li>ATMs are in the arrivals hall; take out enough dong for street food and small shops, which are often cash-only.</li><li>Cards and phone payments work in malls, hotels, the metro and on buses.</li><li>Keep small notes (10,000–100,000 dong) for taxis and stalls.</li></ul></div>
+%s
 <h2 class="h2s">Questions visitors ask</h2>%s
 <p class="small">Affiliate links (marked ↗ in the boxes above): same price for you, a small commission for HCMC Insider.</p>
 <p class="small">Last checked: %s. Sources: <a href="https://voh.com.vn/giao-thong/tuyen-xe-buyt-109-doi-lo-trinh-ket-noi-truc-tiep-nha-ga-t3-san-bay-tan-son-nhat-591657.html" target="_blank" rel="noopener">bus 109 to T3, bus 152 to T1/T2 (VOH)</a> · <a href="https://thanhnien.vn/tphcm-mien-phi-134-tuyen-xe-buyt-tu-hom-nay-nhung-dieu-hanh-khach-can-biet-185260630230637782.htm" target="_blank" rel="noopener">free buses (Thanh Nien)</a>. Bus times can change; check at the stop.</p>
 <p><a class="btn" href="/guides/hcmc-metro/">Metro Line 1 guide →</a></p>
-</div>""" % (bc, faq, MONTH)
+</div>""" % (bc, visitor_videos_html(load_visitor_videos().get("arriving-in-saigon")), faq, MONTH)
     faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in ARRIVAL_FAQ]}
     return page("/guides/arriving-in-saigon/", "Tan Son Nhat Airport to District 1 (2026): Transfer, Grab, Bus | HCMC Insider",
@@ -731,6 +750,7 @@ def main():
         json.dump(cards, f, ensure_ascii=False, indent=1)
 
     # ---- guide pages
+    VV = load_visitor_videos()
     for g in GUIDES:
         items = g["items"]
         bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), (g["nav"], None)])
@@ -747,12 +767,13 @@ def main():
 </div>
 <h2 class="h2s">The places</h2>
 %s
+%s
 <section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
 </div>""" % (bc, len(items), nice_date(g_updated), E(g["h1"]), short_answer(items), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
               "".join("<li>%s</li>" % E(t) for t in g["tips"]),
               ('<div class="box tourbox"><h2>First time eating your way around Saigon?</h2><p>A local-led street food tour (on foot or on the back of a motorbike) is an easy first night: someone orders for you and explains every dish. Then come back to the places below on your own.</p>'
                '<p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">See Saigon food tours on Klook ↗</a></p><p class="small">Affiliate link: same price for you, a small commission for us.</p></div>' % FOODTOUR) if g["slug"] != "cholon-markets-and-old-streets" else "",
-              guide_cards(items), others)
+              guide_cards(items), visitor_videos_html(VV.get(g["slug"])), others)
         il = {"@context": "https://schema.org", "@type": "CollectionPage", "name": g["h1"], "url": SITE + "/guides/%s/" % g["slug"],
               "description": g["desc"], "inLanguage": "en", "dateModified": g_updated,
               "publisher": {"@type": "Organization", "name": "HCMC Insider", "url": SITE + "/"},
@@ -829,7 +850,7 @@ def main():
 <section class="box ltips"><h2>At a glance</h2><dl>%s</dl></section>
 <section><h2 class="h2s">Why go</h2>%s</section>
 <section><h2 class="h2s">How to get there</h2>%s</section>
-<section><h2 class="h2s">Local tips</h2>%s</section>
+<section><h2 class="h2s">Local tips</h2>%s</section>%s
 <section class="box driver"><h2>Show this to your driver</h2><p class="big" lang="vi">%s</p><p class="addr" lang="vi">%s</p></section>
 %s
 %s
@@ -837,7 +858,7 @@ def main():
 <p class="small">Last checked: %s. Sources: %s. Hours and access can change, so check on the day.</p>
 </div>""" % (bc, E(s["kicker"]), E(s["name"]), E(s["vn"]), E(s["short"]), hero + (tour if isinstance(tv, dict) else ""),
              ('<section class="box status"><h2>Current status</h2><p>%s</p></section>' % E(s["status"])) if s.get("status") else "",
-             facts, ul(s["why"]), ul(s["getting"]), ul(s["tips"]), E(s["vn"]), E(s["addr"]), tour,
+             facts, ul(s["why"]), ul(s["getting"]), ul(s["tips"]), visitor_videos_html(s.get("visitor_videos")), E(s["vn"]), E(s["addr"]), tour,
              ('<section><h2 class="h2s">Eat nearby</h2>%s</section>' % guide_cards(near_p)) if near_p else "",
              ('<section><h2 class="h2s">See next</h2><div class="chips">%s<a class="chip" href="/see-and-do/">All sights</a></div></section>' % near_s) if near_s else "",
              nice_date(s["checked"]), src)

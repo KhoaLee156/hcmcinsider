@@ -690,6 +690,26 @@
   "price": "60,000 – 80,000 dong a bowl"
  },
  {
+  "slug": "hoa-ma-banh-mi",
+  "name": "Hoa Ma Banh Mi",
+  "vn": "Bánh mì Hòa Mã",
+  "dish": "Banh mi",
+  "area": "District 3",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
+  "slug": "hong-hoa-banh-mi",
+  "name": "Hong Hoa Banh Mi",
+  "vn": "Bánh mì Hồng Hoa",
+  "dish": "Banh mi",
+  "area": "District 1",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
   "slug": "sight-cu-chi-tunnels",
   "name": "Cu Chi Tunnels",
   "vn": "Địa đạo Củ Chi",

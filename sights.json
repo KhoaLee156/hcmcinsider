@@ -80,7 +80,21 @@
    ],
    "checked": "2026-10-30",
    "photos": [],
-   "teaser": "How to get there, which site to pick, and whether to book a tour."
+   "teaser": "How to get there, which site to pick, and whether to book a tour.",
+   "visitor_videos": [
+    {
+     "id": "DCTB9ZJfy08",
+     "title": "Our first time in VIETNAM! 🇻🇳 Exploring Ho Chi Minh City (Saigon) + Cu Chi Tunnels!",
+     "channel": "Adventures of A+K",
+     "views": 509010
+    },
+    {
+     "id": "uDE8fSmW5lU",
+     "title": "Visiting the famous CU CHI TUNNELS in Vietnam: Is it worth it? | Tour Vlog & Review 2024",
+     "channel": "NALBA TRAVELS",
+     "views": 90893
+    }
+   ]
   },
   {
    "slug": "war-remnants-museum",
@@ -140,7 +154,15 @@
    ],
    "checked": "2026-10-30",
    "photos": [],
-   "teaser": "Tickets, hours, online booking and how to handle the hardest galleries."
+   "teaser": "Tickets, hours, online booking and how to handle the hardest galleries.",
+   "visitor_videos": [
+    {
+     "id": "yVQprxaEzXo",
+     "title": "Exploring the TRAGIC War Remnants Museum | Ho Chi Minh City | Vietnam",
+     "channel": "faheyjamestravel",
+     "views": 31137
+    }
+   ]
   },
   {
    "slug": "independence-palace",
@@ -267,7 +289,15 @@
    ],
    "checked": "2026-10-30",
    "photos": [],
-   "teaser": "Is a one-day Mekong trip worth it, what you'll do, and how to book."
+   "teaser": "Is a one-day Mekong trip worth it, what you'll do, and how to book.",
+   "visitor_videos": [
+    {
+     "id": "SM6xlDu51dA",
+     "title": "Exploring the MEKONG DELTA | Best Tour From HO CHI MINH! Ep.2: Vietnam Tour",
+     "channel": "Kyle & Jess",
+     "views": 50099
+    }
+   ]
   },
   {
    "slug": "landmark-81-skyview",
@@ -330,7 +360,15 @@
    ],
    "checked": "2026-10-30",
    "photos": [],
-   "teaser": "The city's highest view: tickets, best time and getting there by metro."
+   "teaser": "The city's highest view: tickets, best time and getting there by metro.",
+   "visitor_videos": [
+    {
+     "id": "Ur5cUNuZCqg",
+     "title": "Landmark 81: Vietnam's Tallest Skyscraper - A Complete Guide | Saigon",
+     "channel": "Puri and Sue",
+     "views": 23385
+    }
+   ]
   },
   {
    "slug": "saigon-river-dinner-cruise",
@@ -398,7 +436,21 @@
    ],
    "checked": "2026-10-30",
    "photos": [],
-   "teaser": "Two hours on the river with dinner: what to expect, prices and piers."
+   "teaser": "Two hours on the river with dinner: what to expect, prices and piers.",
+   "visitor_videos": [
+    {
+     "id": "mIGkhqmS6_g",
+     "title": "Review of a Luxury Seafood Buffet Cruise with Panoramic Saigon River Views | REVER CRUISE",
+     "channel": "Say Cooking & Sharing",
+     "views": 289271
+    },
+    {
+     "id": "x9neq6rESnk",
+     "title": "Best Restaurant with amazing view in Ho Chi Minh (Saigon), Vietnam Under $50 | 5-Star Dinner Cruise",
+     "channel": "Long ventures Vietnam",
+     "views": 13465
+    }
+   ]
   },
   {
    "slug": "notre-dame-cathedral-saigon",
@@ -754,7 +806,21 @@
    ],
    "checked": "2026-10-24",
    "photos": [],
-   "teaser": "Cholon's grand 1930 market, plus a nightly street-food market around it."
+   "teaser": "Cholon's grand 1930 market, plus a nightly street-food market around it.",
+   "visitor_videos": [
+    {
+     "id": "vglgFtQzBtw",
+     "title": "Binh Tay Market and Tour of Saigon's Chinatown (Chợ Lớn)",
+     "channel": "Mark Wiens",
+     "views": 752878
+    },
+    {
+     "id": "FpREU6ScV5U",
+     "title": "Saigon's Chinatown: The Culture, Food and People of Cho Lon",
+     "channel": "RICE",
+     "views": 227459
+    }
+   ]
   }
  ]
 }
