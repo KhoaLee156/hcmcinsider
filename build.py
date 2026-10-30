@@ -25,8 +25,14 @@ TODAY = datetime.date.today().isoformat()
 MONTH = datetime.date.today().strftime("%B %Y")
 
 E = lambda s: html.escape(str(s if s is not None else ""), quote=True)
-# /assets/ is cached for a week, so site.js is referenced with a content hash (pages, index.html and sw.js).
-SITE_JS = "/assets/site.js?v=" + hashlib.md5(open(os.path.join(ROOT, "assets", "site.js"), "rb").read()).hexdigest()[:8]
+# /assets/ is cached for a week, so site.js and page.css are referenced with a content hash (pages, index.html, sw.js);
+# otherwise phones keep the old file and new features look broken.
+def versioned(rel):
+    return "/%s?v=%s" % (rel, hashlib.md5(open(os.path.join(ROOT, rel), "rb").read()).hexdigest()[:8])
+
+
+SITE_JS = versioned("assets/site.js")
+PAGE_CSS = versioned("assets/page.css")
 
 
 # ---------------------------------------------------------------- data helpers
@@ -496,7 +502,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/page.css">
+<link rel="stylesheet" href="{css}">
 <script src="{js}" defer></script>
 {ld}</head>
 <body>
@@ -509,7 +515,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
 </body>
 </html>
 """.format(title=E(title), desc=E(desc), url=url, og=og_image or SITE + "/og-image.png", ld=ld,
-           nav=nav, body=body, plan=plan, foot=foot, js=SITE_JS,
+           nav=nav, body=body, plan=plan, foot=foot, js=SITE_JS, css=PAGE_CSS,
            robots=('<meta name="robots" content="%s">\n' % robots) if robots else "")
 
 
@@ -1231,8 +1237,9 @@ def main():
     assert n == 1, "site.js tag not found in index.html"
     swp = os.path.join(ROOT, "sw.js")
     sw = open(swp, encoding="utf-8").read()
-    sw, n = re.subn(r'/assets/site\.js(?:\?v=\w+)?', SITE_JS, sw)
-    assert n == 1, "site.js not found in sw.js"
+    for rx, url in ((r'/assets/site\.js(?:\?v=\w+)?', SITE_JS), (r'/assets/page\.css(?:\?v=\w+)?', PAGE_CSS)):
+        sw, n = re.subn(rx, url, sw)
+        assert n == 1, url + " not found in sw.js"
     open(swp, "w", encoding="utf-8").write(sw)
     open(idx_path, "w", encoding="utf-8").write(src)
 
