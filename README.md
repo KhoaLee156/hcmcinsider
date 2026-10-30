@@ -32,3 +32,6 @@ Share images: `build.py` writes `og/cards.json`; then `node tools/og-cards.js` (
 
 ## See & Do
 `sights.json` holds the landmark pages (/see-and-do/<slug>/). Facts are checked against the listed sources; update `checked` when re-verifying. To add real photos, put them in `assets/photos/` and list them in the sight's `photos` as {src, alt, credit}; they replace the illustration card at the top.
+
+## IndexNow
+`.github/workflows/indexnow.yml` runs after every push that changes `sitemap.xml`: it waits for Cloudflare to deploy, then `tools/indexnow.py` sends the new or changed URLs to IndexNow (Bing, Yandex and others). The key file is the `<key>.txt` at the site root. To resubmit everything, run the workflow by hand on GitHub (Actions → IndexNow → Run workflow, tick "all").

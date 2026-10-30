@@ -1,0 +1,21 @@
+name: IndexNow
+on:
+  push:
+    branches: [main]
+    paths: [sitemap.xml]
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Submit every URL in the sitemap"
+        type: boolean
+        default: false
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      # give Cloudflare time to deploy before search engines come to crawl
+      - run: sleep 180
+      - run: python3 tools/indexnow.py ${{ inputs.all && '--all' || '' }}
