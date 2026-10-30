@@ -690,6 +690,36 @@
   "price": "60,000 – 80,000 dong a bowl"
  },
  {
+  "slug": "sight-cu-chi-tunnels",
+  "name": "Cu Chi Tunnels",
+  "vn": "Địa đạo Củ Chi",
+  "dish": "Day trip",
+  "area": "Cu Chi (outer Ho Chi Minh City)",
+  "cat": "culture",
+  "hours": "7:00 am – 5:00 pm daily",
+  "price": ""
+ },
+ {
+  "slug": "sight-war-remnants-museum",
+  "name": "War Remnants Museum",
+  "vn": "Bảo tàng Chứng tích Chiến tranh",
+  "dish": "Museum",
+  "area": "District 3 (city centre)",
+  "cat": "culture",
+  "hours": "7:30 am – 5:30 pm daily; ticket counter closes 5:00 pm",
+  "price": ""
+ },
+ {
+  "slug": "sight-independence-palace",
+  "name": "Independence Palace",
+  "vn": "Dinh Độc Lập",
+  "dish": "Landmark",
+  "area": "District 1 (city centre)",
+  "cat": "culture",
+  "hours": "Main building 8:00 am – 4:30 pm; exhibition 8:30 am – 4:30 pm; tickets until 3:30 pm",
+  "price": ""
+ },
+ {
   "slug": "sight-notre-dame-cathedral-saigon",
   "name": "Saigon Notre-Dame Cathedral",
   "vn": "Nhà thờ Chính tòa Đức Bà Sài Gòn",

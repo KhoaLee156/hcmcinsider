@@ -1909,6 +1909,11 @@
    "count": 7
   },
   {
+   "slug": "arriving-in-saigon",
+   "title": "Airport to city",
+   "count": 0
+  },
+  {
    "slug": "hcmc-metro",
    "title": "Metro guide",
    "count": 0
@@ -1920,6 +1925,24 @@
   }
  ],
  "sights": [
+  {
+   "slug": "cu-chi-tunnels",
+   "name": "Cu Chi Tunnels",
+   "kicker": "Day trip · about 70 km northwest",
+   "short": "How to get there, which site to pick, and whether to book a tour."
+  },
+  {
+   "slug": "war-remnants-museum",
+   "name": "War Remnants Museum",
+   "kicker": "Museum · District 3",
+   "short": "Tickets, hours, online booking and how to handle the hardest galleries."
+  },
+  {
+   "slug": "independence-palace",
+   "name": "Independence Palace",
+   "kicker": "Landmark · District 1",
+   "short": "Where the war ended: tickets, hours and the bunker not to miss."
+  },
   {
    "slug": "notre-dame-cathedral-saigon",
    "name": "Saigon Notre-Dame Cathedral",
