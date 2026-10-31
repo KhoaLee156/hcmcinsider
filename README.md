@@ -42,3 +42,7 @@ All run in the browser; no server. Shared code is `assets/site.js` (loaded on ev
 
 ## IndexNow
 `.github/workflows/indexnow.yml` runs after every push that changes `sitemap.xml`: it waits for Cloudflare to deploy, then `tools/indexnow.py` sends the new or changed URLs to IndexNow (Bing, Yandex and others). The key file is the `<key>.txt` at the site root. To resubmit everything, run the workflow by hand on GitHub (Actions → IndexNow → Run workflow, tick "all").
+
+## Weekly site check
+`.github/workflows/site-check.yml` runs `tools/site_check.py` every Monday at 8:17 am Saigon time. When something needs attention it opens (or updates) one GitHub issue labelled `site-check`, so GitHub emails you; when everything is fine it closes that issue. Run it by hand from Actions → Weekly site check → Run workflow, or locally with `python3 tools/site_check.py` (`--offline` skips the network checks).
+It checks: internal links and #anchors, outside links (404/410/5xx/DNS; sites that block robots are listed separately), YouTube videos removed or made private, `checked` dates in `sights.json`/`events.json` older than 120 days, events that ended or start within 30 days, text like "free until the end of 2026" within 75 days of its date, and `STATIC_LASTMOD` pages older than 180 days. Thresholds are at the top of the script. Affiliate short links are checked without following them, so they never count as clicks.

@@ -1,0 +1,42 @@
+name: Weekly site check
+# Every Monday morning (8:17 am Saigon time): broken links, removed videos, facts and dates that need a re-check.
+# Opens or updates one GitHub issue labelled "site-check" (GitHub emails you), and closes it when all is fine.
+on:
+  schedule:
+    - cron: "17 1 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: site-check
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - id: run
+        run: python3 tools/site_check.py --out report.md
+      - name: Show the report on the run page
+        run: cat report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Open, update or close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PROBLEMS: ${{ steps.run.outputs.problems }}
+        run: |
+          gh label create site-check --color 0E6655 --description "Weekly site check" 2>/dev/null || true
+          num=$(gh issue list --label site-check --state open --json number --jq '.[0].number // empty')
+          today=$(date -u +%F)
+          if [ "${PROBLEMS:-0}" -gt 0 ]; then
+            if [ -n "$num" ]; then
+              gh issue edit "$num" --title "Site check: $PROBLEMS item(s) to fix" --body-file report.md
+              gh issue comment "$num" --body "Updated for $today: $PROBLEMS item(s) need attention. See the list above."
+            else
+              gh issue create --title "Site check: $PROBLEMS item(s) to fix" --label site-check --body-file report.md
+            fi
+          elif [ -n "$num" ]; then
+            gh issue comment "$num" --body "All clear on $today ✅ Closing."
+            gh issue close "$num"
+          fi
