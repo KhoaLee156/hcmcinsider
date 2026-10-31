@@ -49,7 +49,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-30", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-30"}
+STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-30"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -791,24 +791,89 @@ STAY_AREAS = [
 ]
 
 
+# "Which area suits you?" quiz on the where-to-stay guide. Each answer adds points to areas (keys of STAY_AREAS);
+# assets/site.js adds them up in the browser. Edit questions and weights here, then run build.py.
+STAY_QUIZ = [
+    ("How long are you in Saigon?", [
+        ("1–3 days", {"district-1": 3, "district-3": 1}),
+        ("4–6 days", {"district-1": 1, "district-3": 2, "cholon": 1}),
+        ("A week or more", {"thao-dien": 3, "district-3": 1, "cholon": 1}),
+    ]),
+    ("Is this your first time in Ho Chi Minh City?", [
+        ("Yes, first visit", {"district-1": 2, "district-3": 1}),
+        ("No, I have been before", {"cholon": 2, "district-3": 1, "thao-dien": 1}),
+    ]),
+    ("What do you most want to do?", [
+        ("See the famous sights on foot", {"district-1": 3, "district-3": 1}),
+        ("Eat where locals eat", {"cholon": 3, "district-3": 1}),
+        ("Cafés, quiet streets, old villas", {"district-3": 3, "thao-dien": 1}),
+        ("Slow down: brunch, river, space", {"thao-dien": 3}),
+    ]),
+    ("Who are you travelling with?", [
+        ("Solo or as a couple", {"district-1": 1, "district-3": 1, "cholon": 1}),
+        ("Friends who want nightlife", {"district-1": 3}),
+        ("Family with kids", {"thao-dien": 3, "district-3": 1}),
+    ]),
+    ("Your hotel budget per night?", [
+        ("Under 600,000 dong (about US$25)", {"cholon": 2, "district-3": 1}),
+        ("600,000–2,000,000 dong", {"district-3": 1, "district-1": 1, "cholon": 1}),
+        ("Over 2,000,000 dong", {"district-1": 2, "thao-dien": 1}),
+    ]),
+    ("Are you a light sleeper?", [
+        ("Yes, I need it quiet", {"district-3": 2, "thao-dien": 2, "district-1": -1}),
+        ("No, noise doesn't bother me", {"district-1": 1, "cholon": 1}),
+    ]),
+]
+# Where to go next for each result: (label, link). Shown under the result.
+STAY_NEXT = {
+    "district-1": [("Ben Thanh Market", "/see-and-do/ben-thanh-market/"), ("Nguyen Hue Walking Street", "/see-and-do/nguyen-hue-walking-street/"), ("Airport to District 1", "/guides/arriving-in-saigon/")],
+    "district-3": [("War Remnants Museum", "/see-and-do/war-remnants-museum/"), ("Independence Palace", "/see-and-do/independence-palace/"), ("Getting around", "/guides/getting-around-hcmc/")],
+    "cholon": [("Cholon food guide", "/guides/cholon-food-guide/"), ("Binh Tay Market", "/see-and-do/binh-tay-market/"), ("Markets and old streets", "/guides/cholon-markets-and-old-streets/")],
+    "thao-dien": [("Metro guide (Thao Dien station)", "/guides/hcmc-metro/"), ("Landmark 81 SkyView", "/see-and-do/landmark-81-skyview/"), ("Saigon River dinner cruise", "/see-and-do/saigon-river-dinner-cruise/")],
+}
+
+
+def stay_quiz_html():
+    keys = [a[0] for a in STAY_AREAS]
+    qs = ""
+    for qi, (q, opts) in enumerate(STAY_QUIZ):
+        for _, w in opts:
+            assert set(w) <= set(keys), "STAY_QUIZ uses an unknown area: %s" % (set(w) - set(keys))
+        qs += '<fieldset class="q"><legend><span class="qn">%d/%d</span> %s</legend><div class="opts">%s</div></fieldset>' % (
+            qi + 1, len(STAY_QUIZ), E(q), "".join(
+                '<label class="opt"><input type="radio" name="q%d" value="%d" data-w="%s"><span>%s</span></label>' % (
+                    qi, oi, E(",".join("%s:%d" % kv for kv in w.items())), E(t)) for oi, (t, w) in enumerate(opts)))
+    areas = {k: {"name": n, "best": b, "pros": pr, "cons": " ".join(c), "hotel": HOTEL_LINKS.get(k, ""),
+                 "next": [{"t": t, "u": u} for t, u in STAY_NEXT.get(k, [])]} for k, n, b, pr, c in STAY_AREAS}
+    return ('<section class="box quiz" id="quiz" aria-labelledby="quiz-h"><p class="kicker">30-second quiz</p>'
+            '<h2 id="quiz-h">Which area suits your trip?</h2><p class="small">Answer %d quick questions and we will point you to one area, with the reasons and the catch. Nothing is stored or sent anywhere.</p>'
+            '<form id="stay-quiz" novalidate>%s<div class="qfoot"><button type="submit" class="cta" disabled>Show my area</button><span class="small qleft" aria-live="polite"></span></div></form>'
+            '<div class="qres" id="stay-result" tabindex="-1" aria-live="polite" hidden></div>'
+            '<noscript><p class="small">The quiz needs JavaScript. The short answer above and the four areas below cover the same ground.</p></noscript>'
+            '<script type="application/json" id="stay-data">%s</script></section>') % (
+        len(STAY_QUIZ), qs, json.dumps(areas, ensure_ascii=False).replace("</", "<\\/"))
+
+
 def stay_page():
     bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Where to stay", None)])
     cards = ""
     for key, name, best, pros, cons in STAY_AREAS:
         btn = ('<p><a class="cta" href="%s" target="_blank" rel="sponsored noopener">See hotels in %s ↗</a></p>' % (E(HOTEL_LINKS[key]), E(name.split(" (")[0]))) if HOTEL_LINKS.get(key) else ""
-        cards += ('<div class="fact"><h3>%s</h3><p class="small"><strong>Best for:</strong> %s</p><ul>%s</ul><p class="small"><strong>Keep in mind:</strong> %s</p>%s</div>' % (
-            E(name), E(best), "".join("<li>%s</li>" % E(x) for x in pros), E(" ".join(cons)), btn))
+        cards += ('<div class="fact" id="area-%s"><h3>%s</h3><p class="small"><strong>Best for:</strong> %s</p><ul>%s</ul><p class="small"><strong>Keep in mind:</strong> %s</p>%s</div>' % (
+            E(key), E(name), E(best), "".join("<li>%s</li>" % E(x) for x in pros), E(" ".join(cons)), btn))
     body = """<div class="wrap narrow">%s
 <p class="kicker">Planning · Where to stay</p>
 <h1>Where to stay in Ho Chi Minh City: the best areas for visitors</h1>
 <p class="lead">Saigon is big and traffic is slow, so where you sleep decides how much of your trip is spent in a car. Here are the four areas we would pick, who each one suits, and the catch with each.</p>
-<div class="box answer"><p><strong>Short answer:</strong> first visit of 2–4 days, stay in <strong>District 1</strong> near Ben Thanh or the Opera House, but a few blocks away from Bui Vien. Want a quieter base that is still central, pick <strong>District 3</strong>. Here mainly to eat, stay in <strong>Cholon</strong>. Staying a week or more, or with kids, look at <strong>Thao Dien</strong>.</p></div>
+<div class="box answer"><p><strong>Short answer:</strong> first visit of 2–4 days, stay in <strong>District 1</strong> near Ben Thanh or the Opera House, but a few blocks away from Bui Vien. Want a quieter base that is still central, pick <strong>District 3</strong>. Here mainly to eat, stay in <strong>Cholon</strong>. Staying a week or more, or with kids, look at <strong>Thao Dien</strong>. Not sure? <a href="#quiz">Take the 30-second quiz</a>.</p></div>
+%s
+<h2 class="h2s">The four areas compared</h2>
 <div class="facts two">%s</div>
 <h2 class="h2s">Tips for booking</h2>
 <div class="fact"><ul><li>Check the map, not the name: many hotels call themselves "District 1" while being a long walk from the sights.</li><li>Ask for a room away from the street side if you are a light sleeper; motorbike traffic starts early.</li><li>Near a metro station is a real plus for getting east to Thao Dien and Landmark 81.</li><li>Arriving late? Book an <a href="/guides/arriving-in-saigon/">airport transfer</a> to the hotel door.</li></ul></div>
 <section><h2 class="h2s">Plan the rest</h2><div class="chips"><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/see-and-do/">See &amp; Do</a><a class="chip" href="/guides/cholon-food-guide/">Cholon food guide</a></div></section>
 <p class="small">Last checked: %s.</p>
-</div>""" % (bc, cards, MONTH)
+</div>""" % (bc, stay_quiz_html(), cards, MONTH)
     return page("/guides/where-to-stay-ho-chi-minh-city/", "Where to Stay in Ho Chi Minh City: Best Areas for Visitors | HCMC Insider",
                 "The best areas to stay in Ho Chi Minh City (Saigon) for visitors: District 1, District 3, Cholon (Chinatown) and Thao Dien, who each suits and what to watch out for.",
                 body, [bld])
@@ -1203,7 +1268,7 @@ def main():
     bc, bld = crumbs([("Home", "/"), ("Guides", None)])
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
         g["slug"], E(g["nav"]), E(g["desc"]), len(g["items"])) for g in GUIDES)
-    gl += '<a class="gcard" href="/guides/where-to-stay-ho-chi-minh-city/"><strong>Where to stay</strong><span>District 1, District 3, Cholon or Thao Dien: which area suits your trip, and the catch with each.</span><em>Planning</em></a>'
+    gl += '<a class="gcard" href="/guides/where-to-stay-ho-chi-minh-city/"><strong>Where to stay</strong><span>District 1, District 3, Cholon or Thao Dien: a 30-second quiz picks the area for your trip, with the catch for each.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/arriving-in-saigon/"><strong>Airport to city</strong><span>Tan Son Nhat to District 1 by transfer, Grab, taxi or free bus, plus eSIM and cash on arrival.</span><em>Arriving</em></a>'
     gl += '<a class="gcard" href="/guides/hcmc-metro/"><strong>Metro guide</strong><span>Stations, fares, hours and paying with a foreign card on Metro Line 1.</span><em>Getting around</em></a>'
     gl += '<a class="gcard" href="/guides/getting-around-hcmc/"><strong>Getting around</strong><span>Free city buses until end of 2026, airport buses 109 and 152, buses to Cholon and Cu Chi, the river bus and sightseeing bus.</span><em>Buses &amp; boats</em></a>'

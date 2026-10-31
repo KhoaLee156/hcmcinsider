@@ -106,6 +106,39 @@ function renderSaved(el){var all;try{all=JSON.parse($("#hi-places").textContent)
     if(b.dataset.unsave){var q=by[b.dataset.unsave];HI.setFav(q.id,q.slug,false);renderSaved(el)}}}
 
 /* ---- wire up the page */
+/* ---- "Which area suits your trip?" quiz on the where-to-stay guide. Weights come from STAY_QUIZ in build.py
+   (data-w="area:points,…" on each answer); area texts from #stay-data. Results can be shared as #stay=<area>. */
+function initQuiz(form){
+  var A;try{A=JSON.parse($("#stay-data").textContent)}catch(e){return}
+  var keys=Object.keys(A),qs=$$("fieldset.q",form),btn=$("button[type=submit]",form),left=$(".qleft",form),out=$("#stay-result");
+  function answered(){return qs.filter(function(f){return $("input:checked",f)})}
+  function upd(){var n=qs.length-answered().length;btn.disabled=n>0;left.textContent=n?n+(n>1?" questions":" question")+" left":"";
+    qs.forEach(function(f){f.classList.toggle("done",!!$("input:checked",f))})}
+  function render(k,why,second,shared){var a=A[k];if(!a)return;
+    var h='<p class="kicker">'+(shared?"A shared result":"Your best match")+'</p><h3>'+esc(a.name)+'</h3><p><strong>Best for:</strong> '+esc(a.best)+'</p>';
+    if(why&&why.length)h+='<p class="small"><strong>Why it fits you:</strong> '+why.map(esc).join(" · ")+'</p>';
+    h+='<ul>'+a.pros.map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+'</ul><p class="small"><strong>The catch:</strong> '+esc(a.cons)+'</p>';
+    if(a.hotel)h+='<p><a class="cta" href="'+esc(a.hotel)+'" target="_blank" rel="sponsored noopener">See hotels in '+esc(a.name.split(" (")[0])+' ↗</a></p>';
+    if(a.next&&a.next.length)h+='<p class="small"><strong>Next:</strong></p><div class="chips">'+a.next.map(function(n){return'<a class="chip" href="'+esc(n.u)+'">'+esc(n.t)+'</a>'}).join("")+'</div>';
+    if(second&&A[second])h+='<p class="small">Close second: <a href="#area-'+esc(second)+'">'+esc(A[second].name)+'</a>.</p>';
+    h+='<div class="qact"><button type="button" class="btn" data-share>Share this result</button><button type="button" class="btn" data-again>'+(shared?"Take the quiz":"Start again")+'</button><span class="small" data-msg aria-live="polite"></span></div>';
+    out.innerHTML=h;out.hidden=false;
+    $("[data-share]",out).addEventListener("click",function(){var u=location.origin+location.pathname+"#stay="+k,t="My Saigon base: "+a.name.split(" (")[0],m=$("[data-msg]",out);
+      if(navigator.share)navigator.share({title:t,url:u}).catch(function(){});
+      else if(navigator.clipboard)navigator.clipboard.writeText(u).then(function(){m.textContent="Link copied."},function(){m.textContent=u});else m.textContent=u});
+    $("[data-again]",out).addEventListener("click",function(){form.reset();upd();out.hidden=true;
+      if(/^#stay=/.test(location.hash))history.replaceState(null,"",location.pathname);qs[0].scrollIntoView({behavior:"smooth",block:"center"});var f=$("input",qs[0]);if(f)f.focus({preventScroll:true})});
+    try{out.focus({preventScroll:true})}catch(e){}out.scrollIntoView({behavior:"smooth",block:"start"})}
+  form.addEventListener("change",upd);
+  form.addEventListener("submit",function(e){e.preventDefault();if(answered().length<qs.length)return;
+    var sc={},why={};keys.forEach(function(k){sc[k]=0;why[k]=[]});
+    qs.forEach(function(f){var i=$("input:checked",f);(i.getAttribute("data-w")||"").split(",").forEach(function(p){var kv=p.split(":"),k=kv[0],v=+kv[1];
+      if(k in sc){sc[k]+=v;if(v>=2)why[k].push($("span",i.parentNode).textContent)}})});
+    var r=keys.slice().sort(function(a,b){return sc[b]-sc[a]||keys.indexOf(a)-keys.indexOf(b)});
+    render(r[0],why[r[0]],sc[r[1]]>=sc[r[0]]-1?r[1]:null,false)});
+  upd();
+  var m=/^#stay=([a-z0-9-]+)$/.exec(location.hash);if(m&&A[m[1]])render(m[1],null,null,true);
+}
 function init(){
   $$(".pfav").forEach(function(b){var id=b.getAttribute("data-fav"),slug=b.getAttribute("data-slug");
     var paint=function(){var on=HI.favs().indexOf(id)>-1;b.setAttribute("aria-pressed",String(on));b.classList.toggle("saved",on);b.textContent=on?"♥ Saved":"♡ Save"};
@@ -115,6 +148,7 @@ function init(){
       driverCard($(".big",box).textContent,a?a.textContent:"",en)})});
   $$(".st[data-oh]").forEach(function(el){try{var s=HI.status(JSON.parse(el.getAttribute("data-oh")));el.className="st "+s.k;el.textContent=s.t+" (Saigon time "+HI.clock()+")";el.hidden=false}catch(e){}});
   var ob=$("#order");if(ob)initOrder(ob);
+  var qz=$("#stay-quiz");if(qz)initQuiz(qz);
   var sv=$("#saved");if(sv){renderSaved(sv);var off=$("#offline"),upd=function(){off.hidden=navigator.onLine!==false};upd();addEventListener("online",upd);addEventListener("offline",upd)}
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
