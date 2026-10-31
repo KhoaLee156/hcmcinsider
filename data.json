@@ -3,6 +3,19 @@
  "contact": "hello@hcmcinsider.com",
  "places": [
   {
+   "name": "Bún bò Phú Bình",
+   "nameEn": "Phu Binh Hue Beef Noodles",
+   "cat": "food",
+   "addr": "Hẻm 423 Lạc Long Quân, phường Hòa Bình (khu Phú Bình, Quận 11 cũ); biển hiệu ngoài đường ghi 20W Lạc Long Quân",
+   "maps": "https://maps.apple.com/place?coordinate=10.772490,106.645433",
+   "lat": "10.772490",
+   "lng": "106.645433",
+   "note": "",
+   "noteEn": "Morning-only Hue-style beef noodle shop in the Phú Bình area, with a lighter, clean-tasting broth that first-timers tend to like. 50,000 dong a bowl.",
+   "id": "xfg4x1h",
+   "slug": "phu-binh-hue-beef-noodles"
+  },
+  {
    "name": "Mì gà xá kén Hỷ Ký",
    "nameEn": "Hy Ky Chicken Noodles",
    "cat": "food",
@@ -1933,12 +1946,12 @@
   {
    "slug": "cholon-food-guide",
    "title": "Cholon food guide",
-   "count": 49
+   "count": 50
   },
   {
    "slug": "noodle-soups-ho-chi-minh-city",
    "title": "Noodle soups",
-   "count": 22
+   "count": 23
   },
   {
    "slug": "dim-sum-and-wontons-saigon",
@@ -2062,6 +2075,14 @@
  ],
  "stories": [
   {
+   "slug": "bun-bo-phu-binh-hue-beef-noodles",
+   "title": "Bún bò Phú Bình: a gentle bowl of Hue beef noodles",
+   "dek": "A morning-only Hue-style beef noodle shop in Phú Bình with a clean, sweet, spicy broth that is easy on first-timers. 50,000 dong a bowl.",
+   "date": "31 October 2026",
+   "kicker": "Food · Cholon (District 11)",
+   "img": "/assets/stories/bun-bo-phu-binh/01.jpg"
+  },
+  {
    "slug": "hy-ky-chicken-noodles-phu-binh",
    "title": "Hỷ Ký: chicken noodles with xá kén in Phú Bình",
    "dek": "A morning-only chicken noodle shop in a Phú Bình alley, where the dipping bowl of xá kén is the real star. 50,000 dong a bowl.",
@@ -2071,6 +2092,14 @@
   }
  ],
  "near": {
+  "xfg4x1h": {
+   "g": [
+    10.77249,
+    106.64543,
+    1
+   ],
+   "h": "Mornings only"
+  },
   "d2s8if8": {
    "g": [
     10.7719,

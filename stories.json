@@ -77,6 +77,70 @@
    "places": [
     "hy-ky-chicken-noodles"
    ]
+  },
+  {
+   "slug": "bun-bo-phu-binh-hue-beef-noodles",
+   "date": "2026-10-31",
+   "kicker": "Food · Cholon (District 11)",
+   "title": "Bún bò Phú Bình: a gentle bowl of Hue beef noodles",
+   "dek": "A morning-only Hue-style beef noodle shop in Phú Bình with a clean, sweet, spicy broth that is easy on first-timers. 50,000 dong a bowl.",
+   "photos": [
+    {
+     "src": "/assets/stories/bun-bo-phu-binh/01.jpg",
+     "alt": "A bowl of bún bò Huế with beef bone, chilli slices and chilli oil, with a plate of shredded greens and bean sprouts",
+     "caption": "A bowl at Bún bò Phú Bình, with the shredded greens and bean sprouts on the side."
+    },
+    {
+     "src": "/assets/stories/bun-bo-phu-binh/02.jpg",
+     "alt": "A bowl of beef noodle soup with a stewed beef bone, beef and onion slices",
+     "caption": "With stewed beef bone (xương bò hầm), one of the extras."
+    },
+    {
+     "src": "/assets/stories/bun-bo-phu-binh/03.jpg",
+     "alt": "Close-up of beef noodle soup with sliced red chilli and chilli oil on round rice noodles",
+     "caption": "Round rice noodles, red chilli and a spoon of chilli oil."
+    },
+    {
+     "src": "/assets/stories/bun-bo-phu-binh/04.jpg",
+     "alt": "Two bowls of beef noodle soup on a steel table with a plate of lime and chilli",
+     "caption": "Lime and chilli on the side, to adjust the bowl yourself."
+    },
+    {
+     "src": "/assets/stories/bun-bo-phu-binh/05.jpg",
+     "alt": "Two bowls of beef noodle soup seen from above, one with a slice of chả",
+     "caption": "Tái, nạm, chả and gân: the normal bowl."
+    },
+    {
+     "src": "/assets/stories/bun-bo-phu-binh/06.jpg",
+     "alt": "A narrow alley with plastic stools and a small noodle stall under blue awnings",
+     "caption": "The shop sits in the alley; look for the stools and pots under the awnings."
+    },
+    {
+     "src": "/assets/stories/bun-bo-phu-binh/07.jpg",
+     "alt": "A yellow sign reading Bún bò Phú Bình with the menu, next to a red stool with a basket of greens",
+     "caption": "The sign on Lạc Long Quân street."
+    }
+   ],
+   "body": [
+    "This shop is also in the Phú Bình parish area of old District 11, a few minutes from Hỷ Ký. A bowl costs 50,000 dong and comes with rare beef (tái), brisket (nạm), chả and tendon (gân). You can also add pork knuckle (giò) or stewed beef bones (xương bò hầm).",
+    {
+     "photo": 2
+    },
+    "It is Hue-style bún bò. The broth is clean and gently sweet, with a warm, spicy kick. It doesn't pile on the seasoning the way some places do; some shops add more fermented shrimp paste (mắm ruốc) or season heavily with fish sauce.",
+    {
+     "photo": 3
+    },
+    "That is why I think it suits visitors: if this is your first bún bò, the broth here is a gentle place to start.",
+    "The shop sells in the morning only.",
+    {
+     "photo": 6
+    },
+    "Verdict: very worth trying.",
+    "Practical info: Bún bò Phú Bình, in alley 423 Lạc Long Quân, Hòa Bình ward (the Phú Bình area of old District 11). The sign out on the street gives the address as 20W Lạc Long Quân. 50,000 dong a bowl. Mornings only."
+   ],
+   "places": [
+    "phu-binh-hue-beef-noodles"
+   ]
   }
  ]
 }

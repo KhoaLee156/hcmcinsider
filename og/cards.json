@@ -1,5 +1,15 @@
 [
  {
+  "slug": "phu-binh-hue-beef-noodles",
+  "name": "Phu Binh Hue Beef Noodles",
+  "vn": "Bún bò Phú Bình",
+  "dish": "Spicy Hue beef noodles",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "Mornings only",
+  "price": "50,000 dong a bowl"
+ },
+ {
   "slug": "hy-ky-chicken-noodles",
   "name": "Hy Ky Chicken Noodles",
   "vn": "Mì gà xá kén Hỷ Ký",
