@@ -3,7 +3,7 @@
    Saved place pages live in "hi-saved" (filled by assets/site.js when you tap ♡ Save). */
 const V = "v1";
 const CORE = "hi-core-" + V, PAGES = "hi-pages-" + V, ASSETS = "hi-assets-" + V, SAVED = "hi-saved";
-const PRECACHE = ["/", "/saved/", "/assets/page.css?v=bdbe76d0", "/assets/site.js?v=3b4bec36", "/favicon.svg",
+const PRECACHE = ["/", "/saved/", "/assets/page.css?v=bdbe76d0", "/assets/site.js?v=59f70e39", "/favicon.svg",
   "/assets/fonts/be-vietnam-pro-latin-400-normal.woff2", "/assets/fonts/be-vietnam-pro-latin-800-normal.woff2",
   "/assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2", "/assets/fonts/be-vietnam-pro-vietnamese-800-normal.woff2",
   "/assets/fonts/be-vietnam-pro-latin-ext-400-normal.woff2", "/assets/fonts/be-vietnam-pro-latin-ext-800-normal.woff2"];

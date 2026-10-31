@@ -306,7 +306,14 @@ ORDER_MENU = {
     "Goat dishes": [("lẩu dê", "goat hotpot", "nồi"), ("dê nướng", "grilled goat", "dĩa")],
     "Chicken noodles": [("mì gà", "chicken noodle soup", "tô"), ("mì gà khô", "dry, soup on the side", "tô")],
     "Banh mi": [("bánh mì thịt", "banh mi with cold cuts", "ổ"), ("bánh mì ốp la", "banh mi with fried eggs", "phần")],
+    "Snails & shellfish": [("ốc len xào dừa", "sea snails in coconut milk", "dĩa"), ("nghêu hấp sả", "clams steamed with lemongrass", "dĩa"), ("sò điệp nướng mỡ hành", "grilled scallops with scallion oil", "dĩa")],
+    "Mooncakes": [("bánh trung thu nướng", "baked mooncake", "cái"), ("bánh dẻo", "soft snow-skin mooncake", "cái")],
     "Café": [("cà phê sữa đá", "iced coffee with condensed milk", "ly"), ("cà phê đen đá", "iced black coffee", "ly"), ("cà phê sữa nóng", "hot coffee with milk", "ly"), ("bạc xỉu", "milky iced coffee", "ly")],
+}
+# Places whose own dish is known from tips.json or the name but has no dish label of its own (keyed by place id).
+ORDER_PLACE = {
+    "6y1ae0c": [("mì bò", "egg noodles with beef", "tô"), ("mì bò khô", "dry, soup on the side", "tô")],
+    "ca3hwvh": [("cơm tấm sườn", "broken rice with grilled pork chop", "dĩa"), ("cơm tấm sườn bì chả", "with shredded pork skin and egg meatloaf", "dĩa")],
 }
 ORDER_ANY = [("món này", "this one (point at the menu)", "phần"), ("giống bàn kia", "the same as that table", "phần")]
 ORDER_DRINKS = [("trà đá", "iced tea", "ly"), ("nước suối", "bottled water", "chai")]
@@ -317,8 +324,9 @@ def order_html(p, dish):
     Hidden until assets/site.js runs."""
     if p["cat"] not in ("food", "cafe"):
         return ""
-    menu = ORDER_MENU.get("Café" if p["cat"] == "cafe" else dish, []) + ORDER_ANY
-    if p["cat"] != "cafe":
+    menu = ORDER_PLACE.get(p["id"]) or ORDER_MENU.get("Café" if p["cat"] == "cafe" else dish, [])
+    menu = menu + ORDER_ANY
+    if p["cat"] != "cafe" and dish != "Mooncakes":
         menu += ORDER_DRINKS
     rows = "".join(
         ('<li data-vi="%s" data-cl="%s"><span><b lang="vi">%s</b><em>%s</em></span>'

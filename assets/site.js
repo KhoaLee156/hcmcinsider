@@ -60,14 +60,19 @@ var OPTS=[["không hành","No spring onion","food"],["không ngò","No coriander
   ["không bột ngọt","No MSG","food"],["ít đường","Less sugar","cafe"],["không đá","No ice","cafe"],["mang về","Take away","all","where"],["ăn ở đây","Eat here","all","where"],
   ["đậu phộng","Peanut allergy","food","allergy"],["hải sản","Seafood allergy","food","allergy"]];
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
-function initOrder(box){var kind=box.getAttribute("data-kind")==="cafe"?"cafe":"food",on={};
+function initOrder(box){var kind=box.getAttribute("data-kind")==="cafe"?"cafe":"food",on={},KEY="hi_order"+location.pathname;
+  /* Picks survive leaving the page (e.g. to Directions) for the rest of this browser session. */
+  var saved;try{saved=JSON.parse(sessionStorage.getItem(KEY)||"null")}catch(e){saved=null}
+  var store=function(){try{sessionStorage.setItem(KEY,JSON.stringify({q:$$(".omenu output",box).map(function(o){return +o.value||0}),on:Object.keys(on)}))}catch(e){}};
   $(".oopts",box).innerHTML=OPTS.map(function(o,i){return(o[2]==="all"||o[2]===kind)?'<button type="button" class="chip" data-o="'+i+'" aria-pressed="false">'+esc(o[1])+'</button>':""}).join("");
+  if(saved){$$(".omenu output",box).forEach(function(o,i){var n=saved.q[i]||0;o.value=n;o.textContent=n;o.closest("li").classList.toggle("on",n>0)});
+    (saved.on||[]).forEach(function(i){var b=$('[data-o="'+i+'"]',box);if(b){b.setAttribute("aria-pressed","true");on[i]=1}})}
   box.hidden=false;
   box.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
-    if(b.hasAttribute("data-d")){var out=$("output",b.parentNode),n=Math.max(0,Math.min(20,(+out.value||0)+(+b.getAttribute("data-d"))));out.value=n;out.textContent=n;b.closest("li").classList.toggle("on",n>0);return}
+    if(b.hasAttribute("data-d")){var out=$("output",b.parentNode),n=Math.max(0,Math.min(20,(+out.value||0)+(+b.getAttribute("data-d"))));out.value=n;out.textContent=n;b.closest("li").classList.toggle("on",n>0);store();return}
     if(b.hasAttribute("data-o")){var i=+b.getAttribute("data-o"),g=OPTS[i][3],now=b.getAttribute("aria-pressed")!=="true";
       if(now&&g&&g!=="allergy")$$("[data-o]",box).forEach(function(x){if(OPTS[+x.getAttribute("data-o")][3]===g){x.setAttribute("aria-pressed","false");delete on[x.getAttribute("data-o")]}});
-      b.setAttribute("aria-pressed",String(now));if(now)on[i]=1;else delete on[i];return}
+      b.setAttribute("aria-pressed",String(now));if(now)on[i]=1;else delete on[i];store();return}
     if(b.getAttribute("data-show")==="bill"){HI.show("Tính tiền giùm tôi.<br>Cảm ơn!","Check, please. Thank you!","Ask for the bill");return}
     if(b.getAttribute("data-show")==="order"){
       var vi=[],en=[];
