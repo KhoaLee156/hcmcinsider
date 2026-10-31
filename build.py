@@ -49,7 +49,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
+STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/saigon-itinerary/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -824,7 +824,7 @@ STAY_QUIZ = [
         ("No, noise doesn't bother me", {"district-1": 1, "cholon": 1}),
     ]),
 ]
-# Where to go next for each result: (label, link). Shown under the result.
+# Where to go next for each result: (label, link). Shown under the result, followed by the itinerary planner.
 STAY_NEXT = {
     "district-1": [("Ben Thanh Market", "/see-and-do/ben-thanh-market/"), ("Nguyen Hue Walking Street", "/see-and-do/nguyen-hue-walking-street/"), ("Airport to District 1", "/guides/arriving-in-saigon/")],
     "district-3": [("War Remnants Museum", "/see-and-do/war-remnants-museum/"), ("Independence Palace", "/see-and-do/independence-palace/"), ("Getting around", "/guides/getting-around-hcmc/")],
@@ -844,7 +844,7 @@ def stay_quiz_html():
                 '<label class="opt"><input type="radio" name="q%d" value="%d" data-w="%s"><span>%s</span></label>' % (
                     qi, oi, E(",".join("%s:%d" % kv for kv in w.items())), E(t)) for oi, (t, w) in enumerate(opts)))
     areas = {k: {"name": n, "best": b, "pros": pr, "cons": " ".join(c), "hotel": HOTEL_LINKS.get(k, ""),
-                 "next": [{"t": t, "u": u} for t, u in STAY_NEXT.get(k, [])]} for k, n, b, pr, c in STAY_AREAS}
+                 "next": [{"t": t, "u": u} for t, u in STAY_NEXT.get(k, []) + [("Plan 1–3 days →", "/guides/saigon-itinerary/")]]} for k, n, b, pr, c in STAY_AREAS}
     return ('<section class="box quiz" id="quiz" aria-labelledby="quiz-h"><p class="kicker">30-second quiz</p>'
             '<h2 id="quiz-h">Which area suits your trip?</h2><p class="small">Answer %d quick questions and we will point you to one area, with the reasons and the catch. Nothing is stored or sent anywhere.</p>'
             '<form id="stay-quiz" novalidate>%s<div class="qfoot"><button type="submit" class="cta" disabled>Show my area</button><span class="small qleft" aria-live="polite"></span></div></form>'
@@ -906,6 +906,175 @@ def metro_page():
                 body, [bld, faqld])
 
 
+# ---------------------------------------------------------------- itinerary planner (/guides/saigon-itinerary/)
+# Hand-picked day plans. Each slot is a sight (slug in sights.json), a pool of places (slugs in data.json; the planner
+# shows the first one not used elsewhere in the plan, "Another place" cycles the rest) or plain text.
+# "tag" = only shown when the visitor ticks that interest. Times are suggestions; hours come from sights.json / tips.json.
+ITIN_INTERESTS = [("history", "History & landmarks"), ("food", "Local food"), ("markets", "Markets & old streets"),
+                  ("views", "Views & nights out"), ("countryside", "Countryside day trip")]
+ITIN_DEFAULT = {"days": 2, "i": ["history", "food", "markets"]}
+ITIN_DAYS = {
+    "centre": {"title": "Old Saigon on foot", "area": "District 1 and District 3",
+               "intro": "The palace, the museum and the French-era landmarks are all within walking distance. Start early: it is cooler and the queues are short.",
+               "slots": [
+                   {"time": "7:30 am", "label": "Breakfast", "places": ["hong-hoa-banh-mi", "hoa-ma-banh-mi", "my-kim-noodles"],
+                    "note": "Banh mi or a bowl of noodles, the way Saigon starts the day."},
+                   {"time": "8:30 am", "sights": ["independence-palace"], "note": "Go when it opens, before the tour groups. Allow 1–1.5 hours."},
+                   {"time": "10:15 am", "sights": ["war-remnants-museum"], "tag": "history", "note": "About a 10-minute walk. Allow 1.5–2 hours; it is a hard but important visit."},
+                   {"time": "1:00 pm", "label": "Lunch", "places": ["kieu-ky-har-gow", "hoa-ma-banh-mi", "hong-hoa-banh-mi"],
+                    "note": "Then rest in the hotel or a café through the hottest hours."},
+                   {"time": "3:00 pm", "sights": ["notre-dame-cathedral-saigon", "saigon-central-post-office"], "note": "Side by side: the cathedral from outside, then the Post Office hall."},
+                   {"time": "4:00 pm", "sights": ["ben-thanh-market"], "tag": "markets", "note": "About 15 minutes on foot. Stalls start closing around 6 pm."},
+                   {"time": "4:30 pm", "sights": ["landmark-81-skyview"], "tag": "views", "note": "A Grab ride east. Sunset and the city lights come on from about 5:30 pm."},
+                   {"time": "7:30 pm", "sights": ["nguyen-hue-walking-street"], "note": "The evening walk with locals, from the Opera House end down to the river."},
+               ]},
+    "cholon": {"title": "Cholon: Chinatown food, temples and markets", "area": "Districts 5, 6 and 11",
+               "intro": "Saigon's Chinatown is 20–30 minutes by car from District 1 (or city bus 1). Come hungry and early: many of the best stalls are mornings only.",
+               "slots": [
+                   {"time": "6:30 am", "label": "Breakfast", "places": ["phu-binh-hue-beef-noodles", "hy-ky-chicken-noodles", "nguu-ky-noodles", "to-ky-satay-venison-noodles", "hu-tieu-mi-47", "chinese-eatery-147-binh-tien"],
+                    "note": "Morning-only noodle shops: go before 9 am, some sell out."},
+                   {"time": "8:00 am", "sights": ["binh-tay-market"], "note": "Busiest and most alive in the early morning."},
+                   {"time": "9:30 am", "label": "Wet market", "places": ["phung-hung-market", "hoa-binh-market"], "tag": "markets",
+                    "note": "A local fresh market: busiest from 6 to 9 am, so this is the tail end."},
+                   {"time": "10:30 am", "sights": ["thien-hau-temple-cholon"], "note": "Look up at the incense coils. About 30 minutes."},
+                   {"time": "11:00 am", "label": "Old streets", "places": ["lantern-street-luong-nhu-hoc", "herbal-medicine-street"], "tag": "markets",
+                    "note": "A short walk from the temple."},
+                   {"time": "11:45 am", "label": "Lunch", "places": ["dong-nguyen-chicken-rice", "shan-dimsum", "teochew-rice-shop", "cholon-braised-pork-rice", "dong-giang-restaurant", "dimsum-88"],
+                    "note": "Chicken rice, dim sum or a Teochew rice shop."},
+                   {"time": "1:30 pm", "label": "Café break", "places": ["no-1-tan-da-antique-cafe", "chuyen-ca-phe", "cielo-cholon"],
+                    "note": "Sit out the midday heat with a Vietnamese iced coffee."},
+                   {"time": "3:30 pm", "label": "Sweet soup", "places": ["ha-ky-sweet-soups", "yukii-desserts", "lam-thanh-sweet-soups"], "tag": "food",
+                    "note": "Chè: Chinese-style sweet soups, hot or iced."},
+                   {"time": "5:30 pm", "label": "Dinner", "places": ["phat-ky", "8-000-dong-noodle-cart", "phuong-s-hue-beef-noodles", "sidewalk-noodles-187-huynh-man-dat"],
+                    "note": "Evening stalls open from about 4–5 pm."},
+                   {"time": "7:00 pm", "label": "Night street", "text": "The streets around Binh Tay Market fill with food stalls from 6 pm to midnight.", "link": ["Binh Tay Market", "/see-and-do/binh-tay-market/"], "tag": "views"},
+               ]},
+    "cuchi": {"title": "Cu Chi Tunnels, then a Saigon evening", "area": "Day trip, about 70 km northwest",
+              "intro": "A half-day tour is the easy way: pickup in District 1 around 7–8 am, back in the early afternoon.",
+              "slots": [
+                  {"time": "7:30 am", "sights": ["cu-chi-tunnels"], "note": "Book a half-day tour or take the public bus (cheap but slow)."},
+                  {"time": "1:30 pm", "label": "Late lunch", "places": ["hoa-ma-banh-mi", "kieu-ky-har-gow", "hong-hoa-banh-mi", "my-kim-noodles"], "note": "Back in the centre."},
+                  {"time": "4:30 pm", "sights": ["landmark-81-skyview"], "tag": "views", "note": "Sunset from the top, if you skipped it on day 1."},
+                  {"time": "6:30 pm", "sights": ["saigon-river-dinner-cruise"], "tag": "views", "note": "Boarding around 6:30–7 pm; book ahead."},
+                  {"time": "Evening", "label": "Free evening", "text": "Rest after the early start, or go back to whichever area you liked most.", "link": ["Near me, open now", "/#near"]},
+              ]},
+    "mekong": {"title": "Mekong Delta day trip", "area": "My Tho and Ben Tre",
+               "intro": "Rice fields, coconut groves and boat rides through small canals, about 2 hours each way by road.",
+               "slots": [
+                   {"time": "7:00 am", "sights": ["mekong-delta-day-trip"], "note": "Most tours leave District 1 around 7 am and are back late afternoon. Floating markets need an overnight trip."},
+                   {"time": "6:30 pm", "sights": ["saigon-river-dinner-cruise"], "tag": "views", "note": "If you still have energy: boarding around 6:30–7 pm."},
+                   {"time": "Evening", "label": "Dinner", "places": ["kieu-ky-har-gow", "phat-ky", "8-000-dong-noodle-cart"], "note": "Something easy near your hotel."},
+               ]},
+}
+
+
+def itinerary_data(by_slug, sights):
+    """JSON for the planner: day plans plus the names, links and hours they refer to."""
+    sx = {s["slug"]: s for s in sights}
+    used_p, used_s = set(), set()
+    for day in ITIN_DAYS.values():
+        for sl in day["slots"]:
+            used_p.update(sl.get("places", []))
+            used_s.update(sl.get("sights", []))
+    miss = [x for x in used_p if x not in by_slug] + [x for x in used_s if x not in sx]
+    assert not miss, "ITIN_DAYS refers to unknown slugs: %s" % miss
+    P = {}
+    for slug in sorted(used_p):
+        p = by_slug[slug]
+        P[slug] = {"n": p["_name"], "vn": p["name"], "u": "/places/%s/" % slug, "d": p["_dish"], "a": p["_area"],
+                   "h": (TIPS.get(p["id"]) or {}).get("hours", "")}
+    S = {}
+    for slug in sorted(used_s):
+        s = sx[slug]
+        h = next((v for k, v in s.get("facts", []) if k in ("Hours", "Times")), "")
+        S[slug] = {"n": s["name"], "vn": s.get("vn", ""), "u": "/see-and-do/%s/" % slug, "h": h}
+    return {"days": ITIN_DAYS, "places": P, "sights": S, "interests": ITIN_INTERESTS, "default": ITIN_DEFAULT}
+
+
+def itin_order(n, interests):
+    """Which day plans for n days (same rules as initPlanner in site.js)."""
+    trip = "mekong" if "countryside" in interests else "cuchi"
+    if n == 1:
+        return ["cholon" if ("food" in interests and "history" not in interests) else "centre"]
+    return ["centre", "cholon", trip][:n]
+
+
+def itinerary_static(data, n, interests):
+    """Server-side version of the default plan (what search engines and no-JS visitors see)."""
+    out, used = "", set()
+    for di, key in enumerate(itin_order(n, interests)):
+        day = data["days"][key]
+        rows = ""
+        for sl in day["slots"]:
+            if sl.get("tag") and sl["tag"] not in interests:
+                continue
+            body = ""
+            if sl.get("sights"):
+                body = " + ".join('<a href="%s"><strong>%s</strong></a> <span class="vn" lang="vi">%s</span>%s' % (
+                    data["sights"][x]["u"], E(data["sights"][x]["n"]), E(data["sights"][x]["vn"]),
+                    ('<span class="meta">%s</span>' % E(data["sights"][x]["h"])) if data["sights"][x]["h"] else "") for x in sl["sights"])
+            elif sl.get("places"):
+                pool = [x for x in sl["places"] if x not in used] or sl["places"]
+                p = data["places"][pool[0]]
+                used.add(pool[0])
+                meta = " · ".join(x for x in (p["d"], p["a"], p["h"]) if x)
+                body = '<a href="%s"><strong>%s</strong></a> <span class="vn" lang="vi">%s</span><span class="meta">%s</span>' % (p["u"], E(p["n"]), E(p["vn"]), E(meta))
+                others = [data["places"][x] for x in pool[1:3]]
+                if others:
+                    body += '<span class="meta">Or: %s</span>' % ", ".join('<a href="%s">%s</a>' % (o["u"], E(o["n"])) for o in others)
+            else:
+                body = E(sl.get("text", ""))
+                if sl.get("link"):
+                    body += ' <a href="%s">%s →</a>' % (sl["link"][1], E(sl["link"][0]))
+            rows += '<li class="slot"><span class="tm">%s</span><div>%s%s%s</div></li>' % (
+                E(sl["time"]), ('<p class="lab">%s</p>' % E(sl["label"])) if sl.get("label") else "", body,
+                ('<p class="note">%s</p>' % E(sl["note"])) if sl.get("note") else "")
+        out += '<section class="pday"><p class="kicker">Day %d · %s</p><h2>%s</h2><p class="small">%s</p><ol class="slots">%s</ol></section>' % (
+            di + 1, E(day["area"]), E(day["title"]), E(day["intro"]), rows)
+    return out
+
+
+ITIN_FAQ = [
+    ("How many days do you need in Ho Chi Minh City?",
+     "Two full days covers the main landmarks in District 1 and a day of food and temples in Cholon. A third day adds the Cu Chi Tunnels or a Mekong Delta day trip."),
+    ("Can you walk between the sights in District 1?",
+     "Yes. The Independence Palace, War Remnants Museum, Notre-Dame Cathedral, the Central Post Office, Ben Thanh Market and Nguyen Hue Walking Street are all within about 20 minutes on foot of each other. Use Grab for Cholon and Landmark 81."),
+    ("What is the best time of day for sightseeing in Saigon?",
+     "Early morning and late afternoon. It is hot from late morning to mid-afternoon, so plan lunch, a café or a rest in that window, as this planner does."),
+]
+
+
+def itinerary_page(by_slug, sights):
+    data = itinerary_data(by_slug, sights)
+    bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Itinerary planner", None)])
+    days_r = "".join('<label class="opt"><input type="radio" name="days" value="%d"%s><span>%d day%s</span></label>' % (
+        n, " checked" if n == ITIN_DEFAULT["days"] else "", n, "" if n == 1 else "s") for n in (1, 2, 3))
+    ints = "".join('<label class="opt"><input type="checkbox" name="i" value="%s"%s><span>%s</span></label>' % (
+        k, " checked" if k in ITIN_DEFAULT["i"] else "", E(t)) for k, t in ITIN_INTERESTS)
+    faq = "".join('<details class="faq"><summary>%s</summary><p>%s</p></details>' % (E(q), E(a)) for q, a in ITIN_FAQ)
+    body = """<div class="wrap narrow">%s
+<p class="kicker">Planning · Itinerary</p>
+<h1>Saigon itinerary: plan 1, 2 or 3 days in Ho Chi Minh City</h1>
+<p class="lead">Pick how many days you have and what you enjoy. The plan groups stops by area so you are not stuck in traffic, puts the morning-only food stalls in the morning, and keeps the hottest hours for lunch and a rest.</p>
+<section class="box quiz planner" id="planner" aria-label="Plan builder">
+<form id="plan-form"><fieldset class="q"><legend>How many days?</legend><div class="opts">%s</div></fieldset>
+<fieldset class="q"><legend>What do you enjoy?</legend><div class="opts">%s</div></fieldset></form>
+<div class="qact" id="plan-act" hidden><button type="button" class="btn" data-share>Share this plan</button><button type="button" class="btn" data-print>Print or save as PDF</button><span class="small" data-msg aria-live="polite"></span></div>
+</section>
+<div id="plan-out" aria-live="polite">%s</div>
+<p class="small">Opening hours come from the sight pages and from what local creators say in their videos; small stalls change hours and close on some holidays, so check before a long trip across town. Not sure where to sleep? <a href="/guides/where-to-stay-ho-chi-minh-city/#quiz">Take the where-to-stay quiz</a>.</p>
+<h2 class="h2s">Questions visitors ask</h2>%s
+<section><h2 class="h2s">Plan the rest</h2><div class="chips"><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/getting-around-hcmc/">Getting around</a><a class="chip" href="/guides/cholon-food-guide/">Cholon food guide</a><a class="chip" href="/saved/">♥ Saved places</a></div></section>
+<script type="application/json" id="plan-data">%s</script>
+</div>""" % (bc, days_r, ints, itinerary_static(data, ITIN_DEFAULT["days"], ITIN_DEFAULT["i"]), faq,
+             json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"))
+    faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in ITIN_FAQ]}
+    return page("/guides/saigon-itinerary/", "Saigon Itinerary: 1, 2 or 3 Days in Ho Chi Minh City (Plan Builder) | HCMC Insider",
+                "Build a 1, 2 or 3-day Ho Chi Minh City itinerary: District 1 landmarks on foot, a Cholon food day, Cu Chi Tunnels or the Mekong Delta, with opening hours and local food stops.",
+                body, [bld, faqld])
+
+
 # ---------------------------------------------------------------- build
 def main():
     d = load()
@@ -957,7 +1126,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
-    urls = ["/", "/guides/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
+    urls = ["/", "/guides/", "/guides/saigon-itinerary/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
     thin_list, lastmod = [], {}
 
     sp0 = os.path.join(ROOT, "sights.json")
@@ -1109,7 +1278,7 @@ def main():
 <h2 class="h2s">The places</h2>
 %s
 %s
-<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
+<section><h2 class="h2s">More guides</h2><div class="chips">%s<a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/saigon-itinerary/">Itinerary planner</a><a class="chip" href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay</a><a class="chip" href="/guides/hcmc-metro/">Metro guide</a><a class="chip" href="/guides/getting-around-hcmc/">Buses &amp; river bus</a></div></section>
 </div>""" % (bc, len(items), nice_date(g_updated), E(g["h1"]), short_answer(items), "".join('<p class="lead">%s</p>' % E(x) for x in g["intro"]),
               "".join("<li>%s</li>" % E(t) for t in g["tips"]),
               ('<div class="box tourbox"><h2>First time eating your way around Saigon?</h2><p>A local-led street food tour (on foot or on the back of a motorbike) is an easy first night: someone orders for you and explains every dish. Then come back to the places below on your own.</p>'
@@ -1156,6 +1325,7 @@ def main():
     sp = os.path.join(ROOT, "sights.json")
     sights = json.load(open(sp, encoding="utf-8"))["sights"] if os.path.exists(sp) else []
     by_slug = {p["slug"]: p for p in places}
+    write("/guides/saigon-itinerary/", itinerary_page(by_slug, sights))
     ep = os.path.join(ROOT, "events.json")
     events = json.load(open(ep, encoding="utf-8"))["events"] if os.path.exists(ep) else []
     for e in events:
@@ -1268,6 +1438,7 @@ def main():
     bc, bld = crumbs([("Home", "/"), ("Guides", None)])
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
         g["slug"], E(g["nav"]), E(g["desc"]), len(g["items"])) for g in GUIDES)
+    gl += '<a class="gcard" href="/guides/saigon-itinerary/"><strong>Itinerary planner</strong><span>1, 2 or 3 days: District 1 on foot, a Cholon food day, Cu Chi or the Mekong, with opening hours.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/where-to-stay-ho-chi-minh-city/"><strong>Where to stay</strong><span>District 1, District 3, Cholon or Thao Dien: a 30-second quiz picks the area for your trip, with the catch for each.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/arriving-in-saigon/"><strong>Airport to city</strong><span>Tan Son Nhat to District 1 by transfer, Grab, taxi or free bus, plus eSIM and cash on arrival.</span><em>Arriving</em></a>'
     gl += '<a class="gcard" href="/guides/hcmc-metro/"><strong>Metro guide</strong><span>Stations, fares, hours and paying with a foreign card on Metro Line 1.</span><em>Getting around</em></a>'
@@ -1275,6 +1446,7 @@ def main():
     body = '<div class="wrap">%s<p class="kicker">Local guides</p><h1>Ho Chi Minh City guides by locals</h1><p class="lead">Food, markets and getting around in Ho Chi Minh City (Saigon), built from places local creators keep coming back to.</p><div class="ggrid">%s</div></div>' % (bc, gl)
     write("/guides/", page("/guides/", "Ho Chi Minh City (Saigon) Travel Guides by Locals | HCMC Insider",
                            "Local guides to Ho Chi Minh City: Cholon food, noodle soups, dim sum, vegetarian food, sweet soups, markets and the metro.", body, [bld]))
+    guides_out.append({"slug": "saigon-itinerary", "title": "Itinerary planner", "count": 0})
     guides_out.append({"slug": "where-to-stay-ho-chi-minh-city", "title": "Where to stay", "count": 0})
     guides_out.append({"slug": "arriving-in-saigon", "title": "Airport to city", "count": 0})
     guides_out.append({"slug": "hcmc-metro", "title": "Metro guide", "count": 0})
@@ -1295,7 +1467,7 @@ def main():
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
     dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1><p>HCMC Insider is an independent English guide to Ho Chi Minh City (Saigon) by locals. It lists NPLACES food spots, markets and sights, mostly in Cholon (Saigon Chinatown), each with its Vietnamese name, address, directions and links to local creators\' videos, plus practical guides to the metro, free city buses and the airport bus.</p>'
-                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2><a href="/events/">Festivals and events</a></h2><ul>EVENTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/arriving-in-saigon/">Airport to city: transfers, Grab, taxi and bus</a></li><li><a href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay in Ho Chi Minh City</a></li><li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
+                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2><a href="/events/">Festivals and events</a></h2><ul>EVENTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/arriving-in-saigon/">Airport to city: transfers, Grab, taxi and bus</a></li><li><a href="/guides/saigon-itinerary/">Saigon itinerary planner: 1, 2 or 3 days</a></li><li><a href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay in Ho Chi Minh City</a></li><li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
     dir_html = dir_html.replace("NPLACES", str(len(places)), 1).replace("EVENTLIST", "".join('<li><a href="/events/%s/">%s</a></li>' % (e["slug"], E(e["name"])) for e in EVENTS_OUT), 1).replace("SIGHTLIST", "".join('<li><a href="/see-and-do/%s/">%s</a></li>' % (s["slug"], E(s["name"])) for s in SIGHTS_OUT), 1)
@@ -1334,6 +1506,7 @@ def main():
          "Vietnamese news sources; each page shows when it was last updated. Contact: hello@hcmcinsider.com", "",
          "## Guides", ""]
     L += ["- [%s](%s/guides/%s/): %s" % (g["title"], SITE, g["slug"], g["desc"]) for g in GUIDES]
+    L += ["- [Saigon itinerary planner](%s/guides/saigon-itinerary/): 1, 2 or 3-day plans: District 1 landmarks on foot, a Cholon food day, Cu Chi Tunnels or the Mekong Delta, with opening hours." % SITE]
     L += ["- [Where to stay in Ho Chi Minh City](%s/guides/where-to-stay-ho-chi-minh-city/): District 1, District 3, Cholon and Thao Dien compared for visitors." % SITE]
     L += ["- [Tan Son Nhat airport to District 1](%s/guides/arriving-in-saigon/): transfers, ride-hailing, taxis, free buses 152 and 109, which terminal, eSIM and cash on arrival." % SITE]
     L += ["- [Ho Chi Minh City metro guide](%s/guides/hcmc-metro/): Metro Line 1 stations, fares, opening hours and paying with a foreign bank card." % SITE,

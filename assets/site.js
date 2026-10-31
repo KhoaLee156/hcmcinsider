@@ -139,6 +139,41 @@ function initQuiz(form){
   upd();
   var m=/^#stay=([a-z0-9-]+)$/.exec(location.hash);if(m&&A[m[1]])render(m[1],null,null,true);
 }
+/* ---- itinerary planner (/guides/saigon-itinerary/). Day plans come from ITIN_DAYS in build.py (#plan-data).
+   Same day-picking rules as itin_order() in build.py. State is shareable as #d=2&i=food,views. */
+function initPlanner(form){
+  var D;try{D=JSON.parse($("#plan-data").textContent)}catch(e){return}
+  var out=$("#plan-out"),act=$("#plan-act"),skip={};
+  function state(){var n=+(($("input[name=days]:checked",form)||{}).value||2),i=$$("input[name=i]:checked",form).map(function(x){return x.value});return{n:n,i:i}}
+  function order(n,i){var trip=i.indexOf("countryside")>-1?"mekong":"cuchi";
+    if(n===1)return[(i.indexOf("food")>-1&&i.indexOf("history")<0)?"cholon":"centre"];return["centre","cholon",trip].slice(0,n)}
+  function meta(a){a=a.filter(Boolean);return a.length?'<span class="meta">'+a.map(esc).join(" · ")+'</span>':""}
+  function render(){var st=state(),used={},h="";
+    order(st.n,st.i).forEach(function(key,di){var day=D.days[key],rows="";
+      day.slots.forEach(function(sl,si){if(sl.tag&&st.i.indexOf(sl.tag)<0)return;var b="",id=key+"-"+si;
+        if(sl.sights)b=sl.sights.map(function(x){var o=D.sights[x];return'<a href="'+esc(o.u)+'"><strong>'+esc(o.n)+'</strong></a> <span class="vn" lang="vi">'+esc(o.vn)+'</span>'+meta([o.h])}).join(" + ");
+        else if(sl.places){var pool=sl.places.filter(function(x){return!used[x]});if(!pool.length)pool=sl.places.slice();
+          var k=pool[(skip[id]||0)%pool.length],o=D.places[k];used[k]=1;
+          b='<a href="'+esc(o.u)+'"><strong>'+esc(o.n)+'</strong></a> <span class="vn" lang="vi">'+esc(o.vn)+'</span>'+meta([o.d,o.a,o.h?"Hours: "+o.h:""]);
+          if(pool.length>1)b+='<SWAP:'+id+':'+pool.length+'>'}
+        else{b=esc(sl.text||"");if(sl.link)b+=' <a href="'+esc(sl.link[1])+'">'+esc(sl.link[0])+' →</a>'}
+        var sw="";b=b.replace(/<SWAP:([\w-]+):(\d+)>$/,function(_,i,n){sw='<button type="button" class="swap" data-slot="'+i+'">Another place ('+n+' options)</button>';return""});
+        rows+='<li class="slot"><span class="tm">'+esc(sl.time)+'</span><div>'+(sl.label?'<p class="lab">'+esc(sl.label)+'</p>':"")+b+(sl.note?'<p class="note">'+esc(sl.note)+'</p>':"")+sw+'</div></li>'});
+      h+='<section class="pday"><p class="kicker">Day '+(di+1)+' · '+esc(day.area)+'</p><h2>'+esc(day.title)+'</h2><p class="small">'+esc(day.intro)+'</p><ol class="slots">'+rows+'</ol></section>'});
+    out.innerHTML=h;
+    $$(".swap",out).forEach(function(b){b.addEventListener("click",function(){var id=b.getAttribute("data-slot");skip[id]=(skip[id]||0)+1;render();
+      var nb=$('.swap[data-slot="'+id+'"]',out);if(nb)nb.focus({preventScroll:true})})})}
+  function hash(){var st=state();return"#d="+st.n+"&i="+st.i.join(",")}
+  var m=/^#d=([123])&i=([a-z,]*)$/.exec(location.hash);
+  if(m){$$("input[name=days]",form).forEach(function(x){x.checked=x.value===m[1]});var on=m[2].split(",");$$("input[name=i]",form).forEach(function(x){x.checked=on.indexOf(x.value)>-1})}
+  form.addEventListener("change",function(){skip={};render();if(/^#d=/.test(location.hash))history.replaceState(null,"",location.pathname+hash())});
+  act.hidden=false;
+  $("[data-print]",act).addEventListener("click",function(){window.print()});
+  $("[data-share]",act).addEventListener("click",function(){var u=location.origin+location.pathname+hash(),msg=$("[data-msg]",act),n=state().n;
+    if(navigator.share)navigator.share({title:"My "+n+"-day Saigon plan",url:u}).catch(function(){});
+    else if(navigator.clipboard)navigator.clipboard.writeText(u).then(function(){msg.textContent="Link copied."},function(){msg.textContent=u});else msg.textContent=u});
+  render();
+}
 function init(){
   $$(".pfav").forEach(function(b){var id=b.getAttribute("data-fav"),slug=b.getAttribute("data-slug");
     var paint=function(){var on=HI.favs().indexOf(id)>-1;b.setAttribute("aria-pressed",String(on));b.classList.toggle("saved",on);b.textContent=on?"♥ Saved":"♡ Save"};
@@ -149,6 +184,7 @@ function init(){
   $$(".st[data-oh]").forEach(function(el){try{var s=HI.status(JSON.parse(el.getAttribute("data-oh")));el.className="st "+s.k;el.textContent=s.t+" (Saigon time "+HI.clock()+")";el.hidden=false}catch(e){}});
   var ob=$("#order");if(ob)initOrder(ob);
   var qz=$("#stay-quiz");if(qz)initQuiz(qz);
+  var pf=$("#plan-form");if(pf)initPlanner(pf);
   var sv=$("#saved");if(sv){renderSaved(sv);var off=$("#offline"),upd=function(){off.hidden=navigator.onLine!==false};upd();addEventListener("online",upd);addEventListener("offline",upd)}
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
