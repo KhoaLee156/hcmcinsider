@@ -49,7 +49,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-30"}
+STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
