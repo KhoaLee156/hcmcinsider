@@ -60,7 +60,7 @@ def pages():
             if f.endswith(".html"):
                 fp = os.path.join(d, f)
                 rel = os.path.relpath(fp, ROOT).replace(os.sep, "/")
-                path = "/" + (rel[:-len("index.html")] if rel.endswith("index.html") else rel)
+                path = "/" + (rel[:-len("index.html")] if rel.endswith("index.html") else rel[:-len(".html")])
                 yield path, fp
 
 
@@ -191,7 +191,7 @@ def check_external(external):
             if code and code < 400:
                 continue
             row = (u, code or err, sorted(todo[u]))
-            if code in (401, 403, 429, 999):
+            if code in (401, 403, 405, 406, 429, 999):  # anti-robot answers, not proof the page is gone
                 blocked.append(row)
             else:
                 broken.append(row)
