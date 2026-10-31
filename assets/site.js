@@ -108,6 +108,7 @@ function init(){
   $$(".box.driver .fs").forEach(function(p){var box=p.closest(".box");p.hidden=false;
     $("button",p).addEventListener("click",function(){var a=$(".addr",box),en=a&&a.nextElementSibling&&a.nextElementSibling.classList.contains("small")&&!$("button",a.nextElementSibling)?a.nextElementSibling.textContent:"";
       driverCard($(".big",box).textContent,a?a.textContent:"",en)})});
+  $$(".st[data-oh]").forEach(function(el){try{var s=HI.status(JSON.parse(el.getAttribute("data-oh")));el.className="st "+s.k;el.textContent=s.t+" (Saigon time "+HI.clock()+")";el.hidden=false}catch(e){}});
   var ob=$("#order");if(ob)initOrder(ob);
   var sv=$("#saved");if(sv){renderSaved(sv);var off=$("#offline"),upd=function(){off.hidden=navigator.onLine!==false};upd();addEventListener("online",upd);addEventListener("offline",upd)}
 }

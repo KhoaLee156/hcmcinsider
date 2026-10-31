@@ -211,5 +211,6 @@ button.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);c
 .st{font-size:14px;font-weight:700;margin:0}
 .st::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
 .st.open{color:color-mix(in srgb,var(--jade) 85%,var(--ink))}.st.maybe,.st.unknown{color:var(--muted)}.st.closed{color:color-mix(in srgb,var(--c-food) 72%,var(--ink))}
+.ltips dd .st{display:block;margin-top:4px;font-size:13.5px}
 .offline{background:var(--amber-soft);border:1px solid var(--amber);border-radius:12px;padding:10px 14px;font-weight:600;font-size:14px}
 [hidden]{display:none!important}

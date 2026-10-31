@@ -1,0 +1,19 @@
+{
+ "name": "HCMC Insider",
+ "short_name": "HCMC Insider",
+ "description": "Where locals eat in Ho Chi Minh City, with Vietnamese names to show your driver and an order card for the seller. Saved places work offline.",
+ "start_url": "/",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#F5F7F6",
+ "theme_color": "#0E6655",
+ "icons": [
+  {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+  {"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any"},
+  {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+ ],
+ "shortcuts": [
+  {"name": "Saved places", "url": "/saved/"},
+  {"name": "Near me, open now", "url": "/#near"}
+ ]
+}

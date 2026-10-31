@@ -152,7 +152,9 @@ def tips_html(p):
     rows = [(k, lab) for k, lab in (("hours", "Hours"), ("price", "Price"), ("order", "What to order"), ("note", "Good to know")) if t.get(k)]
     if not rows:
         return ""
-    dl = "".join('<div><dt>%s</dt><dd>%s</dd></div>' % (lab, E(t[k])) for k, lab in rows)
+    oh = parse_hours(p["id"], t.get("hours"))
+    live = ('<span class="st" data-oh="%s" hidden></span>' % E(json.dumps(oh, separators=(",", ":")))) if oh else ""
+    dl = "".join('<div><dt>%s</dt><dd>%s%s</dd></div>' % (lab, E(t[k]), live if k == "hours" else "") for k, lab in rows)
     if t.get("own"):
         return ('<section class="box ltips"><h2>Local tips</h2><dl>%s</dl><p class="small">From our own visit (%s). '
                 'Hours and prices change, so check before you go.</p></section>') % (dl, E(nice_date(t["own"])))
@@ -500,6 +502,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
 <meta name="theme-color" content="#0E6655">
 {robots}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/be-vietnam-pro-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{css}">
@@ -1235,6 +1238,11 @@ def main():
     assert '<script id="hi-data">' in src, "data script not placed"
     src, n = re.subn(r'/assets/site\.js(?:\?v=\w+)?', SITE_JS, src)
     assert n == 1, "site.js tag not found in index.html"
+    # The hand-written 404 page uses page.css too.
+    nfp = os.path.join(ROOT, "404.html")
+    nf, n = re.subn(r'/assets/page\.css(?:\?v=\w+)?', PAGE_CSS, open(nfp, encoding="utf-8").read())
+    assert n == 1, "page.css not found in 404.html"
+    open(nfp, "w", encoding="utf-8").write(nf)
     swp = os.path.join(ROOT, "sw.js")
     sw = open(swp, encoding="utf-8").read()
     for rx, url in ((r'/assets/site\.js(?:\?v=\w+)?', SITE_JS), (r'/assets/page\.css(?:\?v=\w+)?', PAGE_CSS)):
