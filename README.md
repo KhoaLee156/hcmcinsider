@@ -46,3 +46,12 @@ All run in the browser; no server. Shared code is `assets/site.js` (loaded on ev
 ## Weekly site check
 `.github/workflows/site-check.yml` runs `tools/site_check.py` every Monday at 8:17 am Saigon time. When something needs attention it opens (or updates) one GitHub issue labelled `site-check`, so GitHub emails you; when everything is fine it closes that issue. Run it by hand from Actions → Weekly site check → Run workflow, or locally with `python3 tools/site_check.py` (`--offline` skips the network checks).
 It checks: internal links and #anchors, outside links (404/410/5xx/DNS; sites that block robots are listed separately), YouTube videos removed or made private, `checked` dates in `sights.json`/`events.json` older than 120 days, events that ended or start within 30 days, text like "free until the end of 2026" within 75 days of its date, and `STATIC_LASTMOD` pages older than 180 days. Thresholds are at the top of the script. Affiliate short links are checked without following them, so they never count as clicks.
+
+## Ask a local chat
+A chat button on every page answers visitors' questions with Claude (Anthropic), using only facts from this site.
+- `src/ask.js` handles `POST /api/ask` (streams the answer) and `GET /api/ask` (is the chat switched on?). Model, limits and the instructions to the assistant are at the top of the file.
+- `src/knowledge.js` is the site's facts for the assistant (places with tips, sights, events, practical guides). `build.py` regenerates it on every build, so the chat always matches the site. Do not edit it by hand.
+- The chat button only appears when the Worker has the secret `ANTHROPIC_API_KEY` (Cloudflare dashboard → Workers & Pages → hcmcinsider → Settings → Variables and Secrets → Add → type Secret). Delete the secret to switch the chat off.
+- Each visitor can ask 5 questions per minute (`ratelimits` in `wrangler.jsonc`). Set a monthly spend limit in the Anthropic Console as well.
+- Conversations are not stored; they live in the visitor's browser tab (sessionStorage).
+- Local test: put `ANTHROPIC_API_KEY=...` in `.dev.vars` (git-ignored), run `npm install` then `npx wrangler dev --local-protocol https`.

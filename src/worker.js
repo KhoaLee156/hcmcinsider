@@ -1,5 +1,6 @@
 // Edge logic for hcmcinsider.com: canonical host, legacy .html URLs, security headers.
-// Everything else is served from static assets.
+// /api/ask is the Ask a local chat (src/ask.js). Everything else is served from static assets.
+import { handleAsk } from './ask.js';
 const HOST = 'hcmcinsider.com';
 const SECURITY = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -9,7 +10,7 @@ const SECURITY = {
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self)'
 };
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.hostname === 'www.' + HOST || url.protocol === 'http:') {
       url.hostname = HOST;
@@ -21,6 +22,7 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
     const p = url.pathname;
+    if (p === '/api/ask') return handleAsk(request, env, ctx);
     // The 404 page itself must never answer 200 at /404 or /404.html.
     if (p === '/404' || p === '/404.html') {
       const nf = await env.ASSETS.fetch(new Request(new URL('/this-page-does-not-exist', url), request));

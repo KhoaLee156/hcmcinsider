@@ -174,6 +174,82 @@ function initPlanner(form){
     else if(navigator.clipboard)navigator.clipboard.writeText(u).then(function(){msg.textContent="Link copied."},function(){msg.textContent=u});else msg.textContent=u});
   render();
 }
+/* ---- "Ask a local" chat (all pages). Talks to /api/ask in src/ask.js; shown only when the Worker says it is switched on.
+   The conversation lives only in this tab (sessionStorage) and is never stored on our side. */
+function md(t){ /* escape first, then allow only links to our own pages, **bold** and "- " lists */
+  var h=esc(t).replace(/\*\*([^*\n]+)\*\*/g,"<strong>$1</strong>")
+    .replace(/\[([^\]\n]+)\]\((https:\/\/hcmcinsider\.com\/[^\s)]*|\/[^\s)]*)\)/g,function(_,a,u){return'<a href="'+u.replace(/^https:\/\/hcmcinsider\.com/,"")+'">'+a+"</a>"});
+  var out="",list=false;h.split("\n").forEach(function(l){var m=/^\s*[-•*]\s+(.*)/.exec(l);
+    if(m){if(!list){out+="<ul>";list=true}out+="<li>"+m[1]+"</li>";return}
+    if(list){out+="</ul>";list=false}if(l.trim())out+="<p>"+l+"</p>"});
+  return out+(list?"</ul>":"")}
+function initAsk(){
+  if(document.getElementById("ask-fab"))return;
+  var st=document.createElement("style");st.textContent=
+    ".ask-fab{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:60;display:inline-flex;align-items:center;gap:8px;background:var(--jade);color:var(--surface);border:0;border-radius:999px;padding:12px 18px;font:700 15px/1 var(--font,inherit);box-shadow:var(--shadow);cursor:pointer}"+
+    ".ask-fab:hover{background:var(--jade-2)}"+
+    ".ask-panel{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:76px;z-index:61;width:min(400px,calc(100vw - 32px));max-height:min(620px,calc(100dvh - 100px));display:flex;flex-direction:column;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(19,33,43,.08),0 18px 48px -12px rgba(19,33,43,.35);font-family:var(--font,inherit)}"+
+    ".ask-panel[hidden]{display:none}"+
+    ".ask-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:14px 16px 10px;border-bottom:1px solid var(--line)}"+
+    ".ask-k{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--jade)}"+
+    ".ask-top h2{margin:2px 0 0;font-size:18px;line-height:1.25;font-weight:800}"+
+    ".ask-x{background:none;border:0;color:var(--muted);font-size:26px;line-height:1;cursor:pointer;padding:0 4px}"+
+    ".ask-log{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.5;min-height:120px}"+
+    ".ask-log .msg{max-width:92%;border-radius:12px;padding:9px 12px;overflow-wrap:anywhere}"+
+    ".ask-log .msg p{margin:0 0 6px}.ask-log .msg p:last-child{margin:0}.ask-log .msg ul{margin:4px 0 6px;padding-left:18px}"+
+    ".ask-log .me{align-self:flex-end;background:var(--ink);color:var(--bg)}"+
+    ".ask-log .bot{align-self:flex-start;background:var(--sunk)}.ask-log .bot a{color:var(--jade);font-weight:600}"+
+    ".ask-log .typing{color:var(--muted)}"+
+    ".ask-sug{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}.ask-sug[hidden]{display:none}"+
+    ".ask-chip{font:600 13px/1.3 var(--font,inherit);border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 11px;cursor:pointer;text-align:left}"+
+    ".ask-chip:hover{border-color:var(--jade);color:var(--jade)}"+
+    ".ask-form{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--line)}"+
+    ".ask-form textarea{flex:1;resize:none;font:16px/1.4 var(--font,inherit);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;min-width:0}"+
+    ".ask-send{align-self:flex-end;background:var(--jade);color:var(--surface);border:0;border-radius:999px;padding:10px 16px;font:700 15px/1 var(--font,inherit);cursor:pointer}.ask-send:disabled{opacity:.5;cursor:wait}"+
+    ".ask-note{margin:0;padding:0 16px 12px;font-size:12px;line-height:1.45;color:var(--muted)}.ask-note a{color:var(--muted)}"+
+    ".ask-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}"+
+    "@media (max-width:520px){.ask-panel{right:8px;left:8px;width:auto;bottom:72px;max-height:calc(100dvh - 90px)}.ask-fab span{display:none}.ask-fab{padding:14px}}"+
+    "@media print{.ask-fab,.ask-panel{display:none!important}}";
+  document.head.appendChild(st);
+  var KEY="hi_chat",hist=[];try{hist=JSON.parse(sessionStorage.getItem(KEY)||"[]")}catch(e){}
+  function save(){try{sessionStorage.setItem(KEY,JSON.stringify(hist.slice(-10)))}catch(e){}}
+  var fab=document.createElement("button");fab.id="ask-fab";fab.type="button";fab.className="ask-fab";fab.setAttribute("aria-haspopup","dialog");fab.setAttribute("aria-label","Ask a local");fab.setAttribute("aria-expanded","false");
+  fab.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>Ask a local</span>';
+  var box=document.createElement("div");box.className="ask-panel";box.setAttribute("role","dialog");box.setAttribute("aria-modal","false");box.setAttribute("aria-labelledby","ask-h");box.hidden=true;
+  box.innerHTML='<div class="ask-top"><div><p class="ask-k">Ask a local</p><h2 id="ask-h">Questions about Saigon?</h2></div><button type="button" class="ask-x" aria-label="Close chat">×</button></div>'+
+    '<div class="ask-log" aria-live="polite"></div>'+
+    '<div class="ask-sug"></div>'+
+    '<form class="ask-form"><label class="ask-sr" for="ask-in">Your question</label><textarea id="ask-in" rows="2" maxlength="600" placeholder="e.g. Where can I eat near Binh Tay Market in the morning?"></textarea><button type="submit" class="ask-send">Ask</button></form>'+
+    '<p class="ask-note">AI answers from this site’s guides. Hours and prices change, so check before you go. Don’t share personal details. <a href="/privacy">Privacy</a></p>';
+  document.body.appendChild(fab);document.body.appendChild(box);
+  var log=$(".ask-log",box),inp=$("#ask-in",box),form=$(".ask-form",box),btn=$("button[type=submit]",form),sug=$(".ask-sug",box),busy=false;
+  ["Best breakfast in Cholon?","How do I get from the airport to District 1?","Is the War Remnants Museum open on Monday?","2 days in Saigon: what should I do?"].forEach(function(q){
+    var b=document.createElement("button");b.type="button";b.className="ask-chip";b.textContent=q;b.addEventListener("click",function(){inp.value=q;send()});sug.appendChild(b)});
+  function bubble(role,text){var d=document.createElement("div");d.className="msg "+(role==="user"?"me":"bot");
+    if(role==="user")d.textContent=text;else d.innerHTML=md(text);log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+  function paint(){log.innerHTML="";if(!hist.length)bubble("assistant","Hi! Ask me about food, sights, getting around or planning your days in Saigon. I answer from the guides on this site.");
+    hist.forEach(function(m){bubble(m.role,m.content)});sug.hidden=hist.length>0}
+  function open(){box.hidden=false;fab.setAttribute("aria-expanded","true");paint();inp.focus()}
+  function close(){box.hidden=true;fab.setAttribute("aria-expanded","false");fab.focus()}
+  fab.addEventListener("click",function(){box.hidden?open():close()});
+  $(".ask-x",box).addEventListener("click",close);
+  box.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+  inp.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
+  form.addEventListener("submit",function(e){e.preventDefault();send()});
+  function send(){var q=inp.value.trim();if(!q||busy)return;busy=true;btn.disabled=true;inp.value="";sug.hidden=true;
+    hist.push({role:"user",content:q});save();bubble("user",q);var d=bubble("assistant","");d.classList.add("typing");d.textContent="…";var text="";
+    fetch("/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:hist})}).then(function(r){
+      if(!r.ok)return r.json().catch(function(){return{}}).then(function(j){throw new Error(j.error||"Sorry, something went wrong. Please try again.")});
+      if(!r.body||!window.TextDecoder)return r.text().then(function(t){text=t});
+      var rd=r.body.getReader(),dec=new TextDecoder();
+      function pump(){return rd.read().then(function(x){if(x.done)return;text+=dec.decode(x.value,{stream:true});d.classList.remove("typing");d.innerHTML=md(text);log.scrollTop=log.scrollHeight;return pump()})}
+      return pump()}).then(function(){d.classList.remove("typing");d.innerHTML=md(text||"Sorry, no answer came back. Please try again.");if(text){hist.push({role:"assistant",content:text});save()}
+    }).catch(function(err){d.classList.remove("typing");d.innerHTML=md(err.message);hist.pop();save()}).then(function(){busy=false;btn.disabled=false;inp.focus()})}
+}
+function maybeAsk(){var k="hi_chat_on",v=null;try{v=sessionStorage.getItem(k)}catch(e){}
+  if(v==="1")return initAsk();if(v==="0"||!window.fetch)return;
+  fetch("/api/ask",{headers:{Accept:"application/json"}}).then(function(r){return r.ok?r.json():{}}).then(function(j){
+    try{sessionStorage.setItem(k,j.ready?"1":"0")}catch(e){}if(j.ready)initAsk()}).catch(function(){})}
 function init(){
   $$(".pfav").forEach(function(b){var id=b.getAttribute("data-fav"),slug=b.getAttribute("data-slug");
     var paint=function(){var on=HI.favs().indexOf(id)>-1;b.setAttribute("aria-pressed",String(on));b.classList.toggle("saved",on);b.textContent=on?"♥ Saved":"♡ Save"};
@@ -185,6 +261,7 @@ function init(){
   var ob=$("#order");if(ob)initOrder(ob);
   var qz=$("#stay-quiz");if(qz)initQuiz(qz);
   var pf=$("#plan-form");if(pf)initPlanner(pf);
+  if(!/^\/saved\//.test(location.pathname))maybeAsk();
   var sv=$("#saved");if(sv){renderSaved(sv);var off=$("#offline"),upd=function(){off.hidden=navigator.onLine!==false};upd();addEventListener("online",upd);addEventListener("offline",upd)}
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();

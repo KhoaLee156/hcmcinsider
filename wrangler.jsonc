@@ -7,5 +7,9 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     "run_worker_first": true
-  }
+  },
+  // Ask a local chat: at most 5 questions per minute from one visitor (src/ask.js).
+  "ratelimits": [
+    { "name": "ASK_LIMITER", "namespace_id": "1101", "simple": { "limit": 5, "period": 60 } }
+  ]
 }

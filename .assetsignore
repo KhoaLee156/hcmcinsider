@@ -19,3 +19,6 @@ pins/pinterest-bulk.csv
 events.json
 visitor_videos.json
 stories.json
+package.json
+package-lock.json
+.dev.vars
