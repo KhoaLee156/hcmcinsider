@@ -478,12 +478,14 @@
       var speed = running ? 95 : walking ? 38 : 0;
       var inRoad = P.y < H - 70 && P.y > top;
       if (!speed && P.vy && inRoad) stops++;
+      if (speed !== P.vy) P.changed = t;
       P.vy = speed; P.y -= speed * dt;
       spawnT -= dt; if (spawnT <= 0) { spawn(); spawnT = 0.45 + Math.random() * 0.5; }
       bikes.forEach(function (b) {
         // Riders predict where you will be if you keep doing what you do now, with a short reaction delay.
         b.react -= dt;
-        if (b.react <= 0) {
+        // A sudden stop or start surprises riders: they keep their old plan for a moment.
+        if (b.react <= 0 && t - (P.changed || 0) > 700) {
           b.react = 0.3;
           var dx = (P.x - b.x) * b.dir;
           if (dx > -10 && dx < 260) {
