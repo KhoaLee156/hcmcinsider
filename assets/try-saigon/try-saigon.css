@@ -217,3 +217,15 @@
 .ts-real li{display:grid;gap:2px}
 .ts-real a{font-weight:700;color:var(--ink)}
 .ts-real .small{margin:0}
+
+/* listen buttons and rain */
+.ts-speak{display:inline-grid;place-items:center;width:32px;height:32px;margin-left:6px;vertical-align:middle;border-radius:50%;border:1.5px solid var(--jade);background:var(--surface);color:var(--jade);padding:0}
+.ts-speak:hover{background:var(--jade-soft)}
+.ts-bubble .ts-speak,.ts-say .ts-speak,.ts-line .ts-speak{justify-self:start;margin:2px 0}
+.ts-menu .ts-speak{width:28px;height:28px;margin:2px 0}
+.ts-rain{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  repeating-linear-gradient(105deg,rgba(220,235,245,.0) 0 14px,rgba(220,235,245,.35) 14px 15px),
+  linear-gradient(rgba(40,55,70,.35),rgba(40,55,70,.25));background-size:60px 60px,100% 100%;animation:ts-rain .5s linear infinite}
+@keyframes ts-rain{to{background-position:-12px 60px,0 0}}
+@media (prefers-reduced-motion:reduce){.ts-rain{animation:none}}
+.ts-caption p .small{display:block;margin-top:4px;opacity:.8;font-size:13px}

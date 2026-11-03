@@ -69,7 +69,7 @@
     }); if (o.staff) person(ctx, x, Object.assign({ scale: 0.85 }, o.staff)); },
     atm(ctx, x) { wrap(x, (x) => { round(ctx, x - 70, HZ - 140, 140, 340, 14, "#2c3e50"); rect(ctx, x - 50, HZ - 100, 100, 70, "#7fb3d5"); rect(ctx, x - 40, HZ, 80, 50, "#95a5a6"); sign(ctx, x, HZ - 175, 140, 50, "#c0392b", "#fff", "ATM"); }); },
     door(ctx, x, o) { wrap(x, (x) => { rect(ctx, x - 160, HZ - 240, 320, 450, "#a9cce3"); rect(ctx, x - 4, HZ - 240, 8, 450, "#5d6d7e"); sign(ctx, x, HZ - 290, 360, 70, "#1f3a4d", "#fff", o.sign || "EXIT", o.sign2); }); },
-    busstop(ctx, x) { wrap(x, (x) => { rect(ctx, x - 6, HZ - 260, 12, 470, "#7f8c8d"); sign(ctx, x, HZ - 300, 300, 120, "#1f5fa8", "#fff", "XE BUÝT 152", "Bến Thành · Bus stop"); rect(ctx, x - 160, HZ + 60, 320, 20, "#95a5a6"); }); person(ctx, x - 120, { shirt: "#c0392b", scale: 0.8 }); person(ctx, x + 130, { shirt: "#16a085", scale: 0.8, hair: "#5b3a29" }); },
+    busstop(ctx, x, o) { wrap(x, (x) => { rect(ctx, x - 6, HZ - 260, 12, 470, "#7f8c8d"); sign(ctx, x, HZ - 300, 300, 120, "#1f5fa8", "#fff", o.sign || "XE BUÝT 152", o.sign2 || "Bến Thành · Bus stop"); rect(ctx, x - 160, HZ + 60, 320, 20, "#95a5a6"); }); person(ctx, x - 120, { shirt: "#c0392b", scale: 0.8 }); person(ctx, x + 130, { shirt: "#16a085", scale: 0.8, hair: "#5b3a29" }); },
     taxi(ctx, x) { car(ctx, x, HZ + 210, 1.3, "#f4f4f4", "TAXI"); car(ctx, x + 330, HZ + 200, 1.1, "#2e86c1", "TAXI"); wrap(x, (x) => sign(ctx, x + 120, HZ - 230, 320, 90, "#145a32", "#fff", "TAXI", "Official rank · Có đồng hồ")); },
     pickup(ctx, x) { wrap(x, (x) => { rect(ctx, x - 5, HZ - 200, 10, 410, "#7f8c8d"); sign(ctx, x, HZ - 240, 360, 110, "#0E6655", "#fff", "ĐIỂM ĐÓN XE", "Ride-app pickup"); }); motorbike(ctx, x + 200, HZ + 200, 1.2, "#1e8449", 1); },
     cart(ctx, x, o) { person(ctx, x - 20, { shirt: "#f5f5f5", hat: "non", scale: 0.95 }); wrap(x, (x) => {
@@ -146,6 +146,13 @@
       ctx.fillStyle = "#e8dfcd"; ctx.beginPath(); ctx.moveTo(x - 380, HZ - 300); ctx.lineTo(x, HZ - 420); ctx.lineTo(x + 380, HZ - 300); ctx.fill();
       rect(ctx, x - 300, HZ - 260, 600, 40, "#c8bba3"); text(ctx, "NHÀ HÁT THÀNH PHỐ", x, HZ - 240, 30, "#6e5b3e");
       rect(ctx, x - 400, HZ + 180, 800, 40, "#c8bba3");
+    }); },
+    store(ctx, x) { wrap(x, (x) => {
+      rect(ctx, x - 230, HZ - 260, 460, 470, "#f5f7f6"); rect(ctx, x - 230, HZ - 260, 460, 80, "#16a085");
+      text(ctx, "CỬA HÀNG TIỆN LỢI", x, HZ - 232, 34, "#fff"); text(ctx, "Convenience store · 24/7", x, HZ - 196, 22, "#e8f8f5", 600);
+      rect(ctx, x - 200, HZ - 160, 400, 260, "#d6eaf8");
+      for (let r = 0; r < 4; r++) for (let i = 0; i < 9; i++) rect(ctx, x - 185 + i * 43, HZ - 145 + r * 62, 32, 44, ["#e74c3c", "#f1c40f", "#3498db", "#2ecc71", "#9b59b6"][(r + i) % 5]);
+      rect(ctx, x - 50, HZ + 100, 100, 110, "#85929e");
     }); },
     hotel(ctx, x) { wrap(x, (x) => { rect(ctx, x - 200, HZ - 420, 400, 630, "#d7ccc8"); for (let r = 0; r < 5; r++) for (let c = 0; c < 4; c++) rect(ctx, x - 170 + c * 90, HZ - 390 + r * 90, 60, 60, "#90a4ae"); rect(ctx, x - 70, HZ + 40, 140, 170, "#5d4037"); sign(ctx, x, HZ - 450, 300, 60, "#3e2723", "#ffe0b2", "HOTEL · KHÁCH SẠN"); }); }
   };
