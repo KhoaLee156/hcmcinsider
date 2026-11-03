@@ -1,273 +1,198 @@
-/* Paints the 360° illustration used in Try Saigon (equirectangular, 2:1) until a real photo is added.
+/* Paints the 360° scenes of Try Saigon (equirectangular, 2:1) until real 360° photos are added.
+   A scene = a background ("bg") + objects placed by yaw, so the clickable hotspot and the drawing
+   always line up. Yaw 0 is the centre of the image; -180..180 goes all the way round.
    Every shape wraps horizontally so the left and right edges meet. */
 (function () {
-  const W = 4096, H = 2048, HZ = H / 2;
-  const TAU = Math.PI * 2;
+  const W = 4096, H = 2048, HZ = H / 2, TAU = Math.PI * 2;
+  const FONT = '"Be Vietnam Pro", "BVP Fallback", system-ui, sans-serif';
+  const X = (yaw) => W / 2 + (yaw / 360) * W;
 
-  // Periodic noise: a sum of sine waves with whole-number frequencies.
-  function wave(x, seed, octaves) {
-    let v = 0, amp = 1, total = 0;
-    for (let i = 0; i < octaves.length; i++) {
-      v += amp * Math.sin(TAU * octaves[i] * x / W + seed * (i + 1) * 1.7);
-      total += amp; amp *= 0.55;
-    }
-    return v / total;
-  }
   function rand(seed) { let s = seed; return () => (s = (s * 9301 + 49297) % 233280) / 233280; }
+  function wave(x, seed, oct) { let v = 0, a = 1, t = 0; oct.forEach((f, i) => { v += a * Math.sin(TAU * f * x / W + seed * (i + 1) * 1.7); t += a; a *= 0.55; }); return v / t; }
+  function wrap(x, fn) { fn(x); if (x < 500) fn(x + W); if (x > W - 500) fn(x - W); }
+  function grad(ctx, y0, y1, stops) { const g = ctx.createLinearGradient(0, y0, 0, y1); stops.forEach((c, i) => g.addColorStop(i / (stops.length - 1), c)); return g; }
+  function rect(ctx, x, y, w, h, c) { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); }
+  function round(ctx, x, y, w, h, r, c) { ctx.fillStyle = c; ctx.beginPath(); ctx.roundRect(x, y, w, h, r); ctx.fill(); }
+  function text(ctx, t, x, y, size, color, weight, align) {
+    ctx.fillStyle = color; ctx.font = (weight || 800) + " " + size + "px " + FONT; ctx.textAlign = align || "center"; ctx.textBaseline = "middle"; ctx.fillText(t, x, y);
+  }
+  function sign(ctx, x, y, w, h, bg, fg, line1, line2) {
+    round(ctx, x - w / 2, y - h / 2, w, h, 10, bg);
+    if (line2) { text(ctx, line1, x, y - h * 0.18, h * 0.36, fg); text(ctx, line2, x, y + h * 0.24, h * 0.22, fg, 600); }
+    else text(ctx, line1, x, y, h * 0.48, fg);
+  }
 
-  function sky(ctx, top, mid, bottom) {
-    const g = ctx.createLinearGradient(0, 0, 0, HZ);
-    g.addColorStop(0, top); g.addColorStop(0.7, mid); g.addColorStop(1, bottom);
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, HZ + 2);
-  }
-  function sun(ctx, x, y, r, color) {
-    const g = ctx.createRadialGradient(x, y, 0, x, y, r * 4);
-    g.addColorStop(0, color); g.addColorStop(0.25, color + "88"); g.addColorStop(1, color + "00");
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 4, 0, TAU); ctx.fill();
-    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
-  }
-  function clouds(ctx, n, color, seed) {
-    const r = rand(seed); ctx.fillStyle = color;
-    for (let i = 0; i < n; i++) {
-      const x = r() * W, y = HZ * (0.25 + r() * 0.5), s = 40 + r() * 70;
-      for (let j = 0; j < 5; j++) {
-        for (const dx of [0, -W, W]) {
-          ctx.beginPath(); ctx.ellipse(x + dx + j * s * 0.8, y - Math.sin(j / 4 * Math.PI) * s * 0.5, s, s * 0.55, 0, 0, TAU); ctx.fill();
-        }
-      }
-    }
-  }
-  function ridge(ctx, base, height, color, seed, oct) {
-    ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(0, H);
-    for (let x = 0; x <= W; x += 8) ctx.lineTo(x, base - height * (0.5 + 0.5 * wave(x, seed, oct)));
-    ctx.lineTo(W, H); ctx.closePath(); ctx.fill();
-  }
-  function ground(ctx, c1, c2) {
-    const g = ctx.createLinearGradient(0, HZ, 0, H);
-    g.addColorStop(0, c1); g.addColorStop(1, c2);
-    ctx.fillStyle = g; ctx.fillRect(0, HZ, W, H - HZ);
-  }
-  function water(ctx, c1, c2, seed) {
-    ground(ctx, c1, c2);
-    const r = rand(seed); ctx.strokeStyle = "rgba(255,255,255,0.18)"; ctx.lineWidth = 3;
-    for (let i = 0; i < 260; i++) {
-      const y = HZ + 6 + Math.pow(r(), 1.6) * (H - HZ), x = r() * W, l = 10 + (y - HZ) * 0.12;
-      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + l, y); ctx.stroke();
-    }
-  }
-  // Draw at x, x-W and x+W so shapes wrap across the seam.
-  function wrap(x, fn) { fn(x); if (x < 400) fn(x + W); if (x > W - 400) fn(x - W); }
-  function boat(ctx, x, y, s, hull, sail) {
+  /* ---------------------------------------------------------------- people and things */
+  function person(ctx, x, o) {
+    const s = o.scale || 1, foot = HZ + 210 * s, skin = o.skin || "#E3B48C";
     wrap(x, (x) => {
-      ctx.fillStyle = hull; ctx.beginPath();
-      ctx.moveTo(x - 60 * s, y); ctx.lineTo(x + 60 * s, y); ctx.lineTo(x + 40 * s, y + 18 * s); ctx.lineTo(x - 40 * s, y + 18 * s); ctx.fill();
-      if (sail) {
-        ctx.fillStyle = sail; ctx.beginPath();
-        ctx.moveTo(x - 4 * s, y - 4 * s); ctx.lineTo(x - 4 * s, y - 90 * s); ctx.quadraticCurveTo(x + 40 * s, y - 50 * s, x + 44 * s, y - 6 * s); ctx.fill();
-      }
+      rect(ctx, x - 26 * s, foot - 150 * s, 18 * s, 150 * s, o.pants || "#2d3640");
+      rect(ctx, x + 8 * s, foot - 150 * s, 18 * s, 150 * s, o.pants || "#2d3640");
+      round(ctx, x - 42 * s, foot - 300 * s, 84 * s, 160 * s, 22 * s, o.shirt || "#3b6ea5");
+      rect(ctx, x - 54 * s, foot - 290 * s, 16 * s, 120 * s, o.shirt || "#3b6ea5");
+      rect(ctx, x + 38 * s, foot - 290 * s, 16 * s, 120 * s, o.shirt || "#3b6ea5");
+      ctx.fillStyle = skin; ctx.beginPath(); ctx.arc(x, foot - 340 * s, 34 * s, 0, TAU); ctx.fill();
+      ctx.fillStyle = o.hair || "#1d1d1d"; ctx.beginPath(); ctx.arc(x, foot - 350 * s, 35 * s, Math.PI, TAU); ctx.fill();
+      if (o.hat === "non") { ctx.fillStyle = "#e9d8a6"; ctx.beginPath(); ctx.moveTo(x - 80 * s, foot - 350 * s); ctx.lineTo(x, foot - 420 * s); ctx.lineTo(x + 80 * s, foot - 350 * s); ctx.fill(); }
+      if (o.hat === "cap") { rect(ctx, x - 36 * s, foot - 385 * s, 72 * s, 22 * s, o.capColor || "#c0392b"); rect(ctx, x, foot - 368 * s, 50 * s, 8 * s, o.capColor || "#c0392b"); }
+      if (o.vest) { round(ctx, x - 42 * s, foot - 300 * s, 84 * s, 70 * s, 16 * s, o.vest); }
     });
   }
-  function building(ctx, x, w, h, color, windows) {
+  function motorbike(ctx, x, y, s, c, dir) {
     wrap(x, (x) => {
-      ctx.fillStyle = color; ctx.fillRect(x, HZ - h, w, h + 4);
-      if (windows) {
-        ctx.fillStyle = windows;
-        for (let yy = HZ - h + 14; yy < HZ - 14; yy += 22)
-          for (let xx = x + 8; xx < x + w - 10; xx += 18) ctx.fillRect(xx, yy, 8, 10);
-      }
+      ctx.save(); ctx.translate(x, y); ctx.scale(dir || 1, 1);
+      ctx.fillStyle = "#1b1b1b"; ctx.beginPath(); ctx.arc(-45 * s, 0, 22 * s, 0, TAU); ctx.arc(45 * s, 0, 22 * s, 0, TAU); ctx.fill();
+      round(ctx, -55 * s, -40 * s, 110 * s, 34 * s, 12 * s, c);
+      rect(ctx, -10 * s, -110 * s, 34 * s, 72 * s, "#34495e");
+      ctx.fillStyle = "#E3B48C"; ctx.beginPath(); ctx.arc(8 * s, -125 * s, 16 * s, 0, TAU); ctx.fill();
+      ctx.fillStyle = c; ctx.beginPath(); ctx.arc(8 * s, -132 * s, 18 * s, Math.PI, TAU); ctx.fill();
+      ctx.restore();
     });
   }
-  function roofHouse(ctx, x, w, h, wall, roof) {
+  function car(ctx, x, y, s, c, roof) {
     wrap(x, (x) => {
-      ctx.fillStyle = wall; ctx.fillRect(x, HZ - h, w, h + 4);
-      ctx.fillStyle = roof; ctx.beginPath();
-      ctx.moveTo(x - 14, HZ - h); ctx.quadraticCurveTo(x + w / 2, HZ - h - 50, x + w + 14, HZ - h); ctx.fill();
-      ctx.fillStyle = "rgba(60,30,10,.55)"; ctx.fillRect(x + w * 0.35, HZ - h * 0.55, w * 0.3, h * 0.55);
-    });
-  }
-  function lantern(ctx, x, y, color) {
-    wrap(x, (x) => {
-      const g = ctx.createRadialGradient(x, y, 0, x, y, 40);
-      g.addColorStop(0, color + "aa"); g.addColorStop(1, color + "00");
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 40, 0, TAU); ctx.fill();
-      ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(x, y, 12, 16, 0, 0, TAU); ctx.fill();
-    });
-  }
-  function pine(ctx, x, h, color) {
-    wrap(x, (x) => {
-      ctx.fillStyle = color; ctx.beginPath();
-      ctx.moveTo(x, HZ - h); ctx.lineTo(x + h * 0.22, HZ + 4); ctx.lineTo(x - h * 0.22, HZ + 4); ctx.fill();
-    });
-  }
-  function palm(ctx, x, h, color) {
-    wrap(x, (x) => {
-      ctx.strokeStyle = color; ctx.lineWidth = 10;
-      ctx.beginPath(); ctx.moveTo(x, HZ + 30); ctx.quadraticCurveTo(x + 30, HZ - h / 2, x + 20, HZ - h); ctx.stroke();
-      ctx.lineWidth = 8;
-      for (let a = 0; a < 6; a++) {
-        const ang = Math.PI + a * Math.PI / 5;
-        ctx.beginPath(); ctx.moveTo(x + 20, HZ - h);
-        ctx.quadraticCurveTo(x + 20 + Math.cos(ang) * 60, HZ - h - 30, x + 20 + Math.cos(ang) * 110, HZ - h + 40 + Math.abs(Math.sin(ang)) * 10);
-        ctx.stroke();
-      }
-    });
-  }
-  function karst(ctx, x, w, h, color) {
-    wrap(x, (x) => {
-      ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(x - w / 2, HZ + 4);
-      ctx.bezierCurveTo(x - w / 2, HZ - h * 0.6, x - w * 0.35, HZ - h, x, HZ - h);
-      ctx.bezierCurveTo(x + w * 0.35, HZ - h, x + w / 2, HZ - h * 0.6, x + w / 2, HZ + 4); ctx.fill();
-      ctx.fillStyle = "rgba(255,255,255,.08)"; ctx.fillRect(x - w / 2, HZ, w, 12);
-    });
-  }
-  function bridge(ctx, x, y, w, color) {
-    wrap(x, (x) => {
-      ctx.strokeStyle = color; ctx.lineWidth = 12;
-      ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + w / 2, y - 70, x + w, y); ctx.stroke();
-      ctx.lineWidth = 5;
-      for (let i = 1; i < 10; i++) { const t = i / 10, bx = x + w * t, by = y - 140 * t * (1 - t) - 2; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx, by - 26); ctx.stroke(); }
+      round(ctx, x - 150 * s, y - 80 * s, 300 * s, 70 * s, 18 * s, c);
+      round(ctx, x - 95 * s, y - 135 * s, 190 * s, 60 * s, 18 * s, c);
+      rect(ctx, x - 80 * s, y - 125 * s, 70 * s, 42 * s, "#9fc3d8"); rect(ctx, x + 10 * s, y - 125 * s, 70 * s, 42 * s, "#9fc3d8");
+      ctx.fillStyle = "#151515"; ctx.beginPath(); ctx.arc(x - 90 * s, y - 8 * s, 28 * s, 0, TAU); ctx.arc(x + 90 * s, y - 8 * s, 28 * s, 0, TAU); ctx.fill();
+      if (roof) sign(ctx, x, y - 160 * s, 110 * s, 34 * s, "#f5c518", "#222", roof);
     });
   }
 
-  const PAINTERS = {
-    lake(ctx) {
-      sky(ctx, "#6fa8d6", "#bcd9ec", "#f3e9d2"); clouds(ctx, 9, "rgba(255,255,255,.75)", 3);
-      for (let i = 0; i < 40; i++) building(ctx, (i * 103) % W, 60 + (i % 5) * 18, 60 + (i * 37) % 110, i % 2 ? "#c9b79c" : "#b49c80", "#7d6a55");
-      ridge(ctx, HZ + 6, 50, "#4f7c4a", 7, [6, 13, 29]);
-      water(ctx, "#5b8f86", "#2f5d58", 11);
-      // Turtle Tower at yaw 0 (centre of the image)
-      const tx = W / 2, ty = HZ + 120;
-      ctx.fillStyle = "#3c6b3a"; ctx.beginPath(); ctx.ellipse(tx, ty + 20, 140, 26, 0, 0, TAU); ctx.fill();
-      ctx.fillStyle = "#d8cbb0"; ctx.fillRect(tx - 40, ty - 110, 80, 130); ctx.fillRect(tx - 30, ty - 170, 60, 60); ctx.fillRect(tx - 20, ty - 210, 40, 40);
-      ctx.fillStyle = "#6b5a44"; for (const [yy, ww] of [[ty - 110, 100], [ty - 170, 80], [ty - 210, 56]]) ctx.fillRect(tx - ww / 2, yy - 10, ww, 12);
-      bridge(ctx, W / 2 + 820, HZ + 90, 420, "#c0392b");
+  const OBJ = {
+    counter(ctx, x, o) { wrap(x, (x) => {
+      rect(ctx, x - 180, HZ - 60, 360, 270, o.color || "#0E6655");
+      rect(ctx, x - 190, HZ - 70, 380, 26, "#e8eef0");
+      rect(ctx, x - 150, HZ - 40, 300, 120, "rgba(255,255,255,.18)");
+      sign(ctx, x, HZ - 190, 380, 110, o.signBg || "#0b3d33", o.signFg || "#ffd56b", o.sign, o.sign2);
+      if (o.board) { round(ctx, x - 130, HZ - 30, 260, 96, 8, "#0b1612"); o.board.forEach((l, i) => text(ctx, l, x, HZ - 6 + i * 30, 22, "#ffd56b", 700)); }
+    }); if (o.staff) person(ctx, x, Object.assign({ scale: 0.85 }, o.staff)); },
+    atm(ctx, x) { wrap(x, (x) => { round(ctx, x - 70, HZ - 140, 140, 340, 14, "#2c3e50"); rect(ctx, x - 50, HZ - 100, 100, 70, "#7fb3d5"); rect(ctx, x - 40, HZ, 80, 50, "#95a5a6"); sign(ctx, x, HZ - 175, 140, 50, "#c0392b", "#fff", "ATM"); }); },
+    door(ctx, x, o) { wrap(x, (x) => { rect(ctx, x - 160, HZ - 240, 320, 450, "#a9cce3"); rect(ctx, x - 4, HZ - 240, 8, 450, "#5d6d7e"); sign(ctx, x, HZ - 290, 360, 70, "#1f3a4d", "#fff", o.sign || "EXIT", o.sign2); }); },
+    busstop(ctx, x) { wrap(x, (x) => { rect(ctx, x - 6, HZ - 260, 12, 470, "#7f8c8d"); sign(ctx, x, HZ - 300, 300, 120, "#1f5fa8", "#fff", "XE BUÝT 152", "Bến Thành · Bus stop"); rect(ctx, x - 160, HZ + 60, 320, 20, "#95a5a6"); }); person(ctx, x - 120, { shirt: "#c0392b", scale: 0.8 }); person(ctx, x + 130, { shirt: "#16a085", scale: 0.8, hair: "#5b3a29" }); },
+    taxi(ctx, x) { car(ctx, x, HZ + 210, 1.3, "#f4f4f4", "TAXI"); car(ctx, x + 330, HZ + 200, 1.1, "#2e86c1", "TAXI"); wrap(x, (x) => sign(ctx, x + 120, HZ - 230, 320, 90, "#145a32", "#fff", "TAXI", "Official rank · Có đồng hồ")); },
+    pickup(ctx, x) { wrap(x, (x) => { rect(ctx, x - 5, HZ - 200, 10, 410, "#7f8c8d"); sign(ctx, x, HZ - 240, 360, 110, "#0E6655", "#fff", "ĐIỂM ĐÓN XE", "Ride-app pickup"); }); motorbike(ctx, x + 200, HZ + 200, 1.2, "#1e8449", 1); },
+    cart(ctx, x, o) { person(ctx, x - 20, { shirt: "#f5f5f5", hat: "non", scale: 0.95 }); wrap(x, (x) => {
+      rect(ctx, x - 200, HZ - 10, 400, 180, "#c0392b");
+      rect(ctx, x - 190, HZ - 150, 380, 140, "rgba(220,240,255,.75)");
+      for (let i = 0; i < 7; i++) round(ctx, x - 170 + i * 50, HZ - 60, 44, 22, 10, "#d4a056");
+      rect(ctx, x - 170, HZ - 120, 120, 30, "#e57373"); rect(ctx, x - 30, HZ - 120, 90, 30, "#81c784"); rect(ctx, x + 80, HZ - 120, 80, 30, "#ffb74d");
+      sign(ctx, x, HZ - 200, 400, 80, "#ffd54f", "#b71c1c", o.sign || "BÁNH MÌ");
+      ctx.fillStyle = "#333"; ctx.beginPath(); ctx.arc(x - 150, HZ + 185, 26, 0, TAU); ctx.arc(x + 150, HZ + 185, 26, 0, TAU); ctx.fill();
+      for (let i = 0; i < 3; i++) round(ctx, x + 230 + i * 80, HZ + 120, 56, 70, 6, ["#e74c3c", "#3498db", "#2ecc71"][i]);
+    }); },
+    crosswalk(ctx, x) { wrap(x, (x) => { for (let i = 0; i < 6; i++) { const y = HZ + 40 + i * 70, w = 160 + i * 70; rect(ctx, x - w / 2, y, w, 30 + i * 6, "rgba(255,255,255,.85)"); } }); },
+    benthanh(ctx, x) { wrap(x, (x) => {
+      rect(ctx, x - 340, HZ - 170, 680, 190, "#e8d5a8");
+      ctx.fillStyle = "#9a3a2a"; ctx.beginPath(); ctx.moveTo(x - 360, HZ - 170); ctx.lineTo(x, HZ - 240); ctx.lineTo(x + 360, HZ - 170); ctx.fill();
+      rect(ctx, x - 55, HZ - 390, 110, 230, "#e8d5a8");
+      ctx.fillStyle = "#9a3a2a"; ctx.beginPath(); ctx.moveTo(x - 70, HZ - 390); ctx.lineTo(x, HZ - 460); ctx.lineTo(x + 70, HZ - 390); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(x, HZ - 320, 36, 0, TAU); ctx.fill();
+      ctx.strokeStyle = "#333"; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(x, HZ - 320); ctx.lineTo(x, HZ - 345); ctx.moveTo(x, HZ - 320); ctx.lineTo(x + 18, HZ - 320); ctx.stroke();
+      text(ctx, "CHỢ BẾN THÀNH", x, HZ - 200, 34, "#7b241c");
+      [-250, -60, 140].forEach((d) => rect(ctx, x + d, HZ - 100, 110, 120, "#4a3426"));
+    }); },
+    hats(ctx, x) { wrap(x, (x) => {
+      rect(ctx, x - 230, HZ - 40, 460, 250, "#8d6e63");
+      for (let r = 0; r < 3; r++) for (let i = 0; i < 6; i++) { const cx = x - 190 + i * 76, cy = HZ - 170 + r * 70; ctx.fillStyle = "#ead9a8"; ctx.beginPath(); ctx.moveTo(cx - 34, cy + 22); ctx.lineTo(cx, cy - 26); ctx.lineTo(cx + 34, cy + 22); ctx.fill(); ctx.strokeStyle = "#c9b27a"; ctx.lineWidth = 2; ctx.stroke(); }
+      for (let i = 0; i < 5; i++) round(ctx, x - 200 + i * 85, HZ + 10, 70, 60, 8, ["#e74c3c", "#f1c40f", "#27ae60", "#2980b9", "#8e44ad"][i]);
+      sign(ctx, x, HZ - 260, 300, 60, "#6d4c41", "#ffe082", "NÓN LÁ · QUÀ LƯU NIỆM");
+    }); person(ctx, x + 300, { shirt: "#e91e63", scale: 0.9, hair: "#2b1b12" }); },
+    foodstalls(ctx, x) { wrap(x, (x) => {
+      for (let i = 0; i < 3; i++) { const sx = x - 360 + i * 250; rect(ctx, sx, HZ - 40, 220, 220, ["#d35400", "#16a085", "#c0392b"][i]); sign(ctx, sx + 110, HZ - 90, 220, 60, "#fff8e1", "#bf360c", ["BÚN · PHỞ", "CHÈ", "CƠM TẤM"][i]); }
+      for (let i = 0; i < 6; i++) round(ctx, x - 340 + i * 120, HZ + 150, 70, 60, 6, "#1565c0");
+    }); },
+    coffee(ctx, x) { person(ctx, x - 160, { shirt: "#6d4c41", scale: 0.9, hat: "cap", capColor: "#1b5e20" }); wrap(x, (x) => {
+      rect(ctx, x - 60, HZ + 20, 260, 120, "#5d4037");
+      ctx.fillStyle = "#b0bec5"; ctx.beginPath(); ctx.arc(x + 20, HZ - 10, 46, Math.PI, TAU); ctx.fill(); rect(ctx, x - 26, HZ - 10, 92, 30, "#b0bec5");
+      for (let i = 0; i < 5; i++) { rect(ctx, x + 70 + i * 26, HZ - 30, 18, 46, "rgba(80,40,10,.85)"); }
+      for (let i = 0; i < 4; i++) round(ctx, x - 300 + i * 120, HZ + 140, 60, 70, 6, ["#e53935", "#1e88e5", "#43a047", "#fdd835"][i]);
+      sign(ctx, x + 70, HZ - 140, 300, 80, "#3e2723", "#ffcc80", "CÀ PHÊ", "Sữa đá · Đen đá");
+    }); },
+    noodle(ctx, x, o) { person(ctx, x + 170, { shirt: "#eceff1", scale: 0.9, apron: true }); wrap(x, (x) => {
+      rect(ctx, x - 190, HZ - 20, 340, 200, "#455a64");
+      ctx.fillStyle = "#b0bec5"; ctx.beginPath(); ctx.ellipse(x - 60, HZ - 30, 90, 30, 0, 0, TAU); ctx.fill(); rect(ctx, x - 150, HZ - 30, 180, 60, "#90a4ae");
+      if (o.open) { ctx.fillStyle = "rgba(255,255,255,.5)"; for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.ellipse(x - 90 + i * 20, HZ - 90 - i * 30, 30, 18, 0, 0, TAU); ctx.fill(); } }
+      sign(ctx, x - 20, HZ - 200, 360, 100, "#b71c1c", "#ffeb3b", "HỦ TIẾU", "187 · Mở 5 giờ chiều");
+      for (let i = 0; i < 4; i++) round(ctx, x - 340 + i * 110, HZ + 150, 60, 64, 6, "#e53935");
+    }); },
+    goldshop(ctx, x) { wrap(x, (x) => {
+      rect(ctx, x - 220, HZ - 260, 440, 470, "#7b1f1f");
+      rect(ctx, x - 180, HZ - 120, 360, 220, "#f3e5ab");
+      for (let i = 0; i < 6; i++) rect(ctx, x - 160 + i * 56, HZ - 60, 40, 16, "#d4ac0d");
+      sign(ctx, x, HZ - 200, 420, 100, "#b7950b", "#7b1f1f", "TIỆM VÀNG", "Đổi ngoại tệ · Exchange");
+    }); person(ctx, x - 40, { shirt: "#fdfefe", scale: 0.8, hair: "#111" }); },
+    lanterns(ctx, x) { wrap(x, (x) => { for (let i = 0; i < 9; i++) { const lx = x - 400 + i * 100, ly = HZ - 300 + Math.sin(i) * 20; ctx.strokeStyle = "#5d4037"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(lx, ly - 60); ctx.lineTo(lx, ly - 30); ctx.stroke(); ctx.fillStyle = ["#e53935", "#fb8c00", "#fdd835"][i % 3]; ctx.beginPath(); ctx.ellipse(lx, ly, 30, 38, 0, 0, TAU); ctx.fill(); } }); },
+    tout(ctx, x) { person(ctx, x, { shirt: "#263238", pants: "#111", scale: 1, hat: "cap", capColor: "#37474f" }); },
+    hotel(ctx, x) { wrap(x, (x) => { rect(ctx, x - 200, HZ - 420, 400, 630, "#d7ccc8"); for (let r = 0; r < 5; r++) for (let c = 0; c < 4; c++) rect(ctx, x - 170 + c * 90, HZ - 390 + r * 90, 60, 60, "#90a4ae"); rect(ctx, x - 70, HZ + 40, 140, 170, "#5d4037"); sign(ctx, x, HZ - 450, 300, 60, "#3e2723", "#ffe0b2", "HOTEL · KHÁCH SẠN"); }); }
+  };
+
+  /* ---------------------------------------------------------------- backgrounds */
+  const BG = {
+    terminal(ctx) { // airport arrivals hall
+      ctx.fillStyle = grad(ctx, 0, HZ, ["#e9eef1", "#f4f6f7", "#d6e4ec"]); ctx.fillRect(0, 0, W, HZ);
+      for (let i = 0; i < 6; i++) rect(ctx, 0, 140 + i * 90, W, 10, "rgba(255,255,255,.9)");
+      rect(ctx, 0, HZ - 330, W, 300, "#bcd8ea");
+      for (let x = 0; x < W; x += 128) rect(ctx, x, HZ - 330, 8, 300, "#8aa1b1");
+      for (let x = 64; x < W; x += 512) rect(ctx, x, 0, 60, HZ + 230, "#cfd8dc");
+      ctx.fillStyle = grad(ctx, HZ, H, ["#c9cfd3", "#9aa5ac"]); ctx.fillRect(0, HZ, W, HZ);
+      for (let x = 0; x < W; x += 256) rect(ctx, x, HZ, 4, HZ, "rgba(255,255,255,.25)");
+      [0.08, 0.42, 0.75].forEach((p) => sign(ctx, p * W, 300, 520, 90, "#14324a", "#ffd54f", "GA ĐẾN · ARRIVALS", "Terminal 2 · Quốc tế"));
+      const r = rand(3); for (let i = 0; i < 14; i++) { const px = r() * W; if (Math.abs(((px - W / 2 + W) % W) - W / 2) > 0) person(ctx, px, { shirt: ["#8e44ad", "#2980b9", "#d35400", "#7f8c8d"][i % 4], scale: 0.45 + r() * 0.15, hair: "#3b2a20" }); }
     },
-    bay(ctx) {
-      sky(ctx, "#79b4d9", "#c8e2ef", "#eaf3f2"); clouds(ctx, 7, "rgba(255,255,255,.8)", 5);
-      const r = rand(17);
-      for (let i = 0; i < 30; i++) karst(ctx, r() * W, 90 + r() * 160, 80 + r() * 140, "#7d9a95");
-      water(ctx, "#4f9a99", "#1f5b62", 13);
-      for (let i = 0; i < 22; i++) karst(ctx, r() * W, 160 + r() * 260, 160 + r() * 280, i % 2 ? "#3e6150" : "#4c705b");
-      karst(ctx, W / 2 + 228, 90, 260, "#35574a"); karst(ctx, W / 2 + 330, 80, 230, "#35574a");
-      for (let i = 0; i < 6; i++) boat(ctx, r() * W, HZ + 110 + r() * 300, 0.8 + r(), "#5a3a22", "#c45a2b");
-      boat(ctx, W / 2 - 680, HZ + 260, 1.6, "#4a2e1a", "#b8462a");
+    curb(ctx) { // outside arrivals: canopy, road
+      ctx.fillStyle = grad(ctx, 0, HZ, ["#7fb3d5", "#d6eaf8"]); ctx.fillRect(0, 0, W, HZ);
+      rect(ctx, 0, 0, W, 360, "#5d6d7e"); for (let x = 0; x < W; x += 200) rect(ctx, x, 0, 6, 360, "#4d5d6b");
+      for (let x = 100; x < W; x += 600) rect(ctx, x, 300, 70, HZ, "#aab7b8");
+      for (let i = 0; i < 18; i++) rect(ctx, (i * 240) % W, HZ - 260 + (i % 3) * 40, 180, 260 - (i % 3) * 40, ["#a9cce3", "#d5dbdb", "#aed6f1"][i % 3]);
+      ctx.fillStyle = grad(ctx, HZ, H, ["#7b8a8b", "#4d5656"]); ctx.fillRect(0, HZ, W, HZ);
+      rect(ctx, 0, HZ + 60, W, 14, "#f4d03f"); for (let x = 0; x < W; x += 160) rect(ctx, x, HZ + 300, 90, 12, "#ecf0f1");
+      const r = rand(9); for (let i = 0; i < 6; i++) car(ctx, r() * W, HZ + 330, 0.9, ["#ecf0f1", "#2e86c1", "#1e8449", "#f4f4f4"][i % 4], i % 2 ? "TAXI" : null);
     },
-    mountain(ctx) {
-      sky(ctx, "#8fb5d4", "#d9e6ee", "#f1f1ec"); clouds(ctx, 10, "rgba(255,255,255,.85)", 9);
-      ridge(ctx, HZ - 40, 380, "#7b8fa3", 2, [1, 3, 7]);
-      ridge(ctx, HZ - 10, 260, "#5d7a6e", 4, [2, 5, 11]);
-      ctx.fillStyle = "rgba(255,255,255,.25)"; ctx.fillRect(0, HZ - 60, W, 80);
-      ground(ctx, "#7fa44c", "#3d6326");
-      ctx.strokeStyle = "rgba(40,70,20,.45)"; ctx.lineWidth = 4;
-      for (let k = 0; k < 40; k++) {
-        ctx.beginPath(); const yb = HZ + 20 + k * 26;
-        for (let x = 0; x <= W; x += 16) ctx.lineTo(x, yb + 18 * wave(x, k * 0.6, [3, 7]));
-        ctx.stroke();
-      }
-    },
-    citadel(ctx) {
-      sky(ctx, "#86b3d6", "#d4e4ec", "#f4ead6"); clouds(ctx, 8, "rgba(255,255,255,.8)", 21);
-      ridge(ctx, HZ, 90, "#6b8f6a", 8, [2, 5, 9]);
-      ground(ctx, "#b8a77f", "#8e7a52");
-      ctx.fillStyle = "#7c5a3a"; ctx.fillRect(0, HZ - 60, W, 64);
-      const x = W / 2 - 360;
-      ctx.fillStyle = "#8a2f25"; ctx.fillRect(x, HZ - 170, 720, 170);
-      ctx.fillStyle = "#3b2a20"; for (const dx of [80, 300, 520]) ctx.fillRect(x + dx, HZ - 110, 120, 110);
-      for (let t = 0; t < 2; t++) {
-        const y = HZ - 170 - t * 90, w = 760 - t * 220, xx = W / 2 - w / 2;
-        ctx.fillStyle = "#d9b44a"; ctx.fillRect(xx + 40, y - 60, w - 80, 60);
-        ctx.fillStyle = "#c8932b"; ctx.beginPath(); ctx.moveTo(xx, y - 50); ctx.quadraticCurveTo(W / 2, y - 120, xx + w, y - 50); ctx.lineTo(xx + w - 40, y - 30); ctx.lineTo(xx + 40, y - 30); ctx.fill();
-      }
-      water(ctx, "#6a9fa0", "#3c6c6e", 4); ctx.globalAlpha = 1;
-      ctx.fillStyle = "#b8a77f"; ctx.fillRect(W / 2 - 900, HZ, 1800, H);
-      boat(ctx, W / 4 - 100, HZ + 160, 1.4, "#a33a2a", null);
-    },
-    oldtown(ctx) {
-      sky(ctx, "#2d2a5a", "#c86a4a", "#f1b46b"); sun(ctx, W * 0.15, HZ - 60, 40, "#ffd59a");
-      const r = rand(31);
-      for (let i = 0; i < 40; i++) roofHouse(ctx, i * 104, 96, 120 + r() * 60, "#e8b94a", "#7a3b22");
-      ground(ctx, "#6c5340", "#2c2620");
-      for (let i = 0; i < 70; i++) lantern(ctx, r() * W, HZ - 220 - r() * 260, ["#e74c3c", "#f39c12", "#e84393", "#f1c40f"][i % 4]);
-      // Japanese Bridge at yaw 0
-      const x = W / 2 - 200, y = HZ + 40;
-      ctx.fillStyle = "#8b5a34"; ctx.fillRect(x, y - 110, 400, 110);
-      ctx.fillStyle = "#5b2c1a"; ctx.beginPath(); ctx.moveTo(x - 40, y - 110); ctx.quadraticCurveTo(x + 200, y - 210, x + 440, y - 110); ctx.fill();
-      ctx.fillStyle = "#3a2618"; ctx.fillRect(x + 160, y - 80, 80, 80);
-      water(ctx, "#33465e", "#141c28", 33);
-      ctx.globalAlpha = 0.9; for (let i = 0; i < 40; i++) lantern(ctx, r() * W, HZ + 200 + r() * 500, "#f8c471"); ctx.globalAlpha = 1;
-    },
-    highland(ctx) {
-      sky(ctx, "#a4c3dd", "#e3ecf1", "#f7f2ea"); clouds(ctx, 9, "rgba(255,255,255,.85)", 41);
-      ridge(ctx, HZ - 10, 200, "#6f8c86", 6, [2, 4, 9]);
-      ridge(ctx, HZ + 10, 110, "#4d6e55", 12, [3, 8, 17]);
-      for (let i = 0; i < 120; i++) pine(ctx, (i * 37.3) % W, 110 + (i * 53) % 120, "#24432f");
-      water(ctx, "#7fa7b8", "#43697a", 43);
-      const r = rand(44);
-      ctx.fillStyle = "#3d5a35"; ctx.fillRect(0, H * 0.82, W, H);
-      for (let i = 0; i < 300; i++) { ctx.fillStyle = ["#f4a6c1", "#f7e36b", "#c39bd3", "#ffffff"][i % 4]; ctx.beginPath(); ctx.arc(r() * W, H * 0.83 + r() * 120, 6 + r() * 6, 0, TAU); ctx.fill(); }
-    },
-    city(ctx) {
-      sky(ctx, "#5f9fd6", "#bcdcf0", "#f6efe2"); clouds(ctx, 8, "rgba(255,255,255,.8)", 51);
+    street(ctx) { // District 1, Le Loi
+      ctx.fillStyle = grad(ctx, 0, HZ, ["#5f9fd6", "#bcdcf0", "#f6efe2"]); ctx.fillRect(0, 0, W, HZ);
       const r = rand(52);
-      for (let i = 0; i < 70; i++) building(ctx, r() * W, 80 + r() * 90, 120 + r() * 320, ["#9fb2c2", "#b5c3cf", "#8ea0b0"][i % 3], "rgba(255,255,255,.4)");
-      // Bitexco Tower at yaw ~110
-      const bx = W / 2 + W * 110 / 360;
-      ctx.fillStyle = "#6f8899"; ctx.beginPath(); ctx.moveTo(bx - 60, HZ); ctx.lineTo(bx - 40, HZ - 620); ctx.lineTo(bx + 40, HZ - 560); ctx.lineTo(bx + 60, HZ); ctx.fill();
-      ctx.fillStyle = "#4e6371"; ctx.fillRect(bx - 60, HZ - 470, 70, 16);
-      for (let i = 0; i < 20; i++) building(ctx, r() * W, 120 + r() * 60, 80 + r() * 90, ["#e2c79a", "#d8a46d", "#c9d5b5"][i % 3], "rgba(60,40,20,.35)");
-      // Ben Thanh Market at yaw 0
-      const x = W / 2 - 320;
-      ctx.fillStyle = "#e8d5a8"; ctx.fillRect(x, HZ - 160, 640, 170);
-      ctx.fillStyle = "#9a3a2a"; ctx.beginPath(); ctx.moveTo(x - 20, HZ - 160); ctx.lineTo(W / 2, HZ - 230); ctx.lineTo(x + 660, HZ - 160); ctx.fill();
-      ctx.fillStyle = "#e8d5a8"; ctx.fillRect(W / 2 - 50, HZ - 360, 100, 200);
-      ctx.fillStyle = "#9a3a2a"; ctx.beginPath(); ctx.moveTo(W / 2 - 64, HZ - 360); ctx.lineTo(W / 2, HZ - 420); ctx.lineTo(W / 2 + 64, HZ - 360); ctx.fill();
-      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(W / 2, HZ - 300, 32, 0, TAU); ctx.fill();
-      ctx.strokeStyle = "#333"; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(W / 2, HZ - 300); ctx.lineTo(W / 2, HZ - 322); ctx.moveTo(W / 2, HZ - 300); ctx.lineTo(W / 2 + 16, HZ - 300); ctx.stroke();
-      ctx.fillStyle = "#4a3426"; for (const dx of [60, 270, 480]) ctx.fillRect(x + dx, HZ - 90, 100, 100);
-      ground(ctx, "#8d8d8a", "#4f4f4d");
-      ctx.fillStyle = "#f2f2f2"; for (let i = 0; i < 60; i++) ctx.fillRect(i * 70, HZ + 260, 40, 10);
-      for (let i = 0; i < 90; i++) { // motorbikes
-        const mx = r() * W, my = HZ + 100 + r() * 600, s = 0.6 + (my - HZ) / 600;
-        wrap(mx, (mx) => { ctx.fillStyle = ["#c0392b", "#2c3e50", "#2980b9", "#f39c12"][i % 4]; ctx.fillRect(mx - 30 * s, my - 22 * s, 60 * s, 16 * s); ctx.fillStyle = "#222"; ctx.beginPath(); ctx.arc(mx - 22 * s, my, 10 * s, 0, TAU); ctx.arc(mx + 22 * s, my, 10 * s, 0, TAU); ctx.fill(); ctx.fillStyle = "#f5cba7"; ctx.beginPath(); ctx.arc(mx, my - 40 * s, 10 * s, 0, TAU); ctx.fill(); });
-      }
+      for (let i = 0; i < 60; i++) { const bx = r() * W, bw = 80 + r() * 90, bh = 120 + r() * 340; wrap(bx, (bx) => { rect(ctx, bx, HZ - bh, bw, bh + 4, ["#9fb2c2", "#b5c3cf", "#8ea0b0"][i % 3]); ctx.fillStyle = "rgba(255,255,255,.4)"; for (let y = HZ - bh + 14; y < HZ - 14; y += 22) for (let xx = bx + 8; xx < bx + bw - 10; xx += 18) ctx.fillRect(xx, y, 8, 10); }); }
+      for (let i = 0; i < 40; i++) { const tx = r() * W; wrap(tx, (tx) => { ctx.fillStyle = "#2e7d32"; ctx.beginPath(); ctx.arc(tx, HZ - 120, 70, 0, TAU); ctx.fill(); rect(ctx, tx - 8, HZ - 60, 16, 70, "#5d4037"); }); }
+      ctx.fillStyle = grad(ctx, HZ, H, ["#8d8d8a", "#4f4f4d"]); ctx.fillRect(0, HZ, W, HZ);
+      rect(ctx, 0, HZ + 20, W, 40, "#b0a999");
+      for (let i = 0; i < 70; i++) { const y = HZ + 110 + r() * 200; motorbike(ctx, r() * W, y, 0.45 + (y - HZ) / 900, ["#c0392b", "#2c3e50", "#2980b9", "#f39c12", "#7f8c8d"][i % 5], r() > 0.5 ? 1 : -1); }
     },
-    river(ctx) {
-      sky(ctx, "#f2a65a", "#f8d49b", "#fbe9c8"); sun(ctx, W / 2 + 300, HZ - 120, 46, "#fff1c9");
-      ridge(ctx, HZ + 4, 60, "#3f6b38", 61, [5, 11, 23]);
-      for (let i = 0; i < 60; i++) palm(ctx, (i * 71.7) % W, 120 + (i * 29) % 80, "#2f4f2a");
-      water(ctx, "#a07a4f", "#5c4128", 62);
-      const r = rand(63);
-      for (let i = 0; i < 26; i++) {
-        const bx = r() * W, by = HZ + 80 + r() * 520, s = 0.7 + (by - HZ) / 420;
-        boat(ctx, bx, by, s, "#3d2a1c", null);
-        wrap(bx, (bx) => { ctx.strokeStyle = "#5a4330"; ctx.lineWidth = 4 * s; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx, by - 150 * s); ctx.stroke();
-          ctx.fillStyle = ["#7cb342", "#ff9800", "#ffeb3b", "#8d6e63"][i % 4]; for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.arc(bx + (k % 2 ? 9 : -9) * s, by - 140 * s + k * 12 * s, 9 * s, 0, TAU); ctx.fill(); } });
-      }
+    gate(ctx) { BG.street(ctx); },
+    market(ctx) { // inside Ben Thanh
+      ctx.fillStyle = grad(ctx, 0, HZ, ["#3e2f25", "#6d5644", "#a1887f"]); ctx.fillRect(0, 0, W, HZ);
+      for (let x = 0; x < W; x += 180) { ctx.strokeStyle = "#2b1f18"; ctx.lineWidth = 10; ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + 90, 260); ctx.lineTo(x + 180, 0); ctx.stroke(); }
+      const r = rand(77);
+      for (let i = 0; i < 40; i++) { const sx = (i * 103) % W; wrap(sx, (sx) => { rect(ctx, sx, HZ - 260, 96, 300, ["#c0392b", "#d68910", "#1e8449", "#7d3c98", "#2e86c1"][i % 5]); for (let k = 0; k < 6; k++) rect(ctx, sx + 8 + (k % 3) * 28, HZ - 240 + Math.floor(k / 3) * 60, 22, 44, ["#f5b7b1", "#f9e79f", "#abebc6", "#d2b4de"][(i + k) % 4]); }); }
+      ctx.fillStyle = grad(ctx, HZ, H, ["#9e9e9e", "#616161"]); ctx.fillRect(0, HZ, W, HZ);
+      for (let i = 0; i < 16; i++) person(ctx, r() * W, { shirt: ["#ef5350", "#42a5f5", "#66bb6a", "#ffa726"][i % 4], scale: 0.4 + r() * 0.2 });
     },
-    beach(ctx) {
-      sky(ctx, "#3b3f78", "#e0705a", "#f9c27a"); sun(ctx, W / 2, HZ - 30, 70, "#ffe0a3");
-      ctx.fillStyle = "#2f7f8f"; ctx.fillRect(0, HZ, W, 200);
-      const g = ctx.createLinearGradient(0, HZ, 0, HZ + 200); g.addColorStop(0, "#e0806a"); g.addColorStop(1, "#2c6f80");
-      ctx.fillStyle = g; ctx.fillRect(0, HZ, W, 200);
-      ctx.fillStyle = "rgba(255,220,160,.5)"; ctx.fillRect(W / 2 - 30, HZ + 4, 60, 190);
-      ctx.fillStyle = "#e9d2a7"; ctx.fillRect(0, HZ + 200, W, H);
-      const sg = ctx.createLinearGradient(0, HZ + 200, 0, H); sg.addColorStop(0, "#f1dcb1"); sg.addColorStop(1, "#c9a978");
-      ctx.fillStyle = sg; ctx.fillRect(0, HZ + 200, W, H);
-      ctx.strokeStyle = "rgba(255,255,255,.7)"; ctx.lineWidth = 6; ctx.beginPath();
-      for (let x = 0; x <= W; x += 10) ctx.lineTo(x, HZ + 200 + 12 * wave(x, 2, [9, 19]));
-      ctx.stroke();
-      for (let i = 0; i < 18; i++) palm(ctx, W / 2 + 1100 + i * 110 + (i % 3) * 20, 260 + (i % 4) * 50, "#1e3326");
-      boat(ctx, W / 2 - 500, HZ + 60, 1.1, "#222", "#333");
-    },
-    market(ctx) { PAINTERS.city(ctx); }
+    cholon(ctx) { // old Chinatown street, afternoon
+      ctx.fillStyle = grad(ctx, 0, HZ, ["#f0a95e", "#f8d49b", "#fbe9c8"]); ctx.fillRect(0, 0, W, HZ);
+      const r = rand(33);
+      for (let i = 0; i < 36; i++) { const hx = i * 114, hh = 260 + (i % 3) * 70; wrap(hx, (hx) => {
+        rect(ctx, hx, HZ - hh, 110, hh + 4, ["#e6c27a", "#d9a46c", "#c9d6a3", "#e8b4a0"][i % 4]);
+        for (let f = 0; f < 2; f++) { rect(ctx, hx + 10, HZ - hh + 30 + f * 110, 90, 60, "#5d4037"); rect(ctx, hx + 6, HZ - hh + 92 + f * 110, 98, 8, "#8d6e63"); }
+        rect(ctx, hx + 12, HZ - 120, 86, 120, "#3e2723");
+        if (i % 3 === 0) sign(ctx, hx + 55, HZ - 150, 100, 36, "#b71c1c", "#ffeb3b", ["TẠP HÓA", "THUỐC BẮC", "MÌ VỊT", "TRÀ"][i % 4]);
+      }); }
+      ctx.fillStyle = grad(ctx, HZ, H, ["#7d7364", "#4e463c"]); ctx.fillRect(0, HZ, W, HZ);
+      rect(ctx, 0, HZ + 10, W, 50, "#a1887f");
+      for (let i = 0; i < 34; i++) { const y = HZ + 120 + r() * 200; motorbike(ctx, r() * W, y, 0.45 + (y - HZ) / 900, ["#c0392b", "#2c3e50", "#16a085", "#f39c12"][i % 4], r() > 0.5 ? 1 : -1); }
+    }
   };
 
   const cache = {};
-  window.paintScene = function (kind) {
-    if (cache[kind]) return Promise.resolve(cache[kind]);
-    const c = document.createElement("canvas"); c.width = W; c.height = H;
-    const ctx = c.getContext("2d");
-    (PAINTERS[kind] || PAINTERS.lake)(ctx);
-    return new Promise((res) => c.toBlob((b) => res(cache[kind] = URL.createObjectURL(b)), "image/jpeg", 0.85));
+  window.paintScene = function (id, scene, state) {
+    const key = id + (scene.variant ? scene.variant(state) : "");
+    if (cache[key]) return Promise.resolve(cache[key]);
+    const ready = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('800 40px "Be Vietnam Pro"'), document.fonts.load('600 40px "Be Vietnam Pro"')]).catch(() => {}) : Promise.resolve();
+    return ready.then(() => {
+      const c = document.createElement("canvas"); c.width = W; c.height = H;
+      const ctx = c.getContext("2d");
+      (BG[scene.bg] || BG.street)(ctx);
+      (scene.objects || []).forEach((o) => { if (o.draw && OBJ[o.draw.kind]) OBJ[o.draw.kind](ctx, X(o.yaw), Object.assign({}, o.draw, { open: state && o.draw.openAfter != null && state.time >= o.draw.openAfter })); });
+      return new Promise((res) => c.toBlob((b) => res(cache[key] = URL.createObjectURL(b)), "image/jpeg", 0.86));
+    });
   };
 })();
