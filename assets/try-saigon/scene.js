@@ -124,6 +124,29 @@
     }); person(ctx, x - 40, { shirt: "#fdfefe", scale: 0.8, hair: "#111" }); },
     lanterns(ctx, x) { wrap(x, (x) => { for (let i = 0; i < 9; i++) { const lx = x - 400 + i * 100, ly = HZ - 300 + Math.sin(i) * 20; ctx.strokeStyle = "#5d4037"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(lx, ly - 60); ctx.lineTo(lx, ly - 30); ctx.stroke(); ctx.fillStyle = ["#e53935", "#fb8c00", "#fdd835"][i % 3]; ctx.beginPath(); ctx.ellipse(lx, ly, 30, 38, 0, 0, TAU); ctx.fill(); } }); },
     tout(ctx, x) { person(ctx, x, { shirt: "#263238", pants: "#111", scale: 1, hat: "cap", capColor: "#37474f" }); },
+    metroentrance(ctx, x) { wrap(x, (x) => {
+      rect(ctx, x - 200, HZ - 120, 400, 330, "#d5dbdb"); rect(ctx, x - 160, HZ - 60, 320, 270, "#2c3e50");
+      for (let i = 0; i < 6; i++) rect(ctx, x - 150, HZ - 40 + i * 40, 300, 10, "#7f8c8d");
+      ctx.fillStyle = "#e67e22"; ctx.beginPath(); ctx.arc(x, HZ - 200, 60, 0, TAU); ctx.fill(); text(ctx, "M", x, HZ - 198, 70, "#fff");
+      sign(ctx, x, HZ - 90, 380, 54, "#1f3a4d", "#fff", "GA BẾN THÀNH · METRO");
+    }); },
+    ticketmachine(ctx, x) { wrap(x, (x) => {
+      round(ctx, x - 110, HZ - 200, 220, 410, 16, "#e67e22"); rect(ctx, x - 80, HZ - 160, 160, 110, "#d6eaf8");
+      text(ctx, "MUA VÉ", x, HZ - 120, 30, "#1f3a4d"); text(ctx, "Tickets", x, HZ - 82, 22, "#1f3a4d", 600);
+      rect(ctx, x - 70, HZ - 20, 60, 14, "#2c3e50"); rect(ctx, x + 10, HZ - 20, 60, 50, "#2c3e50"); rect(ctx, x - 60, HZ + 60, 120, 20, "#2c3e50");
+    }); },
+    gates(ctx, x) { wrap(x, (x) => {
+      rect(ctx, x - 420, HZ - 300, 840, 120, "#2c3e50"); text(ctx, "→ Suối Tiên · Tuyến 1 · Line 1", x, HZ - 240, 40, "#f39c12");
+      for (let i = 0; i < 5; i++) { const gx = x - 300 + i * 150; round(ctx, gx - 30, HZ - 30, 60, 240, 10, "#bdc3c7"); rect(ctx, gx - 20, HZ - 10, 40, 30, "#27ae60"); rect(ctx, gx + 30, HZ + 60, 90, 16, "#e74c3c"); }
+      rect(ctx, x - 420, HZ - 175, 840, 120, "#ecf0f1"); for (let i = 0; i < 6; i++) rect(ctx, x - 400 + i * 140, HZ - 160, 110, 60, "#5dade2"); rect(ctx, x - 420, HZ - 90, 840, 14, "#e67e22");
+    }); },
+    opera(ctx, x) { wrap(x, (x) => {
+      rect(ctx, x - 360, HZ - 300, 720, 520, "#f2ece0");
+      for (let i = 0; i < 3; i++) { ctx.fillStyle = "#d9cfbd"; ctx.beginPath(); ctx.arc(x - 150 + i * 150, HZ - 40, 60, Math.PI, TAU); ctx.fill(); rect(ctx, x - 210 + i * 150, HZ - 40, 120, 250, "#d9cfbd"); }
+      ctx.fillStyle = "#e8dfcd"; ctx.beginPath(); ctx.moveTo(x - 380, HZ - 300); ctx.lineTo(x, HZ - 420); ctx.lineTo(x + 380, HZ - 300); ctx.fill();
+      rect(ctx, x - 300, HZ - 260, 600, 40, "#c8bba3"); text(ctx, "NHÀ HÁT THÀNH PHỐ", x, HZ - 240, 30, "#6e5b3e");
+      rect(ctx, x - 400, HZ + 180, 800, 40, "#c8bba3");
+    }); },
     hotel(ctx, x) { wrap(x, (x) => { rect(ctx, x - 200, HZ - 420, 400, 630, "#d7ccc8"); for (let r = 0; r < 5; r++) for (let c = 0; c < 4; c++) rect(ctx, x - 170 + c * 90, HZ - 390 + r * 90, 60, 60, "#90a4ae"); rect(ctx, x - 70, HZ + 40, 140, 170, "#5d4037"); sign(ctx, x, HZ - 450, 300, 60, "#3e2723", "#ffe0b2", "HOTEL · KHÁCH SẠN"); }); }
   };
 
@@ -159,6 +182,16 @@
       for (let i = 0; i < 70; i++) { const y = HZ + 110 + r() * 200; motorbike(ctx, r() * W, y, 0.45 + (y - HZ) / 900, ["#c0392b", "#2c3e50", "#2980b9", "#f39c12", "#7f8c8d"][i % 5], r() > 0.5 ? 1 : -1); }
     },
     gate(ctx) { BG.street(ctx); },
+    station(ctx) { // underground concourse
+      ctx.fillStyle = grad(ctx, 0, HZ, ["#dfe6e9", "#f5f6fa"]); ctx.fillRect(0, 0, W, HZ);
+      for (let i = 0; i < 5; i++) rect(ctx, 0, 120 + i * 110, W, 14, "rgba(255,255,255,.95)");
+      for (let x = 100; x < W; x += 420) rect(ctx, x, 0, 70, HZ + 230, "#c8d6e5");
+      rect(ctx, 0, HZ - 360, W, 40, "#e67e22");
+      ctx.fillStyle = grad(ctx, HZ, H, ["#d5d8dc", "#aab7b8"]); ctx.fillRect(0, HZ, W, HZ);
+      for (let x = 0; x < W; x += 128) rect(ctx, x, HZ, 3, HZ, "rgba(255,255,255,.4)");
+      [0.15, 0.62].forEach((p) => sign(ctx, p * W, 330, 520, 90, "#1f3a4d", "#fff", "GA BẾN THÀNH", "Ben Thanh Station · Tuyến số 1"));
+      const r = rand(21); for (let i = 0; i < 12; i++) person(ctx, r() * W, { shirt: ["#16a085", "#2980b9", "#c0392b", "#f39c12"][i % 4], scale: 0.45 + r() * 0.2 });
+    },
     market(ctx) { // inside Ben Thanh
       ctx.fillStyle = grad(ctx, 0, HZ, ["#3e2f25", "#6d5644", "#a1887f"]); ctx.fillRect(0, 0, W, HZ);
       for (let x = 0; x < W; x += 180) { ctx.strokeStyle = "#2b1f18"; ctx.lineWidth = 10; ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + 90, 260); ctx.lineTo(x + 180, 0); ctx.stroke(); }

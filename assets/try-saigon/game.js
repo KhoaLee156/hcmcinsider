@@ -11,6 +11,8 @@
   var CUR = { USD: "$", EUR: "€", GBP: "£", AUD: "A$" };
   var KEY = "ts_state_v1";
   var S, RATE = { rates: T.fallbackRate, live: false, date: "" };
+  // Hotspot editor: open /try-saigon/?edit to see the yaw/pitch of any point you click, and jump between scenes.
+  var EDIT = /[?&]edit\b/.test(location.search);
 
   /* ---------------------------------------------------------------- helpers */
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -91,13 +93,16 @@
           '<div class="ts-meta"><span class="ts-clock" id="ts-clock"></span>' +
           '<button type="button" class="ts-pill" data-panel="wallet" id="ts-purse"></button>' +
           '<button type="button" class="ts-pill" data-panel="todo" id="ts-todo"></button>' +
+          '<button type="button" class="ts-pill ts-fs" data-list aria-label="Everything here, as a list">☰</button>' +
           '<button type="button" class="ts-pill ts-fs" data-fs aria-label="Full screen">⛶</button></div></div>' +
+        (EDIT ? '<div class="ts-edit" id="ts-edit"></div>' : '') +
         '<div class="ts-caption" id="ts-caption" hidden></div>' +
         '<section class="ts-sheet" id="ts-sheet" hidden aria-live="polite"><div class="ts-sheet-head"><h3 id="ts-sheet-title"></h3><button type="button" class="ts-close" data-close aria-label="Close">✕</button></div><div class="ts-sheet-body" id="ts-sheet-body"></div></section>' +
       '</div>';
     stage = $("#ts-stage");
     $$("[data-panel]").forEach(function (b) { b.onclick = function () { b.dataset.panel === "wallet" ? walletPanel() : todoPanel(); }; });
     $("[data-close]").onclick = closeSheet;
+    $("[data-list]").onclick = listPanel;
     $("[data-fs]").onclick = function () {
       if (document.fullscreenElement) document.exitFullscreen(); else if (stage.requestFullscreen) stage.requestFullscreen().catch(function () {});
     };
@@ -154,6 +159,7 @@
       viewer = pannellum.viewer("ts-pano", {
         type: "equirectangular", panorama: url, autoLoad: true, hfov: window.innerWidth < 600 ? 85 : 100, minHfov: 60, maxHfov: 110,
         yaw: prevYaw != null ? prevYaw : (sc.yaw || 0), pitch: prevPitch != null ? prevPitch : (sc.pitch || 0),
+        haov: sc.haov || 360, vaov: sc.vaov || 180, vOffset: sc.vOffset || 0, avoidShowingBackground: !!(sc.vaov && sc.vaov < 180),
         compass: false, showFullscreenCtrl: false, showZoomCtrl: false, keyboardZoom: false, mouseZoom: false, showControls: false,
         hotSpots: sc.objects.map(function (o) {
           return { pitch: o.pitch || 0, yaw: o.yaw, cssClass: "ts-hs " + objFlags(o),
@@ -166,13 +172,14 @@
         })
       });
       viewer.on("load", function () { fade.classList.remove("on"); });
+      if (EDIT) editMode();
       setTimeout(function () { fade.classList.remove("on"); }, 1500);
       hud();
       if (!S.seen[id]) { S.seen[id] = true; save(); caption(sc.intro); }
     });
   }
   function caption(t) {
-    if (!t) return;
+    if (!t || EDIT) return;
     var c = $("#ts-caption"); c.hidden = false;
     c.innerHTML = '<p>' + esc(t) + '</p><button type="button" class="ts-close" aria-label="Close">✕</button>';
     $("button", c).onclick = function () { c.hidden = true; };
@@ -180,8 +187,8 @@
 
   /* ---------------------------------------------------------------- tapping things in the world */
   function tap(o) {
-    if (o.nav && (!o.navNeeds || S.flags[o.navNeeds]) && !o.act) return walk(o.nav);
-    if (o.nav && o.navNeeds && S.flags[o.navNeeds]) return walk(o.nav);
+    if (o.nav && (!o.navNeeds || S.flags[o.navNeeds]) && !o.act) return walk(o.nav, o.min);
+    if (o.nav && o.navNeeds && S.flags[o.navNeeds]) return walk(o.nav, o.min);
     if (o.from != null && S.time < o.from) return run(Object.assign({ type: "say" }, o.closed), o.label);
     if (o.once && S.flags[o.once]) return run(Object.assign({ type: "say" }, o.done), o.label);
     if (o.needs && !S.flags[o.needs]) {
@@ -192,12 +199,12 @@
     if (o.act) return run(o.act, o.label);
     if (o.nav) return walk(o.nav);
   }
-  function walk(id) { closeSheet(); S.time += 3; enter(id); }
+  function walk(id, min) { closeSheet(); S.time += min || 3; enter(id); }
   function apply(a) {
     if (!a) return;
     if (a.min) S.time += a.min;
     if (a.skill) addSkill(a.skill);
-    if (a.flag) S.flags[a.flag] = true;
+    if (a.flag) [].concat(a.flag).forEach(function (f) { S.flags[f] = true; });
     if (a.goal && !S.goals[a.goal]) { S.goals[a.goal] = true; var g = T.goals.find(function (x) { return x.id === a.goal; }); if (g) toast("✓ " + g.text); }
     save(); hud();
   }
@@ -234,11 +241,14 @@
     $(".btn", b).onclick = function () { done({}); };
   };
   M.choice = function (s, body, done) {
-    body.insertAdjacentHTML("beforeend", bubbles(s.lines) + (s.prompt ? '<h3 class="ts-q">' + esc(s.prompt) + '</h3>' : "") + '<div class="ts-opts"></div>');
+    body.insertAdjacentHTML("beforeend", bubbles(s.lines) + (s.prompt ? '<h3 class="ts-q">' + esc(s.prompt) + '</h3>' : "") + tipHtml(s.tip) + '<div class="ts-opts"></div>');
     var box = $(".ts-opts", body);
     s.options.forEach(function (o) {
-      var b = el('<button type="button" class="ts-opt"><b>' + esc(o.label) + '</b>' + (o.sub ? '<span class="small">' + esc(o.sub) + '</span>' : "") + '</button>');
+      var blocked = o.needs && !S.flags[o.needs];
+      var b = el('<button type="button" class="ts-opt"' + (blocked ? " disabled" : "") + '><b>' + esc(o.label) + '</b>' + (o.sub ? '<span class="small">' + esc(o.sub) + '</span>' : "") +
+        (blocked && o.locked ? '<span class="small">' + esc(o.locked) + '</span>' : "") + '</button>');
       b.onclick = function () {
+        if (o.card) spend(o.card.what, o.card.amount, "card");
         var bad = o.skill && Object.keys(o.skill).some(function (k) { return o.skill[k] < 0; });
         body.innerHTML = (o.result ? '<div class="ts-result ' + (bad ? "bad" : "") + '"><b>' + esc(o.label) + '</b><p>' + esc(o.result) + '</p></div>' : "");
         if (o.pay) {
@@ -275,6 +285,61 @@
       addNotes({ 500000: 1, 100000: 4, 50000: 2 }); spend("ATM withdrawal", 1000000, "card"); S.time += 10; save(); hud(); redraw();
       toast("You found an ATM and took out 1,000,000 ₫.");
     }
+  }
+
+  /* ---------------------------------------------------------------- list view (also for screen readers) */
+  function listPanel() {
+    var sc = scene(), body = openSheet("Here: " + sc.name);
+    body.insertAdjacentHTML("beforeend", '<p class="small">Everything you can tap in this place. The same as tapping the dots in the 360° view.</p><div class="ts-opts"></div>');
+    var box = $(".ts-opts", body);
+    sc.objects.forEach(function (o) {
+      var f = objFlags(o), walkTo = o.nav && (!o.navNeeds || S.flags[o.navNeeds]) && T.scenes[o.nav];
+      var b = el('<button type="button" class="ts-opt"><b>' + (walkTo ? "Walk: " : "") + esc(o.label) + '</b><span class="small">' +
+        (f.indexOf("done") >= 0 ? "Done" : f.indexOf("closed") >= 0 ? "Closed now" : walkTo ? esc(walkTo.name) : o.nav ? "Needs something first" : "Talk or look") + '</span></button>');
+      b.onclick = function () { closeSheet(); tap(o); };
+      box.appendChild(b);
+    });
+  }
+
+  /* ---------------------------------------------------------------- hotspot editor (?edit) */
+  function editMode() {
+    var box = $("#ts-edit"); if (!box || !viewer) return;
+    var last = null;
+    function draw() {
+      box.innerHTML = '<b>Editor</b> <select aria-label="Go to scene">' + Object.keys(T.scenes).map(function (k) { return '<option value="' + k + '"' + (k === S.scene ? " selected" : "") + '>' + esc(k) + '</option>'; }).join("") + '</select>' +
+        '<span>View: yaw ' + Math.round(viewer.getYaw()) + ', pitch ' + Math.round(viewer.getPitch()) + '</span>' +
+        (last ? '<code>yaw: ' + last[1] + ', pitch: ' + last[0] + '</code><button type="button">Copy</button>' : '<span>Click any point to get its yaw and pitch.</span>');
+      $("select", box).onchange = function () { enter(this.value); };
+      var c = $("button", box); if (c) c.onclick = function () { navigator.clipboard && navigator.clipboard.writeText("yaw: " + last[1] + ", pitch: " + last[0]).catch(function () {}); };
+    }
+    viewer.on("mouseup", function (e) { var c = viewer.mouseEventToCoords(e); last = [Math.round(c[0]), Math.round(c[1])]; draw(); });
+    viewer.on("animatefinished", draw);
+    draw();
+  }
+
+  /* ---------------------------------------------------------------- sharing and real-trip links */
+  function shareText(stars, n) { return "I survived my first day in Saigon on Try Saigon: " + n + "/" + T.goals.length + " things done, " + stars + " stars. Can you beat it?"; }
+  function shareHtml() {
+    return '<div class="ts-share"><span class="small">Share your day</span><button type="button" class="btn" data-share>Share</button>' +
+      '<a class="btn" data-fb target="_blank" rel="noopener">Facebook</a><a class="btn" data-xs target="_blank" rel="noopener">X</a><span class="small" data-smsg aria-live="polite"></span></div>';
+  }
+  function bindShare(body, text) {
+    var url = location.origin + "/try-saigon/";
+    $("[data-fb]", body).href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
+    $("[data-xs]", body).href = "https://x.com/intent/post?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+    $("[data-share]", body).onclick = function () {
+      if (navigator.share) return navigator.share({ title: "Try Saigon", text: text, url: url }).catch(function () {});
+      var m = $("[data-smsg]", body);
+      if (navigator.clipboard) navigator.clipboard.writeText(text + " " + url).then(function () { m.textContent = "Copied. Paste it anywhere."; }).catch(function () { m.textContent = text + " " + url; });
+      else m.textContent = text + " " + url;
+    };
+  }
+  function realTripHtml() {
+    var picks = (T.realTrip || []).filter(function (r) { return !r.when || r.when.some(function (f) { return S.flags[f]; }); });
+    if (!picks.length) return "";
+    return '<div class="ts-real"><h3 class="ts-q">Make the real day easier</h3><ul>' + picks.map(function (r) {
+      return '<li><a href="' + esc(r.href) + '" target="_blank" rel="sponsored noopener">' + esc(r.text) + ' ↗</a><span class="small">' + esc(r.why) + '</span></li>';
+    }).join("") + '</ul><p class="small">Affiliate links: same price for you, a small commission for HCMC Insider.</p></div>';
   }
 
   /* ---------------------------------------------------------------- panels */
@@ -647,15 +712,17 @@
       return '<tr><td>' + clock(s.t) + '</td><td>' + esc(s.what) + '</td><td>' + (s.how === "card" ? "card" : "cash") + '</td><td class="num">' + vnd(s.vnd) + '</td></tr>';
     }).join("");
     var nGoals = T.goals.filter(function (g) { return S.goals[g.id]; }).length;
+    var totalStars = Object.keys(T.skills).reduce(function (t, k) { return t + Math.max(0, Math.min(3, S.skills[k] || 0)); }, 0);
     var skills = Object.keys(T.skills).map(function (k) {
       var p = S.skills[k] || 0, stars = Math.max(0, Math.min(3, p)), sk = T.skills[k];
       return '<li><div><b>' + esc(sk.name) + '</b> <span class="small" lang="vi">' + esc(sk.vi) + '</span></div><span class="ts-stars" aria-label="' + stars + ' of 3">' + [1, 2, 3].map(function (i) { return '<i class="' + (i <= stars ? "on" : "") + '"></i>'; }).join("") + '</span>' +
         '<p class="small">' + (stars >= 2 ? esc(sk.good) : 'Practise this one: <a href="' + esc(sk.learn) + '">read the guide</a>.') + '</p></li>';
     }).join("");
     body.innerHTML = '<p class="ts-text">It\'s ' + clock(S.time) + '. You did ' + nGoals + ' of ' + T.goals.length + ' things on your list and spent <b>' + vnd(total) + '</b>, about <b>' + home(toHome(total)) + '</b>' + (S.exchanged ? ', after changing ' + home(S.exchanged) + ' into dong' : '') + '.</p>' +
-      '<ul class="ts-skills">' + skills + '</ul>' +
+      '<ul class="ts-skills">' + skills + '</ul>' + shareHtml() +
       (rows ? '<div class="ts-table"><table><thead><tr><th>Time</th><th>What</th><th>How</th><th class="num">Dong</th></tr></thead><tbody>' + rows + '</tbody></table></div>' : '') +
-      '<h3 class="ts-q">Ready for the real thing?</h3><div class="chips"><a class="chip" href="/guides/saigon-itinerary/">Plan 1–3 days</a><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/getting-around-hcmc/">Buses</a><a class="chip" href="/guides/hcmc-metro/">Metro</a><a class="chip" href="/places/sidewalk-noodles-187-huynh-man-dat/">Tonight\'s noodles</a></div>';
+      realTripHtml() + '<h3 class="ts-q">Ready for the real thing?</h3><div class="chips"><a class="chip" href="/guides/saigon-itinerary/">Plan 1–3 days</a><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/getting-around-hcmc/">Buses</a><a class="chip" href="/guides/hcmc-metro/">Metro</a><a class="chip" href="/places/sidewalk-noodles-187-huynh-man-dat/">Tonight\'s noodles</a></div>';
+    bindShare(body, shareText(totalStars, nGoals));
     var b = el('<div class="ts-acts"><button type="button" class="btn" data-k>Keep exploring</button><button type="button" class="btn" data-again>Play again</button></div>');
     body.appendChild(b);
     $("[data-k]", b).onclick = closeSheet;
