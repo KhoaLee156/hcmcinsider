@@ -51,6 +51,7 @@ main{padding-bottom:24px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
 .logo b{color:var(--jade)}
 .links{margin-left:auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.links a.new{color:var(--jade);background:var(--jade-soft)}
 .links a{color:var(--muted);text-decoration:none;font-weight:600;font-size:15px;padding:8px 10px;border-radius:999px;white-space:nowrap}
 .links a:hover{color:var(--ink);background:var(--sunk)}
 @media (max-width:560px){.logo span{display:none}.links{margin-left:auto}.links a{padding:8px 8px;font-size:14px}}
