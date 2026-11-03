@@ -142,7 +142,7 @@
 
 /* Street crossing */
 .ts-cross{display:grid;gap:10px;justify-items:start}
-.ts-cross canvas{width:100%;max-width:420px;height:auto;border-radius:12px;touch-action:none;border:1px solid var(--line)}
+.ts-cross canvas{width:100%;max-width:min(420px,calc((100vh - 260px) * .81));cursor:pointer;height:auto;border-radius:12px;touch-action:none;border:1px solid var(--line)}
 .ts-walk{user-select:none;-webkit-user-select:none;touch-action:none;padding:16px 28px;font-size:17px}
 
 /* Wallet drawer, modal and toast */

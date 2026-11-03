@@ -457,7 +457,7 @@
   R.cross = function (s, body) {
     body.innerHTML = '<div class="ts-cross"><canvas width="420" height="520" aria-label="Street crossing game. Hold the Walk button to walk, let go to stop."></canvas>' +
       '<div class="ts-acts"><button type="button" class="cta ts-walk">Hold to walk</button><button type="button" class="btn ts-run">Run!</button></div>' +
-      '<p class="small ts-cmsg" aria-live="polite">Hold “Hold to walk” (or the space bar). Let go to stop.</p></div>';
+      '<p class="small ts-cmsg" aria-live="polite">Press and hold the street, the “Hold to walk” button or the space bar. Let go to stop.</p></div>';
     var cv = $("canvas", body), ctx = cv.getContext("2d"), W = cv.width, H = cv.height;
     var lanes = s.lanes || 4, top = 70, laneH = (H - 140) / lanes;
     var P, bikes, walking, running, raf, last, stops, hits, over, spawnT;
@@ -542,7 +542,7 @@
     }
     function start() {
       reset(); $(".ts-acts", body).innerHTML = '<button type="button" class="cta ts-walk">Hold to walk</button><button type="button" class="btn ts-run">Run!</button>';
-      bindKeys(); $(".ts-cmsg", body).textContent = "Hold “Hold to walk” (or the space bar). Let go to stop.";
+      bindKeys(); $(".ts-cmsg", body).textContent = "Press and hold the street, the “Hold to walk” button or the space bar. Let go to stop.";
       raf = requestAnimationFrame(tick);
     }
     function bindKeys() {
@@ -550,6 +550,7 @@
       var on = function (e) { e.preventDefault(); walking = true; }, off = function () { walking = false; };
       wb.addEventListener("pointerdown", on); wb.addEventListener("pointerup", off); wb.addEventListener("pointerleave", off); wb.addEventListener("pointercancel", off);
       wb.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+      cv.onpointerdown = on; cv.onpointerup = off; cv.onpointerleave = off; cv.onpointercancel = off;
       rb.addEventListener("pointerdown", function (e) { e.preventDefault(); running = true; }); rb.addEventListener("pointerup", function () { running = false; }); rb.addEventListener("pointerleave", function () { running = false; });
     }
     function key(e) { if (e.code === "Space" && document.body.contains(cv)) { e.preventDefault(); walking = e.type === "keydown"; } }
