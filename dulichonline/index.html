@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Du Lịch Online</title>
+  <meta name="description" content="Du lịch online khắp Việt Nam: chọn điểm đến trên bản đồ, tham quan 360°, sưu tầm dấu hộ chiếu.">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="vendor/pannellum.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Du Lịch Online, về bản đồ">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--red)"/><path d="M16 6l2.6 6.9 7.4.3-5.8 4.6 2 7.1L16 20.8l-6.2 4.1 2-7.1L6 13.2l7.4-.3z" fill="var(--gold)"/></svg>
+      <span>Du Lịch Online</span>
+    </a>
+    <nav class="userbar" id="userbar" hidden>
+      <button class="btn ghost" id="openPassport" type="button">
+        <span aria-hidden="true">🛂</span> Hộ chiếu <b id="stampCount">0</b>
+      </button>
+      <span class="hello" id="hello"></span>
+      <button class="btn link" id="logout" type="button">Đăng xuất</button>
+    </nav>
+  </header>
+
+  <!-- MÀN 1: Đăng ký / đăng nhập -->
+  <main id="screenLogin" class="login">
+    <section class="login-card">
+      <p class="eyebrow">Hành trình 63 tỉnh thành bắt đầu từ đây</p>
+      <h1>Du lịch Việt Nam<br>ngay trên màn hình</h1>
+      <p class="lead">Chọn điểm đến trên bản đồ, nhìn quanh 360°, nghe chuyện về từng góc phố và sưu tầm dấu hộ chiếu cho mỗi nơi bạn ghé.</p>
+      <form id="loginForm" class="form">
+        <label>Tên của bạn
+          <input name="name" required maxlength="40" autocomplete="name" placeholder="Ví dụ: Minh Anh">
+        </label>
+        <label>Email
+          <input name="email" type="email" required autocomplete="email" placeholder="ban@email.com">
+        </label>
+        <button class="btn primary" type="submit">Nhận hộ chiếu và bắt đầu</button>
+        <p class="fine">Bản demo: tài khoản lưu trên trình duyệt của bạn.</p>
+      </form>
+    </section>
+  </main>
+
+  <!-- MÀN 2: Bản đồ -->
+  <main id="screenMap" class="mapscreen" hidden>
+    <section class="mapwrap" aria-label="Bản đồ Việt Nam">
+      <svg id="map" role="img" aria-label="Bản đồ các điểm đến"></svg>
+      <div class="progress">
+        <div class="progress-text"><span id="progressText">0/0 điểm đến</span></div>
+        <div class="progress-bar"><i id="progressBar"></i></div>
+      </div>
+    </section>
+    <aside class="panel" id="panel">
+      <div id="detail" hidden></div>
+      <div id="list"></div>
+    </aside>
+  </main>
+
+  <!-- Trình xem 360° -->
+  <div id="viewer" class="viewer" hidden>
+    <div id="pano"></div>
+    <div class="viewer-top">
+      <button class="btn round" id="closeViewer" type="button" aria-label="Quay về bản đồ">←</button>
+      <div class="viewer-title"><b id="vTitle"></b><span id="vSub"></span></div>
+      <span class="coords" id="coords" title="Góc nhìn hiện tại: dùng để đặt hotspot trong data.js"></span>
+    </div>
+    <div class="viewer-bottom">
+      <div class="explore" id="explore"></div>
+      <button class="btn primary" id="quizBtn" type="button">Nhận dấu hộ chiếu</button>
+    </div>
+    <div class="note" id="note" hidden></div>
+  </div>
+
+  <!-- Hộp thoại dùng chung -->
+  <dialog id="dialog"><div id="dialogBody"></div></dialog>
+
+  <script src="vendor/pannellum.js"></script>
+  <script src="js/map-data.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/scene.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
