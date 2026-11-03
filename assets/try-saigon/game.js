@@ -1,4 +1,5 @@
-/* Try Saigon engine. The story and prices live in trip.js; this file only runs them.
+/* Try Saigon engine: a 360° role-play of a first day in Ho Chi Minh City.
+   The world (scenes, people, prices, phrases) lives in trip.js; scene.js paints the 360° views.
    Progress is kept in this browser (localStorage) so a visitor can come back to it. */
 (function () {
   "use strict";
@@ -23,8 +24,6 @@
   function cash() { return DENOMS.reduce(function (t, d) { return t + d * (S.notes[d] || 0); }, 0); }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function load() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
-  function fill(t) { return String(t).replace("{startCash}", home(T.startCash)); }
-  function chapter() { return T.chapters[S.ch]; }
   function addSkill(o) { for (var k in o) S.skills[k] = (S.skills[k] || 0) + o[k]; }
   function spend(what, v, how) { S.spent.push({ what: what, vnd: v, how: how || "cash", t: S.time }); }
 
@@ -73,51 +72,52 @@
     return { mid: mid, buy: buy };
   }
 
-  /* ---------------------------------------------------------------- layout */
+  /* ---------------------------------------------------------------- stage: 360° viewer + HUD + sheet */
+  var viewer = null, stage;
+  function scene() { return T.scenes[S.scene]; }
+  function objFlags(o) {
+    var c = [];
+    if (o.nav && (!o.navNeeds || S.flags[o.navNeeds])) c.push("nav");
+    if (o.once && S.flags[o.once]) c.push("done");
+    if (o.from != null && S.time < o.from) c.push("closed");
+    return c.join(" ");
+  }
   function frame() {
     root.innerHTML =
-      '<div class="ts-hud" id="ts-hud"></div>' +
-      '<section class="ts-card" id="ts-card" aria-live="polite"></section>' +
-      '<div class="ts-wallet" id="ts-wallet" hidden></div>';
+      '<div class="ts-stage" id="ts-stage">' +
+        '<div id="ts-pano" class="ts-view"></div>' +
+        '<div class="ts-fade" id="ts-fade"></div>' +
+        '<div class="ts-top"><div class="ts-where" id="ts-where"></div>' +
+          '<div class="ts-meta"><span class="ts-clock" id="ts-clock"></span>' +
+          '<button type="button" class="ts-pill" data-panel="wallet" id="ts-purse"></button>' +
+          '<button type="button" class="ts-pill" data-panel="todo" id="ts-todo"></button>' +
+          '<button type="button" class="ts-pill ts-fs" data-fs aria-label="Full screen">⛶</button></div></div>' +
+        '<div class="ts-caption" id="ts-caption" hidden></div>' +
+        '<section class="ts-sheet" id="ts-sheet" hidden aria-live="polite"><div class="ts-sheet-head"><h3 id="ts-sheet-title"></h3><button type="button" class="ts-close" data-close aria-label="Close">✕</button></div><div class="ts-sheet-body" id="ts-sheet-body"></div></section>' +
+      '</div>';
+    stage = $("#ts-stage");
+    $$("[data-panel]").forEach(function (b) { b.onclick = function () { b.dataset.panel === "wallet" ? walletPanel() : todoPanel(); }; });
+    $("[data-close]").onclick = closeSheet;
+    $("[data-fs]").onclick = function () {
+      if (document.fullscreenElement) document.exitFullscreen(); else if (stage.requestFullscreen) stage.requestFullscreen().catch(function () {});
+    };
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("#ts-sheet").hidden) closeSheet(); });
   }
   function hud() {
-    var h = $("#ts-hud"); if (!h) return;
-    var dots = T.chapters.map(function (c, i) { return '<i class="' + (i < S.ch ? "done" : i === S.ch ? "now" : "") + '" title="' + esc(c.place) + '"></i>'; }).join("");
-    h.innerHTML = '<div class="ts-dots" aria-label="Chapter ' + (S.ch + 1) + ' of ' + T.chapters.length + '">' + dots + '</div>' +
-      '<div class="ts-clock"><span class="small">Time</span><b>' + clock(S.time) + '</b></div>' +
-      '<button type="button" class="ts-purse" id="ts-purse" aria-expanded="false"><span class="small">Wallet</span><b>' + vnd(cash()) + '</b><em>' + home(S.home) + ' cash</em></button>';
-    $("#ts-purse").onclick = toggleWallet;
-  }
-  function toggleWallet() {
-    var w = $("#ts-wallet"), b = $("#ts-purse");
-    if (!w.hidden) { w.hidden = true; b.setAttribute("aria-expanded", "false"); return; }
-    var rows = DENOMS.filter(function (d) { return S.notes[d]; }).map(function (d) {
-      return '<li>' + noteHtml(d) + '<span>× ' + S.notes[d] + '</span><span class="small">' + vnd(d * S.notes[d]) + '</span></li>';
-    }).join("") || '<li class="small">No dong yet.</li>';
-    var card = S.spent.filter(function (s) { return s.how === "card"; }).reduce(function (t, s) { return t + s.vnd; }, 0);
-    var where = S.ch >= 2 ? "goldshop" : "airport";
-    w.innerHTML = '<div class="ts-whead"><h3>Your wallet</h3><button type="button" class="btn" data-close>Close</button></div>' +
-      '<ul class="ts-notes">' + rows + '</ul>' +
-      '<p class="small">Cash: <b>' + vnd(cash()) + '</b> (about ' + home(toHome(cash())) + ') · ' + home(S.home) + ' not changed yet' + (card ? ' · paid by card: ' + vnd(card) : '') + '</p>' +
-      '<div class="ts-acts"><button type="button" class="btn" data-x' + (S.home < 1 ? " disabled" : "") + '>' + (where === "airport" ? "Change cash at the airport counter" : "Change cash at a jewellery shop") + '</button><button type="button" class="btn" data-atm>Use an ATM</button></div>' +
-      '<p class="small">Rate: 1 ' + S.cur + ' = ' + vnd(RATE.rates[S.cur]) + (RATE.live ? ' (mid-market, ' + esc(RATE.date) + ')' : ' (estimate; live rate unavailable)') + '</p>';
-    w.hidden = false; b.setAttribute("aria-expanded", "true");
-    $("[data-close]", w).onclick = toggleWallet;
-    var x = $("[data-x]", w); if (x) x.onclick = function () { w.hidden = true; exchangeDialog(where, function () { hud(); render(); }); };
-    var a = $("[data-atm]", w); if (a) a.onclick = function () {
-      addNotes({ 500000: 1, 100000: 4, 50000: 2 }); spend("ATM withdrawal", 1000000, "card");
-      S.time += 10; save(); w.hidden = true; hud();
-      toast("You took out 1,000,000 ₫. ATMs often give 500,000 notes; this one gave some 100,000 and 50,000 too. Your bank and the ATM may charge a fee.");
-    };
+    if (!stage) return;
+    var sc = scene(), done = T.goals.filter(function (g) { return S.goals[g.id]; }).length;
+    $("#ts-where").innerHTML = '<b>' + esc(sc.name) + '</b><span lang="vi">' + esc(sc.nameVi) + '</span>';
+    $("#ts-clock").textContent = clock(S.time);
+    $("#ts-purse").innerHTML = '<span>Wallet</span><b>' + vnd(cash()) + '</b>';
+    $("#ts-todo").innerHTML = '<span>To do</span><b>' + done + '/' + T.goals.length + '</b>';
+    $$(".ts-hs").forEach(function (d) {
+      var o = sc.objects.find(function (x) { return x.id === d.dataset.id; }); if (!o) return;
+      var f = objFlags(o); ["nav", "done", "closed"].forEach(function (c) { d.classList.toggle(c, f.indexOf(c) >= 0); });
+    });
   }
   function toast(t) {
     var n = el('<div class="ts-toast" role="status">' + esc(t) + '</div>');
-    document.body.appendChild(n); setTimeout(function () { n.classList.add("out"); }, 5200); setTimeout(function () { n.remove(); }, 5800);
-  }
-
-  function header(c) {
-    return '<p class="kicker">Chapter ' + (S.ch + 1) + ' of ' + T.chapters.length + ' · ' + clock(S.time) + '</p>' +
-      '<h2>' + esc(c.place) + '</h2><p class="ts-vi" lang="vi">' + esc(c.placeVi) + '</p>';
+    (stage || document.body).appendChild(n); setTimeout(function () { n.classList.add("out"); }, 4800); setTimeout(function () { n.remove(); }, 5400);
   }
   function bubbles(lines) {
     return (lines || []).map(function (l) {
@@ -126,71 +126,181 @@
   }
   function tipHtml(t) { return t ? '<div class="ts-tip"><b>Local tip</b><p>' + esc(t) + '</p></div>' : ""; }
   function linkHtml(l) { return l ? '<p><a class="more-link" href="' + esc(l.href) + '">' + esc(l.text) + '</a></p>' : ""; }
-
-  /* ---------------------------------------------------------------- flow */
-  function step() { return chapter().steps[S.st]; }
-  function next(id) {
-    var c = chapter();
-    if (id) {
-      var i = c.steps.findIndex(function (s) { return s.id === id; });
-      if (i >= 0) { S.st = i; save(); return render(); }
-    }
-    if (S.st + 1 < c.steps.length) { S.st++; save(); return render(); }
-    S.ch++; S.st = 0;
-    if (S.ch >= T.chapters.length) { S.done = true; save(); return report(); }
-    S.time = Math.max(S.time, chapter().time); save(); hud(); render();
-    window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 80, behavior: "smooth" });
-  }
-  function render() {
-    hud();
-    var s = step(), c = chapter(), card = $("#ts-card");
-    card.innerHTML = header(c) + '<div class="ts-body"></div>';
-    var body = $(".ts-body", card);
-    (R[s.type] || R.say)(s, body);
-    var top = card.getBoundingClientRect().top;
-    if (top < 0) window.scrollBy({ top: top - 160, behavior: "smooth" });
-  }
   function cont(body, label, fn) {
     var b = el('<div class="ts-acts"><button type="button" class="cta">' + esc(label || "Continue") + '</button></div>');
     body.appendChild(b); $("button", b).onclick = fn; return b;
   }
+  function openSheet(title, tall) {
+    var sh = $("#ts-sheet"); sh.hidden = false; sh.classList.toggle("tall", !!tall);
+    $("#ts-sheet-title").textContent = title || "";
+    var b = $("#ts-sheet-body"); b.innerHTML = ""; b.scrollTop = 0;
+    $("#ts-caption").hidden = true;
+    return b;
+  }
+  function closeSheet() { $("#ts-sheet").hidden = true; $("#ts-sheet-body").innerHTML = ""; if (viewer) try { viewer.startAutoRotate && 0; } catch (e) {} }
 
-  var R = {};
+  // paint (or load) the current scene and build its hotspots
+  function variantOf(sc) { return sc.objects.some(function (o) { return o.draw && o.draw.openAfter != null && S.time >= o.draw.openAfter; }) ? "open" : ""; }
+  function enter(id, keepView) {
+    var prevYaw = viewer && keepView ? viewer.getYaw() : null, prevPitch = viewer && keepView ? viewer.getPitch() : null;
+    S.scene = id; save();
+    var sc = scene(), fade = $("#ts-fade");
+    fade.classList.add("on");
+    var key = id + ":" + variantOf(sc);
+    var src = sc.pano ? Promise.resolve(sc.pano) : window.paintScene(key, sc, S);
+    src.then(function (url) {
+      if (viewer) { try { viewer.destroy(); } catch (e) {} viewer = null; }
+      $("#ts-pano").innerHTML = "";
+      viewer = pannellum.viewer("ts-pano", {
+        type: "equirectangular", panorama: url, autoLoad: true, hfov: window.innerWidth < 600 ? 85 : 100, minHfov: 60, maxHfov: 110,
+        yaw: prevYaw != null ? prevYaw : (sc.yaw || 0), pitch: prevPitch != null ? prevPitch : (sc.pitch || 0),
+        compass: false, showFullscreenCtrl: false, showZoomCtrl: false, keyboardZoom: false, mouseZoom: false, showControls: false,
+        hotSpots: sc.objects.map(function (o) {
+          return { pitch: o.pitch || 0, yaw: o.yaw, cssClass: "ts-hs " + objFlags(o),
+            createTooltipFunc: function (d) {
+              d.dataset.id = o.id; d.setAttribute("role", "button"); d.setAttribute("tabindex", "0"); d.setAttribute("aria-label", o.label);
+              d.innerHTML = '<i aria-hidden="true"></i><span>' + esc(o.label) + '</span>';
+              d.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tap(o); } });
+            },
+            clickHandlerFunc: function () { tap(o); } };
+        })
+      });
+      viewer.on("load", function () { fade.classList.remove("on"); });
+      setTimeout(function () { fade.classList.remove("on"); }, 1500);
+      hud();
+      if (!S.seen[id]) { S.seen[id] = true; save(); caption(sc.intro); }
+    });
+  }
+  function caption(t) {
+    if (!t) return;
+    var c = $("#ts-caption"); c.hidden = false;
+    c.innerHTML = '<p>' + esc(t) + '</p><button type="button" class="ts-close" aria-label="Close">✕</button>';
+    $("button", c).onclick = function () { c.hidden = true; };
+  }
 
-  R.say = function (s, body) {
-    body.innerHTML = (s.text ? '<p class="ts-text">' + esc(fill(s.text)) + '</p>' : "") + bubbles(s.lines) + tipHtml(s.tip) + linkHtml(s.link);
-    cont(body, "Continue", function () { next(s.next); });
+  /* ---------------------------------------------------------------- tapping things in the world */
+  function tap(o) {
+    if (o.nav && (!o.navNeeds || S.flags[o.navNeeds]) && !o.act) return walk(o.nav);
+    if (o.nav && o.navNeeds && S.flags[o.navNeeds]) return walk(o.nav);
+    if (o.from != null && S.time < o.from) return run(Object.assign({ type: "say" }, o.closed), o.label);
+    if (o.once && S.flags[o.once]) return run(Object.assign({ type: "say" }, o.done), o.label);
+    if (o.needs && !S.flags[o.needs]) {
+      var l = o.locked || {};
+      if (l.then && T[l.then]) return run(Object.assign({}, T[l.then], { pre: l.text }), o.label);
+      return run({ type: "say", text: l.text }, o.label);
+    }
+    if (o.act) return run(o.act, o.label);
+    if (o.nav) return walk(o.nav);
+  }
+  function walk(id) { closeSheet(); S.time += 3; enter(id); }
+  function apply(a) {
+    if (!a) return;
+    if (a.min) S.time += a.min;
+    if (a.skill) addSkill(a.skill);
+    if (a.flag) S.flags[a.flag] = true;
+    if (a.goal && !S.goals[a.goal]) { S.goals[a.goal] = true; var g = T.goals.find(function (x) { return x.id === a.goal; }); if (g) toast("✓ " + g.text); }
+    save(); hud();
+  }
+  function after(a) {
+    var sc = scene();
+    if (a && a.then === "end") return report();
+    if (a && a.go) return walk(a.go);
+    if (variantOf(sc) !== (stage.dataset.variant || "")) { stage.dataset.variant = variantOf(sc); enter(S.scene, true); }
+    if (T.goals.every(function (g) { return S.goals[g.id]; })) report();
+  }
+  function run(a, title) {
+    var tall = a.type === "cross" || a.type === "order" || a.type === "haggle" || a.type === "ride" || a.type === "exchange";
+    var body = openSheet(title, tall);
+    if (a.pre) body.insertAdjacentHTML("beforeend", '<p class="ts-text">' + esc(a.pre) + '</p>');
+    var fn = M[a.type] || M.say;
+    fn(a, body, function (picked) {
+      var eff = picked || a;
+      apply(eff);
+      if (picked && picked !== a) apply({ goal: a.goal, flag: a.flag });
+      closeSheet(); after(eff);
+    });
+  }
+
+  var M = {};
+  M.say = function (s, body, done) {
+    body.insertAdjacentHTML("beforeend", bubbles(s.lines) + (s.text ? '<p class="ts-text">' + esc(s.text) + '</p>' : "") + tipHtml(s.tip) + linkHtml(s.link));
+    cont(body, "OK", function () { done({}); });
   };
-
-  R.choice = function (s, body) {
-    body.innerHTML = '<h3 class="ts-q">' + esc(s.prompt) + '</h3><div class="ts-opts"></div>';
+  M.wait = function (s, body, done) {
+    if (!body.innerHTML) body.insertAdjacentHTML("beforeend", '<p class="ts-text">' + esc(s.text) + '</p>');
+    var b = el('<div class="ts-acts"><button type="button" class="cta">' + esc(s.label || "Wait") + '</button><button type="button" class="btn">Not now</button></div>');
+    body.appendChild(b);
+    $(".cta", b).onclick = function () { done({ min: s.min }); };
+    $(".btn", b).onclick = function () { done({}); };
+  };
+  M.choice = function (s, body, done) {
+    body.insertAdjacentHTML("beforeend", bubbles(s.lines) + (s.prompt ? '<h3 class="ts-q">' + esc(s.prompt) + '</h3>' : "") + '<div class="ts-opts"></div>');
     var box = $(".ts-opts", body);
     s.options.forEach(function (o) {
-      var blocked = o.needs === "online" && S.flags.offline;
-      var b = el('<button type="button" class="ts-opt"' + (blocked ? " disabled" : "") + '><b>' + esc(o.label) + '</b>' +
-        (o.sub ? '<span class="small">' + esc(o.sub) + '</span>' : "") + (blocked ? '<span class="small">You have no mobile data.</span>' : "") + '</button>');
+      var b = el('<button type="button" class="ts-opt"><b>' + esc(o.label) + '</b>' + (o.sub ? '<span class="small">' + esc(o.sub) + '</span>' : "") + '</button>');
       b.onclick = function () {
-        S.time += o.min || 0; if (o.skill) addSkill(o.skill); if (o.flag) S.flags[o.flag] = true;
-        save(); hud();
-        body.innerHTML = '<h3 class="ts-q">' + esc(s.prompt) + '</h3><div class="ts-result ' + ((o.skill && Object.keys(o.skill).some(function (k) { return o.skill[k] < 0; })) ? "bad" : "") + '"><b>' + esc(o.label) + '</b><p>' + esc(o.result) + '</p></div>';
-        cont(body, "Continue", function () { next(o.goto); });
+        var bad = o.skill && Object.keys(o.skill).some(function (k) { return o.skill[k] < 0; });
+        body.innerHTML = (o.result ? '<div class="ts-result ' + (bad ? "bad" : "") + '"><b>' + esc(o.label) + '</b><p>' + esc(o.result) + '</p></div>' : "");
+        if (o.pay) {
+          body.insertAdjacentHTML("beforeend", '<div class="ts-bubble"><span class="small">' + esc(o.pay.to) + '</span><b lang="vi">' + esc(o.pay.vi) + '</b><em>' + esc(o.pay.en) + '</em></div>');
+          payUI(body, { amount: o.pay.amount, to: o.pay.to, what: o.pay.to }, function () { done(o); });
+        } else if (o.result) cont(body, "Continue", function () { done(o); });
+        else done(o);
       };
       box.appendChild(b);
     });
   };
-
-  /* ---- exchange */
-  R.exchange = function (s, body) {
-    body.innerHTML = "";
-    exchangeInline(body, s.where, function () { cont(body, "Continue", function () { next(s.next); }); });
+  M.exchange = function (s, body, done) {
+    exchangeInline(body, s.where, function () { apply({ goal: "dong" }); cont(body, "Done", function () { done({}); }); });
   };
-  function exchangeDialog(where, done) {
-    var card = $("#ts-card");
-    var box = el('<div class="ts-modal" role="dialog" aria-modal="true" aria-label="Change money"><div class="ts-modal-in"></div></div>');
-    document.body.appendChild(box);
-    var inner = $(".ts-modal-in", box);
-    exchangeInline(inner, where, function () { box.remove(); done && done(); }, function () { box.remove(); });
+  M.atm = function (s, body, done) {
+    body.insertAdjacentHTML("beforeend", '<p class="ts-text">Take out 1,000,000 dong with your bank card? Your bank and the ATM may charge a fee.</p>');
+    cont(body, "Withdraw 1,000,000 ₫", function () {
+      addNotes({ 500000: 1, 100000: 4, 50000: 2 }); spend("ATM withdrawal", 1000000, "card");
+      body.innerHTML = '<div class="ts-result"><b>You took out 1,000,000 ₫</b><div class="ts-fan"><span>' + noteHtml(500000) + '× 1</span><span>' + noteHtml(100000) + '× 4</span><span>' + noteHtml(50000) + '× 2</span></div><p class="small">ATMs often give 500,000 notes, which small stalls can\'t always change.</p></div>';
+      apply({ goal: "dong", min: 5 });
+      cont(body, "Done", function () { done({}); });
+    });
+  };
+  M.end = function (s, body, done) { report(); };
+
+  // "Not enough cash" inside a payment: change money or use an ATM without leaving the payment
+  function moneyHelp(box, redraw) {
+    box.innerHTML = "";
+    if (S.home >= 1) {
+      var where = S.goals.city ? "goldshop" : "airport";
+      var x = el('<div class="ts-inline"></div>'); box.appendChild(x);
+      exchangeInline(x, where, function () { apply({ goal: "dong" }); redraw(); });
+    } else {
+      addNotes({ 500000: 1, 100000: 4, 50000: 2 }); spend("ATM withdrawal", 1000000, "card"); S.time += 10; save(); hud(); redraw();
+      toast("You found an ATM and took out 1,000,000 ₫.");
+    }
   }
+
+  /* ---------------------------------------------------------------- panels */
+  function walletPanel() {
+    var body = openSheet("Your wallet");
+    var rows = DENOMS.filter(function (d) { return S.notes[d]; }).map(function (d) {
+      return '<li>' + noteHtml(d) + '<span>× ' + S.notes[d] + '</span><span class="small">' + vnd(d * S.notes[d]) + '</span></li>';
+    }).join("") || '<li class="small">No dong yet. Find the exchange counter or the ATM.</li>';
+    var card = S.spent.filter(function (s) { return s.how === "card"; }).reduce(function (t, s) { return t + s.vnd; }, 0);
+    body.innerHTML = '<ul class="ts-notes">' + rows + '</ul>' +
+      '<p class="small">Cash: <b>' + vnd(cash()) + '</b> (about ' + home(toHome(cash())) + ') · ' + home(S.home) + ' not changed yet' + (card ? ' · paid by card: ' + vnd(card) : '') + '</p>' +
+      '<p class="small">Rate: 1 ' + S.cur + ' = ' + vnd(RATE.rates[S.cur]) + (RATE.live ? ' (mid-market, ' + esc(RATE.date) + ')' : ' (estimate; live rate unavailable)') + '</p>' +
+      tipHtml("The 500,000 and the 20,000 notes are both blue: check the zeros before you pay.");
+  }
+  function todoPanel() {
+    var body = openSheet("Today's plan");
+    body.innerHTML = '<ul class="ts-goals">' + T.goals.map(function (g) {
+      return '<li class="' + (S.goals[g.id] ? "ok" : "") + '"><i aria-hidden="true"></i>' + esc(g.text) + '</li>';
+    }).join("") + '</ul><p class="small">Do them in any order. Tap people, stalls and signs in the 360° view; tap the arrows to walk.</p>';
+    var b = el('<div class="ts-acts"><button type="button" class="btn">End the day and see my report</button><button type="button" class="btn" data-restart>Start over</button></div>');
+    body.appendChild(b);
+    $(".btn", b).onclick = report;
+    $("[data-restart]", b).onclick = function () { try { localStorage.removeItem(KEY); } catch (e) {} if (viewer) viewer.destroy(); viewer = null; stage = null; intro(); };
+  }
+
+  /* ---------------------------------------------------------------- activities */
   function exchangeInline(body, where, done, cancel) {
     var r = rateLine(where), name = where === "airport" ? "Airport exchange counter" : "Jewellery shop near Ben Thanh";
     var other = rateLine(where === "airport" ? "goldshop" : "airport");
@@ -227,9 +337,8 @@
       done && done();
     };
   }
-
   /* ---- order */
-  R.order = function (s, body) {
+  M.order = function (s, body, done) {
     var q = s.menu.map(function () { return 0; }), opts = {};
     body.innerHTML = bubbles(s.lines) +
       '<h3 class="ts-q">Order in Vietnamese</h3><ul class="ts-menu">' + s.menu.map(function (m, i) {
@@ -262,7 +371,7 @@
       addSkill({ food: 1 }); S.time += 20; save(); hud();
       var after = function () {
         body.innerHTML = '<div class="ts-bubble"><span class="small">' + esc(s.vendor) + '</span><b lang="vi">' + esc(cap(viMoney(tot))) + '.</b><em>' + vnd(tot) + '</em></div>';
-        payUI(body, { amount: tot, to: s.vendor, what: what, smallChange: s.smallChange }, function () { next(s.next); });
+        payUI(body, { amount: tot, to: s.vendor, what: what, smallChange: s.smallChange }, function () { done(); });
       };
       body.innerHTML = '<div class="ts-bubble"><span class="small">' + esc(s.vendor) + '</span><b lang="vi">Có liền!</b><em>Coming right up!</em></div>' +
         '<p class="ts-text">' + (s.bill ? "You eat. When you're done, wave and ask for the bill." : "It's ready in a minute.") + '</p>';
@@ -272,14 +381,6 @@
       } else cont(body, "Pay", after);
     };
   };
-
-  /* ---- pay */
-  R.pay = function (s, body) {
-    body.innerHTML = '<div class="ts-bubble"><span class="small">' + esc(s.to) + '</span><b lang="vi">' + esc(s.vi) + '</b><em>' + esc(s.en) + '</em></div>' +
-      (s.note ? '<p class="small">' + esc(s.note) + '</p>' : "");
-    payUI(body, { amount: s.amount, to: s.to, what: s.to }, function () { next(s.next); });
-  };
-
   function payUI(body, o, done) {
     var tray = {}, refused = false;
     var w = el('<div class="ts-pay"><h3 class="ts-q">Pay ' + vnd(o.amount) + ' <span class="small" lang="vi">(' + esc(viMoney(o.amount)) + ')</span></h3>' +
@@ -303,7 +404,7 @@
       $$(".ts-hand .ts-nbtn", w).forEach(function (b) { b.onclick = function () { var d = +b.dataset.d; tray[d]--; draw(); }; });
       var short = cash() < o.amount;
       $(".ts-more", w).innerHTML = short ? 'Not enough cash. <button type="button" class="linkbtn" data-more>Change money or use an ATM</button>' : "";
-      var m = $("[data-more]", w); if (m) m.onclick = function () { toggleWallet(); };
+      var m = $("[data-more]", w); if (m) m.onclick = function () { moneyHelp($(".ts-more", w), draw); };
     }
     draw();
     $("[data-go]", w).onclick = function () {
@@ -330,9 +431,8 @@
       cont(body, "Continue", done);
     };
   }
-
   /* ---- ride-hailing app */
-  R.ride = function (s, body) {
+  M.ride = function (s, body, done) {
     var pay = "cash";
     body.innerHTML = (s.text ? '<p class="ts-text">' + esc(s.text) + '</p>' : "") +
       '<div class="ts-phone"><div class="ts-app">' +
@@ -366,10 +466,10 @@
               if (pay === "card") {
                 spend("Ride to " + s.to, s.fare, "card"); save(); hud();
                 body.insertAdjacentHTML("afterbegin", '<div class="ts-result"><b>Arrived. ' + vnd(s.fare) + ' charged to your card in the app.</b><p class="small">No cash needed. A tip is not expected, but drivers appreciate one in the app.</p></div>');
-                cont(body, "Continue", function () { next(s.next); });
+                cont(body, "Continue", function () { done(); });
               } else {
                 body.insertAdjacentHTML("afterbegin", '<div class="ts-bubble"><span class="small">Driver</span><b lang="vi">Tới rồi nha. ' + esc(viMoney(s.fare)) + '.</b><em>Here we are. ' + vnd(s.fare) + '.</em></div>');
-                payUI(body, { amount: s.fare, to: "Driver", what: "Ride to " + s.to }, function () { next(s.next); });
+                payUI(body, { amount: s.fare, to: "Driver", what: "Ride to " + s.to }, function () { done(); });
               }
             }, 1600);
           };
@@ -377,9 +477,8 @@
       }, 1300);
     };
   };
-
   /* ---- haggle */
-  R.haggle = function (s, body) {
+  M.haggle = function (s, body, done) {
     var ask = s.ask, offer = Math.round(s.ask * 0.4 / 5000) * 5000, mood = 0, rounds = 0, walked = 0, lastOffer = 0, soft = false;
     body.innerHTML = '<div class="ts-haggle"><div class="ts-item"><b>' + esc(s.item) + '</b> <span lang="vi">(' + esc(s.itemVi) + ')</span></div>' +
       '<div class="ts-chat" aria-live="polite"></div>' +
@@ -407,7 +506,7 @@
       addSkill({ haggle: pts }); S.time += 10; save();
       body.innerHTML = '<div class="ts-result"><b>Deal: ' + vnd(price) + '</b><p>' + (pts === 2 ? "A fair local price. Well done." : pts === 1 ? "Not bad; a little above what locals pay." : "You paid the first price, or close to it. That's fine too, but you can usually get more off at stalls without price tags.") +
         ' A fair price here is about ' + vnd(s.fair) + '.</p></div>';
-      payUI(body, { amount: price, to: "Hat seller", what: s.item }, function () { next(s.next); });
+      payUI(body, { amount: price, to: "Hat seller", what: s.item }, function () { done(); });
     }
     $("[data-offer]", body).onclick = function () {
       rounds++; lastOffer = offer; say("you", cap(viMoney(offer)) + " được không?", "Is " + vnd(offer) + " okay?");
@@ -430,31 +529,13 @@
           say("seller", "Thôi được rồi.", "Okay then.");
           addSkill({ haggle: 1 }); save();
           $(".ts-acts", body).innerHTML = "";
-          cont(body, "Leave without a hat", function () { next(s.next); });
+          cont(body, "Leave without a hat", function () { done(); });
         }
       }, 600);
     };
   };
-
-  /* ---- 360° look-around */
-  R.pano = function (s, body) {
-    body.innerHTML = '<p class="ts-text">' + esc(s.text) + '</p><div class="ts-pano" id="ts-pano"></div><div class="ts-pnote" hidden></div>' + linkHtml(s.link);
-    var seen = 0;
-    (s.pano ? Promise.resolve(s.pano) : window.paintScene(s.scene)).then(function (url) {
-      if (!window.pannellum) return;
-      pannellum.viewer("ts-pano", {
-        type: "equirectangular", panorama: url, autoLoad: true, hfov: 100, compass: false, showFullscreenCtrl: false, showZoomCtrl: false, mouseZoom: false,
-        hotSpots: s.hotspots.map(function (h) {
-          return { pitch: h.pitch, yaw: h.yaw, cssClass: "ts-hs", createTooltipFunc: function (d) { d.innerHTML = "<span>" + esc(h.title) + "</span>"; },
-            clickHandlerFunc: function (e, a) { seen++; var n = $(".ts-pnote", body); n.hidden = false; n.innerHTML = "<b>" + esc(h.title) + "</b><p>" + esc(h.text) + "</p>"; } };
-        })
-      });
-    });
-    cont(body, "Walk into the market", function () { next(s.next); });
-  };
-
   /* ---- crossing the street */
-  R.cross = function (s, body) {
+  M.cross = function (s, body, done) {
     body.innerHTML = '<div class="ts-cross"><canvas width="420" height="520" aria-label="Street crossing game. Hold the Walk button to walk, let go to stop."></canvas>' +
       '<div class="ts-acts"><button type="button" class="cta ts-walk">Hold to walk</button><button type="button" class="btn ts-run">Run!</button></div>' +
       '<p class="small ts-cmsg" aria-live="polite">Press and hold the street, the “Hold to walk” button or the space bar. Let go to stop.</p></div>';
@@ -538,7 +619,7 @@
       addSkill({ street: pts }); S.time += 5; save(); hud();
       $(".ts-cmsg", body).innerHTML = "<b>You made it across.</b> " + (stops === 0 && !running ? "Slow and steady, with no stops: exactly how locals do it." : "You got there. Fewer stops in the traffic make you easier to predict.");
       $(".ts-acts", body).innerHTML = "";
-      cont(body, "Continue", function () { next(s.next); });
+      cont(body, "Continue", function () { done(); });
     }
     function start() {
       reset(); $(".ts-acts", body).innerHTML = '<button type="button" class="cta ts-walk">Hold to walk</button><button type="button" class="btn ts-run">Run!</button>';
@@ -560,45 +641,48 @@
 
   /* ---------------------------------------------------------------- report */
   function report() {
-    hud();
-    var card = $("#ts-card"), total = S.spent.reduce(function (t, s) { return t + s.vnd; }, 0);
+    var body = openSheet("Your day in Saigon", true), total = S.spent.reduce(function (t, s) { return t + s.vnd; }, 0);
+    S.done = true; save();
     var rows = S.spent.filter(function (s) { return s.vnd; }).map(function (s) {
       return '<tr><td>' + clock(s.t) + '</td><td>' + esc(s.what) + '</td><td>' + (s.how === "card" ? "card" : "cash") + '</td><td class="num">' + vnd(s.vnd) + '</td></tr>';
     }).join("");
+    var nGoals = T.goals.filter(function (g) { return S.goals[g.id]; }).length;
     var skills = Object.keys(T.skills).map(function (k) {
       var p = S.skills[k] || 0, stars = Math.max(0, Math.min(3, p)), sk = T.skills[k];
       return '<li><div><b>' + esc(sk.name) + '</b> <span class="small" lang="vi">' + esc(sk.vi) + '</span></div><span class="ts-stars" aria-label="' + stars + ' of 3">' + [1, 2, 3].map(function (i) { return '<i class="' + (i <= stars ? "on" : "") + '"></i>'; }).join("") + '</span>' +
         '<p class="small">' + (stars >= 2 ? esc(sk.good) : 'Practise this one: <a href="' + esc(sk.learn) + '">read the guide</a>.') + '</p></li>';
     }).join("");
-    card.innerHTML = '<p class="kicker">Your practice day · ' + clock(S.time) + '</p><h2>You survived a day in Saigon</h2>' +
-      '<p class="ts-text">You spent <b>' + vnd(total) + '</b>, about <b>' + home(toHome(total)) + '</b>' + (S.exchanged ? ', and changed ' + home(S.exchanged) + ' into dong' : '') + '.</p>' +
+    body.innerHTML = '<p class="ts-text">It\'s ' + clock(S.time) + '. You did ' + nGoals + ' of ' + T.goals.length + ' things on your list and spent <b>' + vnd(total) + '</b>, about <b>' + home(toHome(total)) + '</b>' + (S.exchanged ? ', after changing ' + home(S.exchanged) + ' into dong' : '') + '.</p>' +
       '<ul class="ts-skills">' + skills + '</ul>' +
-      '<div class="ts-table"><table><thead><tr><th>Time</th><th>What</th><th>How</th><th class="num">Dong</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
-      '<h3 class="ts-q">Ready for the real thing?</h3><div class="chips"><a class="chip" href="/guides/saigon-itinerary/">Plan 1–3 days</a><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/getting-around-hcmc/">Buses</a><a class="chip" href="/guides/hcmc-metro/">Metro</a><a class="chip" href="/places/sidewalk-noodles-187-huynh-man-dat/">Tonight\'s noodles</a></div>' +
-      '<div class="ts-acts"><button type="button" class="btn" data-again>Play again</button></div>';
-    $("[data-again]", card).onclick = function () { try { localStorage.removeItem(KEY); } catch (e) {} intro(); };
+      (rows ? '<div class="ts-table"><table><thead><tr><th>Time</th><th>What</th><th>How</th><th class="num">Dong</th></tr></thead><tbody>' + rows + '</tbody></table></div>' : '') +
+      '<h3 class="ts-q">Ready for the real thing?</h3><div class="chips"><a class="chip" href="/guides/saigon-itinerary/">Plan 1–3 days</a><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/getting-around-hcmc/">Buses</a><a class="chip" href="/guides/hcmc-metro/">Metro</a><a class="chip" href="/places/sidewalk-noodles-187-huynh-man-dat/">Tonight\'s noodles</a></div>';
+    var b = el('<div class="ts-acts"><button type="button" class="btn" data-k>Keep exploring</button><button type="button" class="btn" data-again>Play again</button></div>');
+    body.appendChild(b);
+    $("[data-k]", b).onclick = closeSheet;
+    $("[data-again]", b).onclick = function () { try { localStorage.removeItem(KEY); } catch (e) {} if (viewer) viewer.destroy(); viewer = null; stage = null; intro(); };
   }
 
-  /* ---------------------------------------------------------------- intro */
+  /* ---------------------------------------------------------------- start */
   function intro() {
     var saved = load();
+    if (saved && (!saved.v || saved.v < 2)) saved = null; // progress from the old, step-by-step version
     root.innerHTML = '<section class="ts-card ts-intro">' +
-      '<p class="kicker">Practice day · about 15 minutes</p>' +
-      '<h2>Land at Tan Son Nhat with ' + T.startCash + ' in cash and a day to fill</h2>' +
-      '<p class="ts-text">Change money at today\'s real rate, get into the city, order bánh mì in Vietnamese, cross the street, bargain at Ben Thanh, check your ride\'s plate and pay for dinner at a real Cholon noodle stall. Mistakes cost play money, not real money.</p>' +
+      '<p class="kicker">360° role-play · about 15–20 minutes</p>' +
+      '<h2>Step off the plane at Tan Son Nhat with ' + T.startCash + ' in cash</h2>' +
+      '<p class="ts-text">Look around each place in 360°. Tap the people, counters and stalls to talk, change money at today\'s real rate, order in Vietnamese, pay with real Vietnamese notes, bargain, book a ride and cross the street. Tap the arrows to walk on. The clock runs: some stalls only open later in the day.</p>' +
       '<fieldset class="ts-amt"><legend>Which cash do you bring?</legend><div class="chips">' +
       Object.keys(CUR).map(function (c, i) { return '<label class="chip"><input type="radio" name="cur" value="' + c + '"' + (i === 0 ? " checked" : "") + '> ' + CUR[c] + T.startCash + ' ' + c + '</label>'; }).join("") +
       '</div></fieldset>' +
       '<div class="ts-acts"><button type="button" class="cta" data-start>Start the day</button>' +
-      (saved && !saved.done ? '<button type="button" class="btn" data-resume>Continue where you stopped (' + esc(T.chapters[saved.ch] ? T.chapters[saved.ch].place : "") + ')</button>' : "") + '</div>' +
-      '<p class="small">Your progress stays in this browser only. Prices marked as examples are typical, not quotes.</p></section>';
+      (saved && !saved.done ? '<button type="button" class="btn" data-resume>Continue (' + esc(clock(saved.time)) + ', ' + esc(T.scenes[saved.scene] ? T.scenes[saved.scene].name : "") + ')</button>' : "") + '</div>' +
+      '<p class="small">Your progress stays in this browser only. Prices marked as examples are typical, not quotes. Scenes are illustrations of real places.</p></section>';
     $("[data-start]", root).onclick = function () {
       var c = $("input[name=cur]:checked", root).value;
-      S = { ch: 0, st: 0, cur: c, home: T.startCash, notes: {}, time: T.chapters[0].time, skills: {}, spent: [], flags: {}, done: false };
-      save(); frame(); render();
+      S = { v: 2, scene: T.start.scene, cur: c, home: T.startCash, notes: {}, time: T.start.time, skills: {}, spent: [], flags: {}, goals: {}, seen: {}, done: false };
+      save(); frame(); enter(S.scene);
     };
     var r = $("[data-resume]", root);
-    if (r) r.onclick = function () { S = saved; frame(); render(); };
+    if (r) r.onclick = function () { S = saved; frame(); enter(S.scene); };
   }
 
   loadRate();

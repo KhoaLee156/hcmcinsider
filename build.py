@@ -1078,7 +1078,7 @@ def itinerary_page(by_slug, sights):
 # ---------------------------------------------------------------- Try Saigon practice day (/try-saigon/)
 # The game itself is static: story and prices in assets/try-saigon/trip.js, engine in game.js.
 TRY_FAQ = [
-    ("What is Try Saigon?", "A free practice day in Ho Chi Minh City that runs in your browser. You land at Tan Son Nhat with play money, change it at the real exchange rate, get into the city, order food in Vietnamese, cross a busy street, bargain at Ben Thanh Market and pay with Vietnamese notes."),
+    ("What is Try Saigon?", "A free 360° role-play of a first day in Ho Chi Minh City that runs in your browser. You look around the airport, District 1, Ben Thanh Market and Cholon, tap the people and stalls to talk to them, change play money at the real exchange rate, order food in Vietnamese, bargain, book rides and pay with Vietnamese notes. You choose what to do and in what order; the clock runs, and some stalls only open later."),
     ("Is the exchange rate real?", "Yes. The game loads the current mid-market rate for US dollars, euros, pounds and Australian dollars. The airport counter and the jewellery shop in the game buy a little below that rate; the exact margins are examples, so compare the boards when you change money for real."),
     ("Are the prices real?", "Places and fares come from this site's guides: city buses are free until 31 December 2026, and the noodle stall at 187 Huynh Man Dat charges 25,000–35,000 dong a bowl. Prices marked as examples are typical, not quotes."),
     ("Do I need an account?", "No. Your progress stays in your browser, so you can stop and come back later on the same device."),
@@ -1089,9 +1089,9 @@ def try_saigon_page():
     bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Try Saigon", None)])
     faq = "".join('<details class="faq"><summary>%s</summary><p>%s</p></details>' % (E(q), E(a)) for q, a in TRY_FAQ)
     body = """<div class="wrap narrow">%s
-<p class="kicker">Practice day · Before you fly</p>
-<h1>Try Saigon: a practice day before your trip</h1>
-<p class="lead">Play through your first day in Ho Chi Minh City: change money at today's rate, take the free bus or a ride app into town, order bánh mì in Vietnamese, cross the street like a local, bargain at Ben Thanh and pay for dinner at a real Cholon noodle stall. Mistakes cost play money, not real money.</p>
+<p class="kicker">360° role-play · Before you fly</p>
+<h1>Try Saigon: live your first day before your trip</h1>
+<p class="lead">Stand in the arrivals hall, the street and Ben Thanh Market in 360°. Tap the people and stalls around you to change money at today's rate, order bánh mì in Vietnamese, bargain for a hat, book a ride and cross the street, then eat dinner at a real Cholon noodle stall. Mistakes cost play money, not real money.</p>
 <link rel="stylesheet" href="/assets/vendor/pannellum/pannellum.css">
 <link rel="stylesheet" href="%s">
 <div id="ts" class="ts"><noscript><p class="box">Try Saigon needs JavaScript. Meanwhile, read the <a href="/guides/arriving-in-saigon/">airport to city guide</a>.</p></noscript></div>
