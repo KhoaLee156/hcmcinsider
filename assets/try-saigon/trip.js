@@ -13,7 +13,12 @@
      once  = a flag name: after the action has been done once, done = what is said instead
      needs = a flag name the player must have first, with locked = what is said otherwise
    Actions can carry: min (minutes it takes), skill {name: points}, goal (a to-do id it completes),
-     flag (a flag it sets), go (scene to move to after it).
+     flag (a flag, or a list of flags, it sets), go (scene to move to after it).
+   Choice options can also have needs/locked (a flag the option requires) and card {amount, what} (paid by card).
+   A nav object can have min (minutes the walk takes).
+   Real 360° photo: pano: "/assets/photos/x.jpg". For an iPhone Pano (a horizontal strip, not a full sphere) also set
+     haov (degrees it covers left to right, 360 for a full turn) and vaov (degrees top to bottom, about 60–90).
+     Then open /try-saigon/?edit, click where each person or stall is, and copy the yaw and pitch into its object.
    Prices marked "example" are typical, not quotes. Facts come from the guides on this site. */
 
 window.TRIP = {
@@ -27,6 +32,7 @@ window.TRIP = {
     { id: "city", text: "Get from the airport to District 1" },
     { id: "breakfast", text: "Eat breakfast" },
     { id: "cross", text: "Cross the street to Ben Thanh Market" },
+    { id: "metro", text: "Ride the metro one stop" },
     { id: "souvenir", text: "Buy a souvenir in the market" },
     { id: "cholon", text: "Get to Cholon (Chinatown)" },
     { id: "coffee", text: "Have a Vietnamese coffee" },
@@ -44,11 +50,11 @@ window.TRIP = {
           once: "online", done: { lines: [{ who: "SIM seller", vi: "Có mạng rồi mà em!", en: "You're already online!" }] },
           act: { type: "choice", prompt: "Get online for the day?", lines: [{ who: "SIM seller", vi: "Mua SIM không em? Có 5G nè.", en: "Want a SIM? We have 5G." }],
             options: [
-              { label: "Buy a tourist SIM", sub: "Needs your passport · example price 200,000 ₫", min: 20, pay: { amount: 200000, to: "SIM seller", vi: "Hai trăm ngàn em.", en: "200,000." }, flag: "online", skill: { smart: 1 },
+              { label: "Buy a tourist SIM", sub: "Needs your passport · example price 200,000 ₫", min: 20, pay: { amount: 200000, to: "SIM seller", vi: "Hai trăm ngàn em.", en: "200,000." }, flag: ["online", "boughtSim"], skill: { smart: 1 },
                 result: "She registers the SIM to your passport and you have data. There was a queue: 20 minutes." },
               { label: "I already have an eSIM", sub: "Installed before the flight", min: 1, flag: "online", skill: { smart: 2 },
                 result: "You switch it on. Data works straight away: no queue, no registration." },
-              { label: "No thanks", min: 0, result: "Without data you can't book a ride-hailing car outside." }
+              { label: "No thanks", min: 0, flag: "noData", result: "Without data you can't book a ride-hailing car outside." }
             ] } },
         { id: "atm", yaw: 65, pitch: -2, label: "ATM", draw: { kind: "atm" }, act: { type: "atm" } },
         { id: "tout", yaw: -95, pitch: -2, label: "Man offering taxis", draw: { kind: "tout" },
@@ -56,7 +62,7 @@ window.TRIP = {
           act: { type: "choice", lines: [{ who: "Man in the hall", vi: "Taxi? Taxi? Đi đâu? Rẻ lắm!", en: "Taxi? Where to? Very cheap!" }],
             prompt: "He walks up to you inside the hall.",
             options: [
-              { label: "Go with him", sub: "“Cheap price, no meter”", min: 40, flag: "toutDone", skill: { smart: -2 }, goal: "city", go: "d1",
+              { label: "Go with him", sub: "“Cheap price, no meter”", min: 40, flag: ["toutDone", "carRide"], skill: { smart: -2 }, goal: "city", go: "d1",
                 pay: { amount: 500000, to: "The man from the hall", vi: "Năm trăm ngàn.", en: "500,000." },
                 result: "His car is in the parking garage. At your hotel he asks for 500,000 dong, far more than the meter or an app would show." },
               { label: "“Không, cảm ơn” (No, thank you)", min: 0, flag: "toutDone", skill: { smart: 1 },
@@ -81,7 +87,7 @@ window.TRIP = {
         { id: "taxi", yaw: 35, pitch: -2, label: "Official taxi rank", draw: { kind: "taxi" },
           act: { type: "choice", lines: [{ who: "Taxi driver", vi: "Đi đâu anh/chị?", en: "Where to?" }], prompt: "A metered taxi from the official rank.",
             options: [
-              { label: "“Quận 1, khách sạn” (District 1, hotel)", sub: "Metered · example fare", min: 30, goal: "city", go: "d1", skill: { transport: 1 },
+              { label: "“Quận 1, khách sạn” (District 1, hotel)", sub: "Metered · example fare", min: 30, flag: "carRide", goal: "city", go: "d1", skill: { transport: 1 },
                 pay: { amount: 160000, to: "Taxi driver", vi: "Tới rồi. Một trăm sáu mươi ngàn.", en: "Here we are. 160,000." },
                 result: "You check the meter is on. Half an hour in traffic and you're at your hotel." },
               { label: "Not now", min: 0, result: "" }
@@ -128,6 +134,7 @@ window.TRIP = {
           act: { type: "ride", app: "bike", from: "Ben Thanh Market", to: "Cholon, District 5", fare: 38000, plate: "59X3-417.26",
             fareNote: "Example fare; the app shows the real one before you book.", goal: "cholon", go: "cholon", skill: { transport: 1 },
             tip: "The driver hands you a helmet: put it on and fasten the strap. Keep your phone away from the street side." } },
+        { id: "metro", yaw: 140, pitch: -4, label: "Metro: Ben Thanh station", nav: "station", draw: { kind: "metroentrance" } },
         { id: "info", yaw: 95, pitch: 6, label: "Bitexco Tower", act: { type: "say", text: "The tower with the helipad. You can see it from much of District 1, which helps when you're lost." } }
       ]
     },
@@ -145,6 +152,45 @@ window.TRIP = {
         { id: "food", yaw: 60, pitch: -2, label: "Food stalls", draw: { kind: "foodstalls" },
           act: { type: "say", lines: [{ who: "Stall owner", vi: "Ngồi đi em, ăn gì?", en: "Sit down, what will you eat?" }], text: "The food stalls sit together in one part of the hall: a good place for a first taste of many dishes. Save your appetite for Cholon tonight." } },
         { id: "out", yaw: 180, pitch: -6, label: "Back to the gate", nav: "gate" }
+      ]
+    },
+
+    station: {
+      name: "Ben Thanh metro station", nameVi: "Ga Bến Thành, tuyến số 1", bg: "station", yaw: 0,
+      intro: "Metro Line 1 runs from Ben Thanh to Suoi Tien. Trains every 6–12 minutes, 5 am to 10 pm (11 pm at weekends).",
+      objects: [
+        { id: "machine", yaw: -40, pitch: -4, label: "Ticket machine", draw: { kind: "ticketmachine" },
+          once: "ticket", done: { text: "You already have a ticket. Tap it on the gate to go in." },
+          act: { type: "choice", prompt: "Buy a single ticket to Opera House (one stop)? The machine takes notes from 1,000 to 200,000 dong.",
+            options: [
+              { label: "Buy a single ticket", sub: "7,000 ₫ cash", min: 3, flag: "ticket", skill: { transport: 1 },
+                pay: { amount: 7000, to: "Ticket machine", vi: "Bảy ngàn đồng.", en: "7,000 dong." }, result: "The machine prints a ticket card. Keep it: you need it to get out." },
+              { label: "Not now", result: "" }
+            ] } },
+        { id: "gates", yaw: 20, pitch: -4, label: "Fare gates and trains", draw: { kind: "gates" },
+          act: { type: "choice", prompt: "Tap in at the gate, ride one stop to Opera House, and tap out with the same card or ticket.",
+            tip: "No eating or drinking in stations or on trains.",
+            options: [
+              { label: "Tap your contactless bank card", sub: "6,000 ₫: 1,000 less than cash", min: 10, card: { amount: 6000, what: "Metro, Ben Thanh to Opera House" },
+                goal: "metro", go: "opera", skill: { transport: 2 }, result: "Beep. Air-conditioned and quiet. Two minutes later you're under the Opera House." },
+              { label: "Use your ticket", sub: "Bought at the machine", needs: "ticket", locked: "Buy a ticket at the machine first.", min: 10,
+                goal: "metro", go: "opera", skill: { transport: 1 }, result: "The gate opens. Two minutes later you're under the Opera House." },
+              { label: "Not now", result: "" }
+            ] } },
+        { id: "rules", yaw: 100, pitch: 2, label: "Station rules", act: { type: "say", text: "No eating, drinking or smoking in stations or on trains; no pets; large or bulky luggage may be refused. A carry-on is fine.", link: { text: "Metro guide: stations, fares, hours →", href: "/guides/hcmc-metro/" } } },
+        { id: "up", yaw: 180, pitch: -6, label: "Up to Ben Thanh Market", nav: "gate" }
+      ]
+    },
+
+    opera: {
+      name: "Opera House and Nguyen Hue", nameVi: "Nhà hát Thành phố và phố đi bộ Nguyễn Huệ", bg: "street", yaw: 0,
+      intro: "You come up from Opera House station. The Opera House is in front of you; Nguyen Hue Walking Street is to your left.",
+      objects: [
+        { id: "operahouse", yaw: 0, pitch: 4, label: "Saigon Opera House", draw: { kind: "opera" },
+          act: { type: "say", text: "Looking at it from outside is free; shows are ticketed. It is a few minutes from the station exit.", link: { text: "Nguyen Hue and the Opera House →", href: "/see-and-do/nguyen-hue-walking-street/" } } },
+        { id: "nguyenhue", yaw: -80, pitch: 0, label: "Nguyen Hue Walking Street",
+          act: { type: "say", text: "A wide pedestrian boulevard down to the river, open 24 hours and free. Busiest in the evening, when families come out." } },
+        { id: "walk", yaw: 180, pitch: -6, label: "Walk back to Ben Thanh (about 15 minutes)", nav: "gate", min: 15 }
       ]
     },
 
@@ -190,6 +236,13 @@ window.TRIP = {
       { label: "“Năm chục được không?” (50,000?)", min: 25, goal: "cholon", go: "cholon", skill: { transport: 1, haggle: 1 }, pay: { amount: 50000, to: "Xe ôm driver", vi: "Ok, năm chục.", en: "Okay, 50,000." }, result: "He nods and hands you a helmet." },
       { label: "Accept 60,000", min: 25, goal: "cholon", go: "cholon", skill: { transport: 1 }, pay: { amount: 60000, to: "Xe ôm driver", vi: "Sáu chục nha.", en: "60,000." }, result: "Price agreed before the ride: good." }
     ] },
+
+  // Shown in the end-of-day report when the player's choices make them relevant (affiliate links, same as the site's Plan band)
+  realTrip: [
+    { text: "Get a Vietnam eSIM", href: "https://airalo.tpo.lu/KP1dEp49", when: ["boughtSim", "noData"], why: "Install it before you fly: data the moment you land, no SIM queue." },
+    { text: "Book an airport pickup", href: "https://kiwitaxi.tpo.lu/cz2amFE5", when: ["carRide"], why: "A fixed price agreed in advance; the driver waits in arrivals with your name." },
+    { text: "Book a street-food tour", href: "https://klook.tpo.lu/3S1n2OF8", why: "Order and eat at stalls like today, with a local to guide you." }
+  ],
 
   skills: {
     money: { name: "Money", vi: "Tiền", good: "You know your notes and got a fair rate.", learn: "/guides/arriving-in-saigon/" },

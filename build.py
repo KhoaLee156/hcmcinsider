@@ -1106,8 +1106,8 @@ def try_saigon_page():
     faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in TRY_FAQ]}
     return page("/try-saigon/", "Try Saigon: Practice Your First Day in Ho Chi Minh City | HCMC Insider",
-                "A free browser game for first-time visitors: change money at the real rate, ride the free bus or a ride app, order in Vietnamese, cross the street and bargain at Ben Thanh Market.",
-                body, [bld, faqld])
+                "A free 360° role-play for first-time visitors: change money at the real rate, ride the free bus, a ride app or the metro, order in Vietnamese, cross the street and bargain at Ben Thanh Market.",
+                body, [bld, faqld], og_image=SITE + "/og/try-saigon.jpg")
 
 
 # ---------------------------------------------------------------- knowledge for the "Ask a local" chat (src/worker.js)
@@ -1161,7 +1161,7 @@ def write_knowledge(places, sights, events):
     K.append("# FOOD GUIDES")
     K += ["- %s: %s/guides/%s/ — %s" % (g["nav"], SITE, g["slug"], g["desc"]) for g in GUIDES]
     K.append("")
-    K += ["# TRY SAIGON", "A free practice-day game at %s/try-saigon/: change money at the live rate, airport to city, ordering bánh mì and noodles in Vietnamese, crossing the street, bargaining at Ben Thanh Market, checking a ride app's plate number. No account needed." % SITE, ""]
+    K += ["# TRY SAIGON", "A free practice-day game at %s/try-saigon/: change money at the live rate, airport to city, ordering bánh mì and noodles in Vietnamese, crossing the street, bargaining at Ben Thanh Market, checking a ride app's plate number, riding Metro Line 1 one stop. No account needed." % SITE, ""]
     K += ["# ITINERARY PLANNER", "Visitors can build a 1, 2 or 3-day plan at %s/guides/saigon-itinerary/ and a where-to-stay quiz at %s/guides/where-to-stay-ho-chi-minh-city/#quiz." % (SITE, SITE)]
     for key, day in ITIN_DAYS.items():
         K.append("- %s (%s): %s" % (day["title"], day["area"], day["intro"]))
