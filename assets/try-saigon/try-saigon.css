@@ -228,3 +228,4 @@
   linear-gradient(rgba(40,55,70,.35),rgba(40,55,70,.25));background-size:60px 60px,100% 100%;animation:ts-rain .5s linear infinite}
 @keyframes ts-rain{to{background-position:-12px 60px,0 0}}
 @media (prefers-reduced-motion:reduce){.ts-rain{animation:none}}
+.ts-caption p .small{display:block;margin-top:4px;opacity:.8;font-size:13px}

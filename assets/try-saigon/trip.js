@@ -45,7 +45,7 @@ window.TRIP = {
   scenes: {
     arrivals: {
       name: "Arrivals hall, Tan Son Nhat Terminal 2", nameVi: "Sảnh đến, Ga quốc tế", bg: "terminal", yaw: 0, outdoor: false,
-      intro: "You land at Tan Son Nhat (SGN) on an international flight, so you are in Terminal 2. Drag to look around. Tap people and counters to talk to them.",
+      intro: "You land at Tan Son Nhat (SGN) on an international flight, so you are in Terminal 2. Tap people and counters to talk to them.",
       objects: [
         { id: "exchange", yaw: -35, pitch: -4, label: "Exchange counter", draw: { kind: "counter", sign: "ĐỔI TIỀN", sign2: "Currency exchange", board: ["USD  BUY", "EUR  BUY"], staff: { shirt: "#fdfefe", vest: "#0E6655" } },
           act: { type: "exchange", where: "airport" } },
@@ -227,7 +227,12 @@ window.TRIP = {
             priceNote: "Example prices for a sidewalk stall; cafés charge more.", tip: "A glass of iced tea (trà đá) often comes with your coffee.",
             goal: "coffee", flag: "coffee", min: 45 } },
         { id: "noodles", yaw: 40, pitch: -2, label: "Sidewalk Noodles, 187 Huynh Man Dat", draw: { kind: "noodle", openAfter: 17 * 60 }, from: 17 * 60,
-          closed: { lines: [{ who: "Noodle seller", vi: "Chưa bán em ơi, năm giờ chiều mới bán.", en: "Not open yet, dear. We open at 5 pm." }], text: "Have a coffee and watch the street while you wait." },
+          closed: { type: "choice", lines: [{ who: "Noodle seller", vi: "Chưa bán em ơi, năm giờ chiều mới bán.", en: "Not open yet, dear. We open at 5 pm." }],
+            prompt: "Have a coffee, look at the lanterns, or just wait.",
+            options: [
+              { label: "Wait around here until 5 pm", sub: "The clock jumps to 5:00 pm", until: 17 * 60, result: "You wander the shophouses until the stall lights its stove." },
+              { label: "Come back later", sub: "Do something else first" }
+            ] },
           once: "dinner", done: { lines: [{ who: "Noodle seller", vi: "Mai ghé nữa nha!", en: "Come again tomorrow!" }] },
           act: { type: "order", vendor: "Noodle seller", lines: [{ who: "Noodle seller", vi: "Mấy tô em?", en: "How many bowls?" }],
             text: "A real stall from this site, known for dry hủ tiếu mì with the soup on the side.",
@@ -242,7 +247,13 @@ window.TRIP = {
             bill: true, goal: "dinner", flag: "dinner", min: 40, then: "end" } },
         { id: "gold", yaw: 120, pitch: -2, label: "Jewellery shop (exchange)", draw: { kind: "goldshop" }, act: { type: "exchange", where: "goldshop" } },
         { id: "lanterns", yaw: -130, pitch: 10, label: "Lanterns", draw: { kind: "lanterns" },
-          act: { type: "say", text: "Lantern shops line Luong Nhu Hoc street in Cholon, busiest before the Mid-Autumn Festival.", link: { text: "Lantern Street on this site →", href: "/places/lantern-street-luong-nhu-hoc/" } } }
+          act: { type: "say", text: "Lantern shops line Luong Nhu Hoc street in Cholon, busiest before the Mid-Autumn Festival.", link: { text: "Lantern Street on this site →", href: "/places/lantern-street-luong-nhu-hoc/" } } },
+        { id: "back", yaw: 180, pitch: -6, label: "Bus 1 back to Ben Thanh (free)", draw: { kind: "busstop", sign: "XE BUÝT SỐ 1", sign2: "Bến Thành · Bus stop" },
+          act: { type: "choice", prompt: "Bus 1 goes back to Ben Thanh Market. Wave when it comes.",
+            options: [
+              { label: "Wave at the bus", sub: "Free · about 45 minutes", min: 45, go: "gate", result: "Back at Ben Thanh Market." },
+              { label: "Stay in Cholon", sub: "Keep exploring here" }
+            ] } }
       ]
     }
   },

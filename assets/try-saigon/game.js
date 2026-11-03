@@ -215,7 +215,7 @@
   function caption(t) {
     if (!t || EDIT) return;
     var c = $("#ts-caption"); c.hidden = false;
-    c.innerHTML = '<p>' + esc(t) + '</p><button type="button" class="ts-close" aria-label="Close">✕</button>';
+    c.innerHTML = '<p>' + esc(t) + '<span class="small"> Drag to look around, or tap ☰ for everything here.</span></p><button type="button" class="ts-close" aria-label="Close">✕</button>';
     $("button", c).onclick = function () { c.hidden = true; };
   }
 
@@ -237,6 +237,7 @@
   function apply(a) {
     if (!a) return;
     if (a.min) S.time += a.min;
+    if (a.until && S.time < a.until) S.time = a.until;
     if (a.skill) addSkill(a.skill);
     if (a.flag) [].concat(a.flag).forEach(function (f) { S.flags[f] = true; });
     if (a.goal && !S.goals[a.goal]) { S.goals[a.goal] = true; var g = T.goals.find(function (x) { return x.id === a.goal; }); if (g) toast("✓ " + g.text); }
