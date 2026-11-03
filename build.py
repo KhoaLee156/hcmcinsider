@@ -1091,7 +1091,7 @@ def try_saigon_page():
     body = """<div class="wrap narrow">%s
 <p class="kicker">360° role-play · Before you fly</p>
 <h1>Try Saigon: live your first day before your trip</h1>
-<p class="lead">Stand in the arrivals hall, the street and Ben Thanh Market in 360°. Tap the people and stalls around you to change money at today's rate, order bánh mì in Vietnamese, bargain for a hat, book a ride and cross the street, then eat dinner at a real Cholon noodle stall. Mistakes cost play money, not real money.</p>
+<p class="lead">Stand in the arrivals hall, the street and Ben Thanh Market in 360°. Tap the people and stalls around you to change money at today's rate, order bánh mì in Vietnamese (tap the speaker to hear it), bargain for a hat, book a ride and cross the street, then eat dinner at a real Cholon noodle stall. Mistakes cost play money, not real money.</p>
 <link rel="stylesheet" href="/assets/vendor/pannellum/pannellum.css">
 <link rel="stylesheet" href="%s">
 <div id="ts" class="ts"><noscript><p class="box">Try Saigon needs JavaScript. Meanwhile, read the <a href="/guides/arriving-in-saigon/">airport to city guide</a>.</p></noscript></div>

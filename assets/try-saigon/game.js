@@ -63,6 +63,30 @@
     return '<span class="ts-note n' + d + '"' + (extra || "") + '><b>' + (d >= 1000 ? (d / 1000).toLocaleString("en-US") : d) + '</b><i>000</i></span>';
   }
 
+  /* ---------------------------------------------------------------- listen: Vietnamese text-to-speech */
+  // Uses the device's own Vietnamese voice (speechSynthesis). Every Vietnamese phrase in the dialogue sheet gets a listen button.
+  var TTS = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window, viVoice = null, warned = false;
+  function pickVoice() { if (!TTS) return; var v = speechSynthesis.getVoices(); viVoice = v.find(function (x) { return /^vi/i.test(x.lang); }) || null; }
+  if (TTS) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+  function speak(t) {
+    if (!TTS || !t) return;
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(t); u.lang = "vi-VN"; u.rate = 0.85; if (viVoice) u.voice = viVoice;
+    speechSynthesis.speak(u);
+    if (!viVoice && !warned && speechSynthesis.getVoices().length) { warned = true; toast("Your device has no Vietnamese voice, so this may sound wrong. On iPhone add one in Settings → Accessibility → Spoken Content → Voices."); }
+  }
+  var SPK = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  function speakify(box) {
+    if (!TTS || !box) return;
+    Array.prototype.forEach.call(box.querySelectorAll('[lang="vi"]:not([data-sp])'), function (e) {
+      e.dataset.sp = "1";
+      if (e.closest("button, label, a, .ts-hs") || !e.textContent.trim()) return;
+      var b = document.createElement("button"); b.type = "button"; b.className = "ts-speak"; b.innerHTML = SPK; b.setAttribute("aria-label", "Listen in Vietnamese");
+      b.onclick = function (ev) { ev.stopPropagation(); speak(e.textContent.replace(/[()…]/g, "").trim()); };
+      e.insertAdjacentElement("afterend", b);
+    });
+  }
+
   /* ---------------------------------------------------------------- rate */
   function loadRate() {
     return fetch("/api/rate").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
@@ -96,6 +120,7 @@
           '<button type="button" class="ts-pill ts-fs" data-list aria-label="Everything here, as a list">☰</button>' +
           '<button type="button" class="ts-pill ts-fs" data-fs aria-label="Full screen">⛶</button></div></div>' +
         (EDIT ? '<div class="ts-edit" id="ts-edit"></div>' : '') +
+        '<div class="ts-rain" id="ts-rain" hidden></div>' +
         '<div class="ts-caption" id="ts-caption" hidden></div>' +
         '<section class="ts-sheet" id="ts-sheet" hidden aria-live="polite"><div class="ts-sheet-head"><h3 id="ts-sheet-title"></h3><button type="button" class="ts-close" data-close aria-label="Close">✕</button></div><div class="ts-sheet-body" id="ts-sheet-body"></div></section>' +
       '</div>';
@@ -103,6 +128,7 @@
     $$("[data-panel]").forEach(function (b) { b.onclick = function () { b.dataset.panel === "wallet" ? walletPanel() : todoPanel(); }; });
     $("[data-close]").onclick = closeSheet;
     $("[data-list]").onclick = listPanel;
+    if (TTS && window.MutationObserver) new MutationObserver(function () { speakify($("#ts-sheet-body")); }).observe($("#ts-sheet-body"), { childList: true, subtree: true });
     $("[data-fs]").onclick = function () {
       if (document.fullscreenElement) document.exitFullscreen(); else if (stage.requestFullscreen) stage.requestFullscreen().catch(function () {});
     };
@@ -113,6 +139,7 @@
     var sc = scene(), done = T.goals.filter(function (g) { return S.goals[g.id]; }).length;
     $("#ts-where").innerHTML = '<b>' + esc(sc.name) + '</b><span lang="vi">' + esc(sc.nameVi) + '</span>';
     $("#ts-clock").textContent = clock(S.time);
+    $("#ts-rain").hidden = !(S.rainUntil && S.time < S.rainUntil && T.scenes[S.scene].outdoor !== false);
     $("#ts-purse").innerHTML = '<span>Wallet</span><b>' + vnd(cash()) + '</b>';
     $("#ts-todo").innerHTML = '<span>To do</span><b>' + done + '/' + T.goals.length + '</b>';
     $$(".ts-hs").forEach(function (d) {
@@ -175,7 +202,14 @@
       if (EDIT) editMode();
       setTimeout(function () { fade.classList.remove("on"); }, 1500);
       hud();
-      if (!S.seen[id]) { S.seen[id] = true; save(); caption(sc.intro); }
+      var ev = (T.events || []).find(function (e) {
+        return !S.flags["ev_" + e.id] && e.scenes.indexOf(id) >= 0 && S.time >= (e.from || 0) && S.time < (e.to || 1440) && (!e.needs || S.flags[e.needs]);
+      });
+      if (!S.seen[id]) { S.seen[id] = true; save(); if (!ev) caption(sc.intro); }
+      if (ev) {
+        S.flags["ev_" + ev.id] = true; if (ev.rain) S.rainUntil = S.time + ev.rain; save(); hud();
+        setTimeout(function () { run(ev.act, ev.title); }, 900);
+      }
     });
   }
   function caption(t) {
@@ -212,6 +246,7 @@
     var sc = scene();
     if (a && a.then === "end") return report();
     if (a && a.go) return walk(a.go);
+    hud();
     if (variantOf(sc) !== (stage.dataset.variant || "")) { stage.dataset.variant = variantOf(sc); enter(S.scene, true); }
     if (T.goals.every(function (g) { return S.goals[g.id]; })) report();
   }
@@ -273,6 +308,25 @@
     });
   };
   M.end = function (s, body, done) { report(); };
+  M.breaknote = function (s, body, done) {
+    body.insertAdjacentHTML("beforeend", bubbles(s.lines));
+    if (!S.notes[500000]) {
+      body.insertAdjacentHTML("beforeend", '<p class="ts-text">' + esc(s.noBig) + '</p>');
+      return cont(body, "OK", function () { done({}); });
+    }
+    body.insertAdjacentHTML("beforeend", '<p class="ts-text">' + esc(s.text) + '</p>');
+    var b = el('<div class="ts-acts"><button type="button" class="cta">' + esc(s.label) + '</button><button type="button" class="btn">Not now</button></div>');
+    body.appendChild(b);
+    $(".btn", b).onclick = function () { done({}); };
+    $(".cta", b).onclick = function () {
+      S.notes[500000]--; var back = { 200000: 2, 50000: 1, 20000: 1, 10000: 2 }; // 490,000 in mixed notes
+      addNotes(back); spend(s.what, s.price);
+      body.innerHTML = '<div class="ts-result"><b>' + esc(s.result) + '</b><div class="ts-fan">' +
+        [200000, 50000, 20000, 10000].map(function (d) { return '<span>' + noteHtml(d) + '× ' + back[d] + '</span>'; }).join("") + '</div></div>';
+      apply({ skill: { money: 1 }, min: 5 });
+      cont(body, "Done", function () { done({}); });
+    };
+  };
 
   // "Not enough cash" inside a payment: change money or use an ATM without leaving the payment
   function moneyHelp(box, redraw) {
