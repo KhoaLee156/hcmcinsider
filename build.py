@@ -49,7 +49,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/saigon-itinerary/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
+STATIC_LASTMOD = {"/try-saigon/": "2026-11-03", "/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/saigon-itinerary/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -755,7 +755,7 @@ def arrival_page():
 <h2 class="h2s">Questions visitors ask</h2>%s
 <p class="small">Affiliate links (marked ↗ in the boxes above): same price for you, a small commission for HCMC Insider.</p>
 <p class="small">Last checked: %s. Sources: <a href="https://voh.com.vn/giao-thong/tuyen-xe-buyt-109-doi-lo-trinh-ket-noi-truc-tiep-nha-ga-t3-san-bay-tan-son-nhat-591657.html" target="_blank" rel="noopener">bus 109 to T3, bus 152 to T1/T2 (VOH)</a> · <a href="https://thanhnien.vn/tphcm-mien-phi-134-tuyen-xe-buyt-tu-hom-nay-nhung-dieu-hanh-khach-can-biet-185260630230637782.htm" target="_blank" rel="noopener">free buses (Thanh Nien)</a>. Bus times can change; check at the stop.</p>
-<p><a class="btn" href="/guides/hcmc-metro/">Metro Line 1 guide →</a></p>
+<p><a class="btn" href="/guides/hcmc-metro/">Metro Line 1 guide →</a> <a class="btn" href="/try-saigon/">Practise your first day: Try Saigon →</a></p>
 </div>""" % (bc, visitor_videos_html(load_visitor_videos().get("arriving-in-saigon")), faq, MONTH)
     faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in ARRIVAL_FAQ]}
@@ -1075,6 +1075,41 @@ def itinerary_page(by_slug, sights):
                 body, [bld, faqld])
 
 
+# ---------------------------------------------------------------- Try Saigon practice day (/try-saigon/)
+# The game itself is static: story and prices in assets/try-saigon/trip.js, engine in game.js.
+TRY_FAQ = [
+    ("What is Try Saigon?", "A free practice day in Ho Chi Minh City that runs in your browser. You land at Tan Son Nhat with play money, change it at the real exchange rate, get into the city, order food in Vietnamese, cross a busy street, bargain at Ben Thanh Market and pay with Vietnamese notes."),
+    ("Is the exchange rate real?", "Yes. The game loads the current mid-market rate for US dollars, euros, pounds and Australian dollars. The airport counter and the jewellery shop in the game buy a little below that rate; the exact margins are examples, so compare the boards when you change money for real."),
+    ("Are the prices real?", "Places and fares come from this site's guides: city buses are free until 31 December 2026, and the noodle stall at 187 Huynh Man Dat charges 25,000–35,000 dong a bowl. Prices marked as examples are typical, not quotes."),
+    ("Do I need an account?", "No. Your progress stays in your browser, so you can stop and come back later on the same device."),
+]
+
+
+def try_saigon_page():
+    bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Try Saigon", None)])
+    faq = "".join('<details class="faq"><summary>%s</summary><p>%s</p></details>' % (E(q), E(a)) for q, a in TRY_FAQ)
+    body = """<div class="wrap narrow">%s
+<p class="kicker">Practice day · Before you fly</p>
+<h1>Try Saigon: a practice day before your trip</h1>
+<p class="lead">Play through your first day in Ho Chi Minh City: change money at today's rate, take the free bus or a ride app into town, order bánh mì in Vietnamese, cross the street like a local, bargain at Ben Thanh and pay for dinner at a real Cholon noodle stall. Mistakes cost play money, not real money.</p>
+<link rel="stylesheet" href="/assets/vendor/pannellum/pannellum.css">
+<link rel="stylesheet" href="%s">
+<div id="ts" class="ts"><noscript><p class="box">Try Saigon needs JavaScript. Meanwhile, read the <a href="/guides/arriving-in-saigon/">airport to city guide</a>.</p></noscript></div>
+<h2 class="h2s">Questions visitors ask</h2>%s
+<section><h2 class="h2s">The real guides behind the game</h2><div class="chips"><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/getting-around-hcmc/">Buses</a><a class="chip" href="/guides/hcmc-metro/">Metro</a><a class="chip" href="/see-and-do/ben-thanh-market/">Ben Thanh Market</a><a class="chip" href="/guides/cholon-food-guide/">Cholon food guide</a><a class="chip" href="/guides/saigon-itinerary/">Itinerary planner</a></div></section>
+<script src="/assets/vendor/pannellum/pannellum.js" defer></script>
+<script src="%s" defer></script>
+<script src="%s" defer></script>
+<script src="%s" defer></script>
+</div>""" % (bc, versioned("assets/try-saigon/try-saigon.css"), faq, versioned("assets/try-saigon/scene.js"),
+             versioned("assets/try-saigon/trip.js"), versioned("assets/try-saigon/game.js"))
+    faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in TRY_FAQ]}
+    return page("/try-saigon/", "Try Saigon: Practice Your First Day in Ho Chi Minh City | HCMC Insider",
+                "A free browser game for first-time visitors: change money at the real rate, ride the free bus or a ride app, order in Vietnamese, cross the street and bargain at Ben Thanh Market.",
+                body, [bld, faqld])
+
+
 # ---------------------------------------------------------------- knowledge for the "Ask a local" chat (src/worker.js)
 KNOWLEDGE_PAGES = ["/guides/where-to-stay-ho-chi-minh-city/", "/guides/arriving-in-saigon/", "/guides/hcmc-metro/",
                    "/guides/getting-around-hcmc/"]
@@ -1126,6 +1161,7 @@ def write_knowledge(places, sights, events):
     K.append("# FOOD GUIDES")
     K += ["- %s: %s/guides/%s/ — %s" % (g["nav"], SITE, g["slug"], g["desc"]) for g in GUIDES]
     K.append("")
+    K += ["# TRY SAIGON", "A free practice-day game at %s/try-saigon/: change money at the live rate, airport to city, ordering bánh mì and noodles in Vietnamese, crossing the street, bargaining at Ben Thanh Market, checking a ride app's plate number. No account needed." % SITE, ""]
     K += ["# ITINERARY PLANNER", "Visitors can build a 1, 2 or 3-day plan at %s/guides/saigon-itinerary/ and a where-to-stay quiz at %s/guides/where-to-stay-ho-chi-minh-city/#quiz." % (SITE, SITE)]
     for key, day in ITIN_DAYS.items():
         K.append("- %s (%s): %s" % (day["title"], day["area"], day["intro"]))
@@ -1187,7 +1223,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
-    urls = ["/", "/guides/", "/guides/saigon-itinerary/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
+    urls = ["/", "/guides/", "/try-saigon/", "/guides/saigon-itinerary/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
     thin_list, lastmod = [], {}
 
     sp0 = os.path.join(ROOT, "sights.json")
@@ -1387,6 +1423,7 @@ def main():
     sights = json.load(open(sp, encoding="utf-8"))["sights"] if os.path.exists(sp) else []
     by_slug = {p["slug"]: p for p in places}
     write("/guides/saigon-itinerary/", itinerary_page(by_slug, sights))
+    write("/try-saigon/", try_saigon_page())
     ep = os.path.join(ROOT, "events.json")
     events = json.load(open(ep, encoding="utf-8"))["events"] if os.path.exists(ep) else []
     kn = write_knowledge(places, sights, events)
@@ -1500,6 +1537,7 @@ def main():
     bc, bld = crumbs([("Home", "/"), ("Guides", None)])
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
         g["slug"], E(g["nav"]), E(g["desc"]), len(g["items"])) for g in GUIDES)
+    gl += '<a class="gcard" href="/try-saigon/"><strong>Try Saigon</strong><span>Play a practice first day: change money at the real rate, order in Vietnamese, cross the street, bargain at Ben Thanh.</span><em>Practice day</em></a>'
     gl += '<a class="gcard" href="/guides/saigon-itinerary/"><strong>Itinerary planner</strong><span>1, 2 or 3 days: District 1 on foot, a Cholon food day, Cu Chi or the Mekong, with opening hours.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/where-to-stay-ho-chi-minh-city/"><strong>Where to stay</strong><span>District 1, District 3, Cholon or Thao Dien: a 30-second quiz picks the area for your trip, with the catch for each.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/arriving-in-saigon/"><strong>Airport to city</strong><span>Tan Son Nhat to District 1 by transfer, Grab, taxi or free bus, plus eSIM and cash on arrival.</span><em>Arriving</em></a>'

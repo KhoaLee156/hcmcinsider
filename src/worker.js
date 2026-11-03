@@ -1,6 +1,7 @@
 // Edge logic for hcmcinsider.com: canonical host, legacy .html URLs, security headers.
-// /api/ask is the Ask a local chat (src/ask.js). Everything else is served from static assets.
+// /api/ask is the Ask a local chat (src/ask.js); /api/rate feeds the Try Saigon game (src/rate.js). Everything else is served from static assets.
 import { handleAsk } from './ask.js';
+import { handleRate } from './rate.js';
 const HOST = 'hcmcinsider.com';
 const SECURITY = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -23,6 +24,7 @@ export default {
     }
     const p = url.pathname;
     if (p === '/api/ask') return handleAsk(request, env, ctx);
+    if (p === '/api/rate') return handleRate(request, ctx);
     // The 404 page itself must never answer 200 at /404 or /404.html.
     if (p === '/404' || p === '/404.html') {
       const nf = await env.ASSETS.fetch(new Request(new URL('/this-page-does-not-exist', url), request));

@@ -1,0 +1,174 @@
+/* Try Saigon: practice-day game. Uses the site tokens from assets/page.css (see DESIGN.md). */
+#ts{--note-h:44px;margin:20px 0 8px;position:relative}
+#ts ul{list-style:none;padding:0;margin:0}
+#ts button{font-family:inherit;cursor:pointer}
+#ts button:disabled{opacity:.5;cursor:not-allowed}
+#ts :focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+#ts .cta:disabled{background:var(--muted)}
+#ts [lang="vi"]{font-weight:700}
+#ts h2{font-size:clamp(22px,3vw,30px);line-height:1.15;margin:0;text-wrap:balance}
+
+/* HUD: chapter dots, clock, wallet */
+.ts-hud{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:4;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px;box-shadow:var(--shadow);margin-bottom:14px}
+.ts-dots{display:flex;gap:6px;flex:1;min-width:120px}
+.ts-dots i{flex:1;height:6px;border-radius:99px;background:var(--line);max-width:44px}
+.ts-dots i.done{background:var(--jade)}
+.ts-dots i.now{background:var(--amber)}
+.ts-clock,.ts-purse{display:grid;line-height:1.2;text-align:left}
+.ts-clock .small,.ts-purse .small{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.ts-clock b,.ts-purse b{font-size:17px;font-variant-numeric:tabular-nums}
+.ts-purse{border:1.5px solid var(--amber);background:var(--amber-soft);color:var(--ink);border-radius:12px;padding:6px 12px}
+.ts-purse em{font-style:normal;font-size:12px;color:var(--muted)}
+
+/* Main card */
+.ts-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(18px,3vw,28px);box-shadow:var(--shadow)}
+.ts-card .kicker{margin-top:0}
+.ts-vi{color:var(--muted);margin:2px 0 16px;font-style:italic}
+.ts-vi[lang="vi"]{font-weight:500}
+.ts-body{display:grid;gap:14px}
+.ts-text{margin:0;max-width:68ch;font-size:16.5px}
+.ts-q{font-size:18px;margin:4px 0 0;line-height:1.3}
+.ts-acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px}
+.ts-intro h2{font-size:clamp(26px,4vw,40px)}
+.ts-intro{display:grid;gap:14px}
+
+/* Dialogue */
+.ts-bubble{display:grid;gap:2px;background:var(--sunk);border-radius:4px 16px 16px 16px;padding:12px 16px;max-width:520px}
+.ts-bubble .small{margin:0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.ts-bubble b{font-size:19px}
+.ts-bubble em{color:var(--muted)}
+.ts-bubble.inline{display:inline-grid;margin:6px 0}
+.ts-tip{border-left:5px solid var(--jade);background:var(--jade-soft);border-radius:12px;padding:12px 16px}
+.ts-tip b{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--jade)}
+.ts-tip p{margin:4px 0 0}
+
+/* Choices and results */
+.ts-opts{display:grid;gap:10px}
+.ts-opt{display:grid;gap:2px;text-align:left;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;font-size:16px}
+.ts-opt:hover:not(:disabled){border-color:var(--jade)}
+.ts-opt .small{margin:0}
+.ts-result{border:1.5px solid var(--jade);background:var(--jade-soft);border-radius:12px;padding:14px 16px}
+.ts-result.bad{border-color:var(--c-food);background:color-mix(in srgb,var(--c-food) 10%,var(--surface))}
+.ts-result p{margin:6px 0 0}
+
+/* Money: notes (colours roughly follow the real polymer notes) */
+.ts-note{--c:#888;display:inline-flex;align-items:baseline;gap:1px;height:var(--note-h);min-width:84px;padding:0 10px;align-items:center;justify-content:center;
+  border-radius:6px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 85%,#fff),var(--c));color:#fff;font-variant-numeric:tabular-nums;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.35),0 1px 2px rgba(0,0,0,.2);text-shadow:0 1px 1px rgba(0,0,0,.35)}
+.ts-note b{font-size:17px}
+.ts-note i{font-style:normal;font-size:11px;opacity:.85;margin-left:1px}
+.n500000{--c:#2f7fa3}.n200000{--c:#b5553a}.n100000{--c:#5d8a4b}.n50000{--c:#a3517f}.n20000{--c:#3f6fb6}
+.n10000{--c:#b08c3a}.n5000{--c:#4f6d95}.n2000{--c:#8a7560}.n1000{--c:#8a8d4f}
+.ts-notes{display:grid;gap:8px}
+.ts-notes li{display:flex;align-items:center;gap:12px}
+.ts-notes li .small{margin:0 0 0 auto}
+.ts-fan{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.ts-fan span{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.ts-pay{display:grid;gap:10px}
+.ts-wall,.ts-hand{display:flex;flex-wrap:wrap;gap:8px;min-height:calc(var(--note-h) + 16px);padding:8px;border-radius:12px;border:1.5px dashed var(--line)}
+.ts-hand{border-color:var(--amber);background:var(--amber-soft)}
+.ts-nbtn{display:inline-flex;align-items:center;gap:6px;border:0;background:none;padding:0;color:var(--ink);font-weight:700}
+.ts-nbtn:hover .ts-note{transform:translateY(-2px)}
+.ts-nbtn .ts-note{transition:transform .12s}
+.linkbtn{border:0;background:none;color:var(--jade);font-weight:700;padding:0;text-decoration:underline}
+
+/* Exchange board */
+.ts-board{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:8px;background:#10201b;color:#f7d27a;border-radius:12px;padding:12px;font-variant-numeric:tabular-nums}
+.ts-board div{display:grid}
+.ts-board .small{color:#b9c7c1;margin:0}
+.ts-board b{font-size:18px}
+.ts-amt{border:0;padding:0;margin:0;display:grid;gap:8px}
+.ts-amt legend{font-weight:700;margin-bottom:8px;padding:0}
+.ts-amt .chip{gap:6px;align-items:center;cursor:pointer}
+.ts-amt .chip:has(input:checked){border-color:var(--jade);background:var(--jade-soft)}
+.ts-check{display:flex;gap:8px;align-items:center;font-weight:600}
+.ts-x{display:grid;gap:12px}
+
+/* Ordering */
+.ts-menu{display:grid;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ts-menu li{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--line)}
+.ts-menu li:first-child{border-top:0}
+.ts-menu li>span:first-child{display:grid;min-width:0}
+.ts-menu em{color:var(--muted);font-style:normal;font-size:14px}
+.ts-menu .small{margin:0}
+.ts-qty{display:flex;align-items:center;gap:6px}
+.ts-qty button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:18px;font-weight:700}
+.ts-qty output{min-width:18px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.ts-optchips .chip{cursor:pointer}
+.ts-optchips .chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.ts-say{display:grid;gap:2px;background:var(--amber-soft);border:1.5px solid var(--amber);border-radius:12px;padding:12px 16px}
+.ts-say .small{margin:0;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.05em}
+.ts-say b{font-size:21px;line-height:1.3}
+.ts-say em{color:var(--muted)}
+.ts-total{margin:0;font-weight:700;color:var(--ink)}
+
+/* Ride app mock-up */
+.ts-phone{max-width:340px;border:10px solid var(--ink);border-radius:30px;background:var(--bg);padding:16px;box-shadow:var(--shadow)}
+.ts-app{display:grid;gap:12px}
+.ts-app>.small:first-child{margin:0;font-weight:800;color:var(--jade);text-transform:uppercase;letter-spacing:.06em}
+.ts-route{display:grid;gap:6px;background:var(--surface);border-radius:12px;padding:10px 12px;border:1px solid var(--line)}
+.ts-route span{display:flex;gap:8px;align-items:center;font-size:14px}
+.ts-route i{width:10px;height:10px;border-radius:50%;background:var(--jade);flex:none}
+.ts-route i.b{background:var(--c-food)}
+.ts-ride{display:flex;justify-content:space-between;background:var(--jade-soft);border:1.5px solid var(--jade);border-radius:12px;padding:10px 12px;font-variant-numeric:tabular-nums}
+.ts-paysel{display:flex;gap:14px;font-size:14px;font-weight:600}
+.ts-finding{animation:ts-pulse 1s infinite alternate}
+.ts-driver{display:grid;gap:2px;background:var(--surface);border-radius:12px;padding:10px 12px;border:1px solid var(--line)}
+.ts-plate{display:inline-block;font:700 15px/1 ui-monospace,Menlo,monospace;background:#fff;color:#111;border:2px solid #111;border-radius:6px;padding:6px 8px;letter-spacing:.04em;width:max-content}
+.ts-plate.big{font-size:17px;padding:10px 12px}
+.ts-plates{display:flex;flex-wrap:wrap;gap:8px}
+.ts-going{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.ts-going i{display:block;height:100%;width:30%;background:var(--jade);animation:ts-go 1.6s linear forwards}
+@keyframes ts-go{to{width:100%}}
+@keyframes ts-pulse{to{opacity:.4}}
+
+/* Haggling */
+.ts-haggle{display:grid;gap:12px}
+.ts-item{font-size:18px}
+.ts-chat{display:grid;gap:8px;max-height:260px;overflow:auto;padding:4px}
+.ts-line{display:grid;max-width:80%;background:var(--sunk);border-radius:4px 14px 14px 14px;padding:8px 12px}
+.ts-line.you{justify-self:end;background:var(--jade-soft);border-radius:14px 4px 14px 14px}
+.ts-line em{color:var(--muted);font-size:14px}
+.ts-offer{display:flex;align-items:center;gap:10px}
+.ts-offer output{font-size:22px;font-weight:800;min-width:130px;text-align:center;font-variant-numeric:tabular-nums}
+
+/* 360° */
+.ts-pano{height:min(60vh,440px);border-radius:12px;overflow:hidden;background:#000}
+.ts-pnote{background:var(--sunk);border-radius:12px;padding:12px 16px}
+.ts-pnote p{margin:4px 0 0}
+.ts-hs{width:30px;height:30px;border-radius:50%;background:var(--c-food);border:3px solid #fff;cursor:pointer}
+.ts-hs span{position:absolute;left:50%;top:36px;transform:translateX(-50%);white-space:nowrap;background:rgba(0,0,0,.7);color:#fff;font-size:13px;padding:2px 8px;border-radius:6px;font-weight:600}
+
+/* Street crossing */
+.ts-cross{display:grid;gap:10px;justify-items:start}
+.ts-cross canvas{width:100%;max-width:min(420px,calc((100vh - 260px) * .81));cursor:pointer;height:auto;border-radius:12px;touch-action:none;border:1px solid var(--line)}
+.ts-walk{user-select:none;-webkit-user-select:none;touch-action:none;padding:16px 28px;font-size:17px}
+
+/* Wallet drawer, modal and toast */
+.ts-wallet{position:sticky;top:calc(env(safe-area-inset-top,0px) + 150px);z-index:5;background:var(--surface);border:1.5px solid var(--amber);border-radius:var(--r);padding:16px;margin:0 0 14px;box-shadow:var(--shadow);display:grid;gap:10px}
+.ts-whead{display:flex;justify-content:space-between;align-items:center}
+.ts-whead h3{margin:0}
+.ts-modal{position:fixed;inset:0;z-index:50;background:rgba(10,20,15,.55);display:grid;place-items:center;padding:16px}
+.ts-modal-in{background:var(--surface);color:var(--ink);border-radius:var(--r);padding:20px;max-width:560px;width:100%;max-height:90vh;overflow:auto}
+.ts-toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);z-index:60;max-width:min(520px,calc(100% - 32px));background:var(--ink);color:var(--surface);padding:12px 16px;border-radius:12px;box-shadow:var(--shadow);transition:opacity .5s}
+.ts-toast.out{opacity:0}
+
+/* Report */
+.ts-skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:10px;margin:8px 0 !important}
+.ts-skills li{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:4px}
+.ts-skills .small{margin:0}
+.ts-stars{display:flex;gap:4px}
+.ts-stars i{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.ts-stars i.on{background:var(--amber)}
+.ts-table{overflow-x:auto}
+.ts-table table{border-collapse:collapse;width:100%;font-size:14px}
+.ts-table th,.ts-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.ts-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+@media (max-width:560px){
+  .ts-hud{gap:8px;padding:8px 10px}
+  .ts-dots{order:3;flex-basis:100%}
+  .ts-menu li{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){.ts-finding,.ts-going i{animation:none}.ts-going i{width:100%}}
