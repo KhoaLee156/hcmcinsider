@@ -55,3 +55,11 @@ A chat button on every page answers visitors' questions with Claude (Anthropic),
 - Each visitor can ask 5 questions per minute (`ratelimits` in `wrangler.jsonc`). Set a monthly spend limit in the Anthropic Console as well.
 - Conversations are not stored; they live in the visitor's browser tab (sessionStorage).
 - Local test: put `ANTHROPIC_API_KEY=...` in `.dev.vars` (git-ignored), run `npm install` then `npx wrangler dev --local-protocol https`.
+
+## Try Saigon (practice-day game)
+`/try-saigon/` is a browser game for first-time visitors: land at Tan Son Nhat with play money, change it at the live rate, get into the city (free bus 152, ride app, metered taxi or the tout), order bánh mì and coffee in Vietnamese, cross the street, look around Ben Thanh Market in 360°, bargain for a conical hat, check a ride app's plate number and pay for dinner at Sidewalk Noodles, 187 Huynh Man Dat. It ends with a skills report and links to the real guides.
+- `assets/try-saigon/trip.js` — **the story**: chapters, times, prices, phrases, menus, hotspots. Edit this to change the day; prices marked "example" are typical, not quotes.
+- `assets/try-saigon/game.js` — the engine (wallet with real note denominations, exchange, ordering, paying and change, haggling, ride app, street-crossing game, report). Progress is kept in the visitor's browser (`localStorage`, key `ts_state_v1`).
+- `assets/try-saigon/scene.js` — paints the 360° illustration of Ben Thanh. To use a real 360° photo instead, put a 2:1 equirectangular JPG in `assets/photos/` and add `pano: "/assets/photos/ben-thanh-360.jpg"` to the `pano` step in `trip.js`.
+- `src/rate.js` — `GET /api/rate`: mid-market dong rates for USD, EUR, GBP and AUD from ExchangeRate-API's free endpoint, cached 6 hours at the edge. If it fails, the game uses `fallbackRate` in `trip.js` and says so.
+- `build.py` writes the page shell (`try_saigon_page()`, FAQ in `TRY_FAQ`) and links it from the Guides index, the airport guide and the chat knowledge.
