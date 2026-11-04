@@ -18,7 +18,7 @@ Guide topics and their intro text live in the `GUIDES` list in `build.py`. Dish 
 
 `tips.json` holds "Local tips" per place id (hours, price, what to order, notes, more precise address), taken only from what creators state in their video descriptions, with the creator names as source. It is separate from `data.json` so weekly updates never overwrite it.
 
-Share images: `build.py` writes `og/cards.json`; then `node tools/og-cards.js` (needs `npm i playwright @fontsource/be-vietnam-pro`) renders `og/<slug>.jpg`; run `build.py` again so pages point to them.
+Share images: `build.py` writes `og/cards.json`; then `node tools/og-cards.cjs` (needs `npm i playwright @fontsource/be-vietnam-pro`) renders `og/<slug>.jpg`; run `build.py` again so pages point to them.
 
 ## Speed notes (Oct 2026)
 - No third-party requests before first paint: fonts are self-hosted (`assets/fonts/`, @font-face is inlined in `index.html` and at the top of `assets/page.css`), Leaflet is self-hosted in `assets/vendor/leaflet/` and only loaded when the map nears the screen.

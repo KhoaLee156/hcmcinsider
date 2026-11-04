@@ -1349,7 +1349,7 @@ def main():
     write("/saved/", page("/saved/", "Saved Places | HCMC Insider", "Your saved places in Ho Chi Minh City, with Vietnamese names and addresses to show your driver, available offline.",
                           body, [bld], robots="noindex,follow"))
 
-    # ---- share-card data for tools/og-cards.js
+    # ---- share-card data for tools/og-cards.cjs
     os.makedirs(os.path.join(ROOT, "og"), exist_ok=True)
     cards = [{"slug": p["slug"], "name": p["_name"], "vn": p["name"], "dish": p["_dish"], "area": p["_area"], "cat": p["cat"],
               "hours": (TIPS.get(p["id"]) or {}).get("hours", ""), "price": (TIPS.get(p["id"]) or {}).get("price", "")} for p in places]

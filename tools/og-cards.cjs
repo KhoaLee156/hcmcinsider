@@ -1,5 +1,5 @@
 // Renders one 1200x630 share image per place into og/<slug>.jpg from og/cards.json (written by build.py).
-// Needs: npm i playwright @fontsource/be-vietnam-pro   Run: node tools/og-cards.js
+// Needs: npm i playwright @fontsource/be-vietnam-pro   Run: node tools/og-cards.cjs
 const fs = require('fs'), path = require('path');
 const { chromium } = require('playwright');
 const ROOT = path.resolve(__dirname, '..');
