@@ -478,7 +478,27 @@ AFF = [("Get a Vietnam eSIM", "https://airalo.tpo.lu/KP1dEp49"),
        ("Mekong day trips", "https://klook.tpo.lu/XBZFKNfm")]
 
 
+def seo_title(title):
+    """Search results show about 60 characters; drop the brand suffix rather than let Google cut the place name."""
+    if len(title) > 60 and title.endswith(" | HCMC Insider"):
+        return title[:-len(" | HCMC Insider")]
+    return title
+
+
+def seo_desc(desc, limit=160):
+    """Keep meta descriptions inside the snippet: end on a full sentence if one fits, else on a word."""
+    desc = " ".join(desc.split())
+    if len(desc) <= limit:
+        return desc
+    cut = desc[:limit]
+    end = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
+    if end >= 70:
+        return cut[:end + 1]
+    return cut[:cut.rfind(" ")].rstrip(",;:–-") + "…"
+
+
 def page(path, title, desc, body, jsonld=(), og_image=None, robots=None):
+    title, desc = seo_title(title), seo_desc(desc)
     url = SITE + path
     ld = "".join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in jsonld)
     nav = ('<header class="nav"><div class="wrap"><a class="logo" href="/" aria-label="HCMC Insider home">%s<span>HCMC <b>Insider</b></span></a>'
@@ -1089,7 +1109,7 @@ TRY_FAQ = [
 # A playable comic of the same first day. Its own look (comic paper, Bangers), so it does not use page()'s shell;
 # the art and the 24 moments live in assets/try-saigon/comic.js.
 COMIC_DESC = ("A free comic you play: follow a traveller through a first day in Ho Chi Minh City and choose what happens, "
-              "from changing money at the airport to bargaining at Ben Thanh and catching the bus to Cholon. Hear the Vietnamese on every page.")
+              "from the airport to Ben Thanh Market and Cholon.")
 
 
 def comic_page():
@@ -1130,7 +1150,7 @@ def comic_page():
 <script src="{js}" defer></script>
 </body>
 </html>
-""".format(title=E(title), desc=E(COMIC_DESC), url=SITE + path, site=SITE, css=versioned("assets/try-saigon/comic.css"),
+""".format(title=E(title), desc=E(seo_desc(COMIC_DESC)), url=SITE + path, site=SITE, css=versioned("assets/try-saigon/comic.css"),
            js=versioned("assets/try-saigon/comic.js"), ld=ld, logo=logo_svg(30), bc=bc)
 
 
@@ -1283,7 +1303,7 @@ def main():
     for p in places:
         name, dish, area = p["_name"], p["_dish"], p["_area"]
         g0 = p["_guides"][0] if p["_guides"] else None
-        bc_items = [("Home", "/")] + ([(g0["nav"], "/guides/%s/" % g0["slug"])] if g0 else []) + [(name, None)]
+        bc_items = [("Home", "/")] + ([(g0["nav"], "/guides/%s/" % g0["slug"])] if g0 else [("All places", "/places/")]) + [(name, None)]
         bc, bld = crumbs(bc_items)
         vl = ""
         for v in p["_vids"]:
