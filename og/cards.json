@@ -730,6 +730,26 @@
   "price": ""
  },
  {
+  "slug": "cantonese-noodles-at-22-yersin",
+  "name": "Cantonese Noodles at 22 Yersin",
+  "vn": "Hủ tiếu mì người Hoa 22 Yersin",
+  "dish": "Egg noodles & wontons",
+  "area": "District 1",
+  "cat": "food",
+  "hours": "6am – noon",
+  "price": "From 40,000 dong"
+ },
+ {
+  "slug": "kit-ha-beef-stew",
+  "name": "Kit Ha Beef Stew",
+  "vn": "Bò Kho Quán Kit Hà",
+  "dish": "Eat",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "6am – 7pm",
+  "price": ""
+ },
+ {
   "slug": "sight-cu-chi-tunnels",
   "name": "Cu Chi Tunnels",
   "vn": "Địa đạo Củ Chi",
