@@ -19,6 +19,11 @@ Every place page gives the English and Vietnamese name, address, directions, loc
 - [Ho Chi Minh City metro guide](https://hcmcinsider.com/guides/hcmc-metro/): Metro Line 1 stations, fares, opening hours and paying with a foreign bank card.
 - [Getting around Ho Chi Minh City](https://hcmcinsider.com/guides/getting-around-hcmc/): free city buses in 2026 and how to tap in, airport buses 109 and 152, buses to Cholon and Cu Chi, Saigon river bus.
 
+## Practise your first day
+
+- [Try Saigon](https://hcmcinsider.com/try-saigon/): a free 360° role-play of a first day: change play money at the live exchange rate, ride from the airport, order bánh mì and noodles in Vietnamese, cross the street, bargain at Ben Thanh Market, ride Metro Line 1 and the free bus to Cholon.
+- [One Day in Saigon](https://hcmcinsider.com/try-saigon/comic/): the same first day as a 24-page comic where the reader chooses what to do, with the Vietnamese phrase for each situation.
+
 ## Places
 
 - [Hoa Ma Banh Mi (Bánh mì Hòa Mã)](https://hcmcinsider.com/places/hoa-ma-banh-mi/): Banh mi, District 3. Breakfast bánh mì shop at the head of an alley on Cao Thang, which Mark Wiens called the best breakfast he ate in Saigon.
@@ -117,7 +122,13 @@ Every place page gives the English and Vietnamese name, address, directions, loc
 - [Thien Hau Temple (Tue Thanh Assembly Hall) (Chùa Bà Thiên Hậu · Hội quán Tuệ Thành)](https://hcmcinsider.com/see-and-do/thien-hau-temple-cholon/): Yes, it is one of the most atmospheric temples in Cholon. The Cantonese community's assembly hall honours Thiên Hậu, goddess of the sea, and is known for its ceramic roof figures and giant hanging incense coils. Open daily about 6:30 am to 4:30 pm.
 - [Binh Tay Market (Chợ Bình Tây)](https://hcmcinsider.com/see-and-do/binh-tay-market/): Yes, it is Cholon's grand old market and far more local than Ben Thanh. Come in the morning for the wholesale bustle and breakfast stalls, or in the evening for the Cholon night street of food stalls around the market (daily 6 pm to midnight).
 
+## Stories
+
+- [Bún bò Phú Bình: a gentle bowl of Hue beef noodles](https://hcmcinsider.com/stories/bun-bo-phu-binh-hue-beef-noodles/): A morning-only Hue-style beef noodle shop in Phú Bình with a clean, sweet, spicy broth that is easy on first-timers. 50,000 dong a bowl.
+- [Hỷ Ký: chicken noodles with xá kén in Phú Bình](https://hcmcinsider.com/stories/hy-ky-chicken-noodles-phu-binh/): A morning-only chicken noodle shop in a Phú Bình alley, where the dipping bowl of xá kén is the real star. 50,000 dong a bowl.
+
 ## Optional
 
+- [All facts in one file](https://hcmcinsider.com/llms-full.txt): every place with address, hours, prices and tips, plus the transport guides, as plain text
 - [All guides](https://hcmcinsider.com/guides/)
 - [Privacy](https://hcmcinsider.com/privacy)
