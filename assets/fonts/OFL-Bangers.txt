@@ -1,0 +1,4 @@
+Bangers
+Copyright 2010 Vernon Adams, with Reserved Font Name Bangers.
+Licensed under the SIL Open Font License, Version 1.1 (full text in OFL.txt).
+Files: bangers-latin-400-normal.woff2, bangers-vietnamese-400-normal.woff2 (from Google Fonts).

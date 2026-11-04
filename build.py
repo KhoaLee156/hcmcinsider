@@ -49,7 +49,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/try-saigon/": "2026-11-03", "/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/saigon-itinerary/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
+STATIC_LASTMOD = {"/try-saigon/": "2026-11-04", "/try-saigon/comic/": "2026-11-04", "/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/saigon-itinerary/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -1085,6 +1085,55 @@ TRY_FAQ = [
 ]
 
 
+# ---------------------------------------------------------------- One Day in Saigon comic (/try-saigon/comic/)
+# A playable comic of the same first day. Its own look (comic paper, Bangers), so it does not use page()'s shell;
+# the art and the 24 moments live in assets/try-saigon/comic.js.
+COMIC_DESC = ("A free comic you play: follow a traveller through a first day in Ho Chi Minh City and choose what happens, "
+              "from changing money at the airport to bargaining at Ben Thanh and catching the bus to Cholon. Hear the Vietnamese on every page.")
+
+
+def comic_page():
+    path = "/try-saigon/comic/"
+    title = "One Day in Saigon: A Comic You Play | HCMC Insider"
+    bc, bld = crumbs([("Home", "/"), ("Try Saigon", "/try-saigon/"), ("Comic", None)])
+    game = {"@context": "https://schema.org", "@type": "Game", "name": "One Day in Saigon", "url": SITE + path,
+            "description": COMIC_DESC, "inLanguage": "en", "isAccessibleForFree": True,
+            "publisher": {"@type": "Organization", "name": "HCMC Insider", "url": SITE}}
+    ld = "".join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in (bld, game))
+    return """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{url}">
+<meta property="og:title" content="One Day in Saigon: a comic you play">
+<meta property="og:description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{site}/og/saigon-comic.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@HCMCInsider">
+<meta name="theme-color" content="#FFF8EC">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="{css}">
+{ld}</head>
+<body>
+<header class="sitebar"><a href="/" aria-label="HCMC Insider home">{logo}<span>HCMC <b>Insider</b></span></a><a class="alt" href="/try-saigon/">Play it in 360°</a></header>
+<main class="wrap" id="app"><h1 class="title">One day in <span>Saigon</span></h1><noscript><p class="lead">This comic needs JavaScript. Meanwhile, read the <a href="/guides/arriving-in-saigon/">airport to city guide</a>.</p></noscript></main>
+<footer class="sitefoot">{bc}<p>Drawn and written by HCMC Insider, an independent guide to Ho Chi Minh City by locals. Prices marked as examples are typical, not quotes. <a href="/guides/">All guides</a> · <a href="/privacy">Privacy</a> · <a href="mailto:hello@hcmcinsider.com">hello@hcmcinsider.com</a></p></footer>
+<script src="{js}" defer></script>
+</body>
+</html>
+""".format(title=E(title), desc=E(COMIC_DESC), url=SITE + path, site=SITE, css=versioned("assets/try-saigon/comic.css"),
+           js=versioned("assets/try-saigon/comic.js"), ld=ld, logo=logo_svg(30), bc=bc)
+
+
 def try_saigon_page():
     bc, bld = crumbs([("Home", "/"), ("Guides", "/guides/"), ("Try Saigon", None)])
     faq = "".join('<details class="faq"><summary>%s</summary><p>%s</p></details>' % (E(q), E(a)) for q, a in TRY_FAQ)
@@ -1095,6 +1144,7 @@ def try_saigon_page():
 <link rel="stylesheet" href="/assets/vendor/pannellum/pannellum.css">
 <link rel="stylesheet" href="%s">
 <div id="ts" class="ts"><noscript><p class="box">Try Saigon needs JavaScript. Meanwhile, read the <a href="/guides/arriving-in-saigon/">airport to city guide</a>.</p></noscript></div>
+<p><a class="btn" href="/try-saigon/comic/">Short on time? Read the same day as a comic you play →</a></p>
 <h2 class="h2s">Questions visitors ask</h2>%s
 <section><h2 class="h2s">The real guides behind the game</h2><div class="chips"><a class="chip" href="/guides/arriving-in-saigon/">Airport to city</a><a class="chip" href="/guides/getting-around-hcmc/">Buses</a><a class="chip" href="/guides/hcmc-metro/">Metro</a><a class="chip" href="/see-and-do/ben-thanh-market/">Ben Thanh Market</a><a class="chip" href="/guides/cholon-food-guide/">Cholon food guide</a><a class="chip" href="/guides/saigon-itinerary/">Itinerary planner</a></div></section>
 <script src="/assets/vendor/pannellum/pannellum.js" defer></script>
@@ -1161,7 +1211,8 @@ def write_knowledge(places, sights, events):
     K.append("# FOOD GUIDES")
     K += ["- %s: %s/guides/%s/ — %s" % (g["nav"], SITE, g["slug"], g["desc"]) for g in GUIDES]
     K.append("")
-    K += ["# TRY SAIGON", "A free practice-day game at %s/try-saigon/: change money at the live rate, airport to city, ordering bánh mì and noodles in Vietnamese, crossing the street, bargaining at Ben Thanh Market, checking a ride app's plate number, riding Metro Line 1 one stop. No account needed." % SITE, ""]
+    K += ["# TRY SAIGON", "A free practice-day game at %s/try-saigon/: change money at the live rate, airport to city, ordering bánh mì and noodles in Vietnamese, crossing the street, bargaining at Ben Thanh Market, checking a ride app's plate number, riding Metro Line 1 one stop. No account needed." % SITE,
+          "Also One Day in Saigon at %s/try-saigon/comic/: the same first day as a 24-page comic where the reader picks what to do, with Vietnamese phrases to hear." % SITE, ""]
     K += ["# ITINERARY PLANNER", "Visitors can build a 1, 2 or 3-day plan at %s/guides/saigon-itinerary/ and a where-to-stay quiz at %s/guides/where-to-stay-ho-chi-minh-city/#quiz." % (SITE, SITE)]
     for key, day in ITIN_DAYS.items():
         K.append("- %s (%s): %s" % (day["title"], day["area"], day["intro"]))
@@ -1223,7 +1274,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
-    urls = ["/", "/guides/", "/try-saigon/", "/guides/saigon-itinerary/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
+    urls = ["/", "/guides/", "/try-saigon/", "/try-saigon/comic/", "/guides/saigon-itinerary/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
     thin_list, lastmod = [], {}
 
     sp0 = os.path.join(ROOT, "sights.json")
@@ -1424,6 +1475,7 @@ def main():
     by_slug = {p["slug"]: p for p in places}
     write("/guides/saigon-itinerary/", itinerary_page(by_slug, sights))
     write("/try-saigon/", try_saigon_page())
+    write("/try-saigon/comic/", comic_page())
     ep = os.path.join(ROOT, "events.json")
     events = json.load(open(ep, encoding="utf-8"))["events"] if os.path.exists(ep) else []
     kn = write_knowledge(places, sights, events)
@@ -1538,6 +1590,7 @@ def main():
     gl = "".join('<a class="gcard" href="/guides/%s/"><strong>%s</strong><span>%s</span><em>%d places</em></a>' % (
         g["slug"], E(g["nav"]), E(g["desc"]), len(g["items"])) for g in GUIDES)
     gl += '<a class="gcard" href="/try-saigon/"><strong>Try Saigon</strong><span>Play a practice first day: change money at the real rate, order in Vietnamese, cross the street, bargain at Ben Thanh.</span><em>Practice day</em></a>'
+    gl += '<a class="gcard" href="/try-saigon/comic/"><strong>One Day in Saigon (comic)</strong><span>A comic you play: choose what the traveller does at the airport, the market, the noodle stall. About 8 minutes.</span><em>Comic</em></a>'
     gl += '<a class="gcard" href="/guides/saigon-itinerary/"><strong>Itinerary planner</strong><span>1, 2 or 3 days: District 1 on foot, a Cholon food day, Cu Chi or the Mekong, with opening hours.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/where-to-stay-ho-chi-minh-city/"><strong>Where to stay</strong><span>District 1, District 3, Cholon or Thao Dien: a 30-second quiz picks the area for your trip, with the catch for each.</span><em>Planning</em></a>'
     gl += '<a class="gcard" href="/guides/arriving-in-saigon/"><strong>Airport to city</strong><span>Tan Son Nhat to District 1 by transfer, Grab, taxi or free bus, plus eSIM and cash on arrival.</span><em>Arriving</em></a>'
@@ -1567,7 +1620,7 @@ def main():
     idx_path = os.path.join(ROOT, "index.html")
     src = open(idx_path, encoding="utf-8").read()
     dir_html = ('<div id="root"><!--DIR--><nav class="wrap" aria-label="Directory"><h1>HCMC Insider: Ho Chi Minh City food, sights and local tips</h1><p>HCMC Insider is an independent English guide to Ho Chi Minh City (Saigon) by locals. It lists NPLACES food spots, markets and sights, mostly in Cholon (Saigon Chinatown), each with its Vietnamese name, address, directions and links to local creators\' videos, plus practical guides to the metro, free city buses and the airport bus.</p>'
-                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2><a href="/events/">Festivals and events</a></h2><ul>EVENTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/arriving-in-saigon/">Airport to city: transfers, Grab, taxi and bus</a></li><li><a href="/try-saigon/">Try Saigon: practise your first day (browser game)</a></li><li><a href="/guides/saigon-itinerary/">Saigon itinerary planner: 1, 2 or 3 days</a></li><li><a href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay in Ho Chi Minh City</a></li><li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
+                '<h2>See and do</h2><ul>SIGHTLIST</ul><h2><a href="/events/">Festivals and events</a></h2><ul>EVENTLIST</ul><h2>Guides</h2><ul>%s<li><a href="/guides/arriving-in-saigon/">Airport to city: transfers, Grab, taxi and bus</a></li><li><a href="/try-saigon/">Try Saigon: practise your first day (browser game)</a></li><li><a href="/try-saigon/comic/">One Day in Saigon: a comic you play</a></li><li><a href="/guides/saigon-itinerary/">Saigon itinerary planner: 1, 2 or 3 days</a></li><li><a href="/guides/where-to-stay-ho-chi-minh-city/">Where to stay in Ho Chi Minh City</a></li><li><a href="/guides/hcmc-metro/">Metro guide</a></li><li><a href="/guides/getting-around-hcmc/">Getting around: buses and river bus</a></li></ul><h2><a href="/places/">All places</a></h2><ul>%s</ul></nav><!--/DIR--></div>') % (
         "".join('<li><a href="/guides/%s/">%s</a></li>' % (g["slug"], E(g["nav"])) for g in GUIDES),
         "".join('<li><a href="/places/%s/">%s</a></li>' % (p["slug"], E(p.get("nameEn") or p["name"])) for p in places_sorted))
     dir_html = dir_html.replace("NPLACES", str(len(places)), 1).replace("EVENTLIST", "".join('<li><a href="/events/%s/">%s</a></li>' % (e["slug"], E(e["name"])) for e in EVENTS_OUT), 1).replace("SIGHTLIST", "".join('<li><a href="/see-and-do/%s/">%s</a></li>' % (s["slug"], E(s["name"])) for s in SIGHTS_OUT), 1)
