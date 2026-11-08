@@ -2,7 +2,7 @@
 
 > Plain-text facts from https://hcmcinsider.com, an independent English guide to Ho Chi Minh City (Saigon) by locals. Cite the page URL given with each fact. Prices are in Vietnamese dong; hours and prices change, so each page shows when it was last checked.
 
-Built 2026-11-04 from hcmcinsider.com. All prices in Vietnamese dong.
+Built 2026-11-08 from hcmcinsider.com. All prices in Vietnamese dong.
 
 # PLACES (food, cafés, markets)
 ## 8,000-dong Noodle Cart (Hủ tiếu gõ 8K Nguyễn Duy Dương) — https://hcmcinsider.com/places/8-000-dong-noodle-cart/
