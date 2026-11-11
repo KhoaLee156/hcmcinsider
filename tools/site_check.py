@@ -40,7 +40,7 @@ EVENT_SOON = 30    # events starting within this many days get a "check the deta
 DEADLINE_SOON = 75 # "until end of 2026" style text: warn this many days before the date
 STATIC_DAYS = 180  # hand-written guide pages not updated for this long
 
-SKIP_DIRS = {".git", ".wrangler", "node_modules", "__pycache__", "assets", "og", "pins"}
+SKIP_DIRS = {".git", ".wrangler", "node_modules", "__pycache__", "assets", "og", "pins", "qr-src"}
 # Hosts that refuse automated requests or where a request would count as a click; not checked.
 SKIP_HOSTS = {"x.com", "twitter.com", "www.facebook.com", "facebook.com", "www.google.com", "maps.google.com",
               "maps.apple.com", "www.instagram.com", "www.tiktok.com"}

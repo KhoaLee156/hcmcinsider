@@ -1,0 +1,14 @@
+{
+ "name": "Free QR Code Maker · HCMC Insider",
+ "short_name": "Free QR",
+ "description": "Make QR codes for free with no ads: links, Wi‑Fi, VietQR bank transfers, contacts. Codes never expire.",
+ "start_url": "/qr/",
+ "scope": "/qr/",
+ "display": "standalone",
+ "background_color": "#F5F7F6",
+ "theme_color": "#0E6655",
+ "icons": [
+  {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+  {"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any"}
+ ]
+}
