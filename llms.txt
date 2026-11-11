@@ -24,6 +24,10 @@ Every place page gives the English and Vietnamese name, address, directions, loc
 - [Try Saigon](https://hcmcinsider.com/try-saigon/): a free 360° role-play of a first day: change play money at the live exchange rate, ride from the airport, order bánh mì and noodles in Vietnamese, cross the street, bargain at Ben Thanh Market, ride Metro Line 1 and the free bus to Cholon.
 - [One Day in Saigon](https://hcmcinsider.com/try-saigon/comic/): the same first day as a 24-page comic where the reader chooses what to do, with the Vietnamese phrase for each situation.
 
+## Tools
+
+- [Free QR code maker](https://hcmcinsider.com/qr/): make QR codes with no ads and no sign-up: links, Wi-Fi, VietQR bank transfers for any Vietnamese bank, contacts, email, phone and SMS; colors, logo, PNG download; scan codes with the camera. English and Vietnamese.
+
 ## Places
 
 - [Hoa Ma Banh Mi (Bánh mì Hòa Mã)](https://hcmcinsider.com/places/hoa-ma-banh-mi/): Banh mi, District 3. Breakfast bánh mì shop at the head of an alley on Cao Thang, which Mark Wiens called the best breakfast he ate in Saigon.

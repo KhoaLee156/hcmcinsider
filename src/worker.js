@@ -1,5 +1,6 @@
 // Edge logic for hcmcinsider.com: canonical host, legacy .html URLs, security headers.
 // /api/ask is the Ask a local chat (src/ask.js); /api/rate feeds the Try Saigon game (src/rate.js). Everything else is served from static assets.
+// /qr/ is the free QR code maker (built from a separate Expo app into qr/; see README).
 import { handleAsk } from './ask.js';
 import { handleRate } from './rate.js';
 const HOST = 'hcmcinsider.com';
@@ -35,6 +36,8 @@ export default {
     const res = await env.ASSETS.fetch(request);
     const out = new Response(res.body, res);
     for (const [k, v] of Object.entries(SECURITY)) out.headers.set(k, v);
+    // The QR code maker (/qr/) scans codes with the camera; every other page keeps the camera off.
+    if (p === '/qr/' || p.startsWith('/qr/')) out.headers.set('Permissions-Policy', 'camera=(self), microphone=(), geolocation=(self)');
     // Data and text files are for the app and AI tools, not for search results.
     if (/\.(json|txt|csv)$/.test(p) && p !== '/robots.txt') out.headers.set('X-Robots-Tag', 'noindex');
     if (/^\/(og|assets)\//.test(p) || /\.(png|jpg|svg|woff2)$/.test(p)) out.headers.set('Cache-Control', 'public, max-age=604800');

@@ -68,3 +68,10 @@ A chat button on every page answers visitors' questions with Claude (Anthropic),
 - `assets/try-saigon/game.js` — the engine (viewer, hotspots, sheet, wallet, all activities). Progress is kept in the visitor's browser (`localStorage`, key `ts_state_v1`).
 - `src/rate.js` — `GET /api/rate`: mid-market dong rates for USD, EUR, GBP and AUD from ExchangeRate-API's free endpoint, cached 6 hours at the edge. If it fails, the game uses `fallbackRate` in `trip.js` and says so.
 - `build.py` writes the page shell (`try_saigon_page()`, FAQ in `TRY_FAQ`) and links it from the nav, the homepage banner, the Guides index, the airport guide and the chat knowledge.
+
+## Free QR code maker (/qr/)
+`/qr/` is a free, ad-free QR code maker (English + Vietnamese): links, Wi‑Fi, VietQR bank transfers, contacts, email, phone, SMS; colors, logo, PNG download; camera scanning. It is an Expo (React Native) app whose source lives in `qr-src/` (not served: listed in `.assetsignore`). The same source can later be built as Android/iOS apps.
+- Rebuild after changing the app: `cd qr-src && npm install && scripts/build-web.sh` (writes `qr/index.html`, `qr/js/`, `qr/manifest.webmanifest`).
+- Page title, description and the text shown before the app starts: `qr-src/web/index.html`. App text in both languages: `qr-src/src/i18n.tsx`.
+- `src/worker.js` allows the camera only under `/qr/`; every other page keeps `camera=()`.
+- Language: follows the browser; `?lang=vi` or `?lang=en` forces one (useful for links shared in Vietnamese groups: `https://hcmcinsider.com/qr/?lang=vi`).

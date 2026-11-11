@@ -49,7 +49,7 @@ def dish_rules():
 
 
 # Update these dates when you edit the hand-written pages.
-STATIC_LASTMOD = {"/try-saigon/": "2026-11-04", "/try-saigon/comic/": "2026-11-04", "/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/saigon-itinerary/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-10-31"}
+STATIC_LASTMOD = {"/try-saigon/": "2026-11-04", "/try-saigon/comic/": "2026-11-04", "/guides/where-to-stay-ho-chi-minh-city/": "2026-10-31", "/guides/saigon-itinerary/": "2026-10-31", "/guides/arriving-in-saigon/": "2026-10-30", "/guides/hcmc-metro/": "2026-10-22", "/guides/getting-around-hcmc/": "2026-10-23", "/privacy": "2026-11-11", "/qr/": "2026-11-11"}
 THIN = 4  # pages scoring below this get noindex until they have more data
 CATS = {"food": "Eat", "cafe": "Coffee & tea", "shop": "Markets", "culture": "Culture", "stay": "Stay", "other": "Other"}
 SCHEMA_TYPE = {"food": "Restaurant", "cafe": "CafeOrCoffeeShop", "shop": "TouristAttraction",
@@ -538,7 +538,7 @@ def page(path, title, desc, body, jsonld=(), og_image=None, robots=None, modifie
             '<p>An independent guide to Ho Chi Minh City by locals. Videos belong to their creators; we only link to the original platforms. '
             'Places are suggestions, not endorsements: check opening hours before you go. '
             '<a href="mailto:hello@hcmcinsider.com">hello@hcmcinsider.com</a> · '
-            '<a href="https://x.com/HCMCInsider" target="_blank" rel="noopener me">X</a> · <a href="https://www.facebook.com/share/1JL6tXwJwd/" target="_blank" rel="noopener me">Facebook</a> · <a href="/privacy">Privacy</a> · '
+            '<a href="https://x.com/HCMCInsider" target="_blank" rel="noopener me">X</a> · <a href="https://www.facebook.com/share/1JL6tXwJwd/" target="_blank" rel="noopener me">Facebook</a> · <a href="/qr/">Free QR code maker</a> · <a href="/privacy">Privacy</a> · '
             '<a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms</a></p></div></footer>') % logo_svg(28)
     return """<!doctype html>
 <html lang="en">
@@ -1325,7 +1325,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(text)
 
-    urls = ["/", "/guides/", "/try-saigon/", "/try-saigon/comic/", "/guides/saigon-itinerary/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
+    urls = ["/", "/guides/", "/qr/", "/try-saigon/", "/try-saigon/comic/", "/guides/saigon-itinerary/", "/guides/arriving-in-saigon/", "/guides/where-to-stay-ho-chi-minh-city/", "/guides/hcmc-metro/", "/guides/getting-around-hcmc/"]
     thin_list, lastmod = [], {}
 
     sp0 = os.path.join(ROOT, "sights.json")
@@ -1718,6 +1718,8 @@ def main():
           "", "## Practise your first day", "",
           "- [Try Saigon](%s/try-saigon/): a free 360° role-play of a first day: change play money at the live exchange rate, ride from the airport, order bánh mì and noodles in Vietnamese, cross the street, bargain at Ben Thanh Market, ride Metro Line 1 and the free bus to Cholon." % SITE,
           "- [One Day in Saigon](%s/try-saigon/comic/): the same first day as a 24-page comic where the reader chooses what to do, with the Vietnamese phrase for each situation." % SITE,
+          "", "## Tools", "",
+          "- [Free QR code maker](%s/qr/): make QR codes with no ads and no sign-up: links, Wi-Fi, VietQR bank transfers for any Vietnamese bank, contacts, email, phone and SMS; colors, logo, PNG download; scan codes with the camera. English and Vietnamese." % SITE,
           "", "## Places", ""]
     for p in places_sorted:
         if p["slug"] in thin_list:
