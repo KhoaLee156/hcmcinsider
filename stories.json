@@ -234,6 +234,62 @@
     "herbal-medicine-street",
     "lam-thanh-sweet-soups"
    ]
+  },
+  {
+   "slug": "pho-mai-district-10",
+   "date": "2026-11-14",
+   "kicker": "Food · District 10",
+   "title": "Phở Mai: a neighbourhood bowl of phở near Nguyễn Tri Phương Market",
+   "dek": "Clear, sweet broth, four cuts of beef and a poached egg on the side, at a no-frills phở shop in the Nhật Tảo area of District 10.",
+   "photos": [
+    {
+     "src": "/assets/stories/pho-mai-district-10/01.jpg",
+     "alt": "Overhead view of a bowl of beef phở with rare beef, flank, tendon, spring onion, coriander and black pepper, next to a dish of hoisin and chilli sauce",
+     "caption": "A mixed bowl: tái, nạm, gân and gàu, with spring onion, coriander and black pepper."
+    },
+    {
+     "src": "/assets/stories/pho-mai-district-10/02.jpg",
+     "alt": "The full table from above: a bowl of phở, a poached egg in broth, bean sprouts, sliced chilli and a swirl of hoisin and chilli sauce on a steel table",
+     "caption": "The full spread on a steel table: phở, poached egg, bean sprouts, fresh chilli and the hoisin–chilli swirl."
+    },
+    {
+     "src": "/assets/stories/pho-mai-district-10/03.jpg",
+     "alt": "Close-up of a bowl of phở with clear broth, slices of beef and lots of spring onion",
+     "caption": "Clear, fragrant broth."
+    },
+    {
+     "src": "/assets/stories/pho-mai-district-10/04.jpg",
+     "alt": "A small bowl with a poached egg in broth topped with spring onion and pepper, bean sprouts and chopsticks beside it",
+     "caption": "Trứng chần: an egg poached in hot broth, ordered on the side."
+    },
+    {
+     "src": "/assets/stories/pho-mai-district-10/05.jpg",
+     "alt": "Two bowls of phở, a poached egg, bean sprouts and sliced chilli on a steel table",
+     "caption": "Two bowls, one egg to share."
+    }
+   ],
+   "body": [
+    "If you want phở the way locals eat it on an ordinary morning, skip the tourist-heavy spots and head to District 10. Near Nguyễn Tri Phương Market, in the Nhật Tảo area, Phở Mai is a true neighbourhood favourite where people come for a proper bowl and nothing else.",
+    "The broth is the reason to come: clear, fragrant and naturally sweet from hours of simmering beef bones and spices. It is not cloudy or heavy, and you can taste the beef before you add anything.",
+    {
+     "photo": 3
+    },
+    "The meat is a generous mix of four cuts: tái (rare beef, cooked by the hot broth at the table), nạm (flank), gân (tendon, soft and gelatinous) and gàu (fatty brisket). Everything is tender and fresh. On top go plenty of spring onion, a little coriander and a sprinkle of black pepper.",
+    "On the side you get a plate of bean sprouts, sliced fresh chilli and the classic dish of hoisin and chilli sauce, so you can adjust every spoonful. Locals tend to dip the meat into the sauce rather than squeeze it all into the broth.",
+    {
+     "photo": 4
+    },
+    "The local pro move: order a side of trứng chần, an egg poached in hot broth with spring onion and pepper. Dip the rare beef into the runny yolk. It is simple and rich, and exactly how many people in Saigon like their phở.",
+    {
+     "photo": 5
+    },
+    "Pull up a metal stool at a steel table, watch the neighbourhood go by and enjoy a steaming bowl that feels like real everyday Saigon. No frills, just excellent phở.",
+    "If you go: Phở Mai is near Nguyễn Tri Phương Market in the Nhật Tảo area of District 10. Like most phở shops, it is at its best in the morning. Nhật Tảo Market is a short walk away if you want to explore the neighbourhood after breakfast."
+   ],
+   "places": [
+    "nhat-tao-market",
+    "baoz-dimsum"
+   ]
   }
  ]
 }
