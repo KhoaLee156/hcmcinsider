@@ -856,12 +856,15 @@ Getting around
  3-day pass: 90,000 dong
  How to pay
  Tap your bank card or phone at the gate (Visa, Mastercard, JCB, Amex, UnionPay, Apple Pay, Samsung Pay). Use the same card to tap out.
- Ticket machines take cash (1,000–200,000 dong notes) and issue a card with a refundable deposit.
+ Ticket machines are cash only (1,000–200,000 dong notes). A single-journey card adds a 15,000 dong deposit: Ben Thanh to Thu Duc was 14,000 + 15,000 = 29,000 dong in November 2026. Put the card back into a machine at your destination (“Trả lại vé / Card return”) to get the deposit back.
  HCMC Metro app: buy a ticket and scan the QR code.
  Good to know
  No eating, drinking or smoking in stations or on trains; no pets.
  Large or bulky luggage may be refused. A carry-on is fine.
  Line 1 does not go to the airport or Cholon yet. Line 2 (Ben Thanh – Tham Luong) started construction in January 2026.
+ What it looks like
+ Photos from our own ride from Ben Thanh to Thu Duc in November 2026. Read the full ride, step by step → 
+ A train at Thu Duc, one of the elevated stations. Ticket machines and the counter at Ben Thanh (underground). Pick your station on the map: 14,000 fare + 15,000 deposit. Three ways to pay, fastest first. Tap in at the gate: bank cards and e-wallet QR work here too. Elevated platform with screen doors. 
  Questions visitors ask
  How much does the Ho Chi Minh City metro cost?
  A single trip costs 7,000–20,000 dong depending on distance, or 1,000 dong less when you pay by card or app. A 1-day pass is 40,000 dong and a 3-day pass is 90,000 dong.
@@ -873,7 +876,7 @@ Getting around
  Not yet. Line 1 runs east from Ben Thanh to Suoi Tien. Line 2 (Ben Thanh – Tham Luong) started construction in January 2026. For the airport and Cholon, use a ride-hailing app, taxi or bus.
  Buses, airport and river bus → 
  Last checked: November 2026. Sources: fares (SGGP) · hours (Tuoi Tre News) · tap to ride (Visa) . Times and prices can change; check the signs at the station.
- Last updated: 22 October 2026.
+ Last updated: 14 November 2026.
 
 ## https://hcmcinsider.com/guides/getting-around-hcmc/
 Getting around

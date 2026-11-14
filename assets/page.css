@@ -170,6 +170,7 @@ footer p{margin:0;max-width:62ch}
 /* stories */
 .story p{font-size:17px;line-height:1.75}
 .story .photo{margin:18px 0}
+.mphotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:14px;margin:8px 0 24px}.mphotos img{aspect-ratio:4/3;object-fit:cover}
 .scards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px;margin-top:18px}
 .scard{display:grid;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;color:var(--ink);box-shadow:var(--shadow)}
 .scard img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
