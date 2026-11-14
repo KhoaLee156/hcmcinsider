@@ -674,7 +674,8 @@
     "binh-tay-market"
    ],
    "nearby_places": [
-    "kieu-ky-har-gow"
+    "kieu-ky-har-gow",
+    "cantonese-noodles-at-22-yersin"
    ],
    "tour": true,
    "sources": [
@@ -684,7 +685,23 @@
     ]
    ],
    "checked": "2026-10-24",
-   "photos": [],
+   "photos": [
+    {
+     "src": "/assets/sights/ben-thanh-market/01.jpg",
+     "alt": "Ben Thanh Market's yellow clock tower and main gate with red roofs, under a blue sky, with traffic passing in front",
+     "credit": "The south gate and 1914 clock tower, seen across the roundabout. Photo: HCMC Insider, November 2026."
+    },
+    {
+     "src": "/assets/sights/ben-thanh-market/02.jpg",
+     "alt": "Wide view of the Quách Thị Trang roundabout with motorbikes and cars, Ben Thanh Market's clock tower and long red-roofed halls behind",
+     "credit": "The wide roundabout in front of the market: cross at the signals. Photo: HCMC Insider."
+    },
+    {
+     "src": "/assets/sights/ben-thanh-market/03.jpg",
+     "alt": "Busy traffic and a pedestrian crossing in front of Ben Thanh Market's clock tower",
+     "credit": "Midday traffic at the main gate. Number plates and faces blurred. Photo: HCMC Insider."
+    }
+   ],
    "teaser": "The 1914 clock-tower market: food stalls by day, night market after 6 pm."
   },
   {

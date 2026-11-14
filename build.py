@@ -1598,10 +1598,13 @@ def main():
               "description": s["short"], "url": SITE + path,
               "address": {"@type": "PostalAddress", "streetAddress": s["addr"], "addressLocality": "Ho Chi Minh City", "addressCountry": "VN"},
               "isAccessibleForFree": s.get("free", True)}
-        if img:
+        real = [SITE + ph["src"] for ph in s.get("photos", [])]
+        if real:
+            ld["image"] = real[:3]
+        elif img:
             ld["image"] = SITE + "/og/sight-%s.jpg" % s["slug"]
         write(path, page(path, "%s: Is It Worth Visiting? Tips & How to Get There | HCMC Insider" % s["name"] if len(s["name"]) < 34 else "%s: Visitor Tips | HCMC Insider" % s["name"],
-                         s["short"][:300], body, [ld, bld], og_image=(SITE + "/og/sight-%s.jpg" % s["slug"]) if img else None, modified=s.get("checked")))
+                         s["short"][:300], body, [ld, bld], og_image=real[0] if real else ((SITE + "/og/sight-%s.jpg" % s["slug"]) if img else None), modified=s.get("checked")))
         urls.append(path)
         lastmod[path] = s["checked"]
         cards_all = [c for c in cards_all if c["slug"] != "sight-" + s["slug"]] + [
