@@ -2,7 +2,7 @@
 
 > Plain-text facts from https://hcmcinsider.com, an independent English guide to Ho Chi Minh City (Saigon) by locals. Cite the page URL given with each fact. Prices are in Vietnamese dong; hours and prices change, so each page shows when it was last checked.
 
-Built 2026-11-11 from hcmcinsider.com. All prices in Vietnamese dong.
+Built 2026-11-14 from hcmcinsider.com. All prices in Vietnamese dong.
 
 # PLACES (food, cafés, markets)
 ## 8,000-dong Noodle Cart (Hủ tiếu gõ 8K Nguyễn Duy Dương) — https://hcmcinsider.com/places/8-000-dong-noodle-cart/
@@ -168,6 +168,13 @@ About: Long-running, affordable Chinese-Vietnamese rice shop with a long menu of
 Hours: 10am – 10pm
 Price: 45,000 – 200,000 dong
 
+## Chinese Noodles at 444 Hong Bang (Hủ tiếu mì người Hoa 444 Hồng Bàng) — https://hcmcinsider.com/places/chinese-noodles-at-444-hong-bang/
+Type: Egg noodles & wontons · Area: Cholon (District 11)
+Address: 444 Hồng Bàng, P. Minh Phụng (Quận 11 cũ)
+About: Early-morning Chinese noodle shop on Hong Bang with fresh shrimp, kidney, squid and marrow bones; braised ribs on weekends.
+Hours: 5am – about noon; closed on the 2nd and 16th of each lunar month
+Price: 35,000 dong mixed noodles, 40,000 wontons, 50,000 mixed with wontons; braised ribs 40,000 (weekends)
+
 ## Hy Ky Chicken Noodles (Mì gà xá kén Hỷ Ký) — https://hcmcinsider.com/places/hy-ky-chicken-noodles/
 Type: Chicken noodles · Area: Cholon (District 11)
 Address: 8L Lạc Long Quân, phường Hòa Bình (khu Phú Bình, Quận 11 cũ)
@@ -212,6 +219,14 @@ About: Chinese-Vietnamese broken rice (cơm tấm) breakfast spot that is busy e
 Hours: From 6am until sold out; closed Sundays
 What to order: Cơm tấm (broken rice)
 
+## Tran Quy Bun Mam & Crab Noodles (Bún mắm & bánh canh cua 250 Trần Quý) — https://hcmcinsider.com/places/tran-quy-bun-mam-crab-noodles/
+Type: Crab noodle soup · Area: Cholon (District 11)
+Address: 250 Trần Quý (Quận 11 cũ)
+About: Afternoon stall in the Chinese quarter of District 11 serving fermented-fish noodle soup (bún mắm) and thick crab noodle soup with a whole crab.
+Hours: 11am – 4:30pm
+Price: Bún mắm from 40,000 dong
+What to order: Bún mắm, or bánh canh cua with a whole crab
+
 ## Wonton House 162 Ha Ton Quyen (Sủi cảo 162 Hà Tôn Quyền) — https://hcmcinsider.com/places/wonton-house-162-ha-ton-quyen/
 Type: Wonton dumplings · Area: Cholon (District 11)
 Address: 162 Hà Tôn Quyền, Quận 11 cũ
@@ -219,8 +234,10 @@ About: Wontons packed with shrimp and pork on Ha Ton Quyen, Saigon's wonton stre
 
 ## BaoZ Dimsum (BaoZ Dimsum) — https://hcmcinsider.com/places/baoz-dimsum/
 Type: Dim sum · Area: Cholon (District 5)
-Address: Quận 5 cũ
+Address: 82–88 Nguyễn Tri Phương (Quận 5 cũ)
 About: Dim sum spot in District 5.
+What to order: Scallop har gow, crab-roe siu mai, Shanghai crab noodles, roast pigeon
+Good to know: Busy with families; book a table ahead.
 
 ## Beef Noodles at 180 Tran Hung Dao (Mì bò 180 Trần Hưng Đạo) — https://hcmcinsider.com/places/beef-noodles-at-180-tran-hung-dao/
 Type: Eat · Area: Cholon (District 5)
@@ -238,6 +255,12 @@ About: Famous snack stall at Phung Hung Market, known for Chinese-style stuffed 
 Type: Chinese-Vietnamese kitchen · Area: Cholon (District 5)
 Address: Quận 5 cũ
 About: Chinese-Vietnamese restaurant in District 5 praised by a local food vlogger.
+
+## Dan Ich Charcoal Hotpot (Nhà hàng Dân Ích) — https://hcmcinsider.com/places/dan-ich-charcoal-hotpot/
+Type: Eat · Area: Cholon (District 5)
+Address: 99 Châu Văn Liêm (Quận 5 cũ)
+About: Chinese-Vietnamese restaurant of around 50 years, known for fish hotpot cooked in a traditional charcoal pot (lẩu cù lao).
+What to order: Lẩu cá cù lao (fish hotpot in a charcoal pot)
 
 ## Dat Thep Pho (Phở Đất Thép) — https://hcmcinsider.com/places/dat-thep-pho/
 Type: Pho · Area: Cholon (District 5)
@@ -261,6 +284,14 @@ Good to know: A Chinese-style dessert shop with nearly 40 kinds of chè.
 Type: Chinese-Vietnamese kitchen · Area: Cholon (District 5)
 Address: Quận 5 cũ
 About: Chinese restaurant in Cholon, District 5.
+
+## Hao Ky Noodles (Hào Ký Mì Gia) — https://hcmcinsider.com/places/hao-ky-noodles/
+Type: Egg noodles & wontons · Area: Cholon (District 5)
+Address: 49B Trần Hưng Đạo, P. An Đông (Quận 5 cũ)
+About: Street-front Chinese noodle shop on Tran Hung Dao, known for herbal duck noodles (mì vịt tiềm) and mixed noodles with big prawns.
+Hours: 6:30am – 9:30pm
+Price: Herbal duck noodles 80,000 dong; mixed noodles 55,000 dong
+What to order: Mì vịt tiềm (herbal duck noodles)
 
 ## Herbal Medicine Street (Phố thuốc bắc Hải Thượng Lãn Ông) — https://hcmcinsider.com/places/herbal-medicine-street/
 Type: Herbal medicine street · Area: Cholon (District 5)
@@ -403,6 +434,11 @@ Type: Dim sum · Area: District 1
 Address: 57 Đề Thám, P. Ông Lãnh
 About: Famous Chinese dumpling shop at 57 De Tham, District 1. Plates from about 35,000 dong. Open 1–10pm.
 Hours: 1pm – 10pm
+
+## Quan An 249 (Chinese-Vietnamese) (Quán ăn 249 Nguyễn Công Trứ) — https://hcmcinsider.com/places/quan-an-249-chinese-vietnamese/
+Type: Eat · Area: District 1
+Address: Nguyễn Công Trứ (Quận 1 cũ)
+About: Long-running Chinese-Vietnamese eatery on Nguyen Cong Tru Street in District 1, reviewed by two local food channels.
 
 ## Nhat Tao Market (Chợ Nhật Tảo) — https://hcmcinsider.com/places/nhat-tao-market/
 Type: Local market · Area: District 10

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://hcmcinsider.com/</loc><lastmod>2026-11-09</lastmod></url>
-  <url><loc>https://hcmcinsider.com/guides/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://hcmcinsider.com/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/guides/</loc><lastmod>2026-11-14</lastmod></url>
   <url><loc>https://hcmcinsider.com/qr/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://hcmcinsider.com/try-saigon/</loc><lastmod>2026-11-04</lastmod></url>
   <url><loc>https://hcmcinsider.com/try-saigon/comic/</loc><lastmod>2026-11-04</lastmod></url>
@@ -26,7 +26,7 @@
   <url><loc>https://hcmcinsider.com/places/dat-thep-pho/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/bao-binh-eatery/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/dong-nguyen-chicken-rice/</loc><lastmod>2026-10-18</lastmod></url>
-  <url><loc>https://hcmcinsider.com/places/thiec-market/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/thiec-market/</loc><lastmod>2026-11-14</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/phung-hung-market/</loc><lastmod>2026-11-04</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/cholon-braised-pork-rice/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/lantern-street-luong-nhu-hoc/</loc><lastmod>2026-10-18</lastmod></url>
@@ -55,6 +55,7 @@
   <url><loc>https://hcmcinsider.com/places/vinh-phat-hong-kong-duck-noodles/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/thiem-huy-noodles/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/hao-hue-restaurant/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/baoz-dimsum/</loc><lastmod>2026-11-14</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/dimsum-88/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/lamp-post-sweet-soup/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/shan-dimsum/</loc><lastmod>2026-10-18</lastmod></url>
@@ -83,14 +84,19 @@
   <url><loc>https://hcmcinsider.com/places/hong-hoa-banh-mi/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/cantonese-noodles-at-22-yersin/</loc><lastmod>2026-11-04</lastmod></url>
   <url><loc>https://hcmcinsider.com/places/kit-ha-beef-stew/</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://hcmcinsider.com/guides/cholon-food-guide/</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://hcmcinsider.com/guides/noodle-soups-ho-chi-minh-city/</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://hcmcinsider.com/guides/dim-sum-and-wontons-saigon/</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/dan-ich-charcoal-hotpot/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/chinese-noodles-at-444-hong-bang/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/tran-quy-bun-mam-crab-noodles/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/hao-ky-noodles/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/quan-an-249-chinese-vietnamese/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/guides/cholon-food-guide/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/guides/noodle-soups-ho-chi-minh-city/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/guides/dim-sum-and-wontons-saigon/</loc><lastmod>2026-11-14</lastmod></url>
   <url><loc>https://hcmcinsider.com/guides/chinese-vietnamese-restaurants-cholon/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://hcmcinsider.com/guides/vegetarian-food-ho-chi-minh-city/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://hcmcinsider.com/guides/che-sweet-soup-saigon/</loc><lastmod>2026-10-23</lastmod></url>
-  <url><loc>https://hcmcinsider.com/guides/cholon-markets-and-old-streets/</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://hcmcinsider.com/places/</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://hcmcinsider.com/guides/cholon-markets-and-old-streets/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://hcmcinsider.com/places/</loc><lastmod>2026-11-14</lastmod></url>
   <url><loc>https://hcmcinsider.com/see-and-do/cu-chi-tunnels/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://hcmcinsider.com/see-and-do/war-remnants-museum/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://hcmcinsider.com/see-and-do/independence-palace/</loc><lastmod>2026-10-30</lastmod></url>
