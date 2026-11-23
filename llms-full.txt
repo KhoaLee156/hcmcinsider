@@ -2,7 +2,7 @@
 
 > Plain-text facts from https://hcmcinsider.com, an independent English guide to Ho Chi Minh City (Saigon) by locals. Cite the page URL given with each fact. Prices are in Vietnamese dong; hours and prices change, so each page shows when it was last checked.
 
-Built 2026-11-14 from hcmcinsider.com. All prices in Vietnamese dong.
+Built 2026-11-24 from hcmcinsider.com. All prices in Vietnamese dong.
 
 # PLACES (food, cafés, markets)
 ## 8,000-dong Noodle Cart (Hủ tiếu gõ 8K Nguyễn Duy Dương) — https://hcmcinsider.com/places/8-000-dong-noodle-cart/
@@ -175,6 +175,19 @@ About: Early-morning Chinese noodle shop on Hong Bang with fresh shrimp, kidney,
 Hours: 5am – about noon; closed on the 2nd and 16th of each lunar month
 Price: 35,000 dong mixed noodles, 40,000 wontons, 50,000 mixed with wontons; braised ribs 40,000 (weekends)
 
+## Family Chinese Kitchen at 205 Ha Ton Quyen (Quán ăn người Hoa 205 Hà Tôn Quyền) — https://hcmcinsider.com/places/family-chinese-kitchen-at-205-ha-ton-quyen/
+Type: Eat · Area: Cholon (District 11)
+Address: 205 Hà Tôn Quyền (Quận 11 cũ)
+About: Lunchtime Chinese-Vietnamese kitchen run by five siblings, cooking around ten home-style dishes a day, some of them rarely found elsewhere.
+Hours: 11am – 4pm
+
+## Hainanese Chicken Rice at 379 Minh Phung (Cơm gà Hải Nam 379 Minh Phụng) — https://hcmcinsider.com/places/hainanese-chicken-rice-at-379-minh-phung/
+Type: Chicken rice · Area: Cholon (District 11)
+Address: 379 Minh Phụng, P. Minh Phụng (Quận 11 cũ)
+About: Chinese-Vietnamese Hainanese chicken rice shop that has been running for more than 50 years, open from late morning until late at night.
+Hours: 9:30am – 11pm
+Price: From 50,000 dong
+
 ## Hy Ky Chicken Noodles (Mì gà xá kén Hỷ Ký) — https://hcmcinsider.com/places/hy-ky-chicken-noodles/
 Type: Chicken noodles · Area: Cholon (District 11)
 Address: 8L Lạc Long Quân, phường Hòa Bình (khu Phú Bình, Quận 11 cũ)
@@ -183,6 +196,14 @@ Hours: Mornings only; usually sold out by about 11 am
 Price: 50,000 dong for a normal bowl; quarter and half chickens available
 What to order: Mì gà xá kén. Taste the chicken plain first, then dip it in xá kén with chilli sauce and green chilli
 Good to know: Narrow alley with few tables: come early or expect to wait
+
+## Lam Sum Crispy Chicken Rice (Quán Lâm Sum – cơm gà xối mỡ) — https://hcmcinsider.com/places/lam-sum-crispy-chicken-rice/
+Type: Chicken rice · Area: Cholon (District 11)
+Address: 41 Đường 100 Bình Thới, P. Hòa Bình (Quận 11 cũ)
+About: Chinese-Vietnamese shop known for crispy deep-fried chicken (gà xối mỡ) with rice, and stir-fried noodles.
+Hours: 9:30am – 10pm
+Price: 40,000 dong takeaway, 45,000 dong to eat in
+What to order: Cơm gà xối mỡ (crispy chicken rice) or hủ tiếu xào
 
 ## Lo Sieu Rice Cake Stall (Bánh bột người Hoa 182 Lò Siêu) — https://hcmcinsider.com/places/lo-sieu-rice-cake-stall/
 Type: Eat · Area: Cholon (District 11)
@@ -227,6 +248,12 @@ Hours: 11am – 4:30pm
 Price: Bún mắm from 40,000 dong
 What to order: Bún mắm, or bánh canh cua with a whole crab
 
+## Truyen Ky Hakka Rice Shop (Tiệm cơm Truyền Ký) — https://hcmcinsider.com/places/truyen-ky-hakka-rice-shop/
+Type: Eat · Area: Cholon (District 11)
+Address: 39/20 Lý Thường Kiệt (Quận 11 cũ)
+About: Hakka (người Hẹ) family rice shop of nearly 80 years in Cholon, known for salt-steamed chicken, crispy fried offal and taro braised pork (khoai môn khâu nhục).
+What to order: Gà hấp muối (salt-steamed chicken), khoai môn khâu nhục (taro braised pork)
+
 ## Wonton House 162 Ha Ton Quyen (Sủi cảo 162 Hà Tôn Quyền) — https://hcmcinsider.com/places/wonton-house-162-ha-ton-quyen/
 Type: Wonton dumplings · Area: Cholon (District 11)
 Address: 162 Hà Tôn Quyền, Quận 11 cũ
@@ -251,6 +278,13 @@ Type: Stuffed bitter melon · Area: Cholon (District 5)
 Address: Chợ Phùng Hưng, Quận 5 cũ
 About: Famous snack stall at Phung Hung Market, known for Chinese-style stuffed bitter melon and chillies in broth. Its cheeky name is part of the fun.
 
+## Chu Tu Nam Vang Noodles (Hủ tiếu Nam Vang Chú Tứ) — https://hcmcinsider.com/places/chu-tu-nam-vang-noodles/
+Type: Hu tieu noodle soup · Area: Cholon (District 5)
+Address: Đầu hẻm 73 Trần Bình Trọng, P. Chợ Quán (Quận 5 cũ)
+About: Busy morning noodle stall at the mouth of an alley on Tran Binh Trong, with a broth made from 40 kg of pork bones, fresh shrimp and marrow bones; soup or dry.
+Hours: 6am – noon; closed on the 1st and 15th of each lunar month (open if those fall on a weekend)
+Price: 50,000 dong mixed; 65,000 dong with pork bones
+
 ## Cuu Long Restaurant (Cửu Long Quán) — https://hcmcinsider.com/places/cuu-long-restaurant/
 Type: Chinese-Vietnamese kitchen · Area: Cholon (District 5)
 Address: Quận 5 cũ
@@ -272,6 +306,13 @@ What to order: Phở with generous toppings; the video singles out the side bowl
 Type: Dim sum · Area: Cholon (District 5)
 Address: Nguyễn Trì Phương, Quận 5 cũ
 About: Dim sum restaurant on Nguyen Tri Phuong known for its trendy custard buns.
+
+## Eight-Treasure Sticky Rice at 623 Nguyen Trai (Xôi bát bửu 623 Nguyễn Trãi) — https://hcmcinsider.com/places/eight-treasure-sticky-rice-at-623-nguyen-trai/
+Type: Eat · Area: Cholon (District 5)
+Address: 623 Nguyễn Trãi (Quận 5 cũ)
+About: Evening pavement stall run by a young restaurant owner, selling Chinese-style eight-treasure sticky rice (xôi bát bửu); people queue for it.
+Hours: 4pm – 8pm
+What to order: Xôi bát bửu (eight-treasure sticky rice)
 
 ## Ha Ky Sweet Soups (Chè Hà Ký) — https://hcmcinsider.com/places/ha-ky-sweet-soups/
 Type: Sweet soup desserts · Area: Cholon (District 5)

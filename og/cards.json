@@ -800,6 +800,66 @@
   "price": ""
  },
  {
+  "slug": "hainanese-chicken-rice-at-379-minh-phung",
+  "name": "Hainanese Chicken Rice at 379 Minh Phung",
+  "vn": "Cơm gà Hải Nam 379 Minh Phụng",
+  "dish": "Chicken rice",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "9:30am – 11pm",
+  "price": "From 50,000 dong"
+ },
+ {
+  "slug": "lam-sum-crispy-chicken-rice",
+  "name": "Lam Sum Crispy Chicken Rice",
+  "vn": "Quán Lâm Sum – cơm gà xối mỡ",
+  "dish": "Chicken rice",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "9:30am – 10pm",
+  "price": "40,000 dong takeaway, 45,000 dong to eat in"
+ },
+ {
+  "slug": "family-chinese-kitchen-at-205-ha-ton-quyen",
+  "name": "Family Chinese Kitchen at 205 Ha Ton Quyen",
+  "vn": "Quán ăn người Hoa 205 Hà Tôn Quyền",
+  "dish": "Eat",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "11am – 4pm",
+  "price": ""
+ },
+ {
+  "slug": "chu-tu-nam-vang-noodles",
+  "name": "Chu Tu Nam Vang Noodles",
+  "vn": "Hủ tiếu Nam Vang Chú Tứ",
+  "dish": "Hu tieu noodle soup",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "6am – noon; closed on the 1st and 15th of each lunar month (open if those fall on a weekend)",
+  "price": "50,000 dong mixed; 65,000 dong with pork bones"
+ },
+ {
+  "slug": "eight-treasure-sticky-rice-at-623-nguyen-trai",
+  "name": "Eight-Treasure Sticky Rice at 623 Nguyen Trai",
+  "vn": "Xôi bát bửu 623 Nguyễn Trãi",
+  "dish": "Eat",
+  "area": "Cholon (District 5)",
+  "cat": "food",
+  "hours": "4pm – 8pm",
+  "price": ""
+ },
+ {
+  "slug": "truyen-ky-hakka-rice-shop",
+  "name": "Truyen Ky Hakka Rice Shop",
+  "vn": "Tiệm cơm Truyền Ký",
+  "dish": "Eat",
+  "area": "Cholon (District 11)",
+  "cat": "food",
+  "hours": "",
+  "price": ""
+ },
+ {
   "slug": "sight-cu-chi-tunnels",
   "name": "Cu Chi Tunnels",
   "vn": "Địa đạo Củ Chi",

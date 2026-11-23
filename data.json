@@ -1041,6 +1041,84 @@
    "note": "",
    "noteEn": "Long-running Chinese-Vietnamese eatery on Nguyen Cong Tru Street in District 1, reviewed by two local food channels.",
    "slug": "quan-an-249-chinese-vietnamese"
+  },
+  {
+   "id": "yys96hi",
+   "name": "Cơm gà Hải Nam 379 Minh Phụng",
+   "nameEn": "Hainanese Chicken Rice at 379 Minh Phung",
+   "cat": "food",
+   "addr": "379 Minh Phụng, P. Minh Phụng (Quận 11 cũ)",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Chinese-Vietnamese Hainanese chicken rice shop that has been running for more than 50 years, open from late morning until late at night.",
+   "slug": "hainanese-chicken-rice-at-379-minh-phung"
+  },
+  {
+   "id": "smdyp61",
+   "name": "Quán Lâm Sum – cơm gà xối mỡ",
+   "nameEn": "Lam Sum Crispy Chicken Rice",
+   "cat": "food",
+   "addr": "41 Đường 100 Bình Thới, P. Hòa Bình (Quận 11 cũ)",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Chinese-Vietnamese shop known for crispy deep-fried chicken (gà xối mỡ) with rice, and stir-fried noodles.",
+   "slug": "lam-sum-crispy-chicken-rice"
+  },
+  {
+   "id": "2zcsiev",
+   "name": "Quán ăn người Hoa 205 Hà Tôn Quyền",
+   "nameEn": "Family Chinese Kitchen at 205 Ha Ton Quyen",
+   "cat": "food",
+   "addr": "205 Hà Tôn Quyền (Quận 11 cũ)",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Lunchtime Chinese-Vietnamese kitchen run by five siblings, cooking around ten home-style dishes a day, some of them rarely found elsewhere.",
+   "slug": "family-chinese-kitchen-at-205-ha-ton-quyen"
+  },
+  {
+   "id": "69w3s5r",
+   "name": "Hủ tiếu Nam Vang Chú Tứ",
+   "nameEn": "Chu Tu Nam Vang Noodles",
+   "cat": "food",
+   "addr": "Đầu hẻm 73 Trần Bình Trọng, P. Chợ Quán (Quận 5 cũ)",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Busy morning noodle stall at the mouth of an alley on Tran Binh Trong, with a broth made from 40 kg of pork bones, fresh shrimp and marrow bones; soup or dry.",
+   "slug": "chu-tu-nam-vang-noodles"
+  },
+  {
+   "id": "6iwyvbl",
+   "name": "Xôi bát bửu 623 Nguyễn Trãi",
+   "nameEn": "Eight-Treasure Sticky Rice at 623 Nguyen Trai",
+   "cat": "food",
+   "addr": "623 Nguyễn Trãi (Quận 5 cũ)",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Evening pavement stall run by a young restaurant owner, selling Chinese-style eight-treasure sticky rice (xôi bát bửu); people queue for it.",
+   "slug": "eight-treasure-sticky-rice-at-623-nguyen-trai"
+  },
+  {
+   "id": "uttxj9d",
+   "name": "Tiệm cơm Truyền Ký",
+   "nameEn": "Truyen Ky Hakka Rice Shop",
+   "cat": "food",
+   "addr": "39/20 Lý Thường Kiệt (Quận 11 cũ)",
+   "maps": "",
+   "lat": "",
+   "lng": "",
+   "note": "",
+   "noteEn": "Hakka (người Hẹ) family rice shop of nearly 80 years in Cholon, known for salt-steamed chicken, crispy fried offal and taro braised pork (khoai môn khâu nhục).",
+   "slug": "truyen-ky-hakka-rice-shop"
   }
  ],
  "videos": [
@@ -1060,7 +1138,7 @@
    "url": "https://www.youtube.com/watch?v=82Dlsd20qCw",
    "title": "Sài Gòn Quận 5 Ăn Gì? Review Quán Khổ Qua Cà Chớn Thiên Đường Ăn Vặt Ngon Người Hoa Chợ Phùng Hưng",
    "creator": "4PIN LIFE",
-   "views": 171,
+   "views": 172,
    "added": "2026-10-18",
    "titleEn": "What to eat in District 5: the bitter melon & chilli snack stall at Phung Hung Market"
   },
@@ -1070,7 +1148,7 @@
    "url": "https://www.youtube.com/watch?v=Xx_Rbr8HMc0",
    "title": "Series 99 Quán Ngon Quận 5 Sài Gòn Review Tiệm Khổ Qua Cà Chớn Thiên Đường Ăn Vặt Chợ Phùng Hưng",
    "creator": "Little Bites",
-   "views": 641,
+   "views": 663,
    "added": "2026-10-18",
    "titleEn": "99 great District 5 eats: the bitter melon & chilli snack stall, Phung Hung Market"
   },
@@ -1080,7 +1158,7 @@
    "url": "https://www.youtube.com/watch?v=joGkyP_lQHw",
    "title": "Sài Gòn Quận 5 Ăn Gì? Review Quán Khổ Qua Cà Chớn Thiên Đường Ăn Vặt Ngon Người Hoa Chợ Phùng Hưng",
    "creator": "4PIN LIFE",
-   "views": 1080,
+   "views": 1089,
    "added": "2026-10-18",
    "titleEn": "What to eat in District 5: the bitter melon & chilli snack stall at Phung Hung Market"
   },
@@ -1090,7 +1168,7 @@
    "url": "https://www.youtube.com/watch?v=4WlpPBH4hGk",
    "title": "Series 99 Quán Ngon Quận 5 Sài Gòn Review Tiệm Khổ Qua Cà Chớn Thiên Đường Ăn Vặt Chợ Phùng Hưng",
    "creator": "Little Bites",
-   "views": 1276,
+   "views": 1288,
    "added": "2026-10-18",
    "titleEn": "99 great District 5 eats: the bitter melon & chilli snack stall, Phung Hung Market"
   },
@@ -1100,7 +1178,7 @@
    "url": "https://www.youtube.com/watch?v=nQU0gOlOVXQ",
    "title": "Ăn Dê Chỉ Toàn Món Ngon Tại Bàn Ở Quán Nhiều Món Tặng Nhất Sài Gòn",
    "creator": "ĐI ĐÂU ĂN GÌ ?",
-   "views": 30336,
+   "views": 36705,
    "added": "2026-10-18",
    "titleEn": "Goat dishes cooked at your table at Saigon's biggest goat menu"
   },
@@ -1110,7 +1188,7 @@
    "url": "https://www.youtube.com/watch?v=UTHk7G1rksc",
    "title": "Quán Thuận Phát món Hoa chiên xào #têvlog #ăngì #quận5 #mónhoa #chiênxào",
    "creator": "Tê Vlog",
-   "views": 1309,
+   "views": 1310,
    "added": "2026-10-18",
    "titleEn": "Thuan Phat: Chinese stir-fries in District 5"
   },
@@ -1120,7 +1198,7 @@
    "url": "https://www.youtube.com/watch?v=kU6oASCKFv4",
    "title": "Review Tiệm Chè Người Hoa Yukii Desserts ở Quận 5: Món Nào Đáng Thử? #shorts #short",
    "creator": "Én điệu ham vui",
-   "views": 1201,
+   "views": 1231,
    "added": "2026-10-18",
    "titleEn": "Reviewing Yukii Desserts: which Chinese sweet soups are worth it?"
   },
@@ -1130,7 +1208,7 @@
    "url": "https://www.youtube.com/watch?v=r0sLyKY7w4M",
    "title": "Series 99 Quán Ngon Quận 7 Sài Gòn Review Ốc Đêm Chú Đỉnh 5 Lai Rai Cuối Tuần Bình Dân Lê Văn Lương",
    "creator": "Little Bites",
-   "views": 535,
+   "views": 591,
    "added": "2026-10-18",
    "titleEn": "99 great eats: late-night snails at Uncle Dinh 5, District 7"
   },
@@ -1140,7 +1218,7 @@
    "url": "https://www.youtube.com/watch?v=_OXDt_P1c9I",
    "title": "SÀI GÒN quận 5: BẤT NGỜ Hủ tiếu Gõ chỉ 8k, ĂN NO! Rất dễ thương 🥰😍🤩",
    "creator": "Tung Thanh Ly Vietnam",
-   "views": 77179,
+   "views": 78061,
    "added": "2026-10-18",
    "titleEn": "District 5 surprise: a filling bowl of noodles for just 8,000 dong"
   },
@@ -1150,7 +1228,7 @@
    "url": "https://www.youtube.com/watch?v=wfyMMwvF_cc",
    "title": "Đông Giang Quán Tiệm Ăn Người Hoa Toàn Món Ngon Lâu Đời Nổi Tiếng Khu Chợ Lớn Ở Sài Gòn",
    "creator": "ĐI ĐÂU ĂN GÌ ?",
-   "views": 44330,
+   "views": 45152,
    "added": "2026-10-18",
    "titleEn": "Dong Giang: a long-running Chinese restaurant in Cholon"
   },
@@ -1160,7 +1238,7 @@
    "url": "https://www.youtube.com/watch?v=jjHFKwtaAlY",
    "title": "\"Ăn Cả Bún Riêu Lẫn Hủ Tiếu Tại Quán Phượng Q5! Vinh Có Ăn Hết Không? 😱 #Shorts",
    "creator": "BI ƠI OFFICIAL",
-   "views": 892,
+   "views": 895,
    "added": "2026-10-18",
    "titleEn": "Crab noodle soup and hu tieu at Phuong's, District 5"
   },
@@ -1170,7 +1248,7 @@
    "url": "https://www.youtube.com/watch?v=yD-ezSrYqoc",
    "title": "Ăn Cửu Long Quán quận 5. Ngon cả nhà ơi",
    "creator": "Nhung Tôm Sông ",
-   "views": 904,
+   "views": 908,
    "added": "2026-10-18",
    "titleEn": "Eating at Cuu Long restaurant, District 5"
   },
@@ -1180,7 +1258,7 @@
    "url": "https://www.youtube.com/watch?v=oa1I6QzT-7g",
    "title": "Series 99 Quán Hoa Ngon Sài Gòn Ăn Theo Review Nghệ Sĩ Trấn Thành Bánh Canh Cây Bùi Hữu Nghĩa Quận 5",
    "creator": "Little Bites",
-   "views": 2926,
+   "views": 2937,
    "added": "2026-10-18",
    "titleEn": "Following a celebrity tip: giant pork rib noodle soup on Bui Huu Nghia"
   },
@@ -1200,7 +1278,7 @@
    "url": "https://www.youtube.com/watch?v=tI1rtEhxKes",
    "title": "Quán Bảo Bình ở phường Chợ Lớn có gì đáng để ghé thử? | Tin tức short",
    "creator": "SaigonTV Lite",
-   "views": 939,
+   "views": 940,
    "added": "2026-10-18",
    "titleEn": "What's worth trying at Bao Binh eatery in Cholon? (news short)"
   },
@@ -1210,7 +1288,7 @@
    "url": "https://www.youtube.com/watch?v=K9RqlYE7Dz4",
    "title": "Nức Tiếng Chợ Lớn! Cơm Gà Đông Nguyên Hơn 80 Năm – Bí Quyết Nào Làm Nên Tên Tuổi?",
    "creator": "HTV Thành phố không ngủ",
-   "views": 384004,
+   "views": 405188,
    "added": "2026-10-18",
    "titleEn": "Dong Nguyen chicken rice: the secret behind 80+ years in Cholon"
   },
@@ -1220,7 +1298,7 @@
    "url": "https://www.youtube.com/watch?v=Hb8alx-TQq8",
    "title": "Khám Phá Chợ Thiếc – Chợ Người Hoa Lâu Đời Ở Sài Gòn Có Gì Khác Lạ?",
    "creator": "HTV Thành phố không ngủ",
-   "views": 537308,
+   "views": 576182,
    "added": "2026-10-18",
    "titleEn": "Exploring Thiec Market, an old Chinese market in Saigon"
   },
@@ -1230,7 +1308,7 @@
    "url": "https://www.youtube.com/watch?v=N_JN78SPBm4",
    "title": "Chợ Phùng Hưng - Xôi nếp, bánh bao, uống Cafe vợt ẩm thực người Hoa Chợ Lớn",
    "creator": "66Vlog",
-   "views": 119530,
+   "views": 123987,
    "added": "2026-10-18",
    "titleEn": "Phung Hung Market: sticky rice, steamed buns and sock-filtered coffee"
   },
@@ -1240,7 +1318,7 @@
    "url": "https://www.youtube.com/watch?v=7DrDr0JuBpk",
    "title": "Vlog 01 - Review ẩm thực gốc Hoa ở chợ Phùng Hưng",
    "creator": "Tan Vi Vu",
-   "views": 183,
+   "views": 185,
    "added": "2026-10-18",
    "titleEn": "Vlog: Chinese-Vietnamese food at Phung Hung Market"
   },
@@ -1250,7 +1328,7 @@
    "url": "https://www.youtube.com/watch?v=Lf1SeysXYos",
    "title": "Cơm Giò Hầm Chợ Lớn",
    "creator": "ĐI ĐÂU ĂN GÌ ?",
-   "views": 33551,
+   "views": 34579,
    "added": "2026-10-18",
    "titleEn": "Cholon braised pork rice"
   },
@@ -1260,7 +1338,7 @@
    "url": "https://www.youtube.com/watch?v=1YSB7EsofVY",
    "title": "Không Ngờ Phố Lồng Đèn Chợ Lớn Hoành Tráng Đến Vậy – Quá Rực Rỡ và Đông Vui!",
    "creator": "HTV Thành phố không ngủ",
-   "views": 28145,
+   "views": 28365,
    "added": "2026-10-18",
    "titleEn": "Cholon's lantern street is bigger and brighter than you'd expect"
   },
@@ -1270,7 +1348,7 @@
    "url": "https://www.youtube.com/watch?v=N1Ak3epVPM8",
    "title": "Quận 11 Sài Gòn Ăn Gì? Review Quán Ăn Hương Vị Hoa Chợ Lớn Thiên Hương Cơm Gà Xối Mỡ Ngon Giòn Rụm",
    "creator": "4PIN LIFE",
-   "views": 95,
+   "views": 99,
    "added": "2026-10-18",
    "titleEn": "What to eat in District 11: Thien Huong crispy chicken rice"
   },
@@ -1280,7 +1358,7 @@
    "url": "https://www.youtube.com/watch?v=0kwea796q4A",
    "title": "Tour Ăn Đêm! Quán Hủ Tiếu Mì Xào Chợ Hoà Bình Chợ Lớn Sài Gòn",
    "creator": "VINH LAM TV",
-   "views": 17163,
+   "views": 17229,
    "added": "2026-10-18",
    "titleEn": "Night food tour: fried noodles at Hoa Binh Market"
   },
@@ -1290,7 +1368,7 @@
    "url": "https://www.youtube.com/watch?v=thFdcWA1nc4",
    "title": "Tiệm Cơm Gốc Hoa Người Tiều Châu Làm Toàn Món Ngon Khu chợ Lớn ở Sài Gòn",
    "creator": "ĐI ĐÂU ĂN GÌ ?",
-   "views": 38718,
+   "views": 39121,
    "added": "2026-10-18",
    "titleEn": "A Teochew family rice shop cooking classic Chinese dishes"
   },
@@ -1300,7 +1378,7 @@
    "url": "https://www.youtube.com/watch?v=u45-0PSkfQY",
    "title": "Tiệm Cơm Chợ Lớn 40 Năm Bán Cua Lột Rang Muối 130K Cơm Chiên Không Dùng Lạp Xưởng",
    "creator": "Ăn Đâu Đây?",
-   "views": 10957,
+   "views": 11083,
    "added": "2026-10-18",
    "titleEn": "40-year-old Cholon kitchen: salt-roasted soft-shell crab and fried rice"
   },
@@ -1310,7 +1388,7 @@
    "url": "https://www.youtube.com/watch?v=_it1AFEIaJI",
    "title": "Quán súp cua giá cao bậc nhất phường Chợ Lớn | Tin tức SaigonTV",
    "creator": "SAIGONTV OFFICIAL",
-   "views": 940,
+   "views": 949,
    "added": "2026-10-18",
    "titleEn": "One of Cholon's priciest bowls of crab soup (news)"
   },
@@ -1320,7 +1398,7 @@
    "url": "https://www.youtube.com/watch?v=_cgLjKWCHtU",
    "title": "Quán hủ tiếu dê hương vị độc đáo ở phường Chợ Lớn | Tin tức SaigonTV",
    "creator": "SAIGONTV OFFICIAL",
-   "views": 1182,
+   "views": 1192,
    "added": "2026-10-18",
    "titleEn": "An unusual goat noodle soup in Cholon (news)"
   },
@@ -1330,7 +1408,7 @@
    "url": "https://www.youtube.com/watch?v=rG1-gAcAavM",
    "title": "Quán ăn người Hoa ẩn mình trong hẻm có CUA LỘT RANG MUỐI độc quyền khu Chợ Lớn ăn ghiền",
    "creator": "Địa điểm ăn uống",
-   "views": 52775,
+   "views": 53046,
    "added": "2026-10-18",
    "titleEn": "Hidden alley eatery famous for salt-roasted soft-shell crab"
   },
@@ -1340,7 +1418,7 @@
    "url": "https://www.youtube.com/watch?v=lDai3Mx1qKQ",
    "title": "Quán cơm gà bình dân ngon nức tiếng ở Chợ Lớn | Tin tức SaigonTV",
    "creator": "SAIGONTV OFFICIAL",
-   "views": 1688,
+   "views": 1689,
    "added": "2026-10-18",
    "titleEn": "Cholon's famous, affordable chicken rice (news)"
   },
@@ -1360,7 +1438,7 @@
    "url": "https://www.youtube.com/watch?v=MMje2WUyHIs",
    "title": "Khám Phá Quán Chay 0 Đồng – 12 Món Ngon Nổi Tiếng Giữa Lòng Sài Gòn",
    "creator": "Sài Gòn Vlog",
-   "views": 3323,
+   "views": 3352,
    "added": "2026-10-18",
    "titleEn": "A free vegetarian kitchen serving 12 dishes in the heart of Saigon"
   },
@@ -1380,7 +1458,7 @@
    "url": "https://www.youtube.com/watch?v=n3xrMqtCW1E",
    "title": "KHÔNG NGỜ GIỮA CHỢ LỚN CÒN SÓT LẠI TIỆM BÁNH TRUNG THU GIÁ RẺ NHƯNG NGON, GIA TRUYỀN 3 ĐỜI",
    "creator": "ỐNG KÍNH ĐƯỜNG PHỐ ",
-   "views": 41041,
+   "views": 41079,
    "added": "2026-10-18",
    "titleEn": "A cheap but delicious three-generation mooncake bakery in Cholon"
   },
@@ -1390,7 +1468,7 @@
    "url": "https://www.youtube.com/watch?v=SY9Yu-qQaYw",
    "title": "CHỢ LỚN! BÚN BÒ HUẾ PHƯỢNG THƠM NGON TÁI, NẠM, GÂN TƯƠI, CHẢ NGON, GIÒ HEO MỀM",
    "creator": "Banh Mi TV9",
-   "views": 10196,
+   "views": 10232,
    "added": "2026-10-18",
    "titleEn": "Phuong's spicy Hue beef noodles: beef, tendon, sausage, pork hock"
   },
@@ -1400,7 +1478,7 @@
    "url": "https://www.youtube.com/watch?v=sVeiM_6y0Uo",
    "title": "CHỢ LỚN! BÁNH CANH CUA 260 - CUA TÔM TƯƠI,KHOANH GIÒ MỀM,THÊM GIÒ CHÉO QUẨY CHẤM NƯỚC NGON HẾT BIẾT!",
    "creator": "Banh Mi TV9",
-   "views": 16419,
+   "views": 16442,
    "added": "2026-10-18",
    "titleEn": "Crab noodle soup 260: fresh crab, shrimp and fried dough sticks"
   },
@@ -1410,7 +1488,7 @@
    "url": "https://www.youtube.com/watch?v=h-lvx00mbbI",
    "title": "Quán Chay Số 7 Chợ Lớn-Nhiều Món Hấp Dẫn-Đặc Biệt Bánh Xèo Nóng Giòn Thơm Ngon",
    "creator": "Hào Du Hí",
-   "views": 855,
+   "views": 862,
    "added": "2026-10-18",
    "titleEn": "No. 7 Vegetarian: crispy vegetarian banh xeo pancakes"
   },
@@ -1420,7 +1498,7 @@
    "url": "https://www.youtube.com/watch?v=WU__Jepjx0U",
    "title": "Con đường ẩm thực và văn hóa người Hoa ở phường Chợ Lớn | Tin tức SaigonTV",
    "creator": "SAIGONTV OFFICIAL",
-   "views": 657,
+   "views": 666,
    "added": "2026-10-18",
    "titleEn": "Cholon's street of Chinese food and culture (news)"
   },
@@ -1430,7 +1508,7 @@
    "url": "https://www.youtube.com/watch?v=TZep1nNzzZk",
    "title": "Con đường ẩm thực và văn hóa người Hoa ở phường Chợ Lớn | Tin tức short",
    "creator": "SaigonTV Lite",
-   "views": 44,
+   "views": 45,
    "added": "2026-10-18",
    "titleEn": "Cholon's street of Chinese food and culture (news short)"
   },
@@ -1440,7 +1518,7 @@
    "url": "https://www.youtube.com/watch?v=rHiXhLmuWho",
    "title": "1418. Sài Gòn - Chợ Hoà Bình Quận 5 Thiên đường ăn uống mua sắm của người Hoa, uống cà phê Má Nghĩa",
    "creator": "CuongCanCook Official",
-   "views": 14737,
+   "views": 15556,
    "added": "2026-10-18",
    "titleEn": "Hoa Binh Market: a Chinese food and shopping hub, plus Ma Nghia's coffee"
   },
@@ -1450,7 +1528,7 @@
    "url": "https://www.youtube.com/watch?v=kQKpsYNdFLA",
    "title": "1417. Sài Gòn - Chợ Phùng Hưng bán món ăn người Hoa ngon nổi tiếng với bánh cuốn Hồng Kông bánh Hẹ",
    "creator": "CuongCanCook Official",
-   "views": 26667,
+   "views": 27301,
    "added": "2026-10-18",
    "titleEn": "Phung Hung Market: Hong Kong rice rolls and chive cakes"
   },
@@ -1460,7 +1538,7 @@
    "url": "https://www.youtube.com/watch?v=qKV6HyuE6DY",
    "title": "MỸ VỊ DÁCH LẦU 一流 Xe Mì Cổ người Hoa nằm giữa lòng Công Viên Đầm Sen, Hương Vị Gia Truyền 31 Năm.",
    "creator": "Vương Anh Phát Sài Gòn",
-   "views": 3254,
+   "views": 3313,
    "added": "2026-10-18",
    "titleEn": "A 31-year-old Chinese noodle cart near Dam Sen Park"
   },
@@ -1470,7 +1548,7 @@
    "url": "https://www.youtube.com/watch?v=jE3Wc2ubl_k",
    "title": "Cuộc Sống tại TPHCM | Khám Phá Chợ Nhật Tảo Người Hoa Nhộn Nhịp | saigonmarket",
    "creator": "Saigon Market",
-   "views": 3841,
+   "views": 3985,
    "added": "2026-10-18",
    "titleEn": "Exploring busy Nhat Tao Market"
   },
@@ -1480,7 +1558,7 @@
    "url": "https://www.youtube.com/watch?v=5seozn-WaU8",
    "title": "Cuộc Sống Tại TPHCM | Khám Khá Chợ Hoà Bình Của Người Hoa Chợ Lớn Sài Gòn | SaigonMarket ",
    "creator": "Saigon Market",
-   "views": 3920,
+   "views": 4105,
    "added": "2026-10-18",
    "titleEn": "Exploring Hoa Binh Market in Cholon"
   },
@@ -1490,7 +1568,7 @@
    "url": "https://www.youtube.com/watch?v=GauBPTOlN80",
    "title": "Phố đông y của người hoa, tuyến đường chuyên thuốc nam",
    "creator": "Ẩm Thực Mỗi Ngày",
-   "views": 1345,
+   "views": 1424,
    "added": "2026-10-18",
    "titleEn": "Saigon's Chinese herbal medicine street"
   },
@@ -1500,7 +1578,7 @@
    "url": "https://www.youtube.com/watch?v=DOqO2pN-TnE",
    "title": "Quán ăn chính gốc người Hoa đông kín khách ở Sài Gòn không phải ai cũng biết",
    "creator": "Ăn Vặt Sài Gòn Và Du Lịch",
-   "views": 6484,
+   "views": 6545,
    "added": "2026-10-18",
    "titleEn": "A packed, authentic Chinese eatery few people know about"
   },
@@ -1510,7 +1588,7 @@
    "url": "https://www.youtube.com/watch?v=yAPtO8Rh3EM",
    "title": "Quán Ngon Hủ Tiếu Satế Nai 95K Gia Truyền 3 Đời Của Người Hoa ở Sài Gòn ",
    "creator": "Đèn Dầu Sài Gòn ",
-   "views": 434,
+   "views": 437,
    "added": "2026-10-18",
    "titleEn": "Three-generation Chinese satay venison noodles (95,000 dong)"
   },
@@ -1520,7 +1598,7 @@
    "url": "https://www.youtube.com/watch?v=OpHlJcOptWw",
    "title": "牛記 TUYỆT HẢO Mì Sủi Cảo, Cháo Sá Sùng của Người Hoa Q.6, Cháo nấu đậu hủ ky và trứng bách thảo thơm.",
    "creator": "Vương Anh Phát Sài Gòn",
-   "views": 5925,
+   "views": 5932,
    "added": "2026-10-18",
    "titleEn": "Nguu Ky: wonton noodles and congee with century egg, District 6"
   },
@@ -1530,7 +1608,7 @@
    "url": "https://www.youtube.com/watch?v=Wi2r3jKsuGg",
    "title": "Ẩm thực Chợ Thiếc - Sài Gòn, món ngon người Hoa quận 11",
    "creator": "66Vlog",
-   "views": 78898,
+   "views": 86552,
    "added": "2026-10-18",
    "titleEn": "Chinese street food at Thiec Market, District 11"
   },
@@ -1540,7 +1618,7 @@
    "url": "https://www.youtube.com/watch?v=MuyENra11Y4",
    "title": "Vì Sao Có CHỢ THỦ ĐÔ Giữa Lòng Sài Gòn ? Cuộc Sống Người Hoa ở Chợ Lớn | Chợ Phùng Hưng",
    "creator": "Wego",
-   "views": 11082,
+   "views": 11226,
    "added": "2026-10-18",
    "titleEn": "Why is there a \"Capital Market\" in Cholon? Life at Phung Hung"
   },
@@ -1550,7 +1628,7 @@
    "url": "https://www.youtube.com/watch?v=NAJZly3uPGM",
    "title": "Bí quyết làm SƯỜN XÀO CHUA NGỌT của Người Hoa gần 60 năm kinh nghiệm",
    "creator": "VNT FOOD & TRAVEL",
-   "views": 356207,
+   "views": 400955,
    "added": "2026-10-18",
    "titleEn": "The secret to sweet-and-sour pork ribs, from a 60-year-old kitchen"
   },
@@ -1560,7 +1638,7 @@
    "url": "https://www.youtube.com/watch?v=24dYvSPPhOs",
    "title": "Quận 11 Sài Gòn Ăn Gì? Review Sủi Cảo 162 Phố Ẩm Thực Người Hoa Hà Tôn Quyền Sủi Cảo Ngập Tôm Thịt",
    "creator": "4PIN LIFE",
-   "views": 950,
+   "views": 968,
    "added": "2026-10-18",
    "titleEn": "What to eat in District 11: shrimp-packed wontons at 162 Ha Ton Quyen"
   },
@@ -1570,7 +1648,7 @@
    "url": "https://www.youtube.com/watch?v=nuw3TvXMluU",
    "title": "Series 99 Quán Món Hoa Ngon Sài Gòn Review Sủi Cảo 162 Phố Ẩm Thực Người Hoa Hà Tôn Quyền Quận 11",
    "creator": "Little Bites",
-   "views": 1154,
+   "views": 1165,
    "added": "2026-10-18",
    "titleEn": "99 great Chinese eats: wontons at 162 Ha Ton Quyen"
   },
@@ -1580,7 +1658,7 @@
    "url": "https://www.youtube.com/watch?v=aJD1xdBumd8",
    "title": "Mukbang mì vịt tiềm Sâm Ký Quận 5",
    "creator": "Uyên Phương Lê",
-   "views": 1350,
+   "views": 1354,
    "added": "2026-10-18",
    "titleEn": "Mukbang: herbal duck noodles at Sam Ky, District 5"
   },
@@ -1590,7 +1668,7 @@
    "url": "https://www.youtube.com/watch?v=YsTAX61_PP0",
    "title": "Quán Ăn Trưa Bình Dân MÌ VỊT TIỀM 328 Ba Đình Quận 8 Sài Gòn",
    "creator": "VINH LAM TV",
-   "views": 14375,
+   "views": 14403,
    "added": "2026-10-18",
    "titleEn": "Budget lunch: herbal duck noodles at 328 Ba Dinh, District 8"
   },
@@ -1610,7 +1688,7 @@
    "url": "https://www.youtube.com/watch?v=oV-HsS6Mws0",
    "title": "MÌ VỊT TIỀM NGON NHẤT TỪ TRƯỚC TỚI NAY - TỪ QUÁN GÁNH GẦN 5 THẬP KỶ ĐÃ TRÔI QUAN || Nick Nguyen",
    "creator": "Nick Nguyen",
-   "views": 43643,
+   "views": 44413,
    "added": "2026-10-18",
    "titleEn": "The best herbal duck noodles yet, from a 50-year-old street stall"
   },
@@ -1620,7 +1698,7 @@
    "url": "https://www.youtube.com/watch?v=KQnFVtaisrU",
    "title": "Nhà Hàng Hào Huê, Quận 5 Chợ Lớn  #xuhuong #chaugiathucpho #trending #monhoa #nguoihoa",
    "creator": "Châu Gia Thực Phổ🏮周家食譜🏮",
-   "views": 1386,
+   "views": 1444,
    "added": "2026-10-18",
    "titleEn": "Hao Hue Restaurant, Cholon"
   },
@@ -1630,7 +1708,7 @@
    "url": "https://www.youtube.com/watch?v=o6SV4OU5Nm0",
    "title": "#66. Ăn BaoZ Dimsum ở Quận 5 rồi đi thử gym Centuryon tại Landmark 81 🥟🏋️🇻🇳",
    "creator": "Đan Đầu Bự",
-   "views": 324,
+   "views": 329,
    "added": "2026-10-18",
    "titleEn": "Eating at BaoZ Dimsum in District 5"
   },
@@ -1650,7 +1728,7 @@
    "url": "https://www.youtube.com/watch?v=SRXCRTOZeKc",
    "title": "Chè Cột Điện - Quận 5",
    "creator": "ĐI CÙNG THÀNH",
-   "views": 17,
+   "views": 19,
    "added": "2026-10-18",
    "titleEn": "Lamp-post sweet soup, District 5"
   },
@@ -1660,7 +1738,7 @@
    "url": "https://www.youtube.com/watch?v=Ose0joVgMcw",
    "title": "Shan Dimsum | Nhà Hàng Hoa \"Nhỏ Mà Có Võ\" Ở Chợ Lớn - Món Sườn Chua Ngọt - Tôm Trái Dừa - Cua Đút Lò",
    "creator": "BiBi Foodaholic",
-   "views": 9128,
+   "views": 9215,
    "added": "2026-10-18",
    "titleEn": "Shan Dimsum: sweet-and-sour ribs, coconut prawns and baked crab"
   },
@@ -1670,7 +1748,7 @@
    "url": "https://www.youtube.com/watch?v=HG0GVst4e4Q",
    "title": "Định vị Tiệm Dimsum người Hoa nổi tiếng Quận 1 ai nghe giá cũng giật cả mình: \"35 Ngàn 1 phần\"",
    "creator": "Địa điểm ăn uống",
-   "views": 12507,
+   "views": 12551,
    "added": "2026-10-18",
    "titleEn": "Famous District 1 dim sum shop with 35,000-dong plates"
   },
@@ -1680,7 +1758,7 @@
    "url": "https://www.youtube.com/watch?v=2ek_OYdVDmM",
    "title": "Phát Hiện Nhà Hàng Dimsum Siêu Ngon, Giá Bình Dân ở Sài Gòn | SHAN DIMSUM",
    "creator": "HTV Thành phố không ngủ",
-   "views": 120483,
+   "views": 131323,
    "added": "2026-10-18",
    "titleEn": "Great-value dim sum at Shan Dimsum"
   },
@@ -1690,7 +1768,7 @@
    "url": "https://www.youtube.com/watch?v=13RntTHXpi8",
    "title": "Tới Lục Ký Q5 ăn Hủ Tiếu Mì Xá Xíu & Mì Gà Cá Khô: Ăn xong muốn xỉu vì quá đã! 🤤✨",
    "creator": "BI ƠI OFFICIAL",
-   "views": 69,
+   "views": 72,
    "added": "2026-10-18",
    "titleEn": "Luc Ky: char siu egg noodles and chicken noodles with dried fish"
   },
@@ -1700,7 +1778,7 @@
    "url": "https://www.youtube.com/watch?v=Uvzd-dlb4VM",
    "title": "QUÁN VỈA HÈ CÓ GÌ NGON? Hủ Tiếu Vỉa Hè Vừa Ngon Vừa Rẻ Chỉ 30K Q.5 Sài Gòn",
    "creator": "Bá Kim",
-   "views": 705,
+   "views": 717,
    "added": "2026-10-18",
    "titleEn": "Cheap and tasty sidewalk noodles for 30,000 dong, District 5"
   },
@@ -1720,7 +1798,7 @@
    "url": "https://www.youtube.com/watch?v=HyyEEXdNjc4",
    "title": "Chợ Thủ Đô Quận 5: Thiên Đường Ẩm Thực Người Hoa Hay Chỉ Là Lời Đồn? #shorts #short",
    "creator": "Én điệu ham vui",
-   "views": 793,
+   "views": 794,
    "added": "2026-10-18",
    "titleEn": "Is Phung Hung Market really a Chinese food paradise?"
   },
@@ -1730,7 +1808,7 @@
    "url": "https://www.youtube.com/watch?v=5N9i_1huVbY",
    "title": "Quán Hủ Tiếu Chay 35k Cải Thảo hạt Sen Thanh Đạm ngày rằm Không Dám Nhận thêm Khách vì Quá Đông",
    "creator": "Nghĩa Ơi Du Ký",
-   "views": 2846,
+   "views": 2862,
    "added": "2026-10-18",
    "titleEn": "35,000-dong vegetarian noodles so popular they turn customers away"
   },
@@ -1740,7 +1818,7 @@
    "url": "https://www.youtube.com/watch?v=I6Y6uBFSO2E",
    "title": "Khiếp Hủ Tiếu Chay làm KHÔNG KỊP ngày TẾT TRUNG THU ",
    "creator": "Cuoc Song Sai Gon TV",
-   "views": 2978,
+   "views": 2981,
    "added": "2026-10-18",
    "titleEn": "Vegetarian noodle shop overwhelmed at Mid-Autumn"
   },
@@ -1750,7 +1828,7 @@
    "url": "https://www.youtube.com/watch?v=Nrg4S3FnTjI",
    "title": "Khủng Khiếp Khách Bủa vây đội mưa ăn HỦ TIẾU CHAY nồi KHỔNG LỒ làm KHÔNG KỊP ở Sài Gòn ",
    "creator": "Cuoc Song Sai Gon TV",
-   "views": 2328,
+   "views": 2335,
    "added": "2026-10-18",
    "titleEn": "Crowds brave the rain for vegetarian noodles from a giant pot"
   },
@@ -1760,7 +1838,7 @@
    "url": "https://www.youtube.com/watch?v=Ax_mmL_B1QU",
    "title": "Hủ Tíu Gõ 8k.                          Ở số 20 đường Nguyễn Duy Dương P An Đông, bánh canh giá là 8k",
    "creator": "Trương Cường",
-   "views": 567,
+   "views": 619,
    "added": "2026-10-18",
    "titleEn": "8,000-dong street noodles at 20 Nguyen Duy Duong"
   },
@@ -1770,7 +1848,7 @@
    "url": "https://www.youtube.com/watch?v=-W_UfvSxjfs",
    "title": "SÀI GÒN quận 5: BẤT NGỜ Hủ tiếu Gõ chỉ 8k, ĂN NO! Rất dễ thương 🥰😍🤩",
    "creator": "ChuDuTuHai",
-   "views": 1534,
+   "views": 1542,
    "added": "2026-10-18",
    "titleEn": "District 5 surprise: a filling bowl of noodles for just 8,000 dong"
   },
@@ -1780,7 +1858,7 @@
    "url": "https://www.youtube.com/watch?v=uAfQfWhv-uQ",
    "title": "BẤT NGỜ HỦ TIẾU SA TẾ NAI TÔ KÝ Xuất Hiện ở quận 11, đúng Hương Vị Gia Truyền 60 năm.",
    "creator": "Vương Anh Phát Sài Gòn",
-   "views": 5275,
+   "views": 5313,
    "added": "2026-10-18",
    "titleEn": "To Ky satay venison noodles: a 60-year family recipe"
   },
@@ -1790,7 +1868,7 @@
    "url": "https://www.youtube.com/watch?v=bC8Su7qGDJQ",
    "title": "NGON LẮM Hủ Tiếu Chay Quán Người Hoa quận 5, Hủ Tiếu Sa Tế thơm lôi cuốn, Chả, Bò Viên Chay rất thơm",
    "creator": "Vương Anh Phát Sài Gòn",
-   "views": 1639,
+   "views": 1645,
    "added": "2026-10-18",
    "titleEn": "Fragrant Chinese vegetarian satay noodles in District 5"
   },
@@ -1800,7 +1878,7 @@
    "url": "https://www.youtube.com/watch?v=tqHa3hlPBMk",
    "title": "TIỆM CHÈ NGƯỜI HOA HƠN 30 NĂM CÓ GÌ MÀ DÂN QUẬN 5 MÊ ĐẾN VẬY? | Sài Gòn Phố Xá #shorts",
    "creator": "Sài Gòn Phố Xá",
-   "views": 187,
+   "views": 194,
    "added": "2026-10-18",
    "titleEn": "Why District 5 loves this 30-year-old Chinese dessert shop"
   },
@@ -1820,7 +1898,7 @@
    "url": "https://www.youtube.com/watch?v=YpH2zposCt4",
    "title": "Trải nghiệm không gian cà phê độc lạ dành riêng cho tín đồ phong thủy và đồ cổ tại TP.HCM!",
    "creator": "Diễm Hà Vlog",
-   "views": 40327,
+   "views": 42025,
    "added": "2026-10-18",
    "titleEn": "A café for antique and feng shui lovers in Saigon"
   },
@@ -1840,7 +1918,7 @@
    "url": "https://www.youtube.com/watch?v=0wKBUJWpLp4",
    "title": "PHỐ LỒNG ĐÈN CHỢ LỚN NGHẸT THỞ CHEN CHÂN MÙA TRUNG THU 2026 || Nick Nguyen",
    "creator": "Nick Nguyen",
-   "views": 68344,
+   "views": 68415,
    "added": "2026-10-18",
    "titleEn": "Packed crowds on Cholon's lantern street, Mid-Autumn 2026"
   },
@@ -1850,7 +1928,7 @@
    "url": "https://www.youtube.com/watch?v=gWVMB7XUCG8",
    "title": "🔥 CAFFE ĐỒ XƯA CŨ SỐ 1 TẢN ĐÀ Q5 | GIAO LƯU MUA BÁN ĐỒ XƯA DIỄN RA SUỐT TUẦN",
    "creator": "Diễm Hà Vlog",
-   "views": 28425,
+   "views": 28908,
    "added": "2026-10-18",
    "titleEn": "No. 1 Tan Da: the antique-trading café, District 5"
   },
@@ -1860,7 +1938,7 @@
    "url": "https://www.youtube.com/watch?v=CuUnFzRiYrk",
    "title": "Quận 5 Chợ Lớn Xin Chào🥰✨",
    "creator": "Tiệm nước CIELO Chợ Lớn",
-   "views": 4680,
+   "views": 4681,
    "added": "2026-10-18",
    "titleEn": "Hello from Cholon, District 5"
   },
@@ -1870,7 +1948,7 @@
    "url": "https://www.youtube.com/watch?v=PVw3ZOcN8tk",
    "title": "i spent a morning at a 100-year-old Chinatown market in Saigon  | Silent Vlog",
    "creator": "Andrew’s Cozy Corner",
-   "views": 181,
+   "views": 192,
    "added": "2026-10-18",
    "titleEn": "i spent a morning at a 100-year-old Chinatown market in Saigon  | Silent Vlog"
   },
@@ -1880,7 +1958,7 @@
    "url": "https://www.youtube.com/watch?v=NndOqOQ9Qjw",
    "title": "Inside a 100-year-old Chinatown market in Saigon  #shorts  #saigon  #chinatown",
    "creator": "Andrew’s Cozy Corner",
-   "views": 1362,
+   "views": 1380,
    "added": "2026-10-18",
    "titleEn": "Inside a 100-year-old Chinatown market in Saigon  #shorts  #saigon  #chinatown"
   },
@@ -1890,7 +1968,7 @@
    "url": "https://www.youtube.com/watch?v=xCzMc_UV8Zs",
    "title": "SUNDAY VLOG: Best Dim Sum in Saigon Chinatown & A Cozy Rainy Afternoon",
    "creator": "A Zia Vlog",
-   "views": 271,
+   "views": 345,
    "added": "2026-10-18",
    "titleEn": "SUNDAY VLOG: Best Dim Sum in Saigon Chinatown & A Cozy Rainy Afternoon"
   },
@@ -1910,7 +1988,7 @@
    "url": "https://www.youtube.com/watch?v=93N1201wIgg",
    "title": "SÀI GÒN: Chủ quán VỪA LÀM VỪA KHÓC nhưng nhờ 1 video review giờ Phát triển lên 5 chi nhánh MÌ BÒ",
    "creator": "Tung Thanh Ly Vietnam",
-   "views": 22212,
+   "views": 22570,
    "added": "2026-10-26",
    "titleEn": "Saigon: the beef-noodle shop that grew to five branches after one review"
   },
@@ -1920,7 +1998,7 @@
    "url": "https://www.youtube.com/watch?v=OYw2klDTHJc",
    "title": "MỸ VỊ GIA TRUYỀN HỦ TÍU MÌ 3 ĐỜI người Hoa Q5, Giò Heo Kho, Sườn Kho Đậm Đà Hương Vị.",
    "creator": "Vương Anh Phát Sài Gòn",
-   "views": 6317,
+   "views": 6447,
    "added": "2026-10-26",
    "titleEn": "Third-generation Chinese noodle recipe in District 5, with braised pork hock and ribs"
   },
@@ -1930,7 +2008,7 @@
    "url": "https://www.youtube.com/watch?v=H6t5QymAxWs",
    "title": "Quán BÁNH BỘT người Hoa bán hơn 50 năm, từ 200 đồng nay vẫn chỉ 12k khách mua đông nghẹt",
    "creator": "Một Góc Sài Gòn",
-   "views": 11064,
+   "views": 11296,
    "added": "2026-10-26",
    "titleEn": "A Chinese rice-cake stall selling for 50+ years, still about 12,000 dong"
   },
@@ -1940,7 +2018,7 @@
    "url": "https://www.youtube.com/watch?v=TkwsZZJ_VCc",
    "title": "Sài Gòn ăn cơm tấm người Hoa ghé chỗ này sáng nào cũng tấp nập khách ghé ăn",
    "creator": "Phố Bụi",
-   "views": 15850,
+   "views": 16571,
    "added": "2026-10-26",
    "titleEn": "Chinese-style broken rice that is packed every morning"
   },
@@ -1950,7 +2028,7 @@
    "url": "https://www.youtube.com/watch?v=va6m7xJg3IA",
    "title": "Tiệm Cơm Chấn Phát Người Hoa Toàn Món Ngon Độc Đáo Bình Dân Lâu Đời Ở Sài Gòn",
    "creator": "ĐI ĐÂU ĂN GÌ ?",
-   "views": 77367,
+   "views": 88931,
    "added": "2026-10-26",
    "titleEn": "Chan Phat: a long-running Chinese-Vietnamese rice shop with many unusual dishes"
   },
@@ -1960,7 +2038,7 @@
    "url": "https://www.youtube.com/watch?v=FPMDXPqCkbM",
    "title": "Phát Hiện Hủ Tiếu Hồ Chay 35k Chính Gốc Người Hoa Tươi Ngon Đậm Chất Sài Gòn",
    "creator": "Xuân Bắc Vê Lốc",
-   "views": 6445,
+   "views": 6603,
    "added": "2026-10-26",
    "titleEn": "Chinese vegetarian wide rice noodles for 35,000 dong"
   },
@@ -1970,7 +2048,7 @@
    "url": "https://www.youtube.com/watch?v=msvRDrZT-i0",
    "title": "VÔ TÌNH GHÉ! Hủ Tiếu Mì Bò Kho Người Hoa Nóng Hổi 50K Q.4 Sài Gòn",
    "creator": "Bá Kim",
-   "views": 2216,
+   "views": 2224,
    "added": "2026-10-26",
    "titleEn": "Chinese-style beef stew noodles for 50,000 dong in District 4"
   },
@@ -1980,7 +2058,7 @@
    "url": "https://www.youtube.com/watch?v=W9VWco0tid4",
    "title": "Q.3! HỦ TÍU MỸ KIM - ÔNG CHỦ THẢY MÌ ĐIÊU LUYỆN  - TÔM CÁ CẬT TƯƠI, XÍ QUÁCH NGON BÉO, TRỘN KHÔ NGON",
    "creator": "Thương Sài Gòn",
-   "views": 79418,
+   "views": 89773,
    "added": "2026-10-26",
    "titleEn": "My Kim noodles in District 3: shrimp, fish, kidney and bone marrow"
   },
@@ -1990,7 +2068,7 @@
    "url": "https://www.youtube.com/watch?v=ySTMOplCaYk",
    "title": "hủ tiếu gõ 8k tại Nguyễn Duy Dương, quận 5 #banhmixiumai #hủtiếu #quan5angi #xuhuongyoutube",
    "creator": "LANG THANG CUỐI TUẦN",
-   "views": 1262,
+   "views": 1288,
    "added": "2026-10-26",
    "titleEn": "The 8,000-dong noodle cart on Nguyen Duy Duong"
   },
@@ -2000,7 +2078,7 @@
    "url": "https://www.youtube.com/watch?v=XeJ5vHBygXk",
    "title": "Khám phá khu đồ cổ đá quý tại cafe số 1 Tản đà quận 5 Tp.HCM",
    "creator": "Diễm Hà Vlog",
-   "views": 28843,
+   "views": 29761,
    "added": "2026-10-26",
    "titleEn": "Antiques and gemstones at the No. 1 Tan Da café"
   },
@@ -2010,7 +2088,7 @@
    "url": "https://www.youtube.com/watch?v=51ydqpDAgWk",
    "title": "Giao lưu trực tiếp với chị chủ quán cà phê Tản Đà cùng Diễm Hà Vlog nha",
    "creator": "Diễm Hà Vlog",
-   "views": 2613,
+   "views": 2654,
    "added": "2026-10-26",
    "titleEn": "Meeting the owner of the No. 1 Tan Da café"
   },
@@ -2038,7 +2116,7 @@
    "url": "https://www.youtube.com/watch?v=cbg5GaURe1c",
    "title": "Hủ tiếu mì cá cật hoành thánh xí quách gia truyền người Hoa Quảng Đông Ở Sài Gòn",
    "creator": "Saigon Travel",
-   "views": 6317,
+   "views": 6451,
    "added": "2026-11-04",
    "titleEn": "Family Cantonese noodles with fish, kidney, wontons and pork bones near Ben Thanh"
   },
@@ -2048,7 +2126,7 @@
    "url": "https://www.youtube.com/watch?v=5GqJWI_0ZVI",
    "title": "MỸ VỊ Món HỦ TÍU BÒ KHO Người Hoa Chợ Lớn, Bún Thịt Xào 35K với Chả Giò nhà làm thơm ngon.",
    "creator": "Vương Anh Phát Sài Gòn",
-   "views": 4914,
+   "views": 4993,
    "added": "2026-11-04",
    "titleEn": "Chinese-style beef stew noodles and 35,000-dong vermicelli with spring rolls in Cholon"
   },
@@ -2058,7 +2136,7 @@
    "url": "https://www.youtube.com/watch?v=kVtv6Id5fmk",
    "title": "Chợ Phùng Hưng - Ẩm thực đường phố Chợ Lớn Sài Gòn| | Street food Saigon",
    "creator": "66Vlog",
-   "views": 29193,
+   "views": 46704,
    "added": "2026-11-04",
    "titleEn": "Street food at Phung Hung Market in the evening"
   },
@@ -2068,7 +2146,7 @@
    "url": "https://www.youtube.com/watch?v=vlxS6NcXuLM",
    "title": "Cuộc Sống tại TPHCM | Khám Phá Chợ Phùng Hưng Người Hoa Nhiều Món Ngon Vặt Lạ | saigonmarket ",
    "creator": "Saigon Market",
-   "views": 4658,
+   "views": 5114,
    "added": "2026-11-04",
    "titleEn": "Exploring Phung Hung Market and its unusual snacks"
   },
@@ -2078,7 +2156,7 @@
    "url": "https://www.youtube.com/watch?v=k01YV01lK3o",
    "title": "🌱Cùng Mỹ Ngắm Phố về đêm đi ăn lẩu người Hoa lâu năm tại Quận 5 cũ. Nồi lẩu than cù lao Hoài niệm nè",
    "creator": "Mỹ Mỹ ZenVlog",
-   "views": 1260,
+   "views": 1350,
    "added": "2026-11-14",
    "titleEn": "Fish hotpot in a charcoal pot at a 50-year-old Cholon restaurant"
   },
@@ -2088,7 +2166,7 @@
    "url": "https://www.youtube.com/watch?v=uzj-x4cZ8OA",
    "title": "35K! HỦ TÍU MÌ NGƯỜI HOA SIÊU CHẤT LƯỢNG - TÔM CẬT TƯƠI, MỰC GIÒN, XƯƠNG ỐNG TỦY BÉO NGẬY! HỒNG BÀNG",
    "creator": "Thương Sài Gòn",
-   "views": 9691,
+   "views": 11072,
    "added": "2026-11-14",
    "titleEn": "35,000-dong Chinese noodles with shrimp, kidney, squid and marrow"
   },
@@ -2098,7 +2176,7 @@
    "url": "https://www.youtube.com/watch?v=rgQJD8uoNkA",
    "title": "BÚN MẮM siêu rẻ chỉ 40k, BÁNH CANH nguyên con cua quá chất lượng tại khu phố người Hoa",
    "creator": "Một Góc Sài Gòn",
-   "views": 6605,
+   "views": 8612,
    "added": "2026-11-14",
    "titleEn": "40,000-dong bún mắm and whole-crab bánh canh in District 11"
   },
@@ -2108,7 +2186,7 @@
    "url": "https://www.youtube.com/watch?v=TmElJy24mwc",
    "title": "SÀI GÒN ĐẶC BIỆT MÌ VỊT TIỀM GÓC TƯ NGON CHỈ 80K Quán Mặt Tiền Quận 5, Thập Cẩm 55k 2 con tôm lớn.",
    "creator": "Vương Anh Phát Sài Gòn",
-   "views": 4930,
+   "views": 10731,
    "added": "2026-11-14",
    "titleEn": "Herbal duck noodles for 80,000 dong at Hao Ky, District 5"
   },
@@ -2118,7 +2196,7 @@
    "url": "https://www.youtube.com/watch?v=SfhHqfz_9w4",
    "title": "Quận 1 Sài Gòn Ăn Gì? Review Quán Ăn 249 Ẩm Thực Người Hoa Lâu Đời Ngon Đường Nguyễn Công Trứ",
    "creator": "4PIN LIFE",
-   "views": 996,
+   "views": 1143,
    "added": "2026-11-14",
    "titleEn": "A long-running Chinese-Vietnamese eatery on Nguyen Cong Tru, District 1"
   },
@@ -2128,7 +2206,7 @@
    "url": "https://www.youtube.com/watch?v=pPR_26H7Ufg",
    "title": "Series 99 Quán Hoa Ngon Sài Gòn Review Quán Ăn 249 Lâu Đời Đường Nguyễn Công Trứ Quận 1",
    "creator": "Little Bites",
-   "views": 1038,
+   "views": 1394,
    "added": "2026-11-14",
    "titleEn": "Old-school Chinese dishes at Quan An 249, District 1"
   },
@@ -2138,7 +2216,7 @@
    "url": "https://www.youtube.com/watch?v=fVKaImrvUzo",
    "title": "MỘT VÒNG KHÁM PHÁ CUỘC SỐNG KHU NGƯỜI HOA Ở CHỢ THIẾC QUẬN 11 CHỢ LỚN SÀI GÒN | CHINATOWN IN SAIGON ",
    "creator": "Lưu Bình Vlog",
-   "views": 6744,
+   "views": 8686,
    "added": "2026-11-14",
    "titleEn": "A walk through Thiec Market and the Chinese quarter of District 11"
   },
@@ -2148,21 +2226,91 @@
    "url": "https://www.youtube.com/watch?v=9uN2UUZvxUU",
    "title": "TRẢI NGHIỆM ĐẦY BỤNG VỚI CÁC MÓN HOA SIÊU ĐỈNH TẠI BAOZ DIMSUM QUẬN 5 🥢🥟",
    "creator": "Rachel Nguyen",
-   "views": 379,
+   "views": 380,
    "added": "2026-11-14",
    "titleEn": "A big Cantonese dim sum feast at BaoZ, District 5"
+  },
+  {
+   "id": "7950iix",
+   "placeId": "yys96hi",
+   "url": "https://www.youtube.com/watch?v=X1uRcLn8a_k",
+   "title": "Ăn cơm gà hải nam hơn 50 năm Của Người Hoa ở Sài Gòn",
+   "creator": "Saigon Travel",
+   "views": 26170,
+   "added": "2026-11-24",
+   "titleEn": "Hainanese chicken rice at a 50-year-old Chinese shop in District 11"
+  },
+  {
+   "id": "0qy5kh0",
+   "placeId": "smdyp61",
+   "url": "https://www.youtube.com/watch?v=-72S-FpaL_U",
+   "title": "Chủ quán Người Hoa chia sẻ cách làm CƠM GÀ XỐI MỠ da giòn màu đẹp cực hay",
+   "creator": "VNT FOOD & TRAVEL",
+   "views": 62820,
+   "added": "2026-11-24",
+   "titleEn": "How a Chinese cook makes crispy fried chicken rice in District 11"
+  },
+  {
+   "id": "1rjhtvo",
+   "placeId": "2zcsiev",
+   "url": "https://www.youtube.com/watch?v=0s_05UDzWco",
+   "title": "Quán ăn người Hoa của 5 anh chị em mỗi ngày bán 10 món rất đông khách, có món đã \"thất truyền\"",
+   "creator": "Một Góc Sài Gòn",
+   "views": 21974,
+   "added": "2026-11-24",
+   "titleEn": "Five siblings, ten Chinese dishes a day in District 11"
+  },
+  {
+   "id": "ayghs34",
+   "placeId": "69w3s5r",
+   "url": "https://www.youtube.com/watch?v=B0bYlk74rrk",
+   "title": "Q.5! NAM VANG CHÚ TỨ ĐÔNG NGHẸT - NƯỚC LÈO 40KG XƯƠNG ỐNG, NẠC TÔM TƯƠI RÓI, TỦY BÉO, TRỘN KHÔ NGON",
+   "creator": "Thương Sài Gòn",
+   "views": 56817,
+   "added": "2026-11-24",
+   "titleEn": "Packed Nam Vang noodle stall in District 5 with a 40 kg bone broth"
+  },
+  {
+   "id": "d6n94de",
+   "placeId": "6iwyvbl",
+   "url": "https://www.youtube.com/watch?v=WeRUL-pGbFA",
+   "title": "XÔI BÁT BỬU chuẩn vị người Hoa của bạn trẻ Chủ Nhà Hàng mở bán vỉa hè, khách phải xếp hàng mua",
+   "creator": "Một Góc Sài Gòn",
+   "views": 14207,
+   "added": "2026-11-24",
+   "titleEn": "Chinese eight-treasure sticky rice that people queue for, District 5"
+  },
+  {
+   "id": "ypjz17d",
+   "placeId": "uttxj9d",
+   "url": "https://www.youtube.com/watch?v=bgk87pvljH0",
+   "title": "Quán Cơm Gia Truyền Người Hẹ – Chọn Đại Món Nào Cũng Ngon 🤤 | Việt Vi Vu - Ăn Sập Sài Gòn Tập 5",
+   "creator": "Việt Vi Vu",
+   "views": 1835,
+   "added": "2026-11-24",
+   "titleEn": "A Hakka family rice shop of nearly 80 years in Cholon"
+  },
+  {
+   "id": "fx6vho4",
+   "placeId": "7fcntj7",
+   "url": "https://www.youtube.com/watch?v=Z5B1qAGvPYI",
+   "title": "Series 99 Quán Hoa Ngon Sài Gòn Review Quán Thiên Hương Ăn Cơm Gà Xối Mỡ Quận 11 Chợ Lớn Giòn Ngon",
+   "creator": "Little Bites",
+   "views": 1055,
+   "added": "2026-11-24",
+   "titleEn": "Crispy fried chicken rice at Thien Huong, District 11"
   }
  ],
  "guides": [
   {
    "slug": "cholon-food-guide",
    "title": "Cholon food guide",
-   "count": 55
+   "count": 61
   },
   {
    "slug": "noodle-soups-ho-chi-minh-city",
    "title": "Noodle soups",
-   "count": 27
+   "count": 28
   },
   {
    "slug": "dim-sum-and-wontons-saigon",
@@ -2172,7 +2320,7 @@
   {
    "slug": "chinese-vietnamese-restaurants-cholon",
    "title": "Chinese-Vietnamese kitchens",
-   "count": 14
+   "count": 16
   },
   {
    "slug": "vegetarian-food-ho-chi-minh-city",
@@ -3238,6 +3386,102 @@
    "g": [
     10.774,
     106.699,
+    0
+   ]
+  },
+  "yys96hi": {
+   "g": [
+    10.757,
+    106.644,
+    0
+   ],
+   "h": "9:30am – 11pm",
+   "o": {
+    "r": [
+     [
+      570,
+      1380,
+      0
+     ]
+    ]
+   }
+  },
+  "smdyp61": {
+   "g": [
+    10.771,
+    106.642,
+    0
+   ],
+   "h": "9:30am – 10pm",
+   "o": {
+    "r": [
+     [
+      570,
+      1320,
+      0
+     ]
+    ]
+   }
+  },
+  "2zcsiev": {
+   "g": [
+    10.764,
+    106.646,
+    0
+   ],
+   "h": "11am – 4pm",
+   "o": {
+    "r": [
+     [
+      660,
+      960,
+      0
+     ]
+    ]
+   }
+  },
+  "69w3s5r": {
+   "g": [
+    10.756,
+    106.684,
+    0
+   ],
+   "h": "6am – noon; closed on the 1st and 15th of each lunar month (open if those fall on a weekend)",
+   "o": {
+    "r": [
+     [
+      360,
+      720,
+      0
+     ]
+    ],
+    "lx": [
+     1,
+     15
+    ]
+   }
+  },
+  "6iwyvbl": {
+   "g": [
+    10.755,
+    106.665,
+    0
+   ],
+   "h": "4pm – 8pm",
+   "o": {
+    "r": [
+     [
+      960,
+      1200,
+      0
+     ]
+    ]
+   }
+  },
+  "uttxj9d": {
+   "g": [
+    10.764,
+    106.646,
     0
    ]
   }
